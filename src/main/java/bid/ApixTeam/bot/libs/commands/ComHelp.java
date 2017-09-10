@@ -5,6 +5,7 @@ import de.btobastian.sdcf4j.CommandExecutor;
 import net.dv8tion.jda.core.entities.Guild;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.MessageChannel;
+import net.dv8tion.jda.core.entities.User;
 
 /**
  * TSC was created by ApixTeam (C) 2017
@@ -12,7 +13,7 @@ import net.dv8tion.jda.core.entities.MessageChannel;
  */
 public class ComHelp implements CommandExecutor {
     @Command(aliases = {"help", "commands"}, description = "displays the available commands", async = true)
-    public void onCommand(Guild guild, MessageChannel messageChannel, Message message, Object[] objects){
+    public void onCommand(Guild guild, User user, MessageChannel messageChannel, Message message, Object[] objects){
 
     }
 }
