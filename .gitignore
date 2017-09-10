@@ -1,2 +1,4 @@
-src/test/
-.idea/
+/src/test/
+/.idea/
+/out/
+/target/
