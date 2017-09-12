@@ -7,7 +7,8 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 /**
- * Plugin Spotlight Bot was created by Alw7SHxD (C) 2017
+ * TSC-Bot was created by ApixTeam (C) 2017
+ * in association with TheSourceCode (C) 2017
  */
 public class Datasource {
     private static HikariDataSource ds;
