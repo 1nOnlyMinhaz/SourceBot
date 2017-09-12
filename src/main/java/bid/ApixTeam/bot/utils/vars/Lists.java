@@ -5,7 +5,8 @@ import java.util.HashMap;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * ApixBot was created by ApixTeam, ltd (C) 2017
+ * TSC-Bot was created by ApixTeam (C) 2017
+ * in association with TheSourceCode (C) 2017
  */
 public class Lists {
     private static ConcurrentHashMap<Long, Integer> userRankingCooldown = new ConcurrentHashMap<>();

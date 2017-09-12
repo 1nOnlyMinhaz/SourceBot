@@ -3,7 +3,8 @@ package bid.ApixTeam.bot.utils.vars;
 import java.util.HashMap;
 
 /**
- * ApixBot was created by ApixTeam, ltd (C) 2017
+ * TSC-Bot was created by ApixTeam (C) 2017
+ * in association with TheSourceCode (C) 2017
  */
 public class Levels extends Lists {
     public Levels() {

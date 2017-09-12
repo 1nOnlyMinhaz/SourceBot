@@ -5,7 +5,8 @@ import bid.ApixTeam.bot.utils.vars.Lists;
 import java.util.TimerTask;
 
 /**
- * ApixBot was created by ApixTeam, ltd (C) 2017
+ * TSC-Bot was created by ApixTeam (C) 2017
+ * in association with TheSourceCode (C) 2017
  */
 public class ScheduledTask1s extends TimerTask {
     @Override
