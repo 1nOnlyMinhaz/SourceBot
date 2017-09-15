@@ -2,6 +2,8 @@ package bid.ApixTeam.bot.libs;
 
 import bid.ApixTeam.bot.libs.commands.ComHelp;
 import bid.ApixTeam.bot.libs.commands.ComInfo;
+import bid.ApixTeam.bot.libs.commands.ComRank;
+import bid.ApixTeam.bot.libs.events.MessageReceived;
 import de.btobastian.sdcf4j.CommandHandler;
 import de.btobastian.sdcf4j.handler.JDA3Handler;
 import net.dv8tion.jda.core.JDA;
@@ -13,12 +15,13 @@ import net.dv8tion.jda.core.JDA;
 public class Listener {
     public Listener(JDA jda) {
         // Events
-        jda.addEventListener();
+        jda.addEventListener(new MessageReceived());
 
         // Commands
         CommandHandler commandHandler = new JDA3Handler(jda);
         commandHandler.setDefaultPrefix("!");
         commandHandler.registerCommand(new ComHelp());
         commandHandler.registerCommand(new ComInfo());
+        commandHandler.registerCommand(new ComRank());
     }
 }

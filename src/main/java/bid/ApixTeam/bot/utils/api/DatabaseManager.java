@@ -1,6 +1,6 @@
 package bid.ApixTeam.bot.utils.api;
 
-import bid.ApixTeam.bot.utils.connection.Datasource;
+import bid.ApixTeam.bot.utils.connection.DataSource;
 import bid.ApixTeam.bot.utils.vars.RankingType;
 import net.dv8tion.jda.core.entities.User;
 
@@ -19,7 +19,7 @@ public class DatabaseManager {
     }
 
     private Connection getConnection() throws SQLException {
-        return Datasource.getConnection();
+        return DataSource.getConnection();
     }
 
     private boolean isInRanking(User user) {
@@ -86,10 +86,10 @@ public class DatabaseManager {
         try {
             Connection connection = getConnection();
             connection.prepareStatement("SET @rank=0;").executeUpdate();
-            PreparedStatement ps = connection.prepareStatement("SELECT rank, `UserID` `level`, `experience`, `TotalExp` FROM " +
-                    "(SELECT @rank:=@rank+1 AS rank, `level`, `UserID`, `experience`, `TotalExp` FROM `rankings` ORDER BY `level` DESC, `experience` DESC) A " +
+            PreparedStatement ps = connection.prepareStatement("SELECT rank, `UserID`, `level`, `experience`, `TotalExp` FROM " +
+                    "(SELECT @rank:=@rank+1 AS rank, `UserID`, `level`, `experience`, `TotalExp` FROM `rankings` ORDER BY `level` DESC, `experience` DESC) A " +
                     "WHERE `UserID` = ?;");
-            ps.setString(1, user.getId());
+            ps.setLong(1, user.getIdLong());
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 userRanking.put(RankingType.RANK, rs.getInt("rank"));

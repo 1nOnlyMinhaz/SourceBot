@@ -10,7 +10,7 @@ import java.sql.SQLException;
  * TSC-Bot was created by ApixTeam (C) 2017
  * in association with TheSourceCode (C) 2017
  */
-public class Datasource {
+public class DataSource {
     private static HikariDataSource ds;
 
     static {
@@ -25,7 +25,7 @@ public class Datasource {
         ds = new HikariDataSource(config);
     }
 
-    private Datasource() {}
+    private DataSource() {}
 
     public static Connection getConnection() throws SQLException {
         return ds.getConnection();

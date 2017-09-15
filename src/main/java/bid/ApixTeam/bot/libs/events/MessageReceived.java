@@ -18,12 +18,12 @@ import java.util.Random;
  * in association with TheSourceCode (C) 2017
  */
 public class MessageReceived extends ListenerAdapter {
-    public void onMessageReceieved(MessageReceivedEvent e){
+    public void onMessageReceived(MessageReceivedEvent e) {
         BotAPI botAPI = new BotAPI();
         User user = e.getAuthor();
         Message message = e.getMessage();
 
-        if(e.getTextChannel().getType() == ChannelType.PRIVATE || user.isBot())
+        if (e.getTextChannel().getType() == ChannelType.PRIVATE || user.isBot() || message.getContent().startsWith("!"))
             return;
 
         if (Lists.getUserRankingCooldown().containsKey(user.getIdLong()) || Lists.getUserRankinCooldown().contains(user.getIdLong()))
@@ -34,13 +34,13 @@ public class MessageReceived extends ListenerAdapter {
         int exp = random.nextInt((25 - 15)) + 15;
 
         botAPI.getDatabaseManager().giveUserExp(user, exp);
-        botAPI.getMessageManager().logInfo(String.format("[%s] [INFO] @%s#%s earned %d exp.", new Date(),user.getName(), user.getDiscriminator(), exp));
-
-        HashMap<RankingType, Integer> ranking = botAPI.getDatabaseManager().getUserRanking(user);
-        if (Lists.getLevelsMaxExp().get(ranking.get(RankingType.LEVEL)) != null && ranking.get(RankingType.EXPERIENCE) >= Lists.getLevelsMaxExp().get(ranking.get(RankingType.LEVEL)))
-            botAPI.getDatabaseManager().userLevelUp(user);
+        botAPI.getMessageManager().log(false, String.format("@%s#%s earned %d exp.", user.getName(), user.getDiscriminator(), exp));
 
         Lists.getUserRankinCooldown().add(user.getIdLong());
         Lists.getUserRankingCooldown().put(user.getIdLong(), 60);
+
+        HashMap<RankingType, Integer> ranking = botAPI.getDatabaseManager().getUserRanking(user);
+        //if (Lists.getLevelsMaxExp().get(ranking.get(RankingType.LEVEL)) != null && ranking.get(RankingType.EXPERIENCE) >= Lists.getLevelsMaxExp().get(ranking.get(RankingType.LEVEL)))
+        //botAPI.getDatabaseManager().userLevelUp(user);
     }
 }

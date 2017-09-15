@@ -1,8 +1,12 @@
 package bid.ApixTeam.bot.utils.api;
 
-import net.dv8tion.jda.core.entities.*;
+import net.dv8tion.jda.core.entities.Message;
+import net.dv8tion.jda.core.entities.MessageChannel;
+import net.dv8tion.jda.core.entities.MessageEmbed;
+import net.dv8tion.jda.core.entities.TextChannel;
 
 import java.util.Collection;
+import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -14,6 +18,13 @@ public class MessageManager {
 
     public static MessageManager getMessageManager() {
         return messageManager;
+    }
+
+    public void log(boolean b, String s){
+        if(b)
+            System.out.printf("[%s] [ERROR] %s%n", new Date(), s);
+        else
+            System.out.printf("[%s] [INFO] %s%n", new Date(), s);
     }
 
     public Message sendMessage(MessageChannel messageChannel, String s){

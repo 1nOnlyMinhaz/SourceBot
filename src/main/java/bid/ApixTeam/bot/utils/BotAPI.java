@@ -1,6 +1,7 @@
 package bid.ApixTeam.bot.utils;
 
 import bid.ApixTeam.bot.utils.api.DatabaseManager;
+import bid.ApixTeam.bot.utils.api.EmbedMessageManager;
 import bid.ApixTeam.bot.utils.api.MessageManager;
 
 /**
@@ -14,5 +15,9 @@ public class BotAPI {
 
     public MessageManager getMessageManager(){
         return MessageManager.getMessageManager();
+    }
+
+    public EmbedMessageManager getEmbedMessageManager(){
+        return EmbedMessageManager.getEmbedMessageManager();
     }
 }
