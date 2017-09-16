@@ -3,13 +3,11 @@ package bid.ApixTeam.bot.libs.events;
 import bid.ApixTeam.bot.utils.BotAPI;
 import bid.ApixTeam.bot.utils.vars.Lists;
 import bid.ApixTeam.bot.utils.vars.RankingType;
-import net.dv8tion.jda.core.entities.ChannelType;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.User;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
 
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Random;
 
@@ -23,7 +21,7 @@ public class MessageReceived extends ListenerAdapter {
         User user = e.getAuthor();
         Message message = e.getMessage();
 
-        if (e.getTextChannel().getType() == ChannelType.PRIVATE || user.isBot() || message.getContent().startsWith("!"))
+        if (!e.getChannel().getType().isGuild() || user.isBot() || message.getContent().startsWith("!"))
             return;
 
         if (Lists.getUserRankingCooldown().containsKey(user.getIdLong()) || Lists.getUserRankinCooldown().contains(user.getIdLong()))
@@ -40,7 +38,7 @@ public class MessageReceived extends ListenerAdapter {
         Lists.getUserRankingCooldown().put(user.getIdLong(), 60);
 
         HashMap<RankingType, Integer> ranking = botAPI.getDatabaseManager().getUserRanking(user);
-        //if (Lists.getLevelsMaxExp().get(ranking.get(RankingType.LEVEL)) != null && ranking.get(RankingType.EXPERIENCE) >= Lists.getLevelsMaxExp().get(ranking.get(RankingType.LEVEL)))
-        //botAPI.getDatabaseManager().userLevelUp(user);
+        if (Lists.getLevelsMaxExp().get(ranking.get(RankingType.LEVEL)) != null && ranking.get(RankingType.EXPERIENCE) >= Lists.getLevelsMaxExp().get(ranking.get(RankingType.LEVEL)))
+            botAPI.getDatabaseManager().userLevelUp(user, exp);
     }
 }

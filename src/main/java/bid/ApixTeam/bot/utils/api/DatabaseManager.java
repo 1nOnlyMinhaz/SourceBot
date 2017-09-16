@@ -122,6 +122,21 @@ public class DatabaseManager {
         }
     }
 
+    public void userLevelUp(User user, int exp){
+        try {
+            HashMap<RankingType, Integer> userRanking = getUserRanking(user);
+            Connection connection = getConnection();
+            PreparedStatement ps = connection.prepareStatement("UPDATE `rankings` SET `experience` = ?, `level` = ? WHERE `UserID` = ?");
+            ps.setInt(1, exp);
+            ps.setInt(2, userRanking.get(RankingType.LEVEL) + 1);
+            ps.setLong(3, user.getIdLong());
+            ps.executeUpdate();
+            closeConnection(connection, ps, null);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     private void closeConnection(Connection connection, Statement statement, ResultSet resultSet) throws SQLException {
         if (resultSet != null)
             resultSet.close();
