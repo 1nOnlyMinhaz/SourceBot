@@ -22,7 +22,7 @@ public class TSC {
         JDA jda = new JDABuilder(AccountType.BOT)
                 .setToken("MzU2MTI1ODc2Njc4NTU3NzI3.DJdAcg._67wYa-oyF7LGUtsW_hwI32Yenk")
                 .setStatus(OnlineStatus.DO_NOT_DISTURB)
-                .setGame(Game.of("!help for commands"))
+                .setGame(Game.of("!help for commands."))
                 .buildBlocking();
 
         new Levels();

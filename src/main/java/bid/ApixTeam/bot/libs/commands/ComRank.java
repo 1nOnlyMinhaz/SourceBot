@@ -18,11 +18,17 @@ public class ComRank implements CommandExecutor {
         BotAPI botAPI = new BotAPI();
         EmbedMessageManager embedManager = botAPI.getEmbedMessageManager();
 
-        if (objects.length == 0)
-            botAPI.getMessageManager().sendMessage(messageChannel, embedManager.getRankEmbed(botAPI, user));
-        else if (message.getMentionedUsers().size() == 1)
-            botAPI.getMessageManager().sendMessage(messageChannel, embedManager.getRankEmbed(botAPI, message.getMentionedUsers().get(0)));
-        else
-            botAPI.getMessageManager().sendMessage(messageChannel, "Booii! incorrect usage! use `!rank [@mention]` instead.");
+        if (messageChannel.getType().isGuild()) {
+            if (objects.length == 0)
+                botAPI.getMessageManager().sendMessage(messageChannel, embedManager.getRankEmbed(botAPI, user));
+            else if (message.getMentionedUsers().size() == 1)
+                botAPI.getMessageManager().sendMessage(messageChannel, embedManager.getRankEmbed(botAPI, message.getMentionedUsers().get(0)));
+            else
+                botAPI.getMessageManager().sendMessage(messageChannel, "Booii! incorrect usage! use `!rank [@mention]` instead.");
+        }else
+            if(objects.length == 0)
+                botAPI.getPrivateMessageManager().sendMessage(user, embedManager.getRankEmbed(botAPI, user));
+            else
+                botAPI.getPrivateMessageManager().sendMessage(user, "yeah.... i think you'd actually need to do that on the TSC discord server...");
     }
 }

@@ -18,7 +18,7 @@ import java.util.Random;
 public class EmbedMessageManager {
     private static EmbedMessageManager embedMessageManager = new EmbedMessageManager();
     private String[] brags = {"Try and keep up.", "pffftt, gud one.", "I'm always in the top.", "ez.", "huh, too eazy.", "Is this ez mode?", "Over 9000!"};
-    private String[] bots = {"Ew, ban that thing", "GET THAT THING OUTTA HERE!", "reminds me of stupid mee6", "boooooooooooooooriingg", "if you ask me, i'd rather ban it."};
+    private String[] bots = {"Ew, ban that thing", "GET THAT THING OUTTA HERE!", "reminds me of stupid mee6", "boooooooooooooooriingg", "if you ask me, i'd rather ban it.", "pfffft, I'm much better."};
 
     public static EmbedMessageManager getEmbedMessageManager() {
         return embedMessageManager;
