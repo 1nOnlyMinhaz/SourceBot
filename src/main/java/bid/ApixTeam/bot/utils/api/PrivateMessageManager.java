@@ -2,6 +2,7 @@ package bid.ApixTeam.bot.utils.api;
 
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.MessageEmbed;
+import net.dv8tion.jda.core.entities.PrivateChannel;
 import net.dv8tion.jda.core.entities.User;
 
 import java.io.File;
@@ -26,7 +27,8 @@ public class PrivateMessageManager {
     }
 
     public void sendMessage(User user, MessageEmbed messageEmbed){
-        user.openPrivateChannel().queue((privateChannel -> privateChannel.sendMessage(messageEmbed).queue()));
+        PrivateChannel privateChannel = user.openPrivateChannel().complete();
+        privateChannel.sendMessage(messageEmbed).complete();
     }
 
     public void sendFile(User user, Message message, File file){

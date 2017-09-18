@@ -54,4 +54,14 @@ public class EmbedMessageManager {
 
         return embedBuilder.build();
     }
+
+    public MessageEmbed getHelpEmbed(BotAPI botAPI, User user) {
+        EmbedBuilder embedBuilder = new EmbedBuilder()
+                .setAuthor("Default commands", null, user.getJDA().getSelfUser().getAvatarUrl())
+                .addField("!help", "Displays this help message.", true)
+                .addField("!info", "Displays information on the bot.", false)
+                .addField("!rank [opt. @user]", "Displays your or another user's rank of activity on the server.", false)
+                .setColor(new Color(234, 255, 235));
+        return embedBuilder.build();
+    }
 }
