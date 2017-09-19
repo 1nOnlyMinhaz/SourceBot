@@ -14,13 +14,13 @@ import net.dv8tion.jda.core.exceptions.ErrorResponseException;
  * in association with TheSourceCode (C) 2017
  */
 public class ComHelp implements CommandExecutor {
-    @Command(aliases = {"help", "commands"}, description = "displays the available commands", async = true)
+    @Command(aliases = {"help", "commands"}, description = "displays the available commands")
     public void onCommand(User user, MessageChannel messageChannel, Message message, Object[] objects) {
         BotAPI botAPI = new BotAPI();
         EmbedMessageManager embedManager = new EmbedMessageManager();
 
         if(objects.length != 0) {
-            botAPI.getMessageManager().sendMessage(messageChannel, "Incorrect usage! *!help");
+            botAPI.getMessageManager().sendMessage(messageChannel, "Incorrect usage! `!help`");
             return;
         }
 

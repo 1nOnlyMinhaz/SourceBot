@@ -1,5 +1,6 @@
 package bid.ApixTeam.bot.libs;
 
+import bid.ApixTeam.bot.libs.commands.ComClear;
 import bid.ApixTeam.bot.libs.commands.ComHelp;
 import bid.ApixTeam.bot.libs.commands.ComInfo;
 import bid.ApixTeam.bot.libs.commands.ComRank;
@@ -23,5 +24,6 @@ public class Listener {
         commandHandler.registerCommand(new ComHelp());
         commandHandler.registerCommand(new ComInfo());
         commandHandler.registerCommand(new ComRank());
+        commandHandler.registerCommand(new ComClear());
     }
 }

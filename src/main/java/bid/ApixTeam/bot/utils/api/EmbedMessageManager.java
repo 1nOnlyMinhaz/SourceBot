@@ -61,6 +61,7 @@ public class EmbedMessageManager {
                 .addField("!help", "Displays this help message.", true)
                 .addField("!info [opt. rank(aliases(ranks, levels) | moderation | administration]", "Displays information on the bot.", false)
                 .addField("!rank [opt. @user]", "Displays your or another user's rank of activity on the server.", false)
+                .addField("!clear|!clean|!cls|!purge {number} [opt. @user] [opt. -s (silent)]", "Clears a number of messages, optionally from a user.", false)
                 .setColor(new Color(234, 255, 235));
         return embedBuilder.build();
     }
