@@ -63,7 +63,7 @@ public class ComInfo implements CommandExecutor {
                 } else if(objects[0].toString().equalsIgnoreCase("administration")) {
                     botAPI.getMessageManager().sendMessage(messageChannel, embedManager.getInfoAdmin(botAPI, user));
                 } else {
-                    botAPI.getMessageManager().sendMessage(messageChannel, "Incorrect usage! `!info [opt. rank(aliases(ranks, levels) | moderation | administration]`");
+                    botAPI.getMessageManager().sendMessage(messageChannel, "Incorrect usage! `!info [opt. rank | moderation | administration]`");
                 }
             }
         }

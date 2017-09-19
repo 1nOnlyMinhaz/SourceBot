@@ -1,11 +1,13 @@
 package bid.ApixTeam.bot.utils.api;
 
 import bid.ApixTeam.bot.utils.connection.DataSource;
+import bid.ApixTeam.bot.utils.vars.Lists;
 import bid.ApixTeam.bot.utils.vars.RankingType;
 import net.dv8tion.jda.core.entities.User;
 
 import java.sql.*;
 import java.util.HashMap;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * TSC was created by ApixTeam (C) 2017
@@ -54,6 +56,21 @@ public class DatabaseManager {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public HashMap<RankingType, Integer> getUserLeveling(User user){
+        try {
+            HashMap<RankingType, Integer> userLeveling = Lists.getUserLevels().get(user.getIdLong());
+            if(userLeveling != null)
+                return userLeveling;
+
+            Connection connection = getConnection();
+            PreparedStatement ps = connection.prepareStatement("");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return null;
     }
 
     public HashMap<RankingType, Integer> getUserRanking(User user) {

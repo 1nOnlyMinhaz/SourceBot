@@ -20,7 +20,7 @@ public class ComHelp implements CommandExecutor {
         EmbedMessageManager embedManager = new EmbedMessageManager();
 
         if(objects.length != 0) {
-            botAPI.getMessageManager().sendMessage(messageChannel, "Incorrect usage! `!help`");
+            botAPI.getMessageManager().sendMessage(messageChannel, "Incorrect usage! use `!help` instead.");
             return;
         }
 
