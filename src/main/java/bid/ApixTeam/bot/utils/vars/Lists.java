@@ -10,11 +10,16 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class Lists {
     private static ConcurrentHashMap<Long, Integer> userRankingCooldown = new ConcurrentHashMap<>();
+    private static ConcurrentHashMap<Long, HashMap<RankingType, Integer>> userLevels = new ConcurrentHashMap<>();
     private static ArrayList<Long> userRankinCooldown = new ArrayList<>();
     private static HashMap<Integer, Integer> levelsMaxExp = new HashMap<>();
 
     public static ConcurrentHashMap<Long, Integer> getUserRankingCooldown() {
         return userRankingCooldown;
+    }
+
+    public static ConcurrentHashMap<Long, HashMap<RankingType, Integer>> getUserLevels() {
+        return userLevels;
     }
 
     public static ArrayList<Long> getUserRankinCooldown() {
