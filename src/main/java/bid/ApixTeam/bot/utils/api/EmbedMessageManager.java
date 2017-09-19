@@ -30,13 +30,13 @@ public class EmbedMessageManager {
 
         embedBuilder.setColor(new Color(234, 255, 235));
 
-        if (user == user.getJDA().getSelfUser()) {
+        if(user == user.getJDA().getSelfUser()) {
             embedBuilder.setDescription(brags[new Random().nextInt(brags.length)]);
             return embedBuilder.build();
-        } else if (user.isBot()) {
+        } else if(user.isBot()) {
             embedBuilder.setDescription(bots[new Random().nextInt(bots.length)]);
             return embedBuilder.build();
-        } else if (userRanking == null) {
+        } else if(userRanking == null) {
             embedBuilder.setDescription(String.format("%s hasn't ranked yet", user.getName()));
             return embedBuilder.build();
         }
@@ -50,7 +50,7 @@ public class EmbedMessageManager {
 
         embedBuilder.addField("Rank.", String.valueOf(rnk), true);
         embedBuilder.addField("Level.", String.valueOf(lvl), true);
-        embedBuilder.addField("Exp.", String.format("%s", exp + (Lists.getLevelsMaxExp().get(lvl) == null ? "/∞" : "/" + Lists.getLevelsMaxExp().get(lvl) ) + (exp == tot ? "" : String.format(" (Total. %d)", tot))), true);
+        embedBuilder.addField("Exp.", String.format("%s", exp + (Lists.getLevelsMaxExp().get(lvl) == null ? "/∞" : "/" + Lists.getLevelsMaxExp().get(lvl)) + (exp == tot ? "" : String.format(" (Total. %d)", tot))), true);
 
         return embedBuilder.build();
     }
@@ -59,8 +59,40 @@ public class EmbedMessageManager {
         EmbedBuilder embedBuilder = new EmbedBuilder()
                 .setAuthor("Default commands", null, user.getJDA().getSelfUser().getAvatarUrl())
                 .addField("!help", "Displays this help message.", true)
-                .addField("!info", "Displays information on the bot.", false)
+                .addField("!info [opt. rank(aliases(ranks, levels) | moderation | administration]", "Displays information on the bot.", false)
                 .addField("!rank [opt. @user]", "Displays your or another user's rank of activity on the server.", false)
+                .setColor(new Color(234, 255, 235));
+        return embedBuilder.build();
+    }
+
+    public MessageEmbed getInfoMain(BotAPI botAPI, User user) {
+        EmbedBuilder embedBuilder = new EmbedBuilder()
+                .setAuthor("Bot Information", null, user.getJDA().getSelfUser().getAvatarUrl())
+                .setDescription("TheSourceCodeBot was made by ApixTeam in association with TheSourceCode. It was made for only the TheSourceCode Discord server along with PMs. It has interesting commands which among them include implementation for submitting plugin spotlight forms, and user reports.")
+                .setColor(new Color(234, 255, 235));
+        return embedBuilder.build();
+    }
+
+    public MessageEmbed getInfoRank(BotAPI botAPI, User user) {
+        EmbedBuilder embedBuilder = new EmbedBuilder()
+                .setAuthor("Rank Information", null, user.getJDA().getSelfUser().getAvatarUrl())
+                .setDescription("The ranking system for TheSourceCode Discord bot works as follows: When a user chats they get 15-25 Exp. but you only gain Exp once every minute to prevent spam ranking. When you type !rank in <#355468935413628930> it grabs the database of users that have chatted and determines your rank compared to every user, your level, and your total Exp. In conclusion the ranking system is an effective way to get people to be active.")
+                .setColor(new Color(234, 255, 235));
+        return embedBuilder.build();
+    }
+
+    public MessageEmbed getInfoMod(BotAPI botAPI, User user) {
+        EmbedBuilder embedBuilder = new EmbedBuilder()
+                .setAuthor("Moderation Information", null, user.getJDA().getSelfUser().getAvatarUrl())
+                .setDescription("We take pride in our Moderators for their ability to be professional and to have fun at the same time. To be a Moderator you must have what it takes, our Mods definitely do!")
+                .setColor(new Color(234, 255, 235));
+        return embedBuilder.build();
+    }
+
+    public MessageEmbed getInfoAdmin(BotAPI botAPI, User user) {
+        EmbedBuilder embedBuilder = new EmbedBuilder()
+                .setAuthor("Administration Information", null, user.getJDA().getSelfUser().getAvatarUrl())
+                .setDescription("Our Administrators are at a higher level of professionalism and loyalty, we don't mess around with our picks. They mean a lot to us as we know we mean to them!")
                 .setColor(new Color(234, 255, 235));
         return embedBuilder.build();
     }
