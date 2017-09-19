@@ -1,6 +1,7 @@
 package bid.ApixTeam.bot.libs.commands;
 
 import bid.ApixTeam.bot.utils.BotAPI;
+import bid.ApixTeam.bot.utils.api.EmbedMessageManager;
 import de.btobastian.sdcf4j.Command;
 import de.btobastian.sdcf4j.CommandExecutor;
 import net.dv8tion.jda.core.entities.*;
@@ -17,6 +18,7 @@ public class ComClear implements CommandExecutor {
     @Command(aliases = {"clear", "clean", "cls", "purge"}, async = true)
     public void onCommand(Guild guild, MessageChannel messageChannel, Message message, Object[] objects) {
         BotAPI botAPI = new BotAPI();
+        EmbedMessageManager embed = botAPI.getEmbedMessageManager();
 
         if(messageChannel.getType().isGuild()) {
             if(objects.length < 1 || objects.length > 3) {
@@ -31,7 +33,7 @@ public class ComClear implements CommandExecutor {
                 }
 
                 if(amount < 1 || amount > 100) {
-                    botAPI.getMessageManager().sendMessage(messageChannel, "Discord limits message removal from 1 to 100 messages only.");
+                    botAPI.getMessageManager().sendMessage(messageChannel, embed.getClearLimit());
                     return;
                 }
                 String s = amount == 1 ? "message" : "messages";
@@ -39,9 +41,9 @@ public class ComClear implements CommandExecutor {
 
                 botAPI.getMessageManager().deleteMessage(message, "Auto Cleared.");
                 botAPI.getMessageManager().deleteMessages(guild.getTextChannelById(messageChannel.getId()), messageHistory);
-                Message m = botAPI.getMessageManager().sendMessage(messageChannel, String.format("Successfully cleared `%d` %s.", amount, s));
+                Message m = botAPI.getMessageManager().sendMessage(messageChannel, embed.getClearSuccess(amount, s));
 
-                botAPI.getMessageManager().deleteMessageAfter(m, "Auto Cleared", 2L, TimeUnit.SECONDS);
+                botAPI.getMessageManager().deleteMessageAfter(m, "Auto Cleared", 6L, TimeUnit.SECONDS);
             } else if(objects.length == 2) {
                 if(message.getMentionedUsers().size() == 1) {
 
@@ -57,7 +59,7 @@ public class ComClear implements CommandExecutor {
                     User clrUser = message.getMentionedUsers().get(0);
 
                     if(amount < 1 || amount > 100) {
-                        botAPI.getMessageManager().sendMessage(messageChannel, "Discord limits message removal from 1 to 100 messages only.");
+                        botAPI.getMessageManager().sendMessage(messageChannel, embed.getClearLimit());
                         return;
                     }
                     String s = amount == 1 ? "message" : "messages";
@@ -65,9 +67,9 @@ public class ComClear implements CommandExecutor {
 
                     botAPI.getMessageManager().deleteMessage(message, "Auto Cleared.");
                     botAPI.getMessageManager().clearUserMessages(guild.getTextChannelById(messageChannel.getId()), messageHistory, clrUser);
-                    Message m = botAPI.getMessageManager().sendMessage(messageChannel, String.format("Successfully cleared `%d` %s.", amount, s));
+                    Message m = botAPI.getMessageManager().sendMessage(messageChannel, embed.getClearSuccess(amount, s));
 
-                    botAPI.getMessageManager().deleteMessageAfter(m, "Auto Cleared", 2L, TimeUnit.SECONDS);
+                    botAPI.getMessageManager().deleteMessageAfter(m, "Auto Cleared", 6L, TimeUnit.SECONDS);
                 } else if(objects[1].toString().equalsIgnoreCase("-s")) {
                     int amount;
 
@@ -79,7 +81,7 @@ public class ComClear implements CommandExecutor {
                     }
 
                     if(amount < 1 || amount > 100) {
-                        botAPI.getMessageManager().sendMessage(messageChannel, "Discord limits message removal from 1 to 100 messages only.");
+                        botAPI.getMessageManager().sendMessage(messageChannel, embed.getClearLimit());
                         return;
                     }
                     List<Message> messageHistory = new MessageHistory(messageChannel).retrievePast(amount == 100 ? amount : amount + 1).complete();
@@ -104,7 +106,7 @@ public class ComClear implements CommandExecutor {
                 User clrUser = message.getMentionedUsers().get(0);
 
                 if(amount < 1 || amount > 100) {
-                    botAPI.getMessageManager().sendMessage(messageChannel, "Discord limits message removal from 1 to 100 messages only.");
+                    botAPI.getMessageManager().sendMessage(messageChannel, embed.getClearLimit());
                     return;
                 }
                 List<Message> messageHistory = new MessageHistory(messageChannel).retrievePast(amount == 100 ? amount : amount + 1).complete();
@@ -116,6 +118,6 @@ public class ComClear implements CommandExecutor {
     }
 
     private String getUsage() {
-        return "Incorrect usage! `!clear|!clean|!cls|!purge {number} [opt. @user] [opt. -s (silent)]`";
+        return "Booii! Incorrect usage! use `!clear {number} [opt. @user]` instead.";
     }
 }
