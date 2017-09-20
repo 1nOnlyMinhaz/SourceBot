@@ -2,7 +2,7 @@ package bid.ApixTeam.bot.utils.api;
 
 import bid.ApixTeam.bot.utils.BotAPI;
 import bid.ApixTeam.bot.utils.vars.Lists;
-import bid.ApixTeam.bot.utils.vars.RankingType;
+import bid.ApixTeam.bot.utils.vars.enums.RankingType;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.MessageEmbed;
 import net.dv8tion.jda.core.entities.User;

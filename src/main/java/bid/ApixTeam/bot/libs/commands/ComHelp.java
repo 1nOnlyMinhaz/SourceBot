@@ -2,6 +2,7 @@ package bid.ApixTeam.bot.libs.commands;
 
 import bid.ApixTeam.bot.utils.BotAPI;
 import bid.ApixTeam.bot.utils.api.EmbedMessageManager;
+import bid.ApixTeam.bot.utils.vars.Messages;
 import de.btobastian.sdcf4j.Command;
 import de.btobastian.sdcf4j.CommandExecutor;
 import net.dv8tion.jda.core.entities.Message;
@@ -20,7 +21,7 @@ public class ComHelp implements CommandExecutor {
         EmbedMessageManager embedManager = new EmbedMessageManager();
 
         if(objects.length != 0) {
-            botAPI.getMessageManager().sendMessage(messageChannel, "Incorrect usage! use `!help` instead.");
+            botAPI.getMessageManager().sendMessage(messageChannel, String.format(Messages.INCORRECT_USAGE, "!help"));
             return;
         }
 

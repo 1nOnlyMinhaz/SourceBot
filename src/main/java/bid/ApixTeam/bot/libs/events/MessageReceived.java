@@ -2,7 +2,7 @@ package bid.ApixTeam.bot.libs.events;
 
 import bid.ApixTeam.bot.utils.BotAPI;
 import bid.ApixTeam.bot.utils.vars.Lists;
-import bid.ApixTeam.bot.utils.vars.RankingType;
+import bid.ApixTeam.bot.utils.vars.enums.RankingType;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.User;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;

@@ -2,6 +2,7 @@ package bid.ApixTeam.bot.libs.commands;
 
 import bid.ApixTeam.bot.utils.BotAPI;
 import bid.ApixTeam.bot.utils.api.EmbedMessageManager;
+import bid.ApixTeam.bot.utils.vars.Messages;
 import de.btobastian.sdcf4j.Command;
 import de.btobastian.sdcf4j.CommandExecutor;
 import net.dv8tion.jda.core.entities.Guild;
@@ -63,7 +64,7 @@ public class ComInfo implements CommandExecutor {
                 } else if(objects[0].toString().equalsIgnoreCase("administration")) {
                     botAPI.getMessageManager().sendMessage(messageChannel, embedManager.getInfoAdmin(botAPI, user));
                 } else {
-                    botAPI.getMessageManager().sendMessage(messageChannel, "Incorrect usage! `!info [opt. rank | moderation | administration]`");
+                    botAPI.getMessageManager().sendMessage(messageChannel, String.format(Messages.INCORRECT_USAGE, "!info [opt. rank | moderation | administration]"));
                 }
             }
         }

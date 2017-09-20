@@ -1,5 +1,8 @@
 package bid.ApixTeam.bot.utils.vars;
 
+import bid.ApixTeam.bot.utils.vars.enums.PermissionsG;
+import bid.ApixTeam.bot.utils.vars.enums.RankingType;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.concurrent.ConcurrentHashMap;
@@ -13,6 +16,7 @@ public class Lists {
     private static ConcurrentHashMap<Long, HashMap<RankingType, Integer>> userLevels = new ConcurrentHashMap<>();
     private static ArrayList<Long> userRankinCooldown = new ArrayList<>();
     private static HashMap<Integer, Integer> levelsMaxExp = new HashMap<>();
+    private static HashMap<Long, PermissionsG> userPermissions = new HashMap<>();
 
     public static ConcurrentHashMap<Long, Integer> getUserRankingCooldown() {
         return userRankingCooldown;
@@ -32,5 +36,9 @@ public class Lists {
 
     static void setLevelsMaxExp(HashMap<Integer, Integer> hashMap){
         levelsMaxExp = hashMap;
+    }
+
+    public static HashMap<Long, PermissionsG> getUserPermissions() {
+        return userPermissions;
     }
 }

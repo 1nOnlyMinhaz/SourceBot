@@ -2,12 +2,11 @@ package bid.ApixTeam.bot.utils.api;
 
 import bid.ApixTeam.bot.utils.connection.DataSource;
 import bid.ApixTeam.bot.utils.vars.Lists;
-import bid.ApixTeam.bot.utils.vars.RankingType;
+import bid.ApixTeam.bot.utils.vars.enums.RankingType;
 import net.dv8tion.jda.core.entities.User;
 
 import java.sql.*;
 import java.util.HashMap;
-import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * TSC was created by ApixTeam (C) 2017

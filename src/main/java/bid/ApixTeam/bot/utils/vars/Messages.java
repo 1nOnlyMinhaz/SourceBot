@@ -7,4 +7,6 @@ package bid.ApixTeam.bot.utils.vars;
 public interface Messages {
     String NO_PERMISSION = "You don't have permissions to do that.";
     String NO_COM_PERMISSION = "You don't have permissions to use that command.";
+
+    String INCORRECT_USAGE = "Booii! Incorrect usage! use `%s` instead.";
 }
