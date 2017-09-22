@@ -1,6 +1,6 @@
 package bid.ApixTeam.bot.utils.vars;
 
-import bid.ApixTeam.bot.utils.vars.enums.PermissionsG;
+import bid.ApixTeam.bot.utils.vars.enums.SimpleRank;
 import bid.ApixTeam.bot.utils.vars.enums.RankingType;
 
 import java.util.ArrayList;
@@ -12,22 +12,18 @@ import java.util.concurrent.ConcurrentHashMap;
  * in association with TheSourceCode (C) 2017
  */
 public class Lists {
-    private static ConcurrentHashMap<Long, Integer> userRankingCooldown = new ConcurrentHashMap<>();
+    private static ConcurrentHashMap<Long, Long> userRankingCooldown = new ConcurrentHashMap<>();
     private static ConcurrentHashMap<Long, HashMap<RankingType, Integer>> userLevels = new ConcurrentHashMap<>();
-    private static ArrayList<Long> userRankinCooldown = new ArrayList<>();
     private static HashMap<Integer, Integer> levelsMaxExp = new HashMap<>();
-    private static HashMap<Long, PermissionsG> userPermissions = new HashMap<>();
+    private static HashMap<Long, SimpleRank> userPermissions = new HashMap<>();
+    private static HashMap<Long, SimpleRank> rolePermissions = new HashMap<>();
 
-    public static ConcurrentHashMap<Long, Integer> getUserRankingCooldown() {
+    public static ConcurrentHashMap<Long, Long> getUserRankingCooldown() {
         return userRankingCooldown;
     }
 
     public static ConcurrentHashMap<Long, HashMap<RankingType, Integer>> getUserLevels() {
         return userLevels;
-    }
-
-    public static ArrayList<Long> getUserRankinCooldown() {
-        return userRankinCooldown;
     }
 
     public static HashMap<Integer, Integer> getLevelsMaxExp() {
@@ -38,7 +34,11 @@ public class Lists {
         levelsMaxExp = hashMap;
     }
 
-    public static HashMap<Long, PermissionsG> getUserPermissions() {
+    public static HashMap<Long, SimpleRank> getUserPermissions() {
         return userPermissions;
+    }
+
+    public static HashMap<Long, SimpleRank> getRolePermissions() {
+        return rolePermissions;
     }
 }

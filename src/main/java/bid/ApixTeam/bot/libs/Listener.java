@@ -1,9 +1,6 @@
 package bid.ApixTeam.bot.libs;
 
-import bid.ApixTeam.bot.libs.commands.ComClear;
-import bid.ApixTeam.bot.libs.commands.ComHelp;
-import bid.ApixTeam.bot.libs.commands.ComInfo;
-import bid.ApixTeam.bot.libs.commands.ComRank;
+import bid.ApixTeam.bot.libs.commands.*;
 import bid.ApixTeam.bot.libs.events.MessageReceived;
 import de.btobastian.sdcf4j.CommandHandler;
 import de.btobastian.sdcf4j.handler.JDA3Handler;
@@ -25,5 +22,6 @@ public class Listener {
         commandHandler.registerCommand(new ComInfo());
         commandHandler.registerCommand(new ComRank());
         commandHandler.registerCommand(new ComClear());
+        commandHandler.registerCommand(new ComCheck());
     }
 }

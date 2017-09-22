@@ -1,9 +1,6 @@
 package bid.ApixTeam.bot.utils;
 
-import bid.ApixTeam.bot.utils.api.DatabaseManager;
-import bid.ApixTeam.bot.utils.api.EmbedMessageManager;
-import bid.ApixTeam.bot.utils.api.MessageManager;
-import bid.ApixTeam.bot.utils.api.PrivateMessageManager;
+import bid.ApixTeam.bot.utils.api.*;
 
 /**
  * TSC was created by ApixTeam (C) 2017
@@ -24,5 +21,9 @@ public class BotAPI {
 
     public PrivateMessageManager getPrivateMessageManager(){
         return PrivateMessageManager.getPrivateMessageManager();
+    }
+
+    public PermissionManager getPermissionManager(){
+        return PermissionManager.getPermissionManager();
     }
 }
