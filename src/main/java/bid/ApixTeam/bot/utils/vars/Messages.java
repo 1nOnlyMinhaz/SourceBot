@@ -5,8 +5,8 @@ package bid.ApixTeam.bot.utils.vars;
  * in association with TheSourceCode (C) 2017
  */
 public interface Messages {
-    String NO_PERMISSION = "You don't have permissions to do that.";
-    String NO_COM_PERMISSION = "You don't have permissions to use that command.";
+    String NO_PERMISSION = ":cold_sweat: Sorry, but you don't have permissions to do that.";
+    String NO_COM_PERMISSION = ":cold_sweat: Sorry, but you don't have permissions to use that command.";
 
     String INCORRECT_USAGE = "Booii! Incorrect usage! use `%s` instead.";
 }
