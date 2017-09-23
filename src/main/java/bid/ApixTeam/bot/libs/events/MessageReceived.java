@@ -12,7 +12,7 @@ import java.util.HashMap;
 import java.util.Random;
 
 /**
- * TSC was created by ApixTeam (C) 2017
+ * TSC-Bot was created by ApixTeam (C) 2017
  * in association with TheSourceCode (C) 2017
  */
 public class MessageReceived extends ListenerAdapter {
@@ -23,6 +23,9 @@ public class MessageReceived extends ListenerAdapter {
 
         if (!e.getChannel().getType().isGuild() || user.isBot() || message.getContent().startsWith("!"))
             return;
+
+        if(!Lists.getUsers().contains(user.getIdLong()))
+            botAPI.getPermissionManager().createMember(user);
 
         if (Lists.getUserRankingCooldown().containsKey(user.getIdLong())){
             long seconds = ((Lists.getUserRankingCooldown().get(user.getIdLong()) / 1000) + 60) - (System.currentTimeMillis() / 1000);
