@@ -19,7 +19,7 @@ public class DatabaseManager {
         return databaseManager;
     }
 
-    private Connection getConnection() throws SQLException {
+    Connection getConnection() throws SQLException {
         return DataSource.getConnection();
     }
 
@@ -153,7 +153,7 @@ public class DatabaseManager {
         }
     }
 
-    private void closeConnection(Connection connection, Statement statement, ResultSet resultSet) throws SQLException {
+    void closeConnection(Connection connection, Statement statement, ResultSet resultSet) throws SQLException {
         if (resultSet != null)
             resultSet.close();
         if (statement != null)
