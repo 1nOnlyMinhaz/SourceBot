@@ -16,9 +16,9 @@ public enum SimpleRank {
         this.description = desc;
     }
 
-    public static SimpleRank getPermission(String search) {
-        for (SimpleRank permissions : values())
-            if (permissions.name().equalsIgnoreCase(search)) return permissions;
+    public static SimpleRank getRank(String search) {
+        for (SimpleRank rank : values())
+            if (rank.description.equalsIgnoreCase(search)) return rank;
         return null;
     }
 
