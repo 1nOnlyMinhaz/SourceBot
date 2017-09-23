@@ -1,7 +1,8 @@
 package bid.ApixTeam.bot.utils.vars;
 
-import bid.ApixTeam.bot.utils.vars.enums.SimpleRank;
 import bid.ApixTeam.bot.utils.vars.enums.RankingType;
+import bid.ApixTeam.bot.utils.vars.enums.Settings;
+import bid.ApixTeam.bot.utils.vars.enums.SimpleRank;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,6 +18,8 @@ public class Lists {
     private static HashMap<Integer, Integer> levelsMaxExp = new HashMap<>();
     private static HashMap<Long, SimpleRank> userPermissions = new HashMap<>();
     private static HashMap<Long, SimpleRank> rolePermissions = new HashMap<>();
+    private static HashMap<Settings, String> settings = new HashMap<>();
+    private static ArrayList<Long> users = new ArrayList<>();
 
     public static ConcurrentHashMap<Long, Long> getUserRankingCooldown() {
         return userRankingCooldown;
@@ -40,5 +43,13 @@ public class Lists {
 
     public static HashMap<Long, SimpleRank> getRolePermissions() {
         return rolePermissions;
+    }
+
+    public static HashMap<Settings, String> getSettings() {
+        return settings;
+    }
+
+    public static ArrayList<Long> getUsers() {
+        return users;
     }
 }
