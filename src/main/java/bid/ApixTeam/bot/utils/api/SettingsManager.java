@@ -17,6 +17,11 @@ import java.sql.SQLException;
  */
 public class SettingsManager extends DatabaseManager {
     protected static JDA jda;
+    private static SettingsManager settingsManager = new SettingsManager();
+
+    public static SettingsManager getSettingsManager() {
+        return settingsManager;
+    }
 
     protected static void setup(JDA jda) {
         setJda(jda);
@@ -52,6 +57,46 @@ public class SettingsManager extends DatabaseManager {
             }
 
             getDatabaseManager().closeConnection(connection, ps, rs);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public boolean checkSettings(Settings settings){
+        return Lists.getSettings().containsKey(settings);
+    }
+
+    public void addSettings(Settings settings, String value){
+        if(checkSettings(settings)){
+            updateSettings(settings, value);
+            return;
+        }
+
+        try {
+            Connection connection = getConnection();
+            PreparedStatement ps = connection.prepareStatement("INSERT INTO `settings` (`option`, `value`) VALUES (?, ?)");
+            ps.setString(1, settings.getOption());
+            ps.setString(2, value);
+            ps.executeUpdate();
+            closeConnection(connection, ps, null);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void updateSettings(Settings settings, String value){
+        if(!checkSettings(settings)){
+            addSettings(settings, value);
+            return;
+        }
+
+        try {
+            Connection connection = getConnection();
+            PreparedStatement ps = connection.prepareStatement("UPDATE `settings` SET `value` = ? WHERE `option` = ?");
+            ps.setString(1, value);
+            ps.setString(2, settings.getOption());
+            ps.executeUpdate();
+            closeConnection(connection, ps, null);
         } catch (SQLException e) {
             e.printStackTrace();
         }

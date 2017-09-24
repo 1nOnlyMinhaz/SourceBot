@@ -26,4 +26,8 @@ public class BotAPI {
     public PermissionManager getPermissionManager(){
         return PermissionManager.getPermissionManager();
     }
+
+    public SettingsManager getSettingsManager(){
+        return SettingsManager.getSettingsManager();
+    }
 }
