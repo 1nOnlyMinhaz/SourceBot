@@ -34,6 +34,10 @@ public class SettingsManager extends DatabaseManager {
                 Settings setting = Settings.getSetting(rs.getString("option"));
                 Lists.getSettings().put(setting, rs.getString("value"));
                 System.out.println(Lists.getSettings().toString());
+
+                if(rs.getString("option").startsWith("permission"))
+                    Lists.getRolePermissions().put(Long.valueOf(rs.getString("value")), SimpleRank.valueOf(rs.getString("option").replace("permission-", "").replace("-", "_").toUpperCase()));
+                System.out.println(Lists.getRolePermissions().toString());
             }
             getDatabaseManager().closeConnection(connection, ps, rs);
         } catch (SQLException e) {
@@ -44,6 +48,7 @@ public class SettingsManager extends DatabaseManager {
     }
 
     private static void retrieveUsers() {
+        BotAPI botAPI = new BotAPI();
         try {
             Connection connection = getDatabaseManager().getConnection();
             PreparedStatement ps = connection.prepareStatement("SELECT * FROM `members`");
@@ -52,7 +57,7 @@ public class SettingsManager extends DatabaseManager {
             while (rs.next()) {
                 Lists.getUsers().add(rs.getLong("UserID"));
                 if (rs.getString("Permission") != null || !rs.getString("Permission").isEmpty())
-                    new BotAPI().getPermissionManager().setUserRank(rs.getLong("UserID"), SimpleRank.getRank(rs.getString("Permission")));
+                    botAPI.getPermissionManager().setUserRank(rs.getLong("UserID"), SimpleRank.getRank(rs.getString("Permission")));
                 System.out.println("retrieved " + rs.getString("Username"));
             }
 

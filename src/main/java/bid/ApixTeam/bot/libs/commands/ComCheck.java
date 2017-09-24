@@ -25,107 +25,79 @@ public class ComCheck implements CommandExecutor {
         BotAPI botAPI = new BotAPI();
         PermissionManager pm = botAPI.getPermissionManager();
 
-        if (!pm.userAtLeast(user, SimpleRank.SR_ADMIN)) {
+        if (!pm.userAtLeast(user, SimpleRank.BOT_ADMIN)) {
             botAPI.getMessageManager().sendMessage(messageChannel, Messages.NO_COM_PERMISSION);
             return;
         }
 
         if (objects[0].toString().equalsIgnoreCase("perm-jr-mod")) {
-            if (message.getMentionedUsers().size() == 1) {
-                User target = message.getMentionedUsers().get(0);
-                boolean atLeast = pm.userAtLeast(target, SimpleRank.JR_MOD);
-                boolean higher = pm.userHigherThan(target, SimpleRank.JR_MOD);
-                boolean lower = pm.userLowerThan(target, SimpleRank.JR_MOD);
-                botAPI.getMessageManager().sendMessage(messageChannel, String.format(":thinking: %s to JR_MOD? `AtLeast`:`%s`, `Higher`:`%s`, `Lower`:`%s`", target.getName(), atLeast, higher, lower));
-            } else if (message.getMentionedRoles().size() == 1) {
-                Role role = message.getMentionedRoles().get(0);
-                boolean atLeast = pm.roleAtLeast(role, SimpleRank.JR_MOD);
-                boolean higher = pm.roleHigherThan(role, SimpleRank.JR_MOD);
-                boolean lower = pm.roleLowerThan(role, SimpleRank.JR_MOD);
-                botAPI.getMessageManager().sendMessage(messageChannel, String.format(":thinking: %s to JR_MOD? `AtLeast`:`%s`, `Higher`:`%s`, `Lower`:`%s`", role.getName(), atLeast, higher, lower));
-            }
+            if (message.getMentionedUsers().size() == 1)
+                checkUserPermission(botAPI, pm, messageChannel, message, SimpleRank.JR_MOD);
+            else if (message.getMentionedRoles().size() == 1)
+                checkRolePermission(botAPI, pm, messageChannel, message, SimpleRank.JR_MOD);
         } else if (objects[0].toString().equalsIgnoreCase("perm-sr-mod")) {
-            if (message.getMentionedUsers().size() == 1) {
-                User target = message.getMentionedUsers().get(0);
-                boolean atLeast = pm.userAtLeast(target, SimpleRank.SR_MOD);
-                boolean higher = pm.userHigherThan(target, SimpleRank.SR_MOD);
-                boolean lower = pm.userLowerThan(target, SimpleRank.SR_MOD);
-                botAPI.getMessageManager().sendMessage(messageChannel, String.format(":thinking: %s to SR_MOD? `AtLeast`:`%s`, `Higher`:`%s`, `Lower`:`%s`", target.getName(), atLeast, higher, lower));
-            } else if (message.getMentionedRoles().size() == 1) {
-                Role role = message.getMentionedRoles().get(0);
-                boolean atLeast = pm.roleAtLeast(role, SimpleRank.SR_MOD);
-                boolean higher = pm.roleHigherThan(role, SimpleRank.SR_MOD);
-                boolean lower = pm.roleLowerThan(role, SimpleRank.SR_MOD);
-                botAPI.getMessageManager().sendMessage(messageChannel, String.format(":thinking: %s to SR_MOD? `AtLeast`:`%s`, `Higher`:`%s`, `Lower`:`%s`", role.getName(), atLeast, higher, lower));
-            }
+            if (message.getMentionedUsers().size() == 1)
+                checkUserPermission(botAPI, pm, messageChannel, message, SimpleRank.SR_MOD);
+            else if (message.getMentionedRoles().size() == 1)
+                checkRolePermission(botAPI, pm, messageChannel, message, SimpleRank.SR_MOD);
         } else if (objects[0].toString().equalsIgnoreCase("perm-jr-admin")) {
-            if (message.getMentionedUsers().size() == 1) {
-                User target = message.getMentionedUsers().get(0);
-                boolean atLeast = pm.userAtLeast(target, SimpleRank.JR_ADMIN);
-                boolean higher = pm.userHigherThan(target, SimpleRank.JR_ADMIN);
-                boolean lower = pm.userLowerThan(target, SimpleRank.JR_ADMIN);
-                botAPI.getMessageManager().sendMessage(messageChannel, String.format(":thinking: %s to JR_ADMIN? `AtLeast`:`%s`, `Higher`:`%s`, `Lower`:`%s`", target.getName(), atLeast, higher, lower));
-            } else if (message.getMentionedRoles().size() == 1) {
-                Role role = message.getMentionedRoles().get(0);
-                boolean atLeast = pm.roleAtLeast(role, SimpleRank.JR_ADMIN);
-                boolean higher = pm.roleHigherThan(role, SimpleRank.JR_ADMIN);
-                boolean lower = pm.roleLowerThan(role, SimpleRank.JR_ADMIN);
-                botAPI.getMessageManager().sendMessage(messageChannel, String.format(":thinking: %s to JR_ADMIN? `AtLeast`:`%s`, `Higher`:`%s`, `Lower`:`%s`", role.getName(), atLeast, higher, lower));
-            }
+            if (message.getMentionedUsers().size() == 1)
+                checkUserPermission(botAPI, pm, messageChannel, message, SimpleRank.JR_ADMIN);
+            else if (message.getMentionedRoles().size() == 1)
+                checkRolePermission(botAPI, pm, messageChannel, message, SimpleRank.JR_ADMIN);
         } else if (objects[0].toString().equalsIgnoreCase("perm-sr-admin")) {
-            if (message.getMentionedUsers().size() == 1) {
-                User target = message.getMentionedUsers().get(0);
-                boolean atLeast = pm.userAtLeast(target, SimpleRank.SR_ADMIN);
-                boolean higher = pm.userHigherThan(target, SimpleRank.SR_ADMIN);
-                boolean lower = pm.userLowerThan(target, SimpleRank.SR_ADMIN);
-                botAPI.getMessageManager().sendMessage(messageChannel, String.format(":thinking: %s to SR_ADMIN? `AtLeast`:`%s`, `Higher`:`%s`, `Lower`:`%s`", target.getName(), atLeast, higher, lower));
-            } else if (message.getMentionedRoles().size() == 1) {
-                Role role = message.getMentionedRoles().get(0);
-                boolean atLeast = pm.roleAtLeast(role, SimpleRank.SR_ADMIN);
-                boolean higher = pm.roleHigherThan(role, SimpleRank.SR_ADMIN);
-                boolean lower = pm.roleLowerThan(role, SimpleRank.SR_ADMIN);
-                botAPI.getMessageManager().sendMessage(messageChannel, String.format(":thinking: %s to SR_ADMIN? `AtLeast`:`%s`, `Higher`:`%s`, `Lower`:`%s`", role.getName(), atLeast, higher, lower));
-            }
+            if (message.getMentionedUsers().size() == 1)
+                checkUserPermission(botAPI, pm, messageChannel, message, SimpleRank.SR_ADMIN);
+            else if (message.getMentionedRoles().size() == 1)
+                checkRolePermission(botAPI, pm, messageChannel, message, SimpleRank.SR_ADMIN);
         } else if (objects[0].toString().equalsIgnoreCase("set-jr-mod")) {
-            if (message.getMentionedUsers().size() == 1) {
-                User target = message.getMentionedUsers().get(0);
-                pm.setUserPermission(target, SimpleRank.JR_MOD);
-                botAPI.getMessageManager().sendMessage(messageChannel, "done.");
-            } else if (message.getMentionedRoles().size() == 1) {
-                Role role = message.getMentionedRoles().get(0);
-                Lists.getRolePermissions().put(role.getIdLong(), SimpleRank.JR_MOD);
-                botAPI.getMessageManager().sendMessage(messageChannel, "done.");
-            }
+            if (message.getMentionedUsers().size() == 1)
+                setUserPermission(botAPI, pm, messageChannel, message, SimpleRank.JR_MOD);
+            else if (message.getMentionedRoles().size() == 1)
+                setRolePermission(botAPI, pm, messageChannel, message, SimpleRank.JR_MOD);
         } else if (objects[0].toString().equalsIgnoreCase("set-sr-mod")) {
-            if (message.getMentionedUsers().size() == 1) {
-                User target = message.getMentionedUsers().get(0);
-                pm.setUserPermission(target, SimpleRank.SR_MOD);
-                botAPI.getMessageManager().sendMessage(messageChannel, "done.");
-            } else if (message.getMentionedRoles().size() == 1) {
-                Role role = message.getMentionedRoles().get(0);
-                Lists.getRolePermissions().put(role.getIdLong(), SimpleRank.SR_MOD);
-                botAPI.getMessageManager().sendMessage(messageChannel, "done.");
-            }
+            if (message.getMentionedUsers().size() == 1)
+                setUserPermission(botAPI, pm, messageChannel, message, SimpleRank.SR_MOD);
+            else if (message.getMentionedRoles().size() == 1)
+                setRolePermission(botAPI, pm, messageChannel, message, SimpleRank.SR_MOD);
         } else if (objects[0].toString().equalsIgnoreCase("set-jr-admin")) {
-            if (message.getMentionedUsers().size() == 1) {
-                User target = message.getMentionedUsers().get(0);
-                pm.setUserPermission(target, SimpleRank.JR_ADMIN);
-                botAPI.getMessageManager().sendMessage(messageChannel, "done.");
-            } else if (message.getMentionedRoles().size() == 1) {
-                Role role = message.getMentionedRoles().get(0);
-                Lists.getRolePermissions().put(role.getIdLong(), SimpleRank.JR_ADMIN);
-                botAPI.getMessageManager().sendMessage(messageChannel, "done.");
-            }
+            if (message.getMentionedUsers().size() == 1)
+                setUserPermission(botAPI, pm, messageChannel, message, SimpleRank.JR_ADMIN);
+            else if (message.getMentionedRoles().size() == 1)
+                setRolePermission(botAPI, pm, messageChannel, message, SimpleRank.JR_ADMIN);
         } else if (objects[0].toString().equalsIgnoreCase("set-sr-admin")) {
-            if (message.getMentionedUsers().size() == 1) {
-                User target = message.getMentionedUsers().get(0);
-                pm.setUserPermission(target, SimpleRank.SR_ADMIN);
-                botAPI.getMessageManager().sendMessage(messageChannel, "done.");
-            } else if (message.getMentionedRoles().size() == 1) {
-                Role role = message.getMentionedRoles().get(0);
-                Lists.getRolePermissions().put(role.getIdLong(), SimpleRank.SR_ADMIN);
-                botAPI.getMessageManager().sendMessage(messageChannel, "done.");
-            }
+            if (message.getMentionedUsers().size() == 1)
+                setUserPermission(botAPI, pm, messageChannel, message, SimpleRank.SR_ADMIN);
+            else if (message.getMentionedRoles().size() == 1)
+                setRolePermission(botAPI, pm, messageChannel, message, SimpleRank.SR_ADMIN);
         }
+    }
+
+    private void checkUserPermission(BotAPI botAPI, PermissionManager pm, MessageChannel messageChannel, Message message, SimpleRank simpleRank){
+        User target = message.getMentionedUsers().get(0);
+        boolean atLeast = pm.userAtLeast(target, simpleRank);
+        boolean higher = pm.userHigherThan(target, simpleRank);
+        boolean lower = pm.userLowerThan(target, simpleRank);
+        botAPI.getMessageManager().sendMessage(messageChannel, String.format(":thinking: **%s** to **%s**? `AtLeast`:`%s`, `Higher`:`%s`, `Lower`:`%s`", target.getName(), simpleRank.getDescription(), atLeast, higher, lower));
+    }
+
+    private void checkRolePermission(BotAPI botAPI, PermissionManager pm, MessageChannel messageChannel, Message message, SimpleRank simpleRank){
+        Role role = message.getMentionedRoles().get(0);
+        boolean atLeast = pm.roleAtLeast(role, simpleRank);
+        boolean higher = pm.roleHigherThan(role, simpleRank);
+        boolean lower = pm.roleLowerThan(role, simpleRank);
+        botAPI.getMessageManager().sendMessage(messageChannel, String.format(":thinking: **%s** to **%s**? `AtLeast`:`%s`, `Higher`:`%s`, `Lower`:`%s`", role.getName(), simpleRank.getDescription(), atLeast, higher, lower));
+    }
+
+    private void setUserPermission(BotAPI botAPI, PermissionManager pm, MessageChannel messageChannel, Message message, SimpleRank simpleRank){
+        User target = message.getMentionedUsers().get(0);
+        pm.setUserPermission(target, simpleRank);
+        botAPI.getMessageManager().sendMessage(messageChannel, "done.");
+    }
+
+    private void setRolePermission(BotAPI botAPI, PermissionManager pm, MessageChannel messageChannel, Message message, SimpleRank simpleRank){
+        Role role = message.getMentionedRoles().get(0);
+        pm.setRolePermission(botAPI, role, simpleRank);
+        botAPI.getMessageManager().sendMessage(messageChannel, "done.");
     }
 }

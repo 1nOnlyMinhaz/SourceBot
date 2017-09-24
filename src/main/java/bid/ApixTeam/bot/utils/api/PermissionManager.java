@@ -1,5 +1,6 @@
 package bid.ApixTeam.bot.utils.api;
 
+import bid.ApixTeam.bot.utils.BotAPI;
 import bid.ApixTeam.bot.utils.vars.Lists;
 import bid.ApixTeam.bot.utils.vars.enums.SimpleRank;
 import net.dv8tion.jda.core.entities.Role;
@@ -61,11 +62,11 @@ public class PermissionManager extends DatabaseManager {
         }
     }
 
-    public void setUserRank(User user, SimpleRank simpleRank){
+    private void setUserRank(User user, SimpleRank simpleRank){
         Lists.getUserPermissions().put(user.getIdLong(), simpleRank);
     }
 
-    public void setUserRank(long userId, SimpleRank simpleRank){
+    void setUserRank(long userId, SimpleRank simpleRank){
         Lists.getUserPermissions().put(userId, simpleRank);
     }
 
@@ -84,6 +85,34 @@ public class PermissionManager extends DatabaseManager {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    private void setRoleRank(Role role, SimpleRank simpleRank){
+        Lists.getRolePermissions().put(role.getIdLong(), simpleRank);
+    }
+
+    void setRoleRank(long roleId, SimpleRank simpleRank){
+        Lists.getRolePermissions().put(roleId, simpleRank);
+    }
+
+    public void createRolePermission(BotAPI botAPI, Role role, SimpleRank simpleRank){
+        if(Lists.getRolePermissions().containsKey(role.getIdLong())){
+            setRolePermission(botAPI, role, simpleRank);
+            return;
+        }
+
+        botAPI.getSettingsManager().addSettings(simpleRank.getSettings(), role.getId());
+        setRoleRank(role, simpleRank);
+    }
+
+    public void setRolePermission(BotAPI botAPI, Role role, SimpleRank simpleRank){
+        if(!Lists.getRolePermissions().containsKey(role.getIdLong())) {
+            createRolePermission(botAPI, role, simpleRank);
+            return;
+        }
+
+        botAPI.getSettingsManager().updateSettings(simpleRank.getSettings(), role.getId());
+        setRoleRank(role, simpleRank);
     }
 
     public SimpleRank getUserPermission(User user){
