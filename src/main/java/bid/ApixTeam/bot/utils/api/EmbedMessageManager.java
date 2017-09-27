@@ -2,6 +2,7 @@ package bid.ApixTeam.bot.utils.api;
 
 import bid.ApixTeam.bot.utils.BotAPI;
 import bid.ApixTeam.bot.utils.vars.Lists;
+import bid.ApixTeam.bot.utils.vars.Messages;
 import bid.ApixTeam.bot.utils.vars.enums.RankingType;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.MessageEmbed;
@@ -22,6 +23,20 @@ public class EmbedMessageManager {
 
     public static EmbedMessageManager getEmbedMessageManager() {
         return embedMessageManager;
+    }
+
+    public MessageEmbed getAsDescription(String s){
+        return new EmbedBuilder()
+                .setColor(new Color(234, 255, 235))
+                .setDescription(s)
+                .build();
+    }
+
+    public MessageEmbed getUsage(String command){
+        return new EmbedBuilder()
+                .setColor(new Color(234, 255, 235))
+                .setDescription(String.format(Messages.INCORRECT_USAGE, command))
+                .build();
     }
 
     public MessageEmbed getRankEmbed(BotAPI botAPI, User user) {

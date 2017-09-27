@@ -118,7 +118,7 @@ public class ComClear implements CommandExecutor {
         }
     }
 
-    private String getUsage() {
-        return String.format(Messages.INCORRECT_USAGE, "!clear {number} [opt. @user]");
+    private MessageEmbed getUsage() {
+        return new BotAPI().getEmbedMessageManager().getUsage("!clear {number} [opt. @user]");
     }
 }

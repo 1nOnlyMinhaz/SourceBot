@@ -2,7 +2,6 @@ package bid.ApixTeam.bot.libs.commands;
 
 import bid.ApixTeam.bot.utils.BotAPI;
 import bid.ApixTeam.bot.utils.api.EmbedMessageManager;
-import bid.ApixTeam.bot.utils.vars.Messages;
 import de.btobastian.sdcf4j.Command;
 import de.btobastian.sdcf4j.CommandExecutor;
 import net.dv8tion.jda.core.entities.Message;
@@ -21,16 +20,16 @@ public class ComHelp implements CommandExecutor {
         EmbedMessageManager embedManager = new EmbedMessageManager();
 
         if(objects.length != 0) {
-            botAPI.getMessageManager().sendMessage(messageChannel, String.format(Messages.INCORRECT_USAGE, "!help"));
+            botAPI.getMessageManager().sendMessage(messageChannel, embedManager.getUsage("!help"));
             return;
         }
 
         if(messageChannel.getType().isGuild()) {
             try {
                 botAPI.getPrivateMessageManager().sendMessage(user, embedManager.getHelpEmbed(botAPI, user));
-                botAPI.getMessageManager().sendMessage(messageChannel, ":white_check_mark: *sent you some help*.. please check your PMs.");
+                botAPI.getMessageManager().sendMessage(messageChannel, embedManager.getAsDescription(":white_check_mark: *sent you some help*.. please check your PMs."));
             } catch (ErrorResponseException e) {
-                botAPI.getMessageManager().sendMessage(messageChannel, "Umm :cold_sweat: couldn't send you help :sob: maybe it's because your PMs are locked!");
+                botAPI.getMessageManager().sendMessage(messageChannel, embedManager.getAsDescription("Umm :cold_sweat: couldn't send you help :sob: maybe it's because your PMs are locked!"));
             }
         } else {
             botAPI.getMessageManager().sendMessage(messageChannel, embedManager.getHelpEmbed(botAPI, user));

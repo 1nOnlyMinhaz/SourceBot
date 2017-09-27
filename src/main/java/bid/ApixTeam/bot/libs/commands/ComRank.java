@@ -2,7 +2,6 @@ package bid.ApixTeam.bot.libs.commands;
 
 import bid.ApixTeam.bot.utils.BotAPI;
 import bid.ApixTeam.bot.utils.api.EmbedMessageManager;
-import bid.ApixTeam.bot.utils.vars.Messages;
 import de.btobastian.sdcf4j.Command;
 import de.btobastian.sdcf4j.CommandExecutor;
 import net.dv8tion.jda.core.entities.Message;
@@ -25,7 +24,7 @@ public class ComRank implements CommandExecutor {
             else if (message.getMentionedUsers().size() == 1)
                 botAPI.getMessageManager().sendMessage(messageChannel, embedManager.getRankEmbed(botAPI, message.getMentionedUsers().get(0)));
             else
-                botAPI.getMessageManager().sendMessage(messageChannel, String.format(Messages.INCORRECT_USAGE, "!rank [@mention]"));
+                botAPI.getMessageManager().sendMessage(messageChannel, botAPI.getEmbedMessageManager().getUsage("!rank [@mention]"));
         }else
             if(objects.length == 0)
                 botAPI.getPrivateMessageManager().sendMessage(user, embedManager.getRankEmbed(botAPI, user));
