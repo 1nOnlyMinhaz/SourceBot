@@ -25,6 +25,20 @@ public class EmbedMessageManager {
         return embedMessageManager;
     }
 
+    public MessageEmbed getNoPermission(){
+        return new EmbedBuilder()
+                .setColor(new Color(234, 255, 235))
+                .setDescription(Messages.NO_PERMISSION)
+                .build();
+    }
+
+    public MessageEmbed getNoComPermission(){
+        return new EmbedBuilder()
+                .setColor(new Color(234, 255, 235))
+                .setDescription(Messages.NO_COM_PERMISSION)
+                .build();
+    }
+
     public MessageEmbed getAsDescription(String s){
         return new EmbedBuilder()
                 .setColor(new Color(234, 255, 235))

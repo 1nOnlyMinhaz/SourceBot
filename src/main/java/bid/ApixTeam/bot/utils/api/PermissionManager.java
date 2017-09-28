@@ -3,6 +3,8 @@ package bid.ApixTeam.bot.utils.api;
 import bid.ApixTeam.bot.utils.BotAPI;
 import bid.ApixTeam.bot.utils.vars.Lists;
 import bid.ApixTeam.bot.utils.vars.enums.SimpleRank;
+import net.dv8tion.jda.core.entities.Guild;
+import net.dv8tion.jda.core.entities.Member;
 import net.dv8tion.jda.core.entities.Role;
 import net.dv8tion.jda.core.entities.User;
 
@@ -10,6 +12,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 /**
  * TSC-Bot was created by ApixTeam (C) 2017
@@ -101,7 +104,7 @@ public class PermissionManager extends DatabaseManager {
             return;
         }
 
-        botAPI.getSettingsManager().addSettings(simpleRank.getSettings(), role.getId());
+        botAPI.getSettingsManager().addSetting(simpleRank.getSettings(), role.getId());
         setRoleRank(role, simpleRank);
     }
 
@@ -111,7 +114,7 @@ public class PermissionManager extends DatabaseManager {
             return;
         }
 
-        botAPI.getSettingsManager().updateSettings(simpleRank.getSettings(), role.getId());
+        botAPI.getSettingsManager().updateSetting(simpleRank.getSettings(), role.getId());
         setRoleRank(role, simpleRank);
     }
 
@@ -121,6 +124,58 @@ public class PermissionManager extends DatabaseManager {
 
     public SimpleRank getRolePermission(Role role){
         return Lists.getRolePermissions().get(role.getIdLong());
+    }
+
+    public List<Role> getUserRoles(Member member){
+        return member.getRoles();
+    }
+
+    public boolean userRoleAtLeast(Member member, SimpleRank simpleRank) {
+        List<Role> roles = getUserRoles(member);
+        boolean b = false;
+        for (Role role : roles) {
+            if (!Lists.getRolePermissions().containsKey(role.getIdLong()))
+                continue;
+
+            if(b)
+                break;
+
+            b = getRolePermission(role).isAtLeast(simpleRank);
+        }
+
+        return b;
+    }
+
+    public boolean userRoleHigherThan(Member member, SimpleRank simpleRank) {
+        List<Role> roles = getUserRoles(member);
+        boolean b = false;
+        for (Role role : roles) {
+            if (!Lists.getRolePermissions().containsKey(role.getIdLong()))
+                continue;
+
+            if(b)
+                break;
+
+            b = getRolePermission(role).isHigherThan(simpleRank);
+        }
+
+        return b;
+    }
+
+    public boolean userRoleLowerThan(Member member, SimpleRank simpleRank) {
+        List<Role> roles = getUserRoles(member);
+        boolean b = false;
+        for (Role role : roles) {
+            if (!Lists.getRolePermissions().containsKey(role.getIdLong()))
+                continue;
+
+            if(b)
+                break;
+
+            b = getRolePermission(role).isLowerThan(simpleRank);
+        }
+
+        return b;
     }
 
     public boolean userAtLeast(User user, SimpleRank simpleRank) {

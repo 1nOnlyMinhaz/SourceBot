@@ -33,11 +33,9 @@ public class SettingsManager extends DatabaseManager {
             while (rs.next()) {
                 Settings setting = Settings.getSetting(rs.getString("option"));
                 Lists.getSettings().put(setting, rs.getString("value"));
-                System.out.println(Lists.getSettings().toString());
 
                 if(rs.getString("option").startsWith("permission"))
                     Lists.getRolePermissions().put(Long.valueOf(rs.getString("value")), SimpleRank.valueOf(rs.getString("option").replace("permission-", "").replace("-", "_").toUpperCase()));
-                System.out.println(Lists.getRolePermissions().toString());
             }
             getDatabaseManager().closeConnection(connection, ps, rs);
         } catch (SQLException e) {
@@ -56,9 +54,9 @@ public class SettingsManager extends DatabaseManager {
 
             while (rs.next()) {
                 Lists.getUsers().add(rs.getLong("UserID"));
-                if (rs.getString("Permission") != null || !rs.getString("Permission").isEmpty())
-                    botAPI.getPermissionManager().setUserRank(rs.getLong("UserID"), SimpleRank.getRank(rs.getString("Permission")));
-                System.out.println("retrieved " + rs.getString("Username"));
+                if (rs.getString("Permission") == null || rs.getString("Permission").isEmpty())
+                    continue;
+                botAPI.getPermissionManager().setUserRank(rs.getLong("UserID"), SimpleRank.getRank(rs.getString("Permission")));
             }
 
             getDatabaseManager().closeConnection(connection, ps, rs);
@@ -67,13 +65,13 @@ public class SettingsManager extends DatabaseManager {
         }
     }
 
-    public boolean checkSettings(Settings settings){
+    public boolean checkSetting(Settings settings){
         return Lists.getSettings().containsKey(settings);
     }
 
-    public void addSettings(Settings settings, String value){
-        if(checkSettings(settings)){
-            updateSettings(settings, value);
+    public void addSetting(Settings settings, String value){
+        if(checkSetting(settings)){
+            updateSetting(settings, value);
             return;
         }
 
@@ -89,9 +87,9 @@ public class SettingsManager extends DatabaseManager {
         }
     }
 
-    public void updateSettings(Settings settings, String value){
-        if(!checkSettings(settings)){
-            addSettings(settings, value);
+    public void updateSetting(Settings settings, String value){
+        if(!checkSetting(settings)){
+            addSetting(settings, value);
             return;
         }
 

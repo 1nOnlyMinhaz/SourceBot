@@ -29,7 +29,12 @@ public class ComCheck implements CommandExecutor {
             return;
         }
 
-        if (objects[0].toString().equalsIgnoreCase("perm-jr-mod")) {
+        if (objects[0].toString().equalsIgnoreCase("perm-muted")) {
+            if (message.getMentionedUsers().size() == 1)
+                botAPI.getMessageManager().sendMessage(messageChannel, botAPI.getEmbedMessageManager().getAsDescription("Please use the `!mute` command instead."));
+            else if (message.getMentionedRoles().size() == 1)
+                checkRolePermission(botAPI, pm, messageChannel, message, SimpleRank.MUTED);
+        } else if (objects[0].toString().equalsIgnoreCase("perm-jr-mod")) {
             if (message.getMentionedUsers().size() == 1)
                 checkUserPermission(botAPI, pm, messageChannel, message, SimpleRank.JR_MOD);
             else if (message.getMentionedRoles().size() == 1)
@@ -49,6 +54,11 @@ public class ComCheck implements CommandExecutor {
                 checkUserPermission(botAPI, pm, messageChannel, message, SimpleRank.SR_ADMIN);
             else if (message.getMentionedRoles().size() == 1)
                 checkRolePermission(botAPI, pm, messageChannel, message, SimpleRank.SR_ADMIN);
+        } else if (objects[0].toString().equalsIgnoreCase("set-muted")) {
+            if (message.getMentionedUsers().size() == 1)
+                botAPI.getMessageManager().sendMessage(messageChannel, botAPI.getEmbedMessageManager().getAsDescription("Please use the `!mute` command instead."));
+            else if (message.getMentionedRoles().size() == 1)
+                setRolePermission(botAPI, pm, messageChannel, message, SimpleRank.MUTED);
         } else if (objects[0].toString().equalsIgnoreCase("set-jr-mod")) {
             if (message.getMentionedUsers().size() == 1)
                 setUserPermission(botAPI, pm, messageChannel, message, SimpleRank.JR_MOD);
@@ -77,7 +87,7 @@ public class ComCheck implements CommandExecutor {
         boolean atLeast = pm.userAtLeast(target, simpleRank);
         boolean higher = pm.userHigherThan(target, simpleRank);
         boolean lower = pm.userLowerThan(target, simpleRank);
-        botAPI.getMessageManager().sendMessage(messageChannel, String.format(":thinking: **%s** to **%s**? `AtLeast`:`%s`, `Higher`:`%s`, `Lower`:`%s`", target.getName(), simpleRank.getDescription(), atLeast, higher, lower));
+        botAPI.getMessageManager().sendMessage(messageChannel, botAPI.getEmbedMessageManager().getAsDescription(String.format(":thinking: **%s** to **%s**? `AtLeast`:`%s`, `Higher`:`%s`, `Lower`:`%s`", target.getName(), simpleRank.getDescription(), atLeast, higher, lower)));
     }
 
     private void checkRolePermission(BotAPI botAPI, PermissionManager pm, MessageChannel messageChannel, Message message, SimpleRank simpleRank){
@@ -85,7 +95,7 @@ public class ComCheck implements CommandExecutor {
         boolean atLeast = pm.roleAtLeast(role, simpleRank);
         boolean higher = pm.roleHigherThan(role, simpleRank);
         boolean lower = pm.roleLowerThan(role, simpleRank);
-        botAPI.getMessageManager().sendMessage(messageChannel, String.format(":thinking: **%s** to **%s**? `AtLeast`:`%s`, `Higher`:`%s`, `Lower`:`%s`", role.getName(), simpleRank.getDescription(), atLeast, higher, lower));
+        botAPI.getMessageManager().sendMessage(messageChannel, botAPI.getEmbedMessageManager().getAsDescription(String.format(":thinking: **%s** to **%s**? `AtLeast`:`%s`, `Higher`:`%s`, `Lower`:`%s`", role.getName(), simpleRank.getDescription(), atLeast, higher, lower)));
     }
 
     private void setUserPermission(BotAPI botAPI, PermissionManager pm, MessageChannel messageChannel, Message message, SimpleRank simpleRank){

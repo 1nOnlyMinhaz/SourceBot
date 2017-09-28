@@ -20,6 +20,7 @@ public class Lists {
     private static HashMap<Long, SimpleRank> rolePermissions = new HashMap<>();
     private static HashMap<Settings, String> settings = new HashMap<>();
     private static ArrayList<Long> users = new ArrayList<>();
+    private static ArrayList<Long> mutedUsers = new ArrayList<>();
 
     public static ConcurrentHashMap<Long, Long> getUserRankingCooldown() {
         return userRankingCooldown;
@@ -51,5 +52,9 @@ public class Lists {
 
     public static ArrayList<Long> getUsers() {
         return users;
+    }
+
+    public static ArrayList<Long> getMutedUsers() {
+        return mutedUsers;
     }
 }

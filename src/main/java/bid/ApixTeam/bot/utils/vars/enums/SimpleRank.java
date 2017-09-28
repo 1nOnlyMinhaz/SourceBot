@@ -5,6 +5,7 @@ package bid.ApixTeam.bot.utils.vars.enums;
  * in association with TheSourceCode (C) 2017
  */
 public enum SimpleRank {
+    MUTED("Muted", Settings.ROLES_MUTED),
     JR_MOD("Junior Moderator", Settings.ROLES_JR_MOD),
     SR_MOD("Senior Moderator", Settings.ROLES_SR_MOD),
     JR_ADMIN("Junior Administrator", Settings.ROLES_JR_ADMIN),

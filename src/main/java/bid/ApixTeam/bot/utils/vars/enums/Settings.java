@@ -8,6 +8,7 @@ public enum Settings {
     MAIN_GUILD_ID("default-guild-id"),
     CHAN_RANK_CHECK("channel-rank-check"),
     CHAN_SLOWMODE("channel-slowmode"),
+    ROLES_MUTED("permission-muted"),
     ROLES_JR_MOD("permission-jr-mod"),
     ROLES_SR_MOD("permission-sr-mod"),
     ROLES_JR_ADMIN("permission-jr-admin"),
