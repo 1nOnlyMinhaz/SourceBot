@@ -2,6 +2,7 @@ package bid.ApixTeam.bot.libs.commands;
 
 import bid.ApixTeam.bot.utils.BotAPI;
 import bid.ApixTeam.bot.utils.api.PermissionManager;
+import bid.ApixTeam.bot.utils.vars.Lists;
 import bid.ApixTeam.bot.utils.vars.Messages;
 import bid.ApixTeam.bot.utils.vars.enums.SimpleRank;
 import de.btobastian.sdcf4j.Command;
@@ -79,6 +80,8 @@ public class ComCheck implements CommandExecutor {
                 setUserPermission(botAPI, pm, messageChannel, message, SimpleRank.SR_ADMIN);
             else if (message.getMentionedRoles().size() == 1)
                 setRolePermission(botAPI, pm, messageChannel, message, SimpleRank.SR_ADMIN);
+        } else if (objects[0].toString().equalsIgnoreCase("perms")) {
+            botAPI.getMessageManager().sendMessage(messageChannel, botAPI.getEmbedMessageManager().getAsDescription(Lists.getRolePermissions().toString() + " <:> " + Lists.getSettings()));
         }
     }
 
