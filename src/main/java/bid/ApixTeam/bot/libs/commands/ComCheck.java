@@ -55,6 +55,11 @@ public class ComCheck implements CommandExecutor {
                 checkUserPermission(botAPI, pm, messageChannel, message, SimpleRank.SR_ADMIN);
             else if (message.getMentionedRoles().size() == 1)
                 checkRolePermission(botAPI, pm, messageChannel, message, SimpleRank.SR_ADMIN);
+        } else if (objects[0].toString().equalsIgnoreCase("perm-chief-staff")) {
+            if (message.getMentionedUsers().size() == 1)
+                checkUserPermission(botAPI, pm, messageChannel, message, SimpleRank.CHIEF_ADMIN);
+            else if (message.getMentionedRoles().size() == 1)
+                checkRolePermission(botAPI, pm, messageChannel, message, SimpleRank.CHIEF_ADMIN);
         } else if (objects[0].toString().equalsIgnoreCase("set-muted")) {
             if (message.getMentionedUsers().size() == 1)
                 botAPI.getMessageManager().sendMessage(messageChannel, botAPI.getEmbedMessageManager().getAsDescription("Please use the `!mute` command instead."));
@@ -80,6 +85,11 @@ public class ComCheck implements CommandExecutor {
                 setUserPermission(botAPI, pm, messageChannel, message, SimpleRank.SR_ADMIN);
             else if (message.getMentionedRoles().size() == 1)
                 setRolePermission(botAPI, pm, messageChannel, message, SimpleRank.SR_ADMIN);
+        } else if (objects[0].toString().equalsIgnoreCase("set-chief-staff")) {
+            if (message.getMentionedUsers().size() == 1)
+                setUserPermission(botAPI, pm, messageChannel, message, SimpleRank.CHIEF_ADMIN);
+            else if (message.getMentionedRoles().size() == 1)
+                setRolePermission(botAPI, pm, messageChannel, message, SimpleRank.CHIEF_ADMIN);
         } else if (objects[0].toString().equalsIgnoreCase("perms")) {
             botAPI.getMessageManager().sendMessage(messageChannel, botAPI.getEmbedMessageManager().getAsDescription(Lists.getRolePermissions().toString() + " <:> " + Lists.getSettings()));
         }
