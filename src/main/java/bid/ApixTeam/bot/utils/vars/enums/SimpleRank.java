@@ -10,6 +10,7 @@ public enum SimpleRank {
     SR_MOD("Senior Moderator", Settings.ROLES_SR_MOD),
     JR_ADMIN("Junior Administrator", Settings.ROLES_JR_ADMIN),
     SR_ADMIN("Senior Administrator", Settings.ROLES_SR_ADMIN),
+    CHIEF_ADMIN("Chief Administrator", Settings.ROLES_CHIEF_ADMIN),
     BOT_ADMIN("Bot Administrator", Settings.ROLES_BOT_ADMIN);
 
     final String description;

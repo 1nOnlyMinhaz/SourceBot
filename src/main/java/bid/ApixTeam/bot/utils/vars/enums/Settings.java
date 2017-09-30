@@ -13,6 +13,7 @@ public enum Settings {
     ROLES_SR_MOD("permission-sr-mod"),
     ROLES_JR_ADMIN("permission-jr-admin"),
     ROLES_SR_ADMIN("permission-sr-admin"),
+    ROLES_CHIEF_ADMIN("permission-chief-admin"),
     ROLES_BOT_ADMIN("permission-bot-admin");
 
     final String option;

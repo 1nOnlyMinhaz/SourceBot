@@ -16,8 +16,11 @@ public class DataSource {
     static {
         HikariConfig config = new HikariConfig();
         config.setJdbcUrl("jdbc:mysql://uae.sytes.net:3306/tsc_discord");
+        //config.setJdbcUrl("jdbc:mysql://localhost:3306/tsc_discord");
         config.setUsername("tscroot");
         config.setPassword("fvIyCvRohwjCjuqe");
+        //config.setUsername("root");
+        //config.setPassword("");
         config.addDataSourceProperty("cachePrepStmts", "true");
         config.addDataSourceProperty("prepStmtCacheSize", "250");
         config.addDataSourceProperty("prepStmtCacheSqlLimit", "2048");
