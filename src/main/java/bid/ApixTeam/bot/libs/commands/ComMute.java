@@ -39,7 +39,7 @@ public class ComMute implements CommandExecutor {
         String s;
         ArrayList<String> arrayList = new ArrayList<>();
         for(User target : message.getMentionedUsers()){
-            if(pm.userHigherThan(target, SimpleRank.JR_MOD) || pm.userRoleHigherThan(guild.getMember(target), SimpleRank.JR_MOD) || target == guild.getJDA().getSelfUser())
+            if(pm.userAtLeast(target, SimpleRank.JR_MOD) || pm.userRoleAtLeast(guild.getMember(target), SimpleRank.JR_MOD) || target == guild.getJDA().getSelfUser())
                 continue;
 
             guildController.addSingleRoleToMember(guild.getMember(target), guild.getRoleById(Lists.getSettings().get(Settings.ROLES_MUTED))).queue();
