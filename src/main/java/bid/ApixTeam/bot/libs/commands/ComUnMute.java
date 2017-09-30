@@ -8,7 +8,10 @@ import bid.ApixTeam.bot.utils.vars.enums.Settings;
 import bid.ApixTeam.bot.utils.vars.enums.SimpleRank;
 import de.btobastian.sdcf4j.Command;
 import de.btobastian.sdcf4j.CommandExecutor;
-import net.dv8tion.jda.core.entities.*;
+import net.dv8tion.jda.core.entities.Guild;
+import net.dv8tion.jda.core.entities.Message;
+import net.dv8tion.jda.core.entities.MessageChannel;
+import net.dv8tion.jda.core.entities.User;
 import net.dv8tion.jda.core.managers.GuildController;
 
 import java.util.ArrayList;
@@ -28,7 +31,7 @@ public class ComUnMute implements CommandExecutor {
             botAPI.getMessageManager().sendMessage(messageChannel, embedManager.getNoComPermission());
             return;
         }else if(strings.length < 1 && message.getMentionedUsers().size() < 1){
-            botAPI.getMessageManager().sendMessage(messageChannel, embedManager.getAsDescription("Please make sure to mention at least one user that should get unmuted :monkey_face:"));
+            botAPI.getMessageManager().sendMessage(messageChannel, embedManager.getAsDescription("Please make sure to mention at least one user that should get unmuted!"));
             return;
         }
 
@@ -56,6 +59,6 @@ public class ComUnMute implements CommandExecutor {
         if(s.isEmpty())
             return;
 
-        botAPI.getMessageManager().sendMessage(messageChannel, embedManager.getAsDescription(String.format("%s has been unmuted :monkey_face:", s)));
+        botAPI.getMessageManager().sendMessage(messageChannel, embedManager.getAsDescription(String.format("%s %s been unmuted!", s, message.getMentionedUsers().size() > 1 ? "have" : "has")));
     }
 }

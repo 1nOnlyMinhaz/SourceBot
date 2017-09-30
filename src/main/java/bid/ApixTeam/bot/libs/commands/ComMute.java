@@ -31,7 +31,7 @@ public class ComMute implements CommandExecutor {
             botAPI.getMessageManager().sendMessage(messageChannel, embedManager.getNoComPermission());
             return;
         }else if(strings.length < 1 && message.getMentionedUsers().size() < 1){
-            botAPI.getMessageManager().sendMessage(messageChannel, embedManager.getAsDescription("Please make sure to mention at least one user that should get muted :speak_no_evil:"));
+            botAPI.getMessageManager().sendMessage(messageChannel, embedManager.getAsDescription("Please make sure to mention at least one user that should get muted!"));
             return;
         }
 
@@ -62,6 +62,6 @@ public class ComMute implements CommandExecutor {
         if(s.isEmpty())
             return;
 
-        botAPI.getMessageManager().sendMessage(messageChannel, embedManager.getAsDescription(String.format("%s has been muted :speak_no_evil:", s)));
+        botAPI.getMessageManager().sendMessage(messageChannel, embedManager.getAsDescription(String.format("%s %s been muted!", s, message.getMentionedUsers().size() > 1 ? "have" : "has")));
     }
 }
