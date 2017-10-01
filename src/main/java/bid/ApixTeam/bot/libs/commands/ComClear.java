@@ -2,7 +2,6 @@ package bid.ApixTeam.bot.libs.commands;
 
 import bid.ApixTeam.bot.utils.BotAPI;
 import bid.ApixTeam.bot.utils.api.EmbedMessageManager;
-import bid.ApixTeam.bot.utils.vars.Messages;
 import de.btobastian.sdcf4j.Command;
 import de.btobastian.sdcf4j.CommandExecutor;
 import net.dv8tion.jda.core.entities.*;
@@ -64,10 +63,10 @@ public class ComClear implements CommandExecutor {
                         return;
                     }
                     String s = amount == 1 ? "message" : "messages";
-                    List<Message> messageHistory = new MessageHistory(messageChannel).retrievePast(amount == 100 ? amount : amount + 1).complete();
+                    List<Message> messageHistory = new MessageHistory(messageChannel).retrievePast(100).complete();
 
                     botAPI.getMessageManager().deleteMessage(message, "Auto Cleared.");
-                    botAPI.getMessageManager().clearUserMessages(guild.getTextChannelById(messageChannel.getId()), messageHistory, clrUser);
+                    botAPI.getMessageManager().clearUserMessages(guild.getTextChannelById(messageChannel.getId()), messageHistory, clrUser, amount);
                     Message m = botAPI.getMessageManager().sendMessage(messageChannel, embed.getClearSuccess(amount, s));
 
                     botAPI.getMessageManager().deleteMessageAfter(m, "Auto Cleared", 6L, TimeUnit.SECONDS);
@@ -110,10 +109,10 @@ public class ComClear implements CommandExecutor {
                     botAPI.getMessageManager().sendMessage(messageChannel, embed.getClearLimit());
                     return;
                 }
-                List<Message> messageHistory = new MessageHistory(messageChannel).retrievePast(amount == 100 ? amount : amount + 1).complete();
+                List<Message> messageHistory = new MessageHistory(messageChannel).retrievePast(100).complete();
 
                 botAPI.getMessageManager().deleteMessage(message, "Auto Cleared.");
-                botAPI.getMessageManager().clearUserMessages(guild.getTextChannelById(messageChannel.getId()), messageHistory, clrUser);
+                botAPI.getMessageManager().clearUserMessages(guild.getTextChannelById(messageChannel.getId()), messageHistory, clrUser, amount);
             }
         }
     }
