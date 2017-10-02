@@ -141,7 +141,6 @@ public class PermissionManager extends DatabaseManager {
                 break;
 
             b = getRolePermission(role).isAtLeast(simpleRank);
-            System.out.println(b);
         }
 
         return b;

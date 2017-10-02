@@ -60,16 +60,10 @@ public class MessageManager {
     public void clearUserMessages(TextChannel textChannel, Collection<Message> messages, User user, int amount) {
         int counter = 1;
         for(Message iMessage : messages) {
-            System.out.println(messages.size());
-            System.out.println(iMessage.getContent());
-        }
-        for(Message iMessage : messages) {
             if(counter > amount) break;
             if(iMessage.getAuthor().getId().equals(user.getId())) {
                 Consumer<Void> callback = (response) -> System.out.printf("[%s] [INFO] [API] [%s:%s] Bulk message delete. %n", new Date(), user.getName(), textChannel.getName());
                 textChannel.deleteMessageById(iMessage.getId()).queue(callback);
-                System.out.println(iMessage.getContent());
-                System.out.println(iMessage.getAuthor().getId().equals(user.getId()));
                 counter++;
             }
         }

@@ -38,8 +38,8 @@ public class ComMute implements CommandExecutor {
         GuildController guildController = guild.getController();
         String s;
         ArrayList<String> arrayList = new ArrayList<>();
-        for(User target : message.getMentionedUsers()){
-            if(pm.userAtLeast(target, SimpleRank.JR_MOD) || pm.userRoleAtLeast(guild.getMember(target), SimpleRank.JR_MOD) || target == guild.getJDA().getSelfUser())
+        for(User target : message.getMentionedUsers()) {
+            if (pm.userAtLeast(target, SimpleRank.JR_MOD) || pm.userRoleAtLeast(guild.getMember(target), SimpleRank.JR_MOD) || target == guild.getJDA().getSelfUser())
                 continue;
 
             guildController.addSingleRoleToMember(guild.getMember(target), guild.getRoleById(Lists.getSettings().get(Settings.ROLES_MUTED))).queue();
@@ -59,8 +59,10 @@ public class ComMute implements CommandExecutor {
             }
         } else s = String.join(", ", arrayList);
 
-        if(s.isEmpty())
+        if(s.isEmpty()) {
+            botAPI.getMessageManager().sendMessage(messageChannel, embedManager.getAsDescription(message.getMentionedUsers().size() == 1 ? "You cannot mute that person." : "You cannot mute those people."));
             return;
+        }
 
         botAPI.getMessageManager().sendMessage(messageChannel, embedManager.getAsDescription(String.format("%s %s been muted!", s, message.getMentionedUsers().size() > 1 ? "have" : "has")));
     }
