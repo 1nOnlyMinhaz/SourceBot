@@ -25,5 +25,6 @@ public class Listener {
         commandHandler.registerCommand(new ComCheck());
         commandHandler.registerCommand(new ComMute());
         commandHandler.registerCommand(new ComUnMute());
+        commandHandler.registerCommand(new ComLevels());
     }
 }

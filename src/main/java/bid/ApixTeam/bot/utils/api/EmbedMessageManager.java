@@ -9,8 +9,7 @@ import net.dv8tion.jda.core.entities.MessageEmbed;
 import net.dv8tion.jda.core.entities.User;
 
 import java.awt.*;
-import java.util.HashMap;
-import java.util.Random;
+import java.util.*;
 
 /**
  * TSC-Bot was created by ApixTeam (C) 2017
@@ -82,6 +81,46 @@ public class EmbedMessageManager {
         embedBuilder.addField("Exp.", String.format("%s", exp + (Lists.getLevelsMaxExp().get(lvl) == null ? "/∞" : "/" + Lists.getLevelsMaxExp().get(lvl)) + (exp == tot ? "" : String.format(" (Total. %d)", tot))), true);
 
         return embedBuilder.build();
+    }
+
+    public MessageEmbed getRanksEmbed(BotAPI botAPI, User user) {
+        try {
+            HashMap<Long, HashMap<RankingType, Integer>> usersRanking = botAPI.getDatabaseManager().getUsersRanking(5);
+            HashMap<RankingType, Integer> userRanking;
+            EmbedBuilder embedBuilder = new EmbedBuilder();
+
+            embedBuilder.setColor(new Color(234, 255, 235));
+            embedBuilder.setAuthor("Top 5 leaderboard", null, user.getJDA().getSelfUser().getAvatarUrl());
+
+            Map<Integer, String> map = new TreeMap<>(Collections.reverseOrder());
+
+            for (Long l : usersRanking.keySet()) {
+                userRanking = usersRanking.get(l);
+                int rnk = userRanking.get(RankingType.RANK);
+                int lvl = userRanking.get(RankingType.LEVEL);
+                int exp = userRanking.get(RankingType.EXPERIENCE);
+                int tot = userRanking.get(RankingType.TOTAL_EXPERIENCE);
+                map.put(rnk, String.format("%d;%d;%d;%d;%d", l, rnk, lvl, exp, tot));
+                userRanking.clear();
+            }
+
+            ArrayList<Integer> keys = new ArrayList<>(map.keySet());
+            for (int i = keys.size() - 1; i >= 0; i--) {
+                String[] strings = map.get(keys.get(i)).split(";");
+                int rnk = Integer.parseInt(strings[1]);
+                int lvl = Integer.parseInt(strings[2]);
+                int exp = Integer.parseInt(strings[3]);
+                int tot = Integer.parseInt(strings[4]);
+                //embedBuilder.addField(String.format("%d. @%s#%s", rnk, user.getJDA().getUserById(Long.valueOf(strings[0])).getName(), user.getJDA().getUserById(Long.valueOf(strings[0])).getDiscriminator()), String.format("Lvl. %d | Exp. %d", lvl, exp), false);
+                embedBuilder.appendDescription(String.format("**%d**%s. %s\n", rnk, rnk == 1 ? "st" : rnk == 2 ? "nd" : rnk == 3 ? "rd" : "th", user.getJDA().getUserById(Long.valueOf(strings[0])).getAsMention()));
+                embedBuilder.appendDescription(String.format("`Lvl. %d` | `Exp. %d`\n", lvl, exp));
+            }
+
+            return embedBuilder.build();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public MessageEmbed getHelpEmbed(BotAPI botAPI, User user) {

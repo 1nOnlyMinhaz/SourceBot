@@ -94,6 +94,29 @@ public class DatabaseManager {
         return null;
     }
 
+    public HashMap<Long, HashMap<RankingType, Integer>> getUsersRanking(int limit) {
+        HashMap<Long, HashMap<RankingType, Integer>> rankings = new HashMap<>();
+        try {
+            Connection connection = getConnection();
+            connection.prepareStatement("SET @rank=0;").executeUpdate();
+            PreparedStatement ps = connection.prepareStatement("SELECT @rank:=@rank+1 AS rank, `UserID`, `level`, `experience`, `TotalExp` FROM `rankings` ORDER BY `level` DESC , `experience` DESC LIMIT ?");
+            ps.setInt(1, limit);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()){
+                HashMap<RankingType, Integer> ranking = new HashMap<>();
+                ranking.put(RankingType.RANK, rs.getInt("rank"));
+                ranking.put(RankingType.LEVEL, rs.getInt("level"));
+                ranking.put(RankingType.EXPERIENCE, rs.getInt("experience"));
+                ranking.put(RankingType.TOTAL_EXPERIENCE, rs.getInt("TotalExp"));
+                rankings.put(rs.getLong("UserID"), ranking);
+            }
+            return rankings;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     HashMap<RankingType, Integer> getUserRankings(User user) {
         if (!isInRanking(user))
             return null;
