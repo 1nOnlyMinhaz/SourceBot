@@ -124,14 +124,30 @@ public class EmbedMessageManager {
     }
 
     public MessageEmbed getHelpEmbed(BotAPI botAPI, User user) {
-        return new EmbedBuilder()
-                .setAuthor("Default commands", null, user.getJDA().getSelfUser().getAvatarUrl())
-                .addField("!help", "Displays this help message.", true)
-                .addField("!info [opt. rank | moderation | administration]", "Displays information on the bot.", false)
-                .addField("!rank [opt. @user]", "Displays your or another user's rank of activity on the server.", false)
-                .addField("!clear|!clean|!cls|!purge {number} [opt. @user] [opt. -s (silent)]", "Clears a number of messages, optionally from a user.", false)
-                .setColor(new Color(234, 255, 235))
-                .build();
+        EmbedBuilder defaultCommands = new EmbedBuilder();
+        EmbedBuilder jrmodCommands = new EmbedBuilder();
+        EmbedBuilder srmodCommands = new EmbedBuilder();
+        EmbedBuilder jradminCommands = new EmbedBuilder();
+        EmbedBuilder sradminCommands = new EmbedBuilder();
+
+        defaultCommands.setAuthor("Default Commands", null, user.getJDA().getSelfUser().getAvatarUrl())
+                .addField("!help", "You know...", false)
+                .addField("!info", "Sends you an informal message about the bot and server.\n **You MUST have PMs enabled for the server!**", false)
+                .addField("!rank", "Displays your activity ranking among the server. *More info at !info rank :wink:*", false)
+                .addField("!levels", "Displays the top few players for the rank system.", false)
+                .setColor(new Color(234, 255, 235));
+
+        jrmodCommands.setAuthor("Junior Moderation Commands", null, user.getJDA().getSelfUser().getAvatarUrl())
+                .addField("!clear", "Clear messages from the channel command is sent in.", false)
+                .addField("!slowmode", "Adds a delay to the chat.", false)
+                .addField("!slowmodeoff", "... boi", false)
+                .setColor(new Color(234, 255, 235));
+
+        srmodCommands.setAuthor("Senior Moderation Commands", null, user.getJDA().getSelfUser().getAvatarUrl())
+                .addField("!mute", "Prevents a user from speaking in all channels.", false)
+                .addField("!unmute", "... u dumb?", false)
+                .setColor(new Color(234, 255, 235));
+        return defaultCommands.build();
     }
 
     public MessageEmbed getInfoMain(BotAPI botAPI, User user) {
