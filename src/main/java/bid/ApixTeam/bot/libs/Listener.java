@@ -22,7 +22,7 @@ public class Listener {
         commandHandler.registerCommand(new ComInfo());
         commandHandler.registerCommand(new ComRank());
         commandHandler.registerCommand(new ComClear());
-        commandHandler.registerCommand(new ComCheck());
+        commandHandler.registerCommand(new ComSettings());
         commandHandler.registerCommand(new ComMute());
         commandHandler.registerCommand(new ComUnMute());
         commandHandler.registerCommand(new ComLevels());

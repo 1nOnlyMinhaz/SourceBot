@@ -16,7 +16,7 @@ import net.dv8tion.jda.core.entities.User;
  * TSC-Bot was created by ApixTeam (C) 2017
  * in association with TheSourceCode (C) 2017
  */
-public class ComCheck implements CommandExecutor {
+public class ComSettings implements CommandExecutor {
     @Command(aliases = "check")
     public void onCommand(User user, MessageChannel messageChannel, Message message, Object[] objects) {
         if (objects.length != 2)
