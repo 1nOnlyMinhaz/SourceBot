@@ -123,42 +123,63 @@ public class EmbedMessageManager {
         return null;
     }
 
-    public MessageEmbed getHelpEmbed(BotAPI botAPI, User user) {
+    public MessageEmbed getDefaultHelpEmbed(User user) {
         EmbedBuilder defaultCommands = new EmbedBuilder();
-        EmbedBuilder jrmodCommands = new EmbedBuilder();
-        EmbedBuilder srmodCommands = new EmbedBuilder();
-        EmbedBuilder jradminCommands = new EmbedBuilder();
-        EmbedBuilder sradminCommands = new EmbedBuilder();
 
         defaultCommands.setAuthor("Default Commands", null, user.getJDA().getSelfUser().getAvatarUrl())
-                .addField("!help", "You know...", false)
-                .addField("!info", "Sends you an informal message about the bot and server.\n **You MUST have PMs enabled for the server!**", false)
-                .addField("!rank", "Displays your activity ranking among the server. *More info at !info rank :wink:*", false)
-                .addField("!levels", "Displays the top few players for the rank system.", false)
-                .setColor(new Color(234, 255, 235));
-
-        jrmodCommands.setAuthor("Junior Moderation Commands", null, user.getJDA().getSelfUser().getAvatarUrl())
-                .addField("!clear", "Clear messages from the channel command is sent in.", false)
-                .addField("!slowmode", "Adds a delay to the chat.", false)
-                .addField("!slowmodeoff", "... boi", false)
-                .setColor(new Color(234, 255, 235));
-
-        srmodCommands.setAuthor("Senior Moderation Commands", null, user.getJDA().getSelfUser().getAvatarUrl())
-                .addField("!mute", "Prevents a user from speaking in all channels.", false)
-                .addField("!unmute", "... u dumb?", false)
+                .addField("!help", "You know... :unamused:", false)
+                .addField("!info", "Sends you an informal message about the bot and the server.\n **You MUST have PMs enabled for the server!**", false)
+                .addField("!rank", "Displays your activity ranking among the server.\n *More info at `!info rank` :wink:*", false)
+                .addField("!levels", "Displays the top `5` players on the ranking system.", false)
                 .setColor(new Color(234, 255, 235));
         return defaultCommands.build();
     }
 
-    public MessageEmbed getInfoMain(BotAPI botAPI, User user) {
+    public MessageEmbed getJrModHelpEmbed(User user) {
+        EmbedBuilder jr_modCommands = new EmbedBuilder();
+
+        jr_modCommands.setAuthor("Junior Moderation Commands", null, user.getJDA().getSelfUser().getAvatarUrl())
+                .addField("!clear", "Clear messages from the channel command is sent in.", false)
+                .addField("!slowmode", "Adds a delay to the chat.", false)
+                .setColor(new Color(234, 255, 235));
+        return jr_modCommands.build();
+    }
+
+    public MessageEmbed getSrModHelpEmbed(User user) {
+        EmbedBuilder sr_modCommands = new EmbedBuilder();
+
+        sr_modCommands.setAuthor("Senior Moderation Commands", null, user.getJDA().getSelfUser().getAvatarUrl())
+                .addField("!mute", "Prevents a user from speaking in all channels.", false)
+                .addField("!unmute", "... u dumb?", false)
+                .setColor(new Color(234, 255, 235));
+        return sr_modCommands.build();
+    }
+
+    public MessageEmbed getJrAdminHelpEmbed(User user) {
+        EmbedBuilder jr_adminCommands = new EmbedBuilder();
+        jr_adminCommands.setAuthor("Junior Administration Commands", null, user.getJDA().getSelfUser().getAvatarUrl())
+                .setColor(new Color(234, 255, 235));
+        return jr_adminCommands.build();
+    }
+
+    public MessageEmbed getSrAdminHelpEmbed(User user) {
+        EmbedBuilder sr_adminCommands = new EmbedBuilder();
+        sr_adminCommands.setAuthor("Senior Administration Commands", null, user.getJDA().getSelfUser().getAvatarUrl())
+                .setColor(new Color(234, 255, 235));
+        return sr_adminCommands.build();
+    }
+
+    public MessageEmbed getInfoMain(User user) {
         return new EmbedBuilder()
                 .setAuthor("Bot Information", null, user.getJDA().getSelfUser().getAvatarUrl())
-                .setDescription("TheSourceCodeBot was made by ApixTeam in association with TheSourceCode. It was made for only the TheSourceCode Discord server along with PMs. It has interesting commands which among them include implementation for submitting plugin spotlight forms, and user reports.")
+                .setDescription("**TheSourceCode Bot** was made by **ApixTeam** in association with **TheSourceCode**.")
+                .appendDescription(" It was made to work only for **TheSourceCode** Discord server along with PMs.")
+                .appendDescription(" It provides an interesting amount of commands which among them includes the implementation for submitting plugin spotlight forms, and user reports.")
                 .setColor(new Color(234, 255, 235))
                 .build();
     }
 
-    public MessageEmbed getInfoRank(BotAPI botAPI, User user) {
+    public MessageEmbed getInfoRank(User user) {
         return new EmbedBuilder()
                 .setAuthor("Rank Information", null, user.getJDA().getSelfUser().getAvatarUrl())
                 .setDescription("The ranking system for TheSourceCode Discord bot works as follows: When a user chats they get 15-25 Exp. but you only gain Exp once every minute to prevent spam ranking. When you type !rank in <#355468935413628930> it grabs the database of users that have chatted and determines your rank compared to every user, your level, and your total Exp. In conclusion the ranking system is an effective way to get people to be active.")
@@ -166,7 +187,7 @@ public class EmbedMessageManager {
                 .build();
     }
 
-    public MessageEmbed getInfoMod(BotAPI botAPI, User user) {
+    public MessageEmbed getInfoMod(User user) {
         return new EmbedBuilder()
                 .setAuthor("Moderation Information", null, user.getJDA().getSelfUser().getAvatarUrl())
                 .setDescription("We take pride in our Moderators for their ability to be professional and to have fun at the same time. To be a Moderator you must have what it takes, our Mods definitely do!")
@@ -174,7 +195,7 @@ public class EmbedMessageManager {
                 .build();
     }
 
-    public MessageEmbed getInfoAdmin(BotAPI botAPI, User user) {
+    public MessageEmbed getInfoAdmin(User user) {
         return new EmbedBuilder()
                 .setAuthor("Administration Information", null, user.getJDA().getSelfUser().getAvatarUrl())
                 .setDescription("Our Administrators are at a higher level of professionalism and loyalty, we don't mess around with our picks. They mean a lot to us as we know we mean to them!")

@@ -21,17 +21,17 @@ public class ComInfo implements CommandExecutor {
         if (messageChannel.getType().isGuild()) {
             try {
                 if (objects.length == 0) {
-                    botAPI.getPrivateMessageManager().sendMessage(user, embedManager.getInfoMain(botAPI, user));
                     botAPI.getMessageManager().sendMessage(messageChannel, embedManager.getAsDescription(":white_check_mark: *sent you some info*.. please check your PMs."));
+                    botAPI.getPrivateMessageManager().sendMessage(user, embedManager.getInfoMain(user));
                 } else if (objects.length == 1) {
                     if (objects[0].toString().equalsIgnoreCase("rank") || objects[0].toString().equalsIgnoreCase("ranks") || objects[0].toString().equalsIgnoreCase("levels")) {
-                        botAPI.getPrivateMessageManager().sendMessage(user, embedManager.getInfoRank(botAPI, user));
+                        botAPI.getPrivateMessageManager().sendMessage(user, embedManager.getInfoRank(user));
                         botAPI.getMessageManager().sendMessage(messageChannel, embedManager.getAsDescription(":white_check_mark: *sent you some info*.. please check your PMs."));
-                    } else if (objects[0].toString().equalsIgnoreCase("moderation")) {
-                        botAPI.getPrivateMessageManager().sendMessage(user, embedManager.getInfoMod(botAPI, user));
+                    } else if (objects[0].toString().equalsIgnoreCase("moderation") || objects[0].toString().equalsIgnoreCase("mods")) {
+                        botAPI.getPrivateMessageManager().sendMessage(user, embedManager.getInfoMod(user));
                         botAPI.getMessageManager().sendMessage(messageChannel, embedManager.getAsDescription(":white_check_mark: *sent you some info*.. please check your PMs."));
-                    } else if (objects[0].toString().equalsIgnoreCase("administration")) {
-                        botAPI.getPrivateMessageManager().sendMessage(user, embedManager.getInfoAdmin(botAPI, user));
+                    } else if (objects[0].toString().equalsIgnoreCase("administration") || objects[0].toString().equalsIgnoreCase("admins")) {
+                        botAPI.getPrivateMessageManager().sendMessage(user, embedManager.getInfoAdmin(user));
                         botAPI.getMessageManager().sendMessage(messageChannel, embedManager.getAsDescription(":white_check_mark: *sent you some info*.. please check your PMs."));
                     }
                 }
@@ -40,14 +40,14 @@ public class ComInfo implements CommandExecutor {
             }
         } else {
             if (objects.length == 0) {
-                botAPI.getMessageManager().sendMessage(messageChannel, embedManager.getInfoMain(botAPI, user));
+                botAPI.getMessageManager().sendMessage(messageChannel, embedManager.getInfoMain(user));
             } else if (objects.length == 1) {
                 if (objects[0].toString().equalsIgnoreCase("rank") || objects[0].toString().equalsIgnoreCase("ranks") || objects[0].toString().equalsIgnoreCase("levels")) {
-                    botAPI.getMessageManager().sendMessage(messageChannel, embedManager.getInfoRank(botAPI, user));
+                    botAPI.getMessageManager().sendMessage(messageChannel, embedManager.getInfoRank(user));
                 } else if (objects[0].toString().equalsIgnoreCase("moderation")) {
-                    botAPI.getMessageManager().sendMessage(messageChannel, embedManager.getInfoMod(botAPI, user));
+                    botAPI.getMessageManager().sendMessage(messageChannel, embedManager.getInfoMod(user));
                 } else if (objects[0].toString().equalsIgnoreCase("administration")) {
-                    botAPI.getMessageManager().sendMessage(messageChannel, embedManager.getInfoAdmin(botAPI, user));
+                    botAPI.getMessageManager().sendMessage(messageChannel, embedManager.getInfoAdmin(user));
                 } else {
                     botAPI.getMessageManager().sendMessage(messageChannel, embedManager.getUsage("!info [opt. rank | moderation | administration]"));
                 }
