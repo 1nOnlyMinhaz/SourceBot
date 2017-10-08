@@ -1,6 +1,7 @@
 package bid.ApixTeam.bot.libs.events;
 
 import bid.ApixTeam.bot.utils.BotAPI;
+import bid.ApixTeam.bot.utils.api.EmbedMessageManager;
 import bid.ApixTeam.bot.utils.vars.Lists;
 import bid.ApixTeam.bot.utils.vars.enums.RankingType;
 import net.dv8tion.jda.core.entities.Message;
@@ -10,6 +11,7 @@ import net.dv8tion.jda.core.hooks.ListenerAdapter;
 
 import java.util.HashMap;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 /**
  * TSC-Bot was created by ApixTeam (C) 2017
@@ -18,6 +20,8 @@ import java.util.Random;
 public class MessageReceived extends ListenerAdapter {
     public void onMessageReceived(MessageReceivedEvent e) {
         BotAPI botAPI = new BotAPI();
+        EmbedMessageManager embedManager = new EmbedMessageManager();
+
         User user = e.getAuthor();
         Message message = e.getMessage();
 
@@ -26,6 +30,15 @@ public class MessageReceived extends ListenerAdapter {
 
         if(!Lists.getUsers().contains(user.getIdLong()))
             botAPI.getPermissionManager().createMember(user);
+
+        for(String word : Lists.getProfanityList()) {
+            if(message.getContent().toLowerCase().contains(word)) {
+                botAPI.getMessageManager().deleteMessage(message);
+                Message rebukeMessage = botAPI.getMessageManager().sendMessage(message.getChannel(), embedManager.getAsDescription(String.format("Language <@%s>!!!", message.getAuthor().getId())));
+                botAPI.getMessageManager().deleteMessageAfter(rebukeMessage, 3L, TimeUnit.SECONDS);
+                return;
+            }
+        }
 
         if (Lists.getUserRankingCooldown().containsKey(user.getIdLong())){
             long seconds = ((Lists.getUserRankingCooldown().get(user.getIdLong()) / 1000) + 60) - (System.currentTimeMillis() / 1000);
