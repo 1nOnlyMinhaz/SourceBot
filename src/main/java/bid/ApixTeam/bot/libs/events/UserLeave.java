@@ -32,7 +32,7 @@ public class UserLeave extends ListenerAdapter {
         percent = Float.parseFloat(df.format(percent));
 
         String leaveMessage = String.format("Oh no! :cry: <@%s> left the server!", user.getId());
-        String leaveMessage2 = String.format(":rip: <@%s> abandoned us!", user.getId());
+        String leaveMessage2 = String.format("RIP! <@%s> abandoned us!", user.getId());
         String leaveMessage3 = String.format("Cya! <@%s> left us out to dry!", user.getId());
         String leaveMessage4 = String.format("<@%s> has left the game", user.getId());
         String leaveMessage5 = String.format("Later! <@%s> just rage quit!", user.getId());
