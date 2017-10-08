@@ -2,6 +2,7 @@ package bid.ApixTeam.bot.libs;
 
 import bid.ApixTeam.bot.libs.commands.*;
 import bid.ApixTeam.bot.libs.events.MessageReceived;
+import bid.ApixTeam.bot.libs.events.UserLeave;
 import de.btobastian.sdcf4j.CommandHandler;
 import de.btobastian.sdcf4j.handler.JDA3Handler;
 import net.dv8tion.jda.core.JDA;
@@ -13,7 +14,7 @@ import net.dv8tion.jda.core.JDA;
 public class Listener {
     public Listener(JDA jda) {
         // Events
-        jda.addEventListener(new MessageReceived());
+        jda.addEventListener(new MessageReceived(), new UserLeave());
 
         // Commands
         CommandHandler commandHandler = new JDA3Handler(jda);
