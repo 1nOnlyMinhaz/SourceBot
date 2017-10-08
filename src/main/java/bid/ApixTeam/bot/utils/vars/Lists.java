@@ -22,7 +22,7 @@ public class Lists {
     private static ArrayList<Long> users = new ArrayList<>();
     private static ArrayList<Long> mutedUsers = new ArrayList<>();
     private static HashMap<Long, Integer> slowmodeChannelCooldown = new HashMap<>();
-    private static ConcurrentHashMap<Long, Integer> slowmodeUserCooldown = new ConcurrentHashMap<>();
+    private static ConcurrentHashMap<String, Integer> slowmodeUserCooldown = new ConcurrentHashMap<>();
 
     public static ConcurrentHashMap<Long, Long> getUserRankingCooldown() {
         return userRankingCooldown;
@@ -64,7 +64,7 @@ public class Lists {
         return slowmodeChannelCooldown;
     }
 
-    public static ConcurrentHashMap<Long, Integer> getSlowmodeUserCooldown() {
+    public static ConcurrentHashMap<String, Integer> getSlowmodeUserCooldown() {
         return slowmodeUserCooldown;
     }
 }
