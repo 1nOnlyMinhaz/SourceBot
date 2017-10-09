@@ -7,10 +7,12 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="TSC" />
+        <module name="TSC-Bot" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="TSC" target="1.8" />
+      <module name="TSC-Bot" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>
