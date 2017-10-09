@@ -19,6 +19,7 @@ public class EmbedMessageManager {
     private static EmbedMessageManager embedMessageManager = new EmbedMessageManager();
     private String[] brags = {"Try and keep up.", "pffftt, gud one.", "I'm always in the top.", "ez.", "huh, too eazy.", "Is this ez mode?", "Over 9000!"};
     private String[] bots = {"Ew, ban that thing", "GET THAT THING OUTTA HERE!", "reminds me of stupid mee6", "boooooooooooooooriingg", "if you ask me, i'd rather ban it.", "pfffft, I'm much better."};
+    private String[] leaveMsgs = {"OH NO! :cry: %PLAYER% just left the server :sob:", "R(est) I(n) P(eace)! %PLAYER% abandoned us :sob:", "Cya! %PLAYER% thought that we want him :joy:", "%PLAYER% has left the game.", "Later! %PLAYER% did rage quit :joy:"};
 
     public static EmbedMessageManager getEmbedMessageManager() {
         return embedMessageManager;
@@ -294,6 +295,13 @@ public class EmbedMessageManager {
                 .addField("Format", "!unmute {@user}", false)
                 .addField("Description", "Unmutes a user *(See `!usage mute.`)*. This *takes away* the \"Muted\" role from a user. But they must already be muted for this command to work.", false)
                 .addField("Aliases", "!un_mute", false)
+                .setColor(new Color(234, 255, 235))
+                .build();
+    }
+
+    public MessageEmbed getLeaveEmbed(User user) {
+        return new EmbedBuilder()
+                .setDescription(leaveMsgs[new Random().nextInt(leaveMsgs.length)].replace("%PLAYER%", user.getAsMention()))
                 .setColor(new Color(234, 255, 235))
                 .build();
     }
