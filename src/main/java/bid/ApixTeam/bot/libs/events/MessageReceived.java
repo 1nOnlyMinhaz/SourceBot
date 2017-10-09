@@ -32,7 +32,7 @@ public class MessageReceived extends ListenerAdapter {
             botAPI.getPermissionManager().createMember(user);
 
         for(String word : Lists.getProfanityList()) {
-            if(message.getContent().toLowerCase().contains(word)) {
+            if(message.getContent().toLowerCase().matches(String.format("\\s%s\\s", word))) {
                 botAPI.getMessageManager().deleteMessage(message);
                 Message rebukeMessage = botAPI.getMessageManager().sendMessage(message.getChannel(), embedManager.getAsDescription(String.format("Language <@%s>!!!", message.getAuthor().getId())));
                 botAPI.getMessageManager().deleteMessageAfter(rebukeMessage, 3L, TimeUnit.SECONDS);
