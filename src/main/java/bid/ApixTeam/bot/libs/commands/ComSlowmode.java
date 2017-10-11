@@ -3,6 +3,7 @@ package bid.ApixTeam.bot.libs.commands;
 import bid.ApixTeam.bot.utils.BotAPI;
 import bid.ApixTeam.bot.utils.api.EmbedMessageManager;
 import bid.ApixTeam.bot.utils.api.PermissionManager;
+import bid.ApixTeam.bot.utils.vars.Lists;
 import bid.ApixTeam.bot.utils.vars.enums.SimpleRank;
 import de.btobastian.sdcf4j.Command;
 import de.btobastian.sdcf4j.CommandExecutor;
@@ -27,15 +28,27 @@ public class ComSlowmode implements CommandExecutor {
             return;
         }
 
-        if(objects.length == 0 || objects.length > 1){
+        if(objects.length != 1){
             botAPI.getMessageManager().sendMessage(messageChannel, embedManager.getUsage("!slowmode {TIME_IN_SECONDS|OFF}"));
             return;
         }
 
         if(objects[0] instanceof Integer){
+            if(Lists.getSlowmodeChannelCooldown().containsKey(messageChannel.getIdLong())){
+                botAPI.getMessageManager().sendMessage(messageChannel, embedManager.getAsDescription("This channel is already in slowmode"));
+                return;
+            }
 
+            Lists.getSlowmodeChannelCooldown().put(messageChannel.getIdLong(), (Integer) objects[0]);
+            botAPI.getMessageManager().sendMessage(messageChannel, embedManager.getAsDescription("This channel is in :snail: mode now :upside_down:"));
         }else if(objects[0].toString().equalsIgnoreCase("off")){
+            if(!Lists.getSlowmodeChannelCooldown().containsKey(messageChannel.getIdLong())){
+                botAPI.getMessageManager().sendMessage(messageChannel, embedManager.getAsDescription("This channel isn't in slowmode"));
+                return;
+            }
 
+            Lists.getSlowmodeChannelCooldown().remove(messageChannel.getIdLong());
+            botAPI.getMessageManager().sendMessage(messageChannel, embedManager.getAsDescription("This channel is not in :snail: mode anymore"));
         }else
             botAPI.getMessageManager().sendMessage(messageChannel, embedManager.getUsage("!slowmode {TIME_IN_SECONDS|OFF}"));
     }

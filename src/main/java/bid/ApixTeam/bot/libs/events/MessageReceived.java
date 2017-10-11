@@ -1,7 +1,6 @@
 package bid.ApixTeam.bot.libs.events;
 
 import bid.ApixTeam.bot.utils.BotAPI;
-import bid.ApixTeam.bot.utils.api.EmbedMessageManager;
 import bid.ApixTeam.bot.utils.vars.Lists;
 import bid.ApixTeam.bot.utils.vars.enums.RankingType;
 import net.dv8tion.jda.core.entities.Message;
@@ -26,28 +25,41 @@ public class MessageReceived extends ListenerAdapter {
 
         //botAPI.getMessageManager().log(false, String.format("\"%s\"", message.getContent()));
 
+        if (Lists.getSlowmodeChannelCooldown().containsKey(e.getChannel().getIdLong())) {
+            if (Lists.getSlowmodeUserCooldown().containsKey(e.getChannel().getIdLong() + ":" + user.getIdLong())) {
+                long seconds = ((Lists.getSlowmodeUserCooldown().get(e.getChannel().getIdLong() + ":" + user.getIdLong()) / 1000) + Lists.getSlowmodeChannelCooldown().get(e.getChannel().getIdLong())) - (System.currentTimeMillis() / 1000);
+                if (seconds > 0) {
+                    botAPI.getMessageManager().deleteMessage(message);
+                    return;
+                } else
+                    Lists.getSlowmodeUserCooldown().put(e.getChannel().getIdLong() + ":" + user.getIdLong(), System.currentTimeMillis());
+            } else
+                Lists.getSlowmodeUserCooldown().put(e.getChannel().getIdLong() + ":" + user.getIdLong(), System.currentTimeMillis());
+        }
+
+        if (!e.getTextChannel().isNSFW())
+            for (String word : Lists.getProfanityList()) {
+                if (message.getContent().toLowerCase().contains(word)) {
+                    botAPI.getMessageManager().deleteMessage(message);
+                    Message rebukeMessage = botAPI.getMessageManager().sendMessage(message.getChannel(), (String.format("**Language %s!!!** :rage:", message.getAuthor().getAsMention())));
+                    botAPI.getMessageManager().deleteMessageAfter(rebukeMessage, 3L, TimeUnit.SECONDS);
+                    return;
+                }
+            }
+
         if (!e.getChannel().getType().isGuild() || user.isBot() || message.getContent().startsWith("!"))
             return;
 
-        if(!Lists.getUsers().contains(user.getIdLong()))
+        if (!Lists.getUsers().contains(user.getIdLong()))
             botAPI.getPermissionManager().createMember(user);
 
-        for(String word : Lists.getProfanityList()) {
-            if(message.getContent().toLowerCase().contains(word)) {
-                botAPI.getMessageManager().deleteMessage(message);
-                Message rebukeMessage = botAPI.getMessageManager().sendMessage(message.getChannel(), (String.format("**Language %s!!!** :rage:", message.getAuthor().getAsMention())));
-                botAPI.getMessageManager().deleteMessageAfter(rebukeMessage, 3L, TimeUnit.SECONDS);
-                return;
-            }
-        }
-
-        if (Lists.getUserRankingCooldown().containsKey(user.getIdLong())){
+        if (Lists.getUserRankingCooldown().containsKey(user.getIdLong())) {
             long seconds = ((Lists.getUserRankingCooldown().get(user.getIdLong()) / 1000) + 60) - (System.currentTimeMillis() / 1000);
-            if(seconds > 0)
+            if (seconds > 0)
                 return;
             else
                 Lists.getUserRankingCooldown().remove(user.getIdLong());
-        }else
+        } else
             Lists.getUserRankingCooldown().put(user.getIdLong(), System.currentTimeMillis());
 
         botAPI.getDatabaseManager().createUserRanking(user);
