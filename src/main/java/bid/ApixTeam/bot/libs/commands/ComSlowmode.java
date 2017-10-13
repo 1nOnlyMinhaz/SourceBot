@@ -40,7 +40,7 @@ public class ComSlowmode implements CommandExecutor {
             }
 
             Lists.getSlowmodeChannelCooldown().put(messageChannel.getIdLong(), (Integer) objects[0]);
-            botAPI.getMessageManager().sendMessage(messageChannel, embedManager.getAsDescription("This channel is in :snail: mode now :upside_down:"));
+            botAPI.getMessageManager().sendMessage(messageChannel, embedManager.getAsDescription("This channel is in slowmode now :upside_down:"));
         }else if(objects[0].toString().equalsIgnoreCase("off")){
             if(!Lists.getSlowmodeChannelCooldown().containsKey(messageChannel.getIdLong())){
                 botAPI.getMessageManager().sendMessage(messageChannel, embedManager.getAsDescription("This channel isn't in slowmode"));
@@ -48,7 +48,7 @@ public class ComSlowmode implements CommandExecutor {
             }
 
             Lists.getSlowmodeChannelCooldown().remove(messageChannel.getIdLong());
-            botAPI.getMessageManager().sendMessage(messageChannel, embedManager.getAsDescription("This channel is not in :snail: mode anymore"));
+            botAPI.getMessageManager().sendMessage(messageChannel, embedManager.getAsDescription("This channel is not in slowmode anymore"));
         }else
             botAPI.getMessageManager().sendMessage(messageChannel, embedManager.getUsage("!slowmode {TIME_IN_SECONDS|OFF}"));
     }

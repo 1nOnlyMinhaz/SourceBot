@@ -65,12 +65,18 @@ public class SettingsManager extends DatabaseManager {
         }
     }
 
-    public boolean checkSetting(Settings settings){
+    public boolean isSet(Settings settings){
         return Lists.getSettings().containsKey(settings);
     }
 
+    public String getSetting(Settings settings) {
+        if(!isSet(settings))
+            return null;
+        return Lists.getSettings().get(settings);
+    }
+
     public void addSetting(Settings settings, String value){
-        if(checkSetting(settings)){
+        if(isSet(settings)){
             updateSetting(settings, value);
             return;
         }
@@ -81,6 +87,7 @@ public class SettingsManager extends DatabaseManager {
             ps.setString(1, settings.getOption());
             ps.setString(2, value);
             ps.executeUpdate();
+            Lists.getSettings().put(settings, value);
             closeConnection(connection, ps, null);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -88,7 +95,7 @@ public class SettingsManager extends DatabaseManager {
     }
 
     public void updateSetting(Settings settings, String value){
-        if(!checkSetting(settings)){
+        if(!isSet(settings)){
             addSetting(settings, value);
             return;
         }
@@ -99,6 +106,7 @@ public class SettingsManager extends DatabaseManager {
             ps.setString(1, value);
             ps.setString(2, settings.getOption());
             ps.executeUpdate();
+            Lists.getSettings().put(settings, value);
             closeConnection(connection, ps, null);
         } catch (SQLException e) {
             e.printStackTrace();

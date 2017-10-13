@@ -46,6 +46,13 @@ public class EmbedMessageManager {
                 .build();
     }
 
+    public MessageEmbed getAsDescription(String s, Color color){
+        return new EmbedBuilder()
+                .setColor(color)
+                .setDescription(s)
+                .build();
+    }
+
     public MessageEmbed getUsage(String command){
         return new EmbedBuilder()
                 .setColor(new Color(234, 255, 235))

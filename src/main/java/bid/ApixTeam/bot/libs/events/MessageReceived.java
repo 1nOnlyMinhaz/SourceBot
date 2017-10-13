@@ -41,14 +41,19 @@ public class MessageReceived extends ListenerAdapter {
             for (String word : Lists.getProfanityList()) {
                 if (message.getContent().toLowerCase().contains(word)) {
                     botAPI.getMessageManager().deleteMessage(message);
-                    Message rebukeMessage = botAPI.getMessageManager().sendMessage(message.getChannel(), (String.format("**Language %s!!!** :rage:", message.getAuthor().getAsMention())));
+                    Message rebukeMessage = botAPI.getMessageManager().sendMessage(message.getChannel(), String.format("**Language %s!!!** :rage:", message.getAuthor().getAsMention()));
                     botAPI.getMessageManager().deleteMessageAfter(rebukeMessage, 3L, TimeUnit.SECONDS);
                     return;
                 }
             }
 
-        if (!e.getChannel().getType().isGuild() || user.isBot() || message.getContent().startsWith("!"))
+        if (!e.getChannel().getType().isGuild() || user.isBot())
             return;
+
+        if(message.getContent().startsWith("!"))
+            for(String s : Lists.getCommands())
+                if(message.getContent().startsWith(String.format("!%s", s)))
+                    return;
 
         if (!Lists.getUsers().contains(user.getIdLong()))
             botAPI.getPermissionManager().createMember(user);
