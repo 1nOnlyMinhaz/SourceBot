@@ -3,6 +3,7 @@ package bid.ApixTeam.bot.libs.events;
 import bid.ApixTeam.bot.utils.BotAPI;
 import bid.ApixTeam.bot.utils.vars.Lists;
 import bid.ApixTeam.bot.utils.vars.enums.RankingType;
+import bid.ApixTeam.bot.utils.vars.enums.SimpleRank;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.User;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
@@ -28,7 +29,7 @@ public class MessageReceived extends ListenerAdapter {
 
         //botAPI.getMessageManager().log(false, String.format("\"%s\"", message.getContent()));
 
-        if (Lists.getSlowmodeChannelCooldown().containsKey(e.getChannel().getIdLong())) {
+        if(Lists.getSlowmodeChannelCooldown().containsKey(e.getChannel().getIdLong()) && !botAPI.getPermissionManager().userAtLeast(user, SimpleRank.JR_ADMIN)) {
             if (Lists.getSlowmodeUserCooldown().containsKey(e.getChannel().getIdLong() + ":" + user.getIdLong())) {
                 long seconds = ((Lists.getSlowmodeUserCooldown().get(e.getChannel().getIdLong() + ":" + user.getIdLong()) / 1000) + Lists.getSlowmodeChannelCooldown().get(e.getChannel().getIdLong())) - (System.currentTimeMillis() / 1000);
                 if (seconds > 0) {

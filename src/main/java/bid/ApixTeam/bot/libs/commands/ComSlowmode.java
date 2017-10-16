@@ -22,7 +22,7 @@ public class ComSlowmode implements CommandExecutor {
         PermissionManager pm = botAPI.getPermissionManager();
         EmbedMessageManager embedManager = botAPI.getEmbedMessageManager();
 
-        if(!pm.userRoleAtLeast(guild.getMember(user), SimpleRank.SR_MOD)){
+        if(!pm.userRoleAtLeast(guild.getMember(user), SimpleRank.JR_ADMIN)) {
             botAPI.getMessageManager().sendMessage(messageChannel, embedManager.getNoComPermission());
             return;
         }
