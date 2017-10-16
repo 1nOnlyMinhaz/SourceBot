@@ -6,6 +6,7 @@ package bid.ApixTeam.bot.utils.vars.enums;
  */
 public enum Settings {
     MAIN_GUILD_ID("default-guild-id"),
+    PROFANITY_LIST("profanity-list"),
     CHAN_RANK_CHECK("channel-rank-check"),
     CHAN_SLOWMODE("channel-slowmode"),
     CHAN_WELCOME("channel-welcome"),

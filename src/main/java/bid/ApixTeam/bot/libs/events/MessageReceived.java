@@ -23,6 +23,9 @@ public class MessageReceived extends ListenerAdapter {
         User user = e.getAuthor();
         Message message = e.getMessage();
 
+        if (!e.getChannel().getType().isGuild() || user.isBot())
+            return;
+
         //botAPI.getMessageManager().log(false, String.format("\"%s\"", message.getContent()));
 
         if (Lists.getSlowmodeChannelCooldown().containsKey(e.getChannel().getIdLong())) {
@@ -47,12 +50,9 @@ public class MessageReceived extends ListenerAdapter {
                 }
             }
 
-        if (!e.getChannel().getType().isGuild() || user.isBot())
-            return;
-
-        if(message.getContent().startsWith("!"))
-            for(String s : Lists.getCommands())
-                if(message.getContent().startsWith(String.format("!%s", s)))
+        if (message.getContent().startsWith("!"))
+            for (String s : Lists.getCommands())
+                if (message.getContent().startsWith(String.format("!%s", s)))
                     return;
 
         if (!Lists.getUsers().contains(user.getIdLong()))

@@ -10,6 +10,9 @@ import bid.ApixTeam.bot.utils.vars.enums.SimpleRank;
 import de.btobastian.sdcf4j.Command;
 import de.btobastian.sdcf4j.CommandExecutor;
 import net.dv8tion.jda.core.entities.*;
+import net.dv8tion.jda.webhook.WebhookClient;
+import net.dv8tion.jda.webhook.WebhookClientBuilder;
+import net.dv8tion.jda.webhook.WebhookMessageBuilder;
 
 import java.awt.*;
 
@@ -61,6 +64,31 @@ public class ComSettings implements CommandExecutor {
                 checkUserPermission(botAPI, em, pm, messageChannel, message);
             else if (strings[1].equalsIgnoreCase("role") && message.getMentionedRoles().size() == 1)
                 checkRolePermission(botAPI, em, pm, messageChannel, message);
+        } else if (strings[0].equalsIgnoreCase("ptr")) {
+            try {
+                Webhook webhook = null;
+                for (Webhook wh : messageChannel.getJDA().getTextChannelById(messageChannel.getId()).getWebhooks().complete()) {
+                    if (!wh.getName().equalsIgnoreCase("TSC-Bot"))
+                        continue;
+
+                    webhook = wh;
+                    break;
+                }
+
+                if (webhook == null)
+                    return;
+                WebhookClientBuilder builder = webhook.newClient();
+                WebhookClient client = builder.build();
+                WebhookMessageBuilder messageBuilder = new WebhookMessageBuilder();
+                messageBuilder.setContent("This is a testing content");
+                messageBuilder.addEmbeds(em.getAsDescription("1st embed"), em.getAsDescription("2nd embed"))
+                        .setUsername("Some weird bleach")
+                        .setAvatarUrl(user.getJDA().getSelfUser().getAvatarUrl());
+                client.send(messageBuilder.build());
+                client.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 

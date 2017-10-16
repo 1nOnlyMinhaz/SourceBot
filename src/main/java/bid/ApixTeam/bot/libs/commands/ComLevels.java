@@ -21,7 +21,7 @@ public class ComLevels implements CommandExecutor {
         EmbedMessageManager embedManager = botAPI.getEmbedMessageManager();
         SettingsManager sm = botAPI.getSettingsManager();
 
-        if (sm.getSetting(Settings.CHAN_RANK_CHECK) != null && !sm.getSetting(Settings.CHAN_RANK_CHECK).equals(messageChannel.getId()))
+        if (sm.getSetting(Settings.CHAN_RANK_CHECK) != null && !sm.getSetting(Settings.CHAN_RANK_CHECK).equals(messageChannel.getId()) && messageChannel.getType().isGuild())
             return;
 
         if (messageChannel.getType().isGuild()) {
