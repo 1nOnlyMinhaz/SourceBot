@@ -10,6 +10,10 @@ import net.dv8tion.jda.core.entities.User;
 import net.dv8tion.jda.core.events.guild.member.GuildMemberLeaveEvent;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
 
+/**
+ * TSC-Bot was created by ApixTeam (C) 2017
+ * in association with TheSourceCode (C) 2017
+ */
 public class GuildMemberLeft extends ListenerAdapter {
     public void onGuildMemberLeave(GuildMemberLeaveEvent event) {
         BotAPI botAPI = new BotAPI();
