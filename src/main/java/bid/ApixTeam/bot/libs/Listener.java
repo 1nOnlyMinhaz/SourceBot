@@ -1,8 +1,8 @@
 package bid.ApixTeam.bot.libs;
 
 import bid.ApixTeam.bot.libs.commands.*;
-import bid.ApixTeam.bot.libs.events.MessageReceived;
 import bid.ApixTeam.bot.libs.events.GuildMemberLeft;
+import bid.ApixTeam.bot.libs.events.MessageReceived;
 import bid.ApixTeam.bot.utils.vars.Lists;
 import de.btobastian.sdcf4j.CommandHandler;
 import de.btobastian.sdcf4j.handler.JDA3Handler;
@@ -30,6 +30,7 @@ public class Listener {
         commandHandler.registerCommand(new ComLevels());
         commandHandler.registerCommand(new ComUsage());
         commandHandler.registerCommand(new ComSlowmode());
+        commandHandler.registerCommand(new ComBroadcast());
 
         for (CommandHandler.SimpleCommand sm : commandHandler.getCommands())
             for (String s : sm.getCommandAnnotation().aliases())
