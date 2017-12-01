@@ -37,6 +37,18 @@ public class MessageManager {
         return messageChannel.sendMessage(m).complete();
     }
 
+    public Message sendMessage(MessageChannel messageChannel, String s, long delay, TimeUnit timeUnit){
+        return messageChannel.sendMessage(s).completeAfter(delay, timeUnit);
+    }
+
+    public Message sendMessage(MessageChannel messageChannel, Message m, long delay, TimeUnit timeUnit){
+        return messageChannel.sendMessage(m).completeAfter(delay, timeUnit);
+    }
+
+    public Message sendMessage(MessageChannel messageChannel, MessageEmbed m, long delay, TimeUnit timeUnit){
+        return messageChannel.sendMessage(m).completeAfter(delay, timeUnit);
+    }
+
     public void deleteMessage(Message m){
         m.delete().queue();
     }

@@ -9,6 +9,8 @@ import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.MessageChannel;
 import net.dv8tion.jda.core.entities.MessageEmbed;
 
+import java.util.Arrays;
+import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -45,36 +47,35 @@ public class ComBroadcast implements CommandExecutor {
                 botAPI.getMessageManager().deleteMessage(command, "Auto Cleared");
             }
         } else if(args[0].equalsIgnoreCase("later")) {
-            String timeString = args[1];
-            int time;
-
             try {
-                time = Integer.parseInt(timeString);
-            } catch (NumberFormatException e) {
+                String timeString = args[1];
+                long time;
+                time = Long.parseLong(timeString);
+                TimeUnit timeUnit = TimeUnit.valueOf(args[2].toUpperCase());
+
+                String channel = args[3];
+
+                StringBuilder str = new StringBuilder();
+                for (int i = 4; i < args.length; i++) {
+                    str.append(args[i]).append(" ");
+                }
+
+                String message = str.toString().trim();
+
+                Pattern channelPattern = Pattern.compile("\\<\\#(.*?)\\>");
+                Matcher channelMatcher = channelPattern.matcher(channel);
+
+                if (!channelMatcher.find()) {
+                    botAPI.getMessageManager().sendMessage(messageChannel, getUsage());
+                } else {
+                    String channelId = channelMatcher.group(1);
+
+                    botAPI.getMessageManager().deleteMessage(command, "Auto Cleared");
+                    botAPI.getMessageManager().sendMessage(guild.getTextChannelById(channelId), embedManager.getAsDescription(message), time, timeUnit); //Idk how to queueAfter here, wont let me plx fix father
+                }
+            }catch (Exception e){
                 e.printStackTrace();
                 botAPI.getMessageManager().sendMessage(messageChannel, getUsage());
-                return;
-            }
-
-            String channel = args[2];
-
-            StringBuilder str = new StringBuilder();
-            for(int i = 3; i < args.length; i++) {
-                str.append(args[i]).append(" ");
-            }
-
-            String message = str.toString().trim();
-
-            Pattern channelPattern = Pattern.compile("\\<\\#(.*?)\\>");
-            Matcher channelMatcher = channelPattern.matcher(channel);
-
-            if(!channelMatcher.find()) {
-                botAPI.getMessageManager().sendMessage(messageChannel, getUsage());
-            } else {
-                String channelId = channelMatcher.group(1);
-
-                botAPI.getMessageManager().deleteMessage(command, "Auto Cleared");
-                botAPI.getMessageManager().sendMessage(guild.getTextChannelById(channelId), embedManager.getAsDescription(message)); //Idk how to queueAfter here, wont let me plx fix father
             }
 
         } else if(args[0].equalsIgnoreCase("repeat")) {
@@ -86,6 +87,6 @@ public class ComBroadcast implements CommandExecutor {
 
 
     private MessageEmbed getUsage() {
-        return new BotAPI().getEmbedMessageManager().getUsage("!broadcast {now|later|repeat} [time (for later & repeat)] {channel} {message}");
+        return new BotAPI().getEmbedMessageManager().getUsage("!broadcast {now|later|repeat} [time] {channel} {message}");
     }
 }

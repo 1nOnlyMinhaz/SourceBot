@@ -10,6 +10,7 @@ public enum Settings {
     CHAN_RANK_CHECK("channel-rank-check"),
     CHAN_SLOWMODE("channel-slowmode"),
     CHAN_WELCOME("channel-welcome"),
+    CHAN_LOGS("channel-logger"),
     ROLES_MUTED("permission-muted"),
     ROLES_JR_MOD("permission-jr-mod"),
     ROLES_SR_MOD("permission-sr-mod"),
