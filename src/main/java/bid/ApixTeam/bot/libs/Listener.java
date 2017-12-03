@@ -31,6 +31,7 @@ public class Listener {
         commandHandler.registerCommand(new ComUsage());
         commandHandler.registerCommand(new ComSlowmode());
         commandHandler.registerCommand(new ComBroadcast());
+        commandHandler.registerCommand(new ComReport());
 
         for (CommandHandler.SimpleCommand sm : commandHandler.getCommands())
             for (String s : sm.getCommandAnnotation().aliases())

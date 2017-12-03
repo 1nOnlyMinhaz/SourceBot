@@ -300,7 +300,7 @@ public class EmbedMessageManager {
         return new EmbedBuilder()
                 .setAuthor("!unmute Usage", null, user.getJDA().getSelfUser().getAvatarUrl())
                 .addField("Format", "!unmute {@user}", false)
-                .addField("Description", "Unmutes a user *(See `!usage mute.`)*. This *takes away* the \"Muted\" role from a user. But they must already be muted for this command to work.", false)
+                .addField("Description", "Unmutes a user *(See `!usage mute.`)*. This removes the \"Muted\" role from a user. But they must already be muted for this command to work.", false)
                 .addField("Aliases", "!un_mute", false)
                 .setColor(new Color(234, 255, 235))
                 .build();
@@ -309,6 +309,17 @@ public class EmbedMessageManager {
     public MessageEmbed getLeaveEmbed(User user) {
         return new EmbedBuilder()
                 .setDescription(leaveMessages[new Random().nextInt(leaveMessages.length)].replace("%PLAYER%", user.getAsMention()))
+                .setColor(new Color(234, 255, 235))
+                .build();
+    }
+
+    public MessageEmbed getReportEmbed(User reporter, User reported, String reason, String timestamp) {
+        return new EmbedBuilder()
+                .setAuthor("User Report", null, reporter.getJDA().getSelfUser().getAvatarUrl())
+                .addField("Reporter", reporter.getName() + "#" + reporter.getDiscriminator(), false)
+                .addField("Reported", reported.getName() + "#" + reported.getDiscriminator(), false)
+                .addField("Reason", reason, false)
+                .addField("Timestamp", timestamp, false)
                 .setColor(new Color(234, 255, 235))
                 .build();
     }
