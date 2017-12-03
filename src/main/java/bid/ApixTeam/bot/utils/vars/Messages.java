@@ -8,5 +8,5 @@ public interface Messages {
     String NO_PERMISSION = ":cold_sweat: Sorry, but you don't have permissions to do that.";
     String NO_COM_PERMISSION = ":cold_sweat: Sorry, but you don't have permissions to use that command.";
 
-    String INCORRECT_USAGE = "Booii! Incorrect usage! use `%s` instead.";
+    String INCORRECT_USAGE = ":wink: Incorrect usage! please use `%s` instead.";
 }

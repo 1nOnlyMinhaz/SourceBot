@@ -2,12 +2,11 @@ package bid.ApixTeam.bot.libs.commands;
 
 import bid.ApixTeam.bot.utils.BotAPI;
 import bid.ApixTeam.bot.utils.api.EmbedMessageManager;
+import bid.ApixTeam.bot.utils.api.PermissionManager;
+import bid.ApixTeam.bot.utils.vars.enums.SimpleRank;
 import de.btobastian.sdcf4j.Command;
 import de.btobastian.sdcf4j.CommandExecutor;
-import net.dv8tion.jda.core.entities.Guild;
-import net.dv8tion.jda.core.entities.Message;
-import net.dv8tion.jda.core.entities.MessageChannel;
-import net.dv8tion.jda.core.entities.MessageEmbed;
+import net.dv8tion.jda.core.entities.*;
 
 import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
@@ -16,9 +15,15 @@ import java.util.regex.Pattern;
 
 public class ComBroadcast implements CommandExecutor {
     @Command(aliases = {"broadcast", "announce", "bc"})
-    public void onCommand(Guild guild, Message command, MessageChannel messageChannel, String[] args) {
+    public void onCommand(Guild guild, Message command, User user, MessageChannel messageChannel, String[] args) {
         BotAPI botAPI = new BotAPI();
         EmbedMessageManager embedManager = new EmbedMessageManager();
+        PermissionManager pm = botAPI.getPermissionManager();
+
+        if(!pm.userRoleAtLeast(guild.getMember(user), SimpleRank.JR_ADMIN)) {
+            botAPI.getMessageManager().sendMessage(messageChannel, embedManager.getNoComPermission());
+            return;
+        }
 
         if(args.length < 3) {
             botAPI.getMessageManager().sendMessage(messageChannel, getUsage());
@@ -35,7 +40,7 @@ public class ComBroadcast implements CommandExecutor {
 
             String message = str.toString().trim();
 
-            Pattern channelPattern = Pattern.compile("\\<\\#(.*?)\\>");
+            Pattern channelPattern = Pattern.compile("<#(.*?)>");
             Matcher channelMatcher = channelPattern.matcher(channel);
 
             if(!channelMatcher.find()) {

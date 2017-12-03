@@ -15,21 +15,9 @@ public class ComReport implements CommandExecutor {
 
         String timeStamp = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new Date());
 
-        if(args.length < 2) {
+        if(args.length < 2 || command.getMentionedUsers().size() == 0 || !args[0].matches("\\<\\@(.*?)\\>")) {
             botAPI.getMessageManager().sendMessage(messageChannel, getUsage());
-            botAPI.getMessageManager().deleteMessage(command, "Auto Cleared");
-            return;
-        }
-
-        if(command.getMentionedUsers().size() == 0) {
-            botAPI.getMessageManager().sendMessage(messageChannel, getUsage());
-            botAPI.getMessageManager().deleteMessage(command, "Auto Cleared");
-            return;
-        }
-
-        if(!args[0].matches("\\<\\@(.*?)\\>")) {
-            botAPI.getMessageManager().sendMessage(messageChannel, getUsage());
-            botAPI.getMessageManager().deleteMessage(command, "Auto Cleared");
+            //  botAPI.getMessageManager().deleteMessage(command, "Auto Cleared");
             return;
         }
 
