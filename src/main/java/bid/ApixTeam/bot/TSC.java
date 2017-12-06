@@ -23,7 +23,7 @@ public class TSC extends SettingsManager {
         JDA jda = new JDABuilder(AccountType.BOT)
                 .setToken("MzU2MTI1ODc2Njc4NTU3NzI3.DJdAcg._67wYa-oyF7LGUtsW_hwI32Yenk")
                 .setStatus(OnlineStatus.DO_NOT_DISTURB)
-                .setGame(Game.watching("for !help"))
+                .setGame(Game.listening("daeshan's intro over and over again"))
                 .buildBlocking();
 
         setup(jda);

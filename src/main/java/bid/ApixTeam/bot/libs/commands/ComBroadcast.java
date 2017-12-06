@@ -3,12 +3,12 @@ package bid.ApixTeam.bot.libs.commands;
 import bid.ApixTeam.bot.utils.BotAPI;
 import bid.ApixTeam.bot.utils.api.EmbedMessageManager;
 import bid.ApixTeam.bot.utils.api.PermissionManager;
+import bid.ApixTeam.bot.utils.vars.entites.Announcement;
 import bid.ApixTeam.bot.utils.vars.enums.SimpleRank;
 import de.btobastian.sdcf4j.Command;
 import de.btobastian.sdcf4j.CommandExecutor;
 import net.dv8tion.jda.core.entities.*;
 
-import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -85,6 +85,7 @@ public class ComBroadcast implements CommandExecutor {
 
         } else if(args[0].equalsIgnoreCase("repeat")) {
             //Daddy fix plx
+            Announcement = new Announcement()
         } else {
             botAPI.getMessageManager().sendMessage(messageChannel, getUsage());
         }
