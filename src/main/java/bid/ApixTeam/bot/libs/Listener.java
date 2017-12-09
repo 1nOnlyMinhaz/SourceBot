@@ -1,6 +1,7 @@
 package bid.ApixTeam.bot.libs;
 
 import bid.ApixTeam.bot.libs.commands.*;
+import bid.ApixTeam.bot.libs.events.GuildBanMember;
 import bid.ApixTeam.bot.libs.events.GuildMemberLeft;
 import bid.ApixTeam.bot.libs.events.MessageReceived;
 import bid.ApixTeam.bot.utils.vars.Lists;
@@ -15,7 +16,7 @@ import net.dv8tion.jda.core.JDA;
 public class Listener {
     public Listener(JDA jda) {
         // Events
-        jda.addEventListener(new MessageReceived(), new GuildMemberLeft());
+        jda.addEventListener(new MessageReceived(), new GuildMemberLeft(), new GuildBanMember());
 
         // Commands
         CommandHandler commandHandler = new JDA3Handler(jda);

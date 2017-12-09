@@ -161,6 +161,21 @@ public class DatabaseManager {
         }
     }
 
+    public void resetUserRanking(User user){
+        if(!isInRanking(user))
+            return;
+
+        try {
+            Connection connection = getConnection();
+            PreparedStatement ps = connection.prepareStatement("DELETE FROM `rankings` WHERE `UserID` = ?");
+            ps.setLong(1, user.getIdLong());
+            ps.executeUpdate();
+            closeConnection(connection, ps, null);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void userLevelUp(User user, int exp){
         try {
             HashMap<RankingType, Integer> userRanking = getUserRanking(user);
