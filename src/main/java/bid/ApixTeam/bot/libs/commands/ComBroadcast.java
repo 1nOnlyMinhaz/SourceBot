@@ -13,7 +13,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class ComBroadcast implements CommandExecutor {
+public class ComBroadcast extends Announcement implements CommandExecutor{
     @Command(aliases = {"broadcast", "announce", "bc"})
     public void onCommand(Guild guild, Message command, User user, MessageChannel messageChannel, String[] args) {
         BotAPI botAPI = new BotAPI();
@@ -85,7 +85,8 @@ public class ComBroadcast implements CommandExecutor {
 
         } else if(args[0].equalsIgnoreCase("repeat")) {
             //Daddy fix plx
-            Announcement = new Announcement()
+            Announcement announcement = new Announcement();
+            announcement.setId(1);
         } else {
             botAPI.getMessageManager().sendMessage(messageChannel, getUsage());
         }
