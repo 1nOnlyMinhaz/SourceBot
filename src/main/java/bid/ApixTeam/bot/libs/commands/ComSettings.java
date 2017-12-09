@@ -4,7 +4,6 @@ import bid.ApixTeam.bot.utils.BotAPI;
 import bid.ApixTeam.bot.utils.api.EmbedMessageManager;
 import bid.ApixTeam.bot.utils.api.PermissionManager;
 import bid.ApixTeam.bot.utils.api.SettingsManager;
-import bid.ApixTeam.bot.utils.vars.Lists;
 import bid.ApixTeam.bot.utils.vars.enums.Settings;
 import bid.ApixTeam.bot.utils.vars.enums.SimpleRank;
 import de.btobastian.sdcf4j.Command;
@@ -21,76 +20,105 @@ import java.awt.*;
  * in association with TheSourceCode (C) 2017
  */
 public class ComSettings implements CommandExecutor {
-    @Command(aliases = "settings", async = true)
-    public void onCommand(User user, MessageChannel messageChannel, Message message, String[] strings) {
-        if (!(strings.length >= 2 && strings.length <= 4))
-            return;
-
+    @Command(aliases = "settings", async = true, privateMessages = false)
+    public void onCommand(Guild guild, User user, MessageChannel messageChannel, Message message, String[] strings) {
         BotAPI botAPI = new BotAPI();
         PermissionManager pm = botAPI.getPermissionManager();
         EmbedMessageManager em = botAPI.getEmbedMessageManager();
         SettingsManager sm = botAPI.getSettingsManager();
 
-        if (!pm.userAtLeast(user, SimpleRank.BOT_ADMIN)) return;
+        if(!pm.userRoleAtLeast(guild.getMember(user), SimpleRank.SR_ADMIN) || !pm.userAtLeast(user, SimpleRank.BOT_ADMIN))
+            return;
 
-        if (strings[0].equalsIgnoreCase("set")) {
-            if (strings[1].equalsIgnoreCase("role") && message.getMentionedRoles().size() == 1) {
-                if (strings.length != 4)
+        try {
+            if(strings[0].equalsIgnoreCase("tools")){
+
+            } else if(strings[0].equalsIgnoreCase("bot")) {
+                if(!pm.userAtLeast(user, SimpleRank.BOT_ADMIN))
                     return;
 
-                if (strings[3].equalsIgnoreCase("muted"))
-                    setRolePermission(botAPI, em, pm, messageChannel, message, SimpleRank.MUTED);
-                else if (strings[3].equalsIgnoreCase("jrmod"))
-                    setRolePermission(botAPI, em, pm, messageChannel, message, SimpleRank.JR_MOD);
-                else if (strings[3].equalsIgnoreCase("srmod"))
-                    setRolePermission(botAPI, em, pm, messageChannel, message, SimpleRank.SR_MOD);
-                else if (strings[3].equalsIgnoreCase("jrmod"))
-                    setRolePermission(botAPI, em, pm, messageChannel, message, SimpleRank.JR_ADMIN);
-                else if (strings[3].equalsIgnoreCase("sradmin"))
-                    setRolePermission(botAPI, em, pm, messageChannel, message, SimpleRank.SR_ADMIN);
-                else if (strings[3].equalsIgnoreCase("chief"))
-                    setRolePermission(botAPI, em, pm, messageChannel, message, SimpleRank.CHIEF_ADMIN);
-            } else if (strings[1].equalsIgnoreCase("channel") && message.getMentionedChannels().size() == 1) {
-                if (strings.length != 4)
-                    return;
+                if (strings[1].equalsIgnoreCase("set")) {
+                    if (strings[2].equalsIgnoreCase("role") && message.getMentionedRoles().size() == 1) {
+                        if (strings.length != 5)
+                            return;
 
-                if (strings[3].equalsIgnoreCase("welcome"))
-                    setChannelType(botAPI, sm, em, messageChannel, message, Settings.CHAN_WELCOME);
-                else if (strings[3].equalsIgnoreCase("rank"))
-                    setChannelType(botAPI, sm, em, messageChannel, message, Settings.CHAN_RANK_CHECK);
-                else if (strings[3].equalsIgnoreCase("logs"))
-                    setChannelType(botAPI, sm, em, messageChannel, message, Settings.CHAN_LOGS);
-            }
-        } else if (strings[0].equalsIgnoreCase("check")) {
-            if (strings[1].equalsIgnoreCase("user") && message.getMentionedUsers().size() == 1)
-                checkUserPermission(botAPI, em, pm, messageChannel, message);
-            else if (strings[1].equalsIgnoreCase("role") && message.getMentionedRoles().size() == 1)
-                checkRolePermission(botAPI, em, pm, messageChannel, message);
-        } else if (strings[0].equalsIgnoreCase("ptr")) {
-            try {
-                Webhook webhook = null;
-                for (Webhook wh : messageChannel.getJDA().getTextChannelById(messageChannel.getId()).getWebhooks().complete()) {
-                    if (!wh.getName().equalsIgnoreCase("TSC-Bot"))
-                        continue;
+                        if (strings[4].equalsIgnoreCase("muted"))
+                            setRolePermission(botAPI, em, pm, messageChannel, message, SimpleRank.MUTED);
+                        else if (strings[4].equalsIgnoreCase("jrmod"))
+                            setRolePermission(botAPI, em, pm, messageChannel, message, SimpleRank.JR_MOD);
+                        else if (strings[4].equalsIgnoreCase("srmod"))
+                            setRolePermission(botAPI, em, pm, messageChannel, message, SimpleRank.SR_MOD);
+                        else if (strings[4].equalsIgnoreCase("jrmod"))
+                            setRolePermission(botAPI, em, pm, messageChannel, message, SimpleRank.JR_ADMIN);
+                        else if (strings[4].equalsIgnoreCase("sradmin"))
+                            setRolePermission(botAPI, em, pm, messageChannel, message, SimpleRank.SR_ADMIN);
+                        else if (strings[4].equalsIgnoreCase("chief"))
+                            setRolePermission(botAPI, em, pm, messageChannel, message, SimpleRank.CHIEF_ADMIN);
+                    } else if (strings[1].equalsIgnoreCase("channel") && message.getMentionedChannels().size() == 1) {
+                        if (strings.length != 5)
+                            return;
 
-                    webhook = wh;
-                    break;
+                        if (strings[4].equalsIgnoreCase("welcome"))
+                            setChannelType(botAPI, sm, em, messageChannel, message, Settings.CHAN_WELCOME);
+                        else if (strings[4].equalsIgnoreCase("rank"))
+                            setChannelType(botAPI, sm, em, messageChannel, message, Settings.CHAN_RANK_CHECK);
+                        else if (strings[4].equalsIgnoreCase("logs"))
+                            setChannelType(botAPI, sm, em, messageChannel, message, Settings.CHAN_LOGS);
+                        else if (strings[4].equalsIgnoreCase("mmeez"))
+                            setChannelType(botAPI, sm, em, messageChannel, message, Settings.CHAN_MEMES);
+                        else if (strings[4].equalsIgnoreCase("reports"))
+                            setChannelType(botAPI, sm, em, messageChannel, message, Settings.CHAN_REPORTS);
+                        else if (strings[4].equalsIgnoreCase("admin"))
+                            setChannelType(botAPI, sm, em, messageChannel, message, Settings.CHAN_ADMIN);
+                    }
+                } else if (strings[1].equalsIgnoreCase("check")) {
+                    if (strings[2].equalsIgnoreCase("user") && message.getMentionedUsers().size() == 1)
+                        checkUserPermission(botAPI, em, pm, messageChannel, message);
+                    else if (strings[2].equalsIgnoreCase("role") && message.getMentionedRoles().size() == 1)
+                        checkRolePermission(botAPI, em, pm, messageChannel, message);
+                }else if (strings[1].equalsIgnoreCase("rankup")){
+                    if(strings.length != 4 && message.getMentionedRoles().size() != 1)
+                        return;
+
+                    int level = Integer.parseInt(strings[3]);
+
+                    if(strings[2].equalsIgnoreCase("set"))
+                        setRankupRole(botAPI, sm, em, messageChannel, message, level);
+                    else if(strings[2].equalsIgnoreCase("remove"))
+                        botAPI.getMessageManager().sendMessage(messageChannel, em.getAsDescription("This feature is deprecated, and no longer works.", Color.RED));
+                } else if (strings[1].equalsIgnoreCase("ptr")) {
+                    try {
+                        Webhook webhook = null;
+                        for (Webhook wh : messageChannel.getJDA().getTextChannelById(messageChannel.getId()).getWebhooks().complete()) {
+                            if (!wh.getName().equalsIgnoreCase("TSC-Bot"))
+                                continue;
+
+                            webhook = wh;
+                            break;
+                        }
+
+                        if (webhook == null)
+                            return;
+                        WebhookClientBuilder builder = webhook.newClient();
+                        WebhookClient client = builder.build();
+                        WebhookMessageBuilder messageBuilder = new WebhookMessageBuilder();
+                        messageBuilder.setContent("This is a testing content");
+                        messageBuilder.addEmbeds(em.getAsDescription("1st embed"), em.getAsDescription("2nd embed"))
+                                .setUsername("Some weird bleach")
+                                .setAvatarUrl(user.getJDA().getSelfUser().getAvatarUrl());
+                        client.send(messageBuilder.build());
+                        client.close();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
+            }else
+                botAPI.getMessageManager().sendMessage(messageChannel, em.getAsDescription("erR0r 0x11", Color.RED));
 
-                if (webhook == null)
-                    return;
-                WebhookClientBuilder builder = webhook.newClient();
-                WebhookClient client = builder.build();
-                WebhookMessageBuilder messageBuilder = new WebhookMessageBuilder();
-                messageBuilder.setContent("This is a testing content");
-                messageBuilder.addEmbeds(em.getAsDescription("1st embed"), em.getAsDescription("2nd embed"))
-                        .setUsername("Some weird bleach")
-                        .setAvatarUrl(user.getJDA().getSelfUser().getAvatarUrl());
-                client.send(messageBuilder.build());
-                client.close();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+        }catch (ArrayIndexOutOfBoundsException e){
+            botAPI.getMessageManager().sendMessage(messageChannel, em.getAsDescription("erR0r 0x01", Color.RED));
+        }catch (Exception e){
+            e.printStackTrace();
         }
     }
 
@@ -128,6 +156,40 @@ public class ComSettings implements CommandExecutor {
     private void setChannelType(BotAPI botAPI, SettingsManager sm, EmbedMessageManager em, MessageChannel messageChannel, Message message, Settings settings) {
         TextChannel tc = message.getMentionedChannels().get(0);
         sm.addSetting(settings, tc.getId());
+        botAPI.getMessageManager().sendMessage(messageChannel, em.getAsDescription("done", Color.DARK_GRAY));
+    }
+
+    private void setRankupRole(BotAPI botAPI, SettingsManager sm, EmbedMessageManager em, MessageChannel messageChannel, Message message, int level) {
+        Role role = message.getMentionedRoles().get(0);
+
+        if(!sm.isSet(Settings.RANKED_REWARDS))
+            sm.addSetting(Settings.RANKED_REWARDS, String.format("%d,%s", level, role.getId()));
+        else{
+            String cs = sm.getSetting(Settings.RANKED_REWARDS);
+            cs += String.format("-%d,%s", level, role.getId());
+            sm.updateSetting(Settings.RANKED_REWARDS, cs);
+        }
+        botAPI.getMessageManager().sendMessage(messageChannel, em.getAsDescription("done", Color.DARK_GRAY));
+    }
+
+    @Deprecated
+    private void removeRankupRole(BotAPI botAPI, SettingsManager sm, EmbedMessageManager em, MessageChannel messageChannel, Message message, int level) {
+        Role role = message.getMentionedRoles().get(0);
+
+        //if(!sm.isSet(Settings.RANKED_REWARDS)) {
+        //    botAPI.getMessageManager().sendMessage(messageChannel, em.getAsDescription("done", Color.RED));
+        //    throw new NullPointerException();
+        //}else{
+        //    String cs = sm.getSetting(Settings.RANKED_REWARDS);
+        //    if(cs.contains("-"))
+        //        if (cs.contains(String.format("%d,%s", level, role.getId()))) {
+        //            cs = cs.replace(String.format("-%d,%s-", level, role.getId()), ",");
+        //            cs = cs.replace(String.format("%d,%s", level, role.getId()), "");
+        //            sm.updateSetting(Settings.RANKED_REWARDS, cs);
+        //        }
+        //    else
+        //        sm.updateSetting(Settings.RANKED_REWARDS, "null");
+        //}
         botAPI.getMessageManager().sendMessage(messageChannel, em.getAsDescription("done", Color.DARK_GRAY));
     }
 }
