@@ -64,6 +64,6 @@ public class ComMute implements CommandExecutor {
             return;
         }
 
-        botAPI.getMessageManager().sendMessage(messageChannel, embedManager.getAsDescription(String.format("%s %s been muted! %a", s, message.getMentionedUsers().size() > 1 ? "have" : "has")));
+        botAPI.getMessageManager().sendMessage(messageChannel, embedManager.getAsDescription(String.format("%s %s been muted!", s, message.getMentionedUsers().size() > 1 ? "have" : "has")));
     }
 }
