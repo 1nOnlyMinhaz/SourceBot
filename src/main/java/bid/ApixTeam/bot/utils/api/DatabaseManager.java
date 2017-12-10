@@ -3,6 +3,8 @@ package bid.ApixTeam.bot.utils.api;
 import bid.ApixTeam.bot.utils.connection.DataSource;
 import bid.ApixTeam.bot.utils.vars.Lists;
 import bid.ApixTeam.bot.utils.vars.enums.RankingType;
+import bid.ApixTeam.bot.utils.vars.enums.Settings;
+import net.dv8tion.jda.core.entities.Guild;
 import net.dv8tion.jda.core.entities.User;
 
 import java.sql.*;
@@ -176,9 +178,8 @@ public class DatabaseManager {
         }
     }
 
-    public void userLevelUp(User user, int exp){
+    public void userLevelUp(User user, HashMap<RankingType, Integer> userRanking, int exp){
         try {
-            HashMap<RankingType, Integer> userRanking = getUserRanking(user);
             Connection connection = getConnection();
             PreparedStatement ps = connection.prepareStatement("UPDATE `rankings` SET `experience` = ?, `level` = ? WHERE `UserID` = ?");
             ps.setInt(1, exp);
@@ -188,6 +189,21 @@ public class DatabaseManager {
             closeConnection(connection, ps, null);
         } catch (SQLException e) {
             e.printStackTrace();
+        }
+    }
+
+    public void userRankUp(Guild guild, User user, SettingsManager sm){
+        if(!sm.isSet(Settings.RANKED_REWARDS))
+            return;
+
+        HashMap<RankingType, Integer> userRanking = getUserRanking(user);
+
+        String rewards = sm.getSetting(Settings.RANKED_REWARDS);
+        String[] s = rewards.split(",");
+        for(String st: s){
+            String[] stt = st.split("-");
+            if(!guild.getMember(user).getRoles().contains(guild.getRoleById(stt[1])) && (userRanking.get(RankingType.LEVEL)) >= Integer.parseInt(stt[0]))
+                guild.getController().addSingleRoleToMember(guild.getMember(user), guild.getRoleById(stt[1])).queue();
         }
     }
 

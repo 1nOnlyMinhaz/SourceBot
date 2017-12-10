@@ -34,7 +34,7 @@ public class SettingsManager extends DatabaseManager {
                 Settings setting = Settings.getSetting(rs.getString("option"));
                 Lists.getSettings().put(setting, rs.getString("value"));
 
-                if(rs.getString("option").startsWith("permission"))
+                if (rs.getString("option").startsWith("permission"))
                     Lists.getRolePermissions().put(Long.valueOf(rs.getString("value")), SimpleRank.valueOf(rs.getString("option").replace("permission-", "").replace("-", "_").toUpperCase()));
             }
             getDatabaseManager().closeConnection(connection, ps, rs);
@@ -65,18 +65,33 @@ public class SettingsManager extends DatabaseManager {
         }
     }
 
-    public boolean isSet(Settings settings){
+    public void retrieveOnce(Settings setting) {
+        try {
+            Connection connection = getDatabaseManager().getConnection();
+            PreparedStatement ps = connection.prepareStatement("SELECT * FROM `settings` WHERE `option` = ?");
+            ps.setString(1, setting.getOption());
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next())
+                Lists.getSettings().put(setting, rs.getString("value"));
+            getDatabaseManager().closeConnection(connection, ps, rs);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public boolean isSet(Settings settings) {
         return Lists.getSettings().containsKey(settings);
     }
 
     public String getSetting(Settings settings) {
-        if(!isSet(settings))
+        if (!isSet(settings))
             return null;
         return Lists.getSettings().get(settings);
     }
 
-    public void addSetting(Settings settings, String value){
-        if(isSet(settings)){
+    public void addSetting(Settings settings, String value) {
+        if (isSet(settings)) {
             updateSetting(settings, value);
             return;
         }
@@ -94,8 +109,8 @@ public class SettingsManager extends DatabaseManager {
         }
     }
 
-    public void updateSetting(Settings settings, String value){
-        if(!isSet(settings)){
+    public void updateSetting(Settings settings, String value) {
+        if (!isSet(settings)) {
             addSetting(settings, value);
             return;
         }

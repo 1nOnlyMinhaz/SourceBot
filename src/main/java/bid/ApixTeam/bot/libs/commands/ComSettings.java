@@ -27,6 +27,9 @@ public class ComSettings implements CommandExecutor {
         EmbedMessageManager em = botAPI.getEmbedMessageManager();
         SettingsManager sm = botAPI.getSettingsManager();
 
+        if(sm.isSet(Settings.CHAN_ADMIN) && !sm.getSetting(Settings.CHAN_ADMIN).equals(messageChannel.getId()))
+            return;
+
         if(!pm.userRoleAtLeast(guild.getMember(user), SimpleRank.SR_ADMIN) || !pm.userAtLeast(user, SimpleRank.BOT_ADMIN))
             return;
 
@@ -77,6 +80,9 @@ public class ComSettings implements CommandExecutor {
                     else if (strings[2].equalsIgnoreCase("role") && message.getMentionedRoles().size() == 1)
                         checkRolePermission(botAPI, em, pm, messageChannel, message);
                 }else if (strings[1].equalsIgnoreCase("rankup")){
+                    if(strings[2].equalsIgnoreCase("update"))
+                        sm.retrieveOnce(Settings.RANKED_REWARDS);
+
                     if(strings.length != 4 && message.getMentionedRoles().size() != 1)
                         return;
 
@@ -163,10 +169,10 @@ public class ComSettings implements CommandExecutor {
         Role role = message.getMentionedRoles().get(0);
 
         if(!sm.isSet(Settings.RANKED_REWARDS))
-            sm.addSetting(Settings.RANKED_REWARDS, String.format("%d,%s", level, role.getId()));
+            sm.addSetting(Settings.RANKED_REWARDS, String.format("%d-%s", level, role.getId()));
         else{
             String cs = sm.getSetting(Settings.RANKED_REWARDS);
-            cs += String.format("-%d,%s", level, role.getId());
+            cs += String.format(",%d-%s", level, role.getId());
             sm.updateSetting(Settings.RANKED_REWARDS, cs);
         }
         botAPI.getMessageManager().sendMessage(messageChannel, em.getAsDescription("done", Color.DARK_GRAY));
