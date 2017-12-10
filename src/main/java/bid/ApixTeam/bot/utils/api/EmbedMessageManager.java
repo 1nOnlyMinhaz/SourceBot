@@ -166,6 +166,7 @@ public class EmbedMessageManager {
     public MessageEmbed getJrAdminHelpEmbed(User user) {
         EmbedBuilder jr_adminCommands = new EmbedBuilder();
         jr_adminCommands.setAuthor("Junior Administration Commands", null, user.getJDA().getSelfUser().getAvatarUrl())
+                .addField("!broadcast", "", false)
                 .setColor(new Color(234, 255, 235));
         return jr_adminCommands.build();
     }
