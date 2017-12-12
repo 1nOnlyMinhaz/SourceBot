@@ -29,7 +29,6 @@ public class Listener {
         commandHandler.registerCommand(new ComMute());
         commandHandler.registerCommand(new ComUnMute());
         commandHandler.registerCommand(new ComLevels());
-        commandHandler.registerCommand(new ComUsage());
         commandHandler.registerCommand(new ComSlowmode());
         commandHandler.registerCommand(new ComBroadcast());
         commandHandler.registerCommand(new ComReport());
