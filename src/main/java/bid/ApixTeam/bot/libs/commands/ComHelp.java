@@ -10,6 +10,7 @@ import de.btobastian.sdcf4j.Command;
 import de.btobastian.sdcf4j.CommandExecutor;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.MessageChannel;
+import net.dv8tion.jda.core.entities.MessageEmbed;
 import net.dv8tion.jda.core.entities.User;
 import net.dv8tion.jda.core.exceptions.ErrorResponseException;
 
@@ -18,54 +19,53 @@ import net.dv8tion.jda.core.exceptions.ErrorResponseException;
  * in association with TheSourceCode (C) 2017
  */
 public class ComHelp implements CommandExecutor {
-    @Command(aliases = {"help", "commands"}, description = "displays the available commands")
-    public void onCommand(User user, MessageChannel messageChannel, Message message, Object[] objects) {
+    @Command(aliases = {"help"}, description = "displays the available commands")
+    public void onCommand(User user, MessageChannel messageChannel, Message message, String[] strings) {
         BotAPI botAPI = new BotAPI();
         EmbedMessageManager embedManager = botAPI.getEmbedMessageManager();
         PermissionManager pm = botAPI.getPermissionManager();
         boolean jrmod = false, srmod = false, jradmin = false, sradmin = false;
+        boolean b = messageChannel.getType().isGuild();
 
-        if(pm.userRoleAtLeast(user.getJDA().getGuildById(Lists.getSettings().get(Settings.MAIN_GUILD_ID)).getMember(user), SimpleRank.JR_MOD))
+        if (pm.userRoleAtLeast(user.getJDA().getGuildById(Lists.getSettings().get(Settings.MAIN_GUILD_ID)).getMember(user), SimpleRank.JR_MOD))
             jrmod = true;
-        if(pm.userRoleAtLeast(user.getJDA().getGuildById(Lists.getSettings().get(Settings.MAIN_GUILD_ID)).getMember(user), SimpleRank.SR_MOD))
+        if (pm.userRoleAtLeast(user.getJDA().getGuildById(Lists.getSettings().get(Settings.MAIN_GUILD_ID)).getMember(user), SimpleRank.SR_MOD))
             srmod = true;
-        if(pm.userRoleAtLeast(user.getJDA().getGuildById(Lists.getSettings().get(Settings.MAIN_GUILD_ID)).getMember(user), SimpleRank.JR_ADMIN))
+        if (pm.userRoleAtLeast(user.getJDA().getGuildById(Lists.getSettings().get(Settings.MAIN_GUILD_ID)).getMember(user), SimpleRank.JR_ADMIN))
             jradmin = true;
-        if(pm.userRoleAtLeast(user.getJDA().getGuildById(Lists.getSettings().get(Settings.MAIN_GUILD_ID)).getMember(user), SimpleRank.SR_ADMIN))
+        if (pm.userRoleAtLeast(user.getJDA().getGuildById(Lists.getSettings().get(Settings.MAIN_GUILD_ID)).getMember(user), SimpleRank.SR_ADMIN))
             sradmin = true;
 
-        if(objects.length != 0) {
-            botAPI.getMessageManager().sendMessage(messageChannel, embedManager.getUsage("!help"));
-            return;
-        }
-
         try {
-            if(messageChannel.getType().isGuild()) {
-                botAPI.getMessageManager().sendMessage(messageChannel, embedManager.getAsDescription(":white_check_mark: *sent you some help*.. please check your PMs."));
-                botAPI.getPrivateMessageManager().sendMessage(user, embedManager.getDefaultHelpEmbed(user));
-                if(jrmod)
-                    botAPI.getPrivateMessageManager().sendMessage(user, embedManager.getJrModHelpEmbed(user));
-                if(srmod)
-                    botAPI.getPrivateMessageManager().sendMessage(user, embedManager.getSrModHelpEmbed(user));
-                //if(jradmin)
-                //    botAPI.getPrivateMessageManager().sendMessage(user, embedManager.getJrAdminHelpEmbed(user));
-                //if(sradmin)
-                //    botAPI.getPrivateMessageManager().sendMessage(user, embedManager.getSrAdminHelpEmbed(user));
-            } else {
-                botAPI.getMessageManager().sendMessage(messageChannel, embedManager.getDefaultHelpEmbed(user));
-                if(jrmod)
-                    botAPI.getMessageManager().sendMessage(messageChannel, embedManager.getJrModHelpEmbed(user));
-                if(srmod)
-                    botAPI.getMessageManager().sendMessage(messageChannel, embedManager.getSrModHelpEmbed(user));
-                //if(jradmin)
-                //    botAPI.getMessageManager().sendMessage(messageChannel, embedManager.getJrAdminHelpEmbed(user));
-                //if(sradmin)
-                //    botAPI.getMessageManager().sendMessage(messageChannel, embedManager.getSrAdminHelpEmbed(user));
-            }
+            if (strings.length == 0) {
+                send(botAPI, user, embedManager.getDefaultHelpEmbed(user));
+                if (jrmod)
+                    send(botAPI, user, embedManager.getJrModHelpEmbed(user));
+                if (srmod)
+                    send(botAPI, user, embedManager.getSrModHelpEmbed(user));
+                if (jradmin)
+                    send(botAPI, user, embedManager.getJrAdminHelpEmbed(user));
+                if (sradmin)
+                    send(botAPI, user, embedManager.getSrAdminHelpEmbed(user));
+
+                if (b)
+                    botAPI.getMessageManager().sendMessage(messageChannel, botAPI.getEmbedMessageManager().getAsDescription(":white_check_mark: *sent you some help*.. please check your PMs."));
+            } else if (strings.length == 1) {
+                if (strings[0].equalsIgnoreCase("broadcast") && jradmin)
+                    send(botAPI, user, embedManager.getUsage(user, "broadcast", "Announces/broadcasts a message to a certain channel, can be executed once or placed in a loop.", "broadcast (Now|Later|Repeat) [L|R Time] [L|R Unit] (#Channel) (Message)", "!announce\n!bc"));
+
+                if (b)
+                    botAPI.getMessageManager().sendMessage(messageChannel, botAPI.getEmbedMessageManager().getAsDescription(":white_check_mark: *sent you some help*.. please check your PMs."));
+            } else
+                botAPI.getMessageManager().sendMessage(messageChannel, embedManager.getUsage("!help"));
         } catch (ErrorResponseException e) {
             botAPI.getMessageManager().sendMessage(messageChannel, embedManager.getAsDescription("Umm :cold_sweat: couldn't send you help :sob: maybe it's because your PMs are locked!"));
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private void send(BotAPI botAPI, User user, MessageEmbed messageEmbed) {
+        botAPI.getPrivateMessageManager().sendMessage(user, messageEmbed);
     }
 }

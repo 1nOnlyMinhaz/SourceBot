@@ -25,35 +25,35 @@ public class EmbedMessageManager {
         return embedMessageManager;
     }
 
-    public MessageEmbed getNoPermission(){
+    public MessageEmbed getNoPermission() {
         return new EmbedBuilder()
                 .setColor(new Color(234, 255, 235))
                 .setDescription(Messages.NO_PERMISSION)
                 .build();
     }
 
-    public MessageEmbed getNoComPermission(){
+    public MessageEmbed getNoComPermission() {
         return new EmbedBuilder()
                 .setColor(new Color(234, 255, 235))
                 .setDescription(Messages.NO_COM_PERMISSION)
                 .build();
     }
 
-    public MessageEmbed getAsDescription(String s){
+    public MessageEmbed getAsDescription(String s) {
         return new EmbedBuilder()
                 .setColor(new Color(234, 255, 235))
                 .setDescription(s)
                 .build();
     }
 
-    public MessageEmbed getAsDescription(String s, Color color){
+    public MessageEmbed getAsDescription(String s, Color color) {
         return new EmbedBuilder()
                 .setColor(color)
                 .setDescription(s)
                 .build();
     }
 
-    public MessageEmbed getUsage(String command){
+    public MessageEmbed getUsage(String command) {
         return new EmbedBuilder()
                 .setColor(new Color(234, 255, 235))
                 .setDescription(String.format(Messages.INCORRECT_USAGE, command))
@@ -125,7 +125,7 @@ public class EmbedMessageManager {
             }
 
             return embedBuilder.build();
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
@@ -166,7 +166,7 @@ public class EmbedMessageManager {
     public MessageEmbed getJrAdminHelpEmbed(User user) {
         EmbedBuilder jr_adminCommands = new EmbedBuilder();
         jr_adminCommands.setAuthor("Junior Administration Commands", null, user.getJDA().getSelfUser().getAvatarUrl())
-                .addField("!broadcast", "", false)
+                .addField("!broadcast", "duuhhh", false)
                 .setColor(new Color(234, 255, 235));
         return jr_adminCommands.build();
     }
@@ -212,99 +212,29 @@ public class EmbedMessageManager {
                 .build();
     }
 
-    public MessageEmbed getClearLimit(){
+    public MessageEmbed getClearLimit() {
         return new EmbedBuilder()
                 .setDescription("Discord limits message removal from 1 to 100 messages only.")
                 .setColor(new Color(234, 255, 235))
                 .build();
     }
 
-    public MessageEmbed getClearSuccess(int amount, String s){
+    public MessageEmbed getClearSuccess(int amount, String s) {
         return new EmbedBuilder()
                 .setDescription(String.format("Successfully cleared `%d` %s.", amount, s))
                 .setColor(new Color(234, 255, 235))
                 .build();
     }
 
-    public MessageEmbed getUsageHelp(User user) {
-        return new EmbedBuilder()
-                .setAuthor("!help Usage", null, user.getJDA().getSelfUser().getAvatarUrl())
-                .addField("Format", "!help", false)
-                .addField("Description", "Displays a useful help message containing a list of all available commands with brief descriptions", false)
-                .addField("Aliases", "!commands", false)
-                .setColor(new Color(234, 255, 235))
-                .build();
-
-    }
-
-    public MessageEmbed getUsageInfo(User user) {
-        return new EmbedBuilder()
-                .setAuthor("!info Usage", null, user.getJDA().getSelfUser().getAvatarUrl())
-                .addField("Format", "!info", false)
-                .addField("Desctiption", "Sends you a message that tells you about our history and other information about this bot, and the TheSourceCode Discord Server", false)
-                .addField("Aliases", "None", false)
-                .setColor(new Color(234, 255, 235))
-                .build();
-    }
-
-    public MessageEmbed getUsageRank(User user) {
-        return new EmbedBuilder()
-                .setAuthor("!rank Usage", null, user.getJDA().getSelfUser().getAvatarUrl())
-                .addField("Format", "!rank [opt. @user]", false)
-                .addField("Description", "This command displays your ranking, level, and exp in the ranking system. What this system does is rank users among all others in the server by messages sent. You get exp for every message you send, but only once per minute.", false)
-                .addField("Aliases", "!level", false)
-                .setColor(new Color(234, 255, 235))
-                .build();
-    }
-
-    public MessageEmbed getUsageLevels(User user) {
-        return new EmbedBuilder()
-                .setAuthor("!levels Usage", null, user.getJDA().getSelfUser().getAvatarUrl())
-                .addField("Format", "!levels", false)
-                .addField("Description", "Displays the top 5 users in the ranking system. ", false)
-                .addField("Aliases", "What this system does is rank users among all others in the server by messages sent. You get exp for every message you send, but only once per minute.", false)
-                .setColor(new Color(234, 255, 235))
-                .build();
-    }
-
-    public MessageEmbed getUsageClear(User user) {
-        return new EmbedBuilder()
-                .setAuthor("!clear Usage", null, user.getJDA().getSelfUser().getAvatarUrl())
-                .addField("Format", "!clear {number} [opt. @user | -s (Silent)] | [opt. -s (Silent)]", false)
-                .addField("Description", "Clears messages from the channel the command was sent in. This can be useful if you need to clear a bunch of spam messages. The -s flag will prevent the bot from responding with a success message.", false)
-                .addField("Aliases", "!clean, !cls, !purge", false)
-                .setColor(new Color(234, 255, 235))
-                .build();
-    }
-
-    public MessageEmbed getUsageSlowmode(User user) {
-        return new EmbedBuilder()
-                .setAuthor("!slowmode Usage", null, user.getJDA().getSelfUser().getAvatarUrl())
-                .addField("Format", "!slowmode {number}", false)
-                .addField("Description", "Adds a chat delay for the channel the command was sent in. Useful in situations where the chat is going nuts and gets really spammy.", false)
-                .addField("Aliases", "None", false)
-                .setColor(new Color(234, 255, 235))
-                .build();
-    }
-
-    public MessageEmbed getUsageMute(User user) {
-        return new EmbedBuilder()
-                .setAuthor("!mute Usage", null, user.getJDA().getSelfUser().getAvatarUrl())
-                .addField("Format", "!mute {@user}", false)
-                .addField("Description", "Disallows the specified user to chat in any channel. How it works is that it give the user a \"Muted\" role, which denies the send message permission.", false)
-                .addField("Aliases", "!shut_up", false)
-                .setColor(new Color(234, 255, 235))
-                .build();
-    }
-
-    public MessageEmbed getUsageUnmute(User user) {
-        return new EmbedBuilder()
-                .setAuthor("!unmute Usage", null, user.getJDA().getSelfUser().getAvatarUrl())
-                .addField("Format", "!unmute {@user}", false)
-                .addField("Description", "Unmutes a user *(See `!usage mute.`)*. This removes the \"Muted\" role from a user. But they must already be muted for this command to work.", false)
-                .addField("Aliases", "!un_mute", false)
-                .setColor(new Color(234, 255, 235))
-                .build();
+    public MessageEmbed getUsage(User user, String command, String desc, String format, String aliases) {
+        EmbedBuilder embedBuilder = new EmbedBuilder()
+                .setAuthor(String.format("Usage of !%s", command), null, user.getJDA().getSelfUser().getAvatarUrl())
+                .addField("Description", desc, false)
+                .addField("Format", String.format("!%s", format), false)
+                .setColor(new Color(234, 255, 235));
+        if (aliases != null)
+            embedBuilder.addField("Aliases", aliases, false);
+        return embedBuilder.build();
     }
 
     public MessageEmbed getLeaveEmbed(User user) {
