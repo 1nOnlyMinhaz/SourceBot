@@ -29,7 +29,7 @@ public class MessageReceived extends ListenerAdapter {
 
         //botAPI.getMessageManager().log(false, String.format("\"%s\"", message.getContent()));
 
-        if(Lists.getSlowmodeChannelCooldown().containsKey(e.getChannel().getIdLong()) && !botAPI.getPermissionManager().userAtLeast(user, SimpleRank.JR_ADMIN)) {
+        if(Lists.getSlowmodeChannelCooldown().containsKey(e.getChannel().getIdLong()) && !botAPI.getPermissionManager().userAtLeast(user, SimpleRank.SR_MOD)) {
             if (Lists.getSlowmodeUserCooldown().containsKey(e.getChannel().getIdLong() + ":" + user.getIdLong())) {
                 long seconds = ((Lists.getSlowmodeUserCooldown().get(e.getChannel().getIdLong() + ":" + user.getIdLong()) / 1000) + Lists.getSlowmodeChannelCooldown().get(e.getChannel().getIdLong())) - (System.currentTimeMillis() / 1000);
                 if (seconds > 0) {

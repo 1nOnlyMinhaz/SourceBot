@@ -148,7 +148,6 @@ public class EmbedMessageManager {
 
         jr_modCommands.setAuthor("Junior Moderation Commands", null, user.getJDA().getSelfUser().getAvatarUrl())
                 .addField("!clear", "Clear messages from the channel command is sent in.", false)
-                .addField("!slowmode", "Adds a delay to the chat.", false)
                 .setColor(new Color(234, 255, 235));
         return jr_modCommands.build();
     }
@@ -159,6 +158,7 @@ public class EmbedMessageManager {
         sr_modCommands.setAuthor("Senior Moderation Commands", null, user.getJDA().getSelfUser().getAvatarUrl())
                 .addField("!mute", "Prevents a user from speaking in all channels.", false)
                 .addField("!unmute", "... u dumb?", false)
+                .addField("!slowmode", "slows the chat", false)
                 .setColor(new Color(234, 255, 235));
         return sr_modCommands.build();
     }
@@ -230,8 +230,9 @@ public class EmbedMessageManager {
         EmbedBuilder embedBuilder = new EmbedBuilder()
                 .setAuthor(String.format("Usage of !%s", command), null, user.getJDA().getSelfUser().getAvatarUrl())
                 .addField("Description", desc, false)
-                .addField("Format", String.format("!%s", format), false)
                 .setColor(new Color(234, 255, 235));
+        if(format != null)
+            embedBuilder.addField("Format", String.format("!%s", format), false);
         if (aliases != null)
             embedBuilder.addField("Aliases", aliases, false);
         return embedBuilder.build();

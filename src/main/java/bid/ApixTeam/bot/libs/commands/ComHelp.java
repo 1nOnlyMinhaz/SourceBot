@@ -53,6 +53,26 @@ public class ComHelp implements CommandExecutor {
             } else if (strings.length == 1) {
                 if (strings[0].equalsIgnoreCase("broadcast") && jradmin)
                     send(botAPI, user, embedManager.getUsage(user, "broadcast", "Announces/broadcasts a message to a certain channel, can be executed once or placed in a loop.", "broadcast (Now|Later|Repeat) [L|R Time] [L|R Unit] (#Channel) (Message)", "!announce\n!bc"));
+                else if (strings[0].equalsIgnoreCase("clear") && jrmod)
+                    send(botAPI, user, embedManager.getUsage(user, "clear", "Clears a set amount of messages.", "clear (number) [<-s>|@mention]", "!clean\n!purge\n!cls"));
+                else if (strings[0].equalsIgnoreCase("help"))
+                    send(botAPI, user, embedManager.getUsage(user, "help", ":rolling_eyes:", "help [Command]", null));
+                else if (strings[0].equalsIgnoreCase("info"))
+                    send(botAPI, user, embedManager.getUsage(user, "info", "Information about various amount of things, such as how ranking works.", "info [ranks/mods/admins]", null));
+                else if (strings[0].equalsIgnoreCase("levels"))
+                    send(botAPI, user, embedManager.getUsage(user, "levels", "Displays the top `5` players on the server", null, "!ranks"));
+                else if (strings[0].equalsIgnoreCase("mute") && srmod)
+                    send(botAPI, user, embedManager.getUsage(user, "mute", "Do I really need to explain this?", "mute (@mention[s])", "!shut_up"));
+                else if (strings[0].equalsIgnoreCase("unmute") && srmod)
+                    send(botAPI, user, embedManager.getUsage(user, "unmute", "srsly tho?", "unmute (@mention[s])", "!un_mute"));
+                else if (strings[0].equalsIgnoreCase("rank"))
+                    send(botAPI, user, embedManager.getUsage(user, "rank", "Displays your activity ranking among the server.", "rank [@mention]", "!level"));
+                else if (strings[0].equalsIgnoreCase("report"))
+                    send(botAPI, user, embedManager.getUsage(user, "report", "Report a certain user.", "report (@mention) (reason)", null));
+                else if (strings[0].equalsIgnoreCase("settings") && sradmin)
+                    send(botAPI, user, embedManager.getUsage(user, "settings", "Manage the bot settings", null, null));
+                else if (strings[0].equalsIgnoreCase("slowmode") && srmod)
+                    send(botAPI, user, embedManager.getUsage(user, "slowmode", "Slows down the chat, any message that's been sent by a user within the specified amount of time will get deleted.", "slowmode (Time in seconds|<Off>)", null));
 
                 if (b)
                     botAPI.getMessageManager().sendMessage(messageChannel, botAPI.getEmbedMessageManager().getAsDescription(":white_check_mark: *sent you some help*.. please check your PMs."));

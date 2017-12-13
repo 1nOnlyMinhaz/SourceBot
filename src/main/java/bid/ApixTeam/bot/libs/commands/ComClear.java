@@ -2,6 +2,8 @@ package bid.ApixTeam.bot.libs.commands;
 
 import bid.ApixTeam.bot.utils.BotAPI;
 import bid.ApixTeam.bot.utils.api.EmbedMessageManager;
+import bid.ApixTeam.bot.utils.api.PermissionManager;
+import bid.ApixTeam.bot.utils.vars.enums.SimpleRank;
 import de.btobastian.sdcf4j.Command;
 import de.btobastian.sdcf4j.CommandExecutor;
 import net.dv8tion.jda.core.entities.*;
@@ -16,9 +18,15 @@ import java.util.concurrent.TimeUnit;
 
 public class ComClear implements CommandExecutor {
     @Command(aliases = {"clear", "clean", "cls", "purge"}, async = true)
-    public void onCommand(Guild guild, MessageChannel messageChannel, Message message, Object[] objects) {
+    public void onCommand(Guild guild, User user, MessageChannel messageChannel, Message message, Object[] objects) {
         BotAPI botAPI = new BotAPI();
         EmbedMessageManager embed = botAPI.getEmbedMessageManager();
+        PermissionManager pm = botAPI.getPermissionManager();
+
+        if(!pm.userRoleAtLeast(guild.getMember(user), SimpleRank.JR_ADMIN)) {
+            botAPI.getMessageManager().sendMessage(messageChannel, embed.getNoComPermission());
+            return;
+        }
 
         if(messageChannel.getType().isGuild()) {
             if(objects.length < 1 || objects.length > 3) {

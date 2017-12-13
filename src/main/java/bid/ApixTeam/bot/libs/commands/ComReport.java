@@ -9,7 +9,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class ComReport implements CommandExecutor {
-    @Command(aliases = {"report", "userreport", "usereport", "reportuser"})
+    @Command(aliases = "report")
     public void onCommand(Guild guild, MessageChannel messageChannel, Message command, User user, String args[]) {
         BotAPI botAPI = new BotAPI();
 
