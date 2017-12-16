@@ -157,6 +157,7 @@ public class EmbedMessageManager {
 
         sr_modCommands.setAuthor("Senior Moderation Commands", null, user.getJDA().getSelfUser().getAvatarUrl())
                 .addField("!mute", "Prevents a user from speaking in all channels.", false)
+                .addField("!tempmute", "Prevents a user from speaking in all channels temporarily.", false)
                 .addField("!unmute", "... u dumb?", false)
                 .addField("!slowmode", "slows the chat", false)
                 .setColor(new Color(234, 255, 235));
@@ -167,6 +168,7 @@ public class EmbedMessageManager {
         EmbedBuilder jr_adminCommands = new EmbedBuilder();
         jr_adminCommands.setAuthor("Junior Administration Commands", null, user.getJDA().getSelfUser().getAvatarUrl())
                 .addField("!broadcast", "duuhhh", false)
+                .addField("!tempban", "Bans a specific user for a set amount of time.", false)
                 .setColor(new Color(234, 255, 235));
         return jr_adminCommands.build();
     }
