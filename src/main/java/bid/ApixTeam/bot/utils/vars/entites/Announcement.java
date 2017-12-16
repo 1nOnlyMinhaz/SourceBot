@@ -1,16 +1,10 @@
 package bid.ApixTeam.bot.utils.vars.entites;
 
-import java.util.concurrent.TimeUnit;
-
 public class Announcement implements IBroadcast {
     private int id;
-    private long channelID, delay;
-    private String message, timeUnitt;
-    private TimeUnit timeUnit;
-
-    public void setId(int id) {
-        this.id = id;
-    }
+    private long channelID;
+    private int delay;
+    private String message;
 
     @Override
     public int getID() {
@@ -22,43 +16,29 @@ public class Announcement implements IBroadcast {
         return channelID;
     }
 
-    public void setChannelID(long channelID) {
-        this.channelID = channelID;
-    }
-
     @Override
     public String getMessage() {
         return message;
+    }
+
+    @Override
+    public int getDelay() {
+        return delay;
     }
 
     public void setMessage(String message) {
         this.message = message;
     }
 
-    @Override
-    public long getDelay() {
-        return delay;
+    public void setChannelID(long channelID) {
+        this.channelID = channelID;
     }
 
-    public void setDelay(long delay) {
+    public void setDelay(int delay) {
         this.delay = delay;
     }
 
-    @Override
-    public TimeUnit getTimeUnit() {
-        return timeUnit;
-    }
-
-    public void setTimeUnit(TimeUnit timeUnit) {
-        this.timeUnit = timeUnit;
-    }
-
-    @Override
-    public String getTimeUnitt() {
-        return timeUnitt;
-    }
-
-    public void setTimeUnitt(String timeUnitt) {
-        this.timeUnitt = timeUnitt;
+    public void setID(int id) {
+        this.id = id;
     }
 }

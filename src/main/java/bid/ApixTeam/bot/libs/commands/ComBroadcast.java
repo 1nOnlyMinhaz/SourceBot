@@ -40,15 +40,10 @@ public class ComBroadcast extends Announcement implements CommandExecutor{
 
             String message = str.toString().trim();
 
-            Pattern channelPattern = Pattern.compile("<#(.*?)>");
-            Matcher channelMatcher = channelPattern.matcher(channel);
-
-            if(!channelMatcher.find()) {
+            if(command.getMentionedChannels().size() != 1) {
                 botAPI.getMessageManager().sendMessage(messageChannel, getUsage());
             } else {
-                String channelId = channelMatcher.group(1);
-
-                botAPI.getMessageManager().sendMessage(guild.getTextChannelById(channelId), embedManager.getAsDescription(message));
+                botAPI.getMessageManager().sendMessage(command.getMentionedChannels().get(0), embedManager.getAsDescription(message));
                 botAPI.getMessageManager().deleteMessage(command, "Auto Cleared");
             }
         } else if(args[0].equalsIgnoreCase("later")) {
@@ -67,16 +62,11 @@ public class ComBroadcast extends Announcement implements CommandExecutor{
 
                 String message = str.toString().trim();
 
-                Pattern channelPattern = Pattern.compile("\\<\\#(.*?)\\>");
-                Matcher channelMatcher = channelPattern.matcher(channel);
-
-                if (!channelMatcher.find()) {
+                if (command.getMentionedChannels().size() != 1) {
                     botAPI.getMessageManager().sendMessage(messageChannel, getUsage());
                 } else {
-                    String channelId = channelMatcher.group(1);
-
                     botAPI.getMessageManager().deleteMessage(command, "Auto Cleared");
-                    botAPI.getMessageManager().sendMessage(guild.getTextChannelById(channelId), embedManager.getAsDescription(message), time, timeUnit); //Idk how to queueAfter here, wont let me plx fix father
+                    botAPI.getMessageManager().sendMessage(command.getMentionedChannels().get(0), embedManager.getAsDescription(message), time, timeUnit); //Idk how to queueAfter here, wont let me plx fix father
                 }
             }catch (Exception e){
                 e.printStackTrace();
@@ -86,7 +76,7 @@ public class ComBroadcast extends Announcement implements CommandExecutor{
         } else if(args[0].equalsIgnoreCase("repeat")) {
             //Daddy fix plx
             Announcement announcement = new Announcement();
-            announcement.setId(1);
+            announcement.setID(1);
         } else {
             botAPI.getMessageManager().sendMessage(messageChannel, getUsage());
         }
