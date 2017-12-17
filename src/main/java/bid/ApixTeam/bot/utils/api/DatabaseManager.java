@@ -2,8 +2,8 @@ package bid.ApixTeam.bot.utils.api;
 
 import bid.ApixTeam.bot.utils.connection.DataSource;
 import bid.ApixTeam.bot.utils.vars.Lists;
-import bid.ApixTeam.bot.utils.vars.enums.RankingType;
-import bid.ApixTeam.bot.utils.vars.enums.Settings;
+import bid.ApixTeam.bot.utils.vars.entites.enums.RankingType;
+import bid.ApixTeam.bot.utils.vars.entites.enums.Settings;
 import net.dv8tion.jda.core.entities.Guild;
 import net.dv8tion.jda.core.entities.User;
 

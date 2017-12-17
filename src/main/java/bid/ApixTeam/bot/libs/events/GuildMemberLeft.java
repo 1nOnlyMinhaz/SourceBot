@@ -3,7 +3,7 @@ package bid.ApixTeam.bot.libs.events;
 import bid.ApixTeam.bot.utils.BotAPI;
 import bid.ApixTeam.bot.utils.api.EmbedMessageManager;
 import bid.ApixTeam.bot.utils.api.SettingsManager;
-import bid.ApixTeam.bot.utils.vars.enums.Settings;
+import bid.ApixTeam.bot.utils.vars.entites.enums.Settings;
 import net.dv8tion.jda.core.entities.Guild;
 import net.dv8tion.jda.core.entities.MessageChannel;
 import net.dv8tion.jda.core.entities.User;

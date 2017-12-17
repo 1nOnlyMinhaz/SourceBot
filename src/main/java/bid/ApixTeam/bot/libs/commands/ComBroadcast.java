@@ -4,14 +4,12 @@ import bid.ApixTeam.bot.utils.BotAPI;
 import bid.ApixTeam.bot.utils.api.EmbedMessageManager;
 import bid.ApixTeam.bot.utils.api.PermissionManager;
 import bid.ApixTeam.bot.utils.vars.entites.Announcement;
-import bid.ApixTeam.bot.utils.vars.enums.SimpleRank;
+import bid.ApixTeam.bot.utils.vars.entites.enums.SimpleRank;
 import de.btobastian.sdcf4j.Command;
 import de.btobastian.sdcf4j.CommandExecutor;
 import net.dv8tion.jda.core.entities.*;
 
 import java.util.concurrent.TimeUnit;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class ComBroadcast extends Announcement implements CommandExecutor{
     @Command(aliases = {"broadcast", "announce", "bc"})

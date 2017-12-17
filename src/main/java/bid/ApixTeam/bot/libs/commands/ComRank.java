@@ -3,7 +3,7 @@ package bid.ApixTeam.bot.libs.commands;
 import bid.ApixTeam.bot.utils.BotAPI;
 import bid.ApixTeam.bot.utils.api.EmbedMessageManager;
 import bid.ApixTeam.bot.utils.api.SettingsManager;
-import bid.ApixTeam.bot.utils.vars.enums.Settings;
+import bid.ApixTeam.bot.utils.vars.entites.enums.Settings;
 import de.btobastian.sdcf4j.Command;
 import de.btobastian.sdcf4j.CommandExecutor;
 import net.dv8tion.jda.core.entities.Message;

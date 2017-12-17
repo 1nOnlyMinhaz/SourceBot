@@ -7,11 +7,11 @@ import java.sql.Timestamp;
  * in association with TheSourceCode (C) 2017
  */
 public class Incident implements IIncident {
-    int id, delay;
-    Timestamp timestamp;
-    long u1id, u2id, systime;
-    String type, reason;
-    boolean running;
+    private int id, delay;
+    private Timestamp timestamp;
+    private long u1id, u2id, systime;
+    private String type, reason;
+    private boolean running;
 
     @Override
     public int getId() {

@@ -30,4 +30,8 @@ public class BotAPI {
     public SettingsManager getSettingsManager(){
         return SettingsManager.getSettingsManager();
     }
+
+    public IncidentManager getIncidentManager(){
+        return IncidentManager.getIncidentManager();
+    }
 }

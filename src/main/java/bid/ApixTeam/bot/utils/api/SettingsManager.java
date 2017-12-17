@@ -2,8 +2,8 @@ package bid.ApixTeam.bot.utils.api;
 
 import bid.ApixTeam.bot.utils.BotAPI;
 import bid.ApixTeam.bot.utils.vars.Lists;
-import bid.ApixTeam.bot.utils.vars.enums.Settings;
-import bid.ApixTeam.bot.utils.vars.enums.SimpleRank;
+import bid.ApixTeam.bot.utils.vars.entites.enums.Settings;
+import bid.ApixTeam.bot.utils.vars.entites.enums.SimpleRank;
 import net.dv8tion.jda.core.JDA;
 
 import java.sql.Connection;

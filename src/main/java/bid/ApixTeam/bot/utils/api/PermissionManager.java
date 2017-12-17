@@ -2,8 +2,7 @@ package bid.ApixTeam.bot.utils.api;
 
 import bid.ApixTeam.bot.utils.BotAPI;
 import bid.ApixTeam.bot.utils.vars.Lists;
-import bid.ApixTeam.bot.utils.vars.enums.SimpleRank;
-import net.dv8tion.jda.core.entities.Guild;
+import bid.ApixTeam.bot.utils.vars.entites.enums.SimpleRank;
 import net.dv8tion.jda.core.entities.Member;
 import net.dv8tion.jda.core.entities.Role;
 import net.dv8tion.jda.core.entities.User;
