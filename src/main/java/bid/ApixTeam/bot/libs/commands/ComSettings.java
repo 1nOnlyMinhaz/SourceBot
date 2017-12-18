@@ -57,7 +57,7 @@ public class ComSettings implements CommandExecutor {
                             setRolePermission(botAPI, em, pm, messageChannel, message, SimpleRank.SR_ADMIN);
                         else if (strings[4].equalsIgnoreCase("chief"))
                             setRolePermission(botAPI, em, pm, messageChannel, message, SimpleRank.CHIEF_ADMIN);
-                    } else if (strings[1].equalsIgnoreCase("channel") && message.getMentionedChannels().size() == 1) {
+                    } else if (strings[2].equalsIgnoreCase("channel") && message.getMentionedChannels().size() == 1) {
                         if (strings.length != 5)
                             return;
 
