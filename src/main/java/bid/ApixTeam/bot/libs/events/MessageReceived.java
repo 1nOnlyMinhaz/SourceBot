@@ -43,7 +43,7 @@ public class MessageReceived extends ListenerAdapter {
 
         if (!e.getTextChannel().isNSFW())
             for (String word : Lists.getProfanityList()) {
-                if (message.getContent().toLowerCase().contains(word)) {
+                if(message.getContentDisplay().toLowerCase().contains(word)) {
                     botAPI.getMessageManager().deleteMessage(message);
                     Message rebukeMessage = botAPI.getMessageManager().sendMessage(message.getChannel(), String.format("**Language %s!!!** :rage:", message.getAuthor().getAsMention()));
                     botAPI.getMessageManager().deleteMessageAfter(rebukeMessage, 3L, TimeUnit.SECONDS);
@@ -51,9 +51,9 @@ public class MessageReceived extends ListenerAdapter {
                 }
             }
 
-        if (message.getContent().startsWith("!"))
+        if(message.getContentDisplay().startsWith("!"))
             for (String s : Lists.getCommands())
-                if (message.getContent().startsWith(String.format("!%s", s)))
+                if(message.getContentDisplay().startsWith(String.format("!%s", s)))
                     return;
 
         if (!Lists.getUsers().contains(user.getIdLong()))
