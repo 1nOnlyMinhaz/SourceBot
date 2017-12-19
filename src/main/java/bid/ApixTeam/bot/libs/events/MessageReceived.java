@@ -27,8 +27,6 @@ public class MessageReceived extends ListenerAdapter {
         if (!e.getChannel().getType().isGuild() || user.isBot())
             return;
 
-        //botAPI.getMessageManager().log(false, String.format("\"%s\"", message.getContent()));
-
         if(Lists.getSlowmodeChannelCooldown().containsKey(e.getChannel().getIdLong()) && !botAPI.getPermissionManager().userAtLeast(user, SimpleRank.MOD)) {
             if (Lists.getSlowmodeUserCooldown().containsKey(e.getChannel().getIdLong() + ":" + user.getIdLong())) {
                 long seconds = ((Lists.getSlowmodeUserCooldown().get(e.getChannel().getIdLong() + ":" + user.getIdLong()) / 1000) + Lists.getSlowmodeChannelCooldown().get(e.getChannel().getIdLong())) - (System.currentTimeMillis() / 1000);
@@ -43,7 +41,7 @@ public class MessageReceived extends ListenerAdapter {
 
         if (!e.getTextChannel().isNSFW())
             for (String word : Lists.getProfanityList()) {
-                if (message.getContent().toLowerCase().contains(word)) {
+                if (message.getContentRaw().toLowerCase().contains(word)) {
                     botAPI.getMessageManager().deleteMessage(message);
                     Message rebukeMessage = botAPI.getMessageManager().sendMessage(message.getChannel(), String.format("**Language %s!!!** :rage:", message.getAuthor().getAsMention()));
                     botAPI.getMessageManager().deleteMessageAfter(rebukeMessage, 3L, TimeUnit.SECONDS);
@@ -51,9 +49,9 @@ public class MessageReceived extends ListenerAdapter {
                 }
             }
 
-        if (message.getContent().startsWith("!"))
+        if (message.getContentRaw().startsWith("!"))
             for (String s : Lists.getCommands())
-                if (message.getContent().startsWith(String.format("!%s", s)))
+                if (message.getContentRaw().startsWith(String.format("!%s", s)))
                     return;
 
         if (!Lists.getUsers().contains(user.getIdLong()))

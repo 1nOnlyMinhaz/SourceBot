@@ -88,31 +88,6 @@ public class ComSettings implements CommandExecutor {
                         setRankupRole(botAPI, sm, em, messageChannel, message, level);
                     else if(strings[2].equalsIgnoreCase("remove"))
                         botAPI.getMessageManager().sendMessage(messageChannel, em.getAsDescription("This feature is deprecated, and no longer works.", Color.RED));
-                } else if (strings[1].equalsIgnoreCase("ptr")) {
-                    try {
-                        Webhook webhook = null;
-                        for (Webhook wh : messageChannel.getJDA().getTextChannelById(messageChannel.getId()).getWebhooks().complete()) {
-                            if (!wh.getName().equalsIgnoreCase("TSC-Bot"))
-                                continue;
-
-                            webhook = wh;
-                            break;
-                        }
-
-                        if (webhook == null)
-                            return;
-                        WebhookClientBuilder builder = webhook.newClient();
-                        WebhookClient client = builder.build();
-                        WebhookMessageBuilder messageBuilder = new WebhookMessageBuilder();
-                        messageBuilder.setContent("This is a testing content");
-                        messageBuilder.addEmbeds(em.getAsDescription("1st embed"), em.getAsDescription("2nd embed"))
-                                .setUsername("Some weird bleach")
-                                .setAvatarUrl(user.getJDA().getSelfUser().getAvatarUrl());
-                        client.send(messageBuilder.build());
-                        client.close();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
                 }
             }else
                 botAPI.getMessageManager().sendMessage(messageChannel, em.getAsDescription("erR0r 0x11", Color.RED));
@@ -176,8 +151,7 @@ public class ComSettings implements CommandExecutor {
 
     @Deprecated
     private void removeRankupRole(BotAPI botAPI, SettingsManager sm, EmbedMessageManager em, MessageChannel messageChannel, Message message, int level) {
-        Role role = message.getMentionedRoles().get(0);
-
+        //Role role = message.getMentionedRoles().get(0);
         //if(!sm.isSet(Settings.RANKED_REWARDS)) {
         //    botAPI.getMessageManager().sendMessage(messageChannel, em.getAsDescription("done", Color.RED));
         //    throw new NullPointerException();
@@ -192,6 +166,6 @@ public class ComSettings implements CommandExecutor {
         //    else
         //        sm.updateSetting(Settings.RANKED_REWARDS, "null");
         //}
-        botAPI.getMessageManager().sendMessage(messageChannel, em.getAsDescription("done", Color.DARK_GRAY));
+        botAPI.getMessageManager().sendMessage(messageChannel, em.getAsDescription("deprecated", Color.DARK_GRAY));
     }
 }

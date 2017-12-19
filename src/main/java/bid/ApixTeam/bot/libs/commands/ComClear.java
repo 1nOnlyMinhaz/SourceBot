@@ -23,7 +23,7 @@ public class ComClear implements CommandExecutor {
         EmbedMessageManager embed = botAPI.getEmbedMessageManager();
         PermissionManager pm = botAPI.getPermissionManager();
 
-        if(!pm.userRoleAtLeast(guild.getMember(user), SimpleRank.JR_ADMIN)) {
+        if(!pm.userRoleAtLeast(guild.getMember(user), SimpleRank.ADMIN)) {
             botAPI.getMessageManager().sendMessage(messageChannel, embed.getNoComPermission());
             return;
         }

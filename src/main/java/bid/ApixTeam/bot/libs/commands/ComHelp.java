@@ -36,9 +36,9 @@ public class ComHelp implements CommandExecutor {
             if (strings.length == 0) {
                 send(botAPI, user, embedManager.getDefaultHelpEmbed(user));
                 if(mod)
-                    send(botAPI, user, embedManager.getSrModHelpEmbed(user));
+                    send(botAPI, user, embedManager.getModerationHelpEmbed(user));
                 if(admin)
-                    send(botAPI, user, embedManager.getSrAdminHelpEmbed(user));
+                    send(botAPI, user, embedManager.getAdministrationHelpEmbed(user));
 
                 if (b)
                     botAPI.getMessageManager().sendMessage(messageChannel, botAPI.getEmbedMessageManager().getAsDescription(":white_check_mark: *sent you some help*.. please check your PMs."));

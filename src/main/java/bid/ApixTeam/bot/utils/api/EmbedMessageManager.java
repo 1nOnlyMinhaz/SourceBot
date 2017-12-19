@@ -135,27 +135,19 @@ public class EmbedMessageManager {
         EmbedBuilder defaultCommands = new EmbedBuilder();
 
         defaultCommands.setAuthor("Default Commands", null, user.getJDA().getSelfUser().getAvatarUrl())
-                .addField("!help", "You know... :unamused:", false)
+                .addField("!help", "You know... :unamused: \n *You can use `!help (command)` to get an explanation on how to use that command :wink:*", false)
                 .addField("!info", "Sends you an informal message about the bot and the server.\n **You MUST have PMs enabled for the server!**", false)
                 .addField("!rank", "Displays your activity ranking among the server.\n *More info at `!info rank` :wink:*", false)
                 .addField("!levels", "Displays the top `5` players on the ranking system.", false)
+                .addField("!report", "Report a certain user.", false)
                 .setColor(new Color(234, 255, 235));
         return defaultCommands.build();
     }
 
-    public MessageEmbed getJrModHelpEmbed(User user) {
-        EmbedBuilder jr_modCommands = new EmbedBuilder();
-
-        jr_modCommands.setAuthor("Junior Moderation Commands", null, user.getJDA().getSelfUser().getAvatarUrl())
-                .addField("!clear", "Clear messages from the channel command is sent in.", false)
-                .setColor(new Color(234, 255, 235));
-        return jr_modCommands.build();
-    }
-
-    public MessageEmbed getSrModHelpEmbed(User user) {
+    public MessageEmbed getModerationHelpEmbed(User user) {
         EmbedBuilder sr_modCommands = new EmbedBuilder();
 
-        sr_modCommands.setAuthor("Senior Moderation Commands", null, user.getJDA().getSelfUser().getAvatarUrl())
+        sr_modCommands.setAuthor("Moderation Commands", null, user.getJDA().getSelfUser().getAvatarUrl())
                 .addField("!mute", "Prevents a user from speaking in all channels.", false)
                 .addField("!tempmute", "Prevents a user from speaking in all channels temporarily.", false)
                 .addField("!unmute", "... u dumb?", false)
@@ -164,20 +156,14 @@ public class EmbedMessageManager {
         return sr_modCommands.build();
     }
 
-    public MessageEmbed getJrAdminHelpEmbed(User user) {
+    public MessageEmbed getAdministrationHelpEmbed(User user) {
         EmbedBuilder jr_adminCommands = new EmbedBuilder();
-        jr_adminCommands.setAuthor("Junior Administration Commands", null, user.getJDA().getSelfUser().getAvatarUrl())
+        jr_adminCommands.setAuthor("Administration Commands", null, user.getJDA().getSelfUser().getAvatarUrl())
                 .addField("!broadcast", "duuhhh", false)
+                .addField("!clear", "Clears a set amount of messages.", false)
                 .addField("!tempban", "Bans a specific user for a set amount of time.", false)
                 .setColor(new Color(234, 255, 235));
         return jr_adminCommands.build();
-    }
-
-    public MessageEmbed getSrAdminHelpEmbed(User user) {
-        EmbedBuilder sr_adminCommands = new EmbedBuilder();
-        sr_adminCommands.setAuthor("Senior Administration Commands", null, user.getJDA().getSelfUser().getAvatarUrl())
-                .setColor(new Color(234, 255, 235));
-        return sr_adminCommands.build();
     }
 
     public MessageEmbed getInfoMain(User user) {

@@ -1,6 +1,7 @@
 package bid.ApixTeam.bot.libs.commands;
 
 import bid.ApixTeam.bot.utils.BotAPI;
+import bid.ApixTeam.bot.utils.vars.entites.enums.Settings;
 import de.btobastian.sdcf4j.Command;
 import de.btobastian.sdcf4j.CommandExecutor;
 import net.dv8tion.jda.core.entities.*;
@@ -15,7 +16,7 @@ public class ComReport implements CommandExecutor {
 
         String timeStamp = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new Date());
 
-        if(args.length < 2 || command.getMentionedUsers().size() == 0 || !args[0].matches("\\<\\@(.*?)\\>")) {
+        if(args.length < 2 || command.getMentionedUsers().size() == 0 || !args[0].matches("<@(.*?)>")) {
             botAPI.getMessageManager().sendMessage(messageChannel, getUsage());
             //  botAPI.getMessageManager().deleteMessage(command, "Auto Cleared");
             return;
@@ -38,11 +39,11 @@ public class ComReport implements CommandExecutor {
 
         String reason = str.toString().trim();
 
-        botAPI.getMessageManager().sendMessage(guild.getTextChannelById("372802550799269888"), botAPI.getEmbedMessageManager().getReportEmbed(command.getAuthor(), command.getMentionedUsers().get(0), reason, timeStamp));
+        botAPI.getMessageManager().sendMessage(guild.getTextChannelById(botAPI.getSettingsManager().getSetting(Settings.CHAN_REPORTS)), botAPI.getEmbedMessageManager().getReportEmbed(command.getAuthor(), command.getMentionedUsers().get(0), reason, timeStamp));
         botAPI.getMessageManager().deleteMessage(command, "Auto Cleared");
     }
 
-    public MessageEmbed getUsage() {
+    private MessageEmbed getUsage() {
         return new BotAPI().getEmbedMessageManager().getUsage("!report {@mention) {reason}");
     }
 }
