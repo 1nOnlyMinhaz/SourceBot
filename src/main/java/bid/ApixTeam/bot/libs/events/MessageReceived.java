@@ -2,6 +2,7 @@ package bid.ApixTeam.bot.libs.events;
 
 import bid.ApixTeam.bot.utils.BotAPI;
 import bid.ApixTeam.bot.utils.vars.Lists;
+import bid.ApixTeam.bot.utils.vars.Messages;
 import bid.ApixTeam.bot.utils.vars.entites.enums.RankingType;
 import bid.ApixTeam.bot.utils.vars.entites.enums.SimpleRank;
 import net.dv8tion.jda.core.entities.Message;
@@ -43,8 +44,8 @@ public class MessageReceived extends ListenerAdapter {
             for (String word : Lists.getProfanityList()) {
                 if (message.getContentRaw().toLowerCase().contains(word)) {
                     botAPI.getMessageManager().deleteMessage(message);
-                    Message rebukeMessage = botAPI.getMessageManager().sendMessage(message.getChannel(), String.format("**Language %s!!!** :rage:", message.getAuthor().getAsMention()));
-                    botAPI.getMessageManager().deleteMessageAfter(rebukeMessage, 3L, TimeUnit.SECONDS);
+                    Message rebukeMessage = botAPI.getMessageManager().sendMessage(message.getChannel(), String.format(Messages.PROFANITY[new Random().nextInt(Messages.PROFANITY.length)], message.getAuthor().getAsMention()));
+                    botAPI.getMessageManager().deleteMessageAfter(rebukeMessage, 5L, TimeUnit.SECONDS);
                     return;
                 }
             }

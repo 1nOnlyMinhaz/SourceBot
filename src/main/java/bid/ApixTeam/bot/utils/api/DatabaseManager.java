@@ -59,21 +59,6 @@ public class DatabaseManager {
         }
     }
 
-    public HashMap<RankingType, Integer> getUserLeveling(User user){
-        try {
-            HashMap<RankingType, Integer> userLeveling = Lists.getUserLevels().get(user.getIdLong());
-            if(userLeveling != null)
-                return userLeveling;
-
-            Connection connection = getConnection();
-            PreparedStatement ps = connection.prepareStatement("");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return null;
-    }
-
     public HashMap<RankingType, Integer> getUserRanking(User user) {
         try {
             Connection connection = getConnection();

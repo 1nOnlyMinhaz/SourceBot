@@ -17,9 +17,6 @@ import java.util.*;
  */
 public class EmbedMessageManager {
     private static EmbedMessageManager embedMessageManager = new EmbedMessageManager();
-    private String[] brags = {"Try and keep up.", "pffftt, gud one.", "I'm always in the top.", "ez.", "huh, too eazy.", "Is this ez mode?", "Over 9000!"};
-    private String[] bots = {"Ew, ban that thing", "GET THAT THING OUTTA HERE!", "reminds me of stupid mee6", "boooooooooooooooriingg", "if you ask me, i'd rather ban it.", "pfffft, I'm much better."};
-    private String[] leaveMessages = {"OH NO! :cry: %PLAYER% just left the server :sob:", "RIP! %PLAYER% abandoned us :sob:", "Cya! %PLAYER% thought that we want him :joy:", "%PLAYER% has left the game.", "Later! %PLAYER% did rage quit :joy:"};
 
     public static EmbedMessageManager getEmbedMessageManager() {
         return embedMessageManager;
@@ -67,10 +64,10 @@ public class EmbedMessageManager {
         embedBuilder.setColor(new Color(234, 255, 235));
 
         if (user == user.getJDA().getSelfUser()) {
-            embedBuilder.setDescription(brags[new Random().nextInt(brags.length)]);
+            embedBuilder.setDescription(Messages.RANK_BRAGS[new Random().nextInt(Messages.RANK_BRAGS.length)]);
             return embedBuilder.build();
         } else if (user.isBot()) {
-            embedBuilder.setDescription(bots[new Random().nextInt(bots.length)]);
+            embedBuilder.setDescription(Messages.RANK_BOTS[new Random().nextInt(Messages.RANK_BOTS.length)]);
             return embedBuilder.build();
         } else if (userRanking == null) {
             embedBuilder.setDescription(String.format("%s hasn't ranked yet", user.getName()));
@@ -119,7 +116,6 @@ public class EmbedMessageManager {
                 int lvl = Integer.parseInt(strings[2]);
                 int exp = Integer.parseInt(strings[3]);
                 int tot = Integer.parseInt(strings[4]);
-                //embedBuilder.addField(String.format("%d. @%s#%s", rnk, user.getJDA().getUserById(Long.valueOf(strings[0])).getName(), user.getJDA().getUserById(Long.valueOf(strings[0])).getDiscriminator()), String.format("Lvl. %d | Exp. %d", lvl, exp), false);
                 embedBuilder.appendDescription(String.format("**%d**%s. %s\n", rnk, rnk == 1 ? "st" : rnk == 2 ? "nd" : rnk == 3 ? "rd" : "th", user.getJDA().getUserById(Long.valueOf(strings[0])).getAsMention()));
                 embedBuilder.appendDescription(String.format("`Lvl. %d` | `Exp. %d`\n", lvl, exp));
             }
@@ -228,7 +224,7 @@ public class EmbedMessageManager {
 
     public MessageEmbed getLeaveEmbed(User user) {
         return new EmbedBuilder()
-                .setDescription(leaveMessages[new Random().nextInt(leaveMessages.length)].replace("%PLAYER%", user.getAsMention()))
+                .setDescription(Messages.LEAVE[new Random().nextInt(Messages.LEAVE.length)].replace("%PLAYER%", user.getAsMention()))
                 .setColor(new Color(234, 255, 235))
                 .build();
     }

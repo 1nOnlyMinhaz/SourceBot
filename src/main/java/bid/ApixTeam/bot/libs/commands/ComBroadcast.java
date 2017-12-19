@@ -51,8 +51,6 @@ public class ComBroadcast extends Announcement implements CommandExecutor{
                 time = Long.parseLong(timeString);
                 TimeUnit timeUnit = TimeUnit.valueOf(args[2].toUpperCase());
 
-                String channel = args[3];
-
                 StringBuilder str = new StringBuilder();
                 for (int i = 4; i < args.length; i++) {
                     str.append(args[i]).append(" ");
