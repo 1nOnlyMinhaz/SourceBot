@@ -27,7 +27,7 @@ public class ComMute implements CommandExecutor {
         EmbedMessageManager embedManager = botAPI.getEmbedMessageManager();
         PermissionManager pm = botAPI.getPermissionManager();
 
-        if(!pm.userRoleAtLeast(guild.getMember(user), SimpleRank.SR_MOD)){
+        if(!pm.userRoleAtLeast(guild.getMember(user), SimpleRank.MOD)) {
             botAPI.getMessageManager().sendMessage(messageChannel, embedManager.getNoComPermission());
             return;
         }else if(strings.length < 1 && message.getMentionedUsers().size() < 1){
@@ -39,7 +39,7 @@ public class ComMute implements CommandExecutor {
         String s;
         ArrayList<String> arrayList = new ArrayList<>();
         for(User target : message.getMentionedUsers()) {
-            if (pm.userAtLeast(target, SimpleRank.JR_MOD) || pm.userRoleAtLeast(guild.getMember(target), SimpleRank.JR_MOD) || target == guild.getJDA().getSelfUser())
+            if(pm.userAtLeast(target, SimpleRank.MOD) || pm.userRoleAtLeast(guild.getMember(target), SimpleRank.MOD) || target == guild.getJDA().getSelfUser())
                 continue;
 
             guildController.addSingleRoleToMember(guild.getMember(target), guild.getRoleById(Lists.getSettings().get(Settings.ROLES_MUTED))).queue();

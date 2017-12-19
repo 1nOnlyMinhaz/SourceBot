@@ -24,36 +24,28 @@ public class ComHelp implements CommandExecutor {
         BotAPI botAPI = new BotAPI();
         EmbedMessageManager embedManager = botAPI.getEmbedMessageManager();
         PermissionManager pm = botAPI.getPermissionManager();
-        boolean jrmod = false, srmod = false, jradmin = false, sradmin = false;
+        boolean mod = false, admin = false;
         boolean b = messageChannel.getType().isGuild();
 
-        if (pm.userRoleAtLeast(user.getJDA().getGuildById(Lists.getSettings().get(Settings.MAIN_GUILD_ID)).getMember(user), SimpleRank.JR_MOD))
-            jrmod = true;
-        if (pm.userRoleAtLeast(user.getJDA().getGuildById(Lists.getSettings().get(Settings.MAIN_GUILD_ID)).getMember(user), SimpleRank.SR_MOD))
-            srmod = true;
-        if (pm.userRoleAtLeast(user.getJDA().getGuildById(Lists.getSettings().get(Settings.MAIN_GUILD_ID)).getMember(user), SimpleRank.JR_ADMIN))
-            jradmin = true;
-        if (pm.userRoleAtLeast(user.getJDA().getGuildById(Lists.getSettings().get(Settings.MAIN_GUILD_ID)).getMember(user), SimpleRank.SR_ADMIN))
-            sradmin = true;
+        if(pm.userRoleAtLeast(user.getJDA().getGuildById(Lists.getSettings().get(Settings.MAIN_GUILD_ID)).getMember(user), SimpleRank.MOD))
+            mod = true;
+        if(pm.userRoleAtLeast(user.getJDA().getGuildById(Lists.getSettings().get(Settings.MAIN_GUILD_ID)).getMember(user), SimpleRank.ADMIN))
+            admin = true;
 
         try {
             if (strings.length == 0) {
                 send(botAPI, user, embedManager.getDefaultHelpEmbed(user));
-                if (jrmod)
-                    send(botAPI, user, embedManager.getJrModHelpEmbed(user));
-                if (srmod)
+                if(mod)
                     send(botAPI, user, embedManager.getSrModHelpEmbed(user));
-                if (jradmin)
-                    send(botAPI, user, embedManager.getJrAdminHelpEmbed(user));
-                if (sradmin)
+                if(admin)
                     send(botAPI, user, embedManager.getSrAdminHelpEmbed(user));
 
                 if (b)
                     botAPI.getMessageManager().sendMessage(messageChannel, botAPI.getEmbedMessageManager().getAsDescription(":white_check_mark: *sent you some help*.. please check your PMs."));
             } else if (strings.length == 1) {
-                if (strings[0].equalsIgnoreCase("broadcast") && jradmin)
+                if(strings[0].equalsIgnoreCase("broadcast") && admin)
                     send(botAPI, user, embedManager.getUsage(user, "broadcast", "Announces/broadcasts a message to a certain channel, can be executed once or placed in a loop.", "broadcast (Now|Later|Repeat) [L|R Time] [L|R Unit] (#Channel) (Message)", "!announce\n!bc"));
-                else if (strings[0].equalsIgnoreCase("clear") && jrmod)
+                else if(strings[0].equalsIgnoreCase("clear") && mod)
                     send(botAPI, user, embedManager.getUsage(user, "clear", "Clears a set amount of messages.", "clear (number) [<-s>|@mention]", "!clean\n!purge\n!cls"));
                 else if (strings[0].equalsIgnoreCase("help"))
                     send(botAPI, user, embedManager.getUsage(user, "help", ":rolling_eyes:", "help [Command]", null));
@@ -61,17 +53,17 @@ public class ComHelp implements CommandExecutor {
                     send(botAPI, user, embedManager.getUsage(user, "info", "Information about various amount of things, such as how ranking works.", "info [ranks/mods/admins]", null));
                 else if (strings[0].equalsIgnoreCase("levels"))
                     send(botAPI, user, embedManager.getUsage(user, "levels", "Displays the top `5` players on the server", null, "!ranks"));
-                else if (strings[0].equalsIgnoreCase("mute") && srmod)
+                else if(strings[0].equalsIgnoreCase("mute") && mod)
                     send(botAPI, user, embedManager.getUsage(user, "mute", "Do I really need to explain this?", "mute (@mention[s])", "!shut_up"));
-                else if (strings[0].equalsIgnoreCase("unmute") && srmod)
+                else if(strings[0].equalsIgnoreCase("unmute") && mod)
                     send(botAPI, user, embedManager.getUsage(user, "unmute", "srsly tho?", "unmute (@mention[s])", "!un_mute"));
                 else if (strings[0].equalsIgnoreCase("rank"))
                     send(botAPI, user, embedManager.getUsage(user, "rank", "Displays your activity ranking among the server.", "rank [@mention]", "!level"));
                 else if (strings[0].equalsIgnoreCase("report"))
                     send(botAPI, user, embedManager.getUsage(user, "report", "Report a certain user.", "report (@mention) (reason)", null));
-                else if (strings[0].equalsIgnoreCase("settings") && sradmin)
+                else if(strings[0].equalsIgnoreCase("settings") && admin)
                     send(botAPI, user, embedManager.getUsage(user, "settings", "Manage the bot settings", null, null));
-                else if (strings[0].equalsIgnoreCase("slowmode") && srmod)
+                else if(strings[0].equalsIgnoreCase("slowmode") && mod)
                     send(botAPI, user, embedManager.getUsage(user, "slowmode", "Slows down the chat, any message that's been sent by a user within the specified amount of time will get deleted.", "slowmode (Time in seconds|<Off>)", null));
 
                 if (b)

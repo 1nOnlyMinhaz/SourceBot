@@ -27,7 +27,7 @@ public class ComUnMute implements CommandExecutor {
         EmbedMessageManager embedManager = botAPI.getEmbedMessageManager();
         PermissionManager pm = botAPI.getPermissionManager();
 
-        if (!pm.userRoleAtLeast(guild.getMember(user), SimpleRank.SR_MOD)) {
+        if(!pm.userRoleAtLeast(guild.getMember(user), SimpleRank.MOD)) {
             botAPI.getMessageManager().sendMessage(messageChannel, embedManager.getNoComPermission());
             return;
         } else if (strings.length < 1 && message.getMentionedUsers().size() < 1) {

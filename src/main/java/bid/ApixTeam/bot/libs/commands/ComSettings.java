@@ -30,7 +30,7 @@ public class ComSettings implements CommandExecutor {
         if(sm.isSet(Settings.CHAN_ADMIN) && !sm.getSetting(Settings.CHAN_ADMIN).equals(messageChannel.getId()))
             return;
 
-        if(!pm.userRoleAtLeast(guild.getMember(user), SimpleRank.SR_ADMIN) || !pm.userAtLeast(user, SimpleRank.BOT_ADMIN))
+        if(!pm.userRoleAtLeast(guild.getMember(user), SimpleRank.ADMIN) || !pm.userAtLeast(user, SimpleRank.BOT_ADMIN))
             return;
 
         try {
@@ -47,14 +47,10 @@ public class ComSettings implements CommandExecutor {
 
                         if (strings[4].equalsIgnoreCase("muted"))
                             setRolePermission(botAPI, em, pm, messageChannel, message, SimpleRank.MUTED);
-                        else if (strings[4].equalsIgnoreCase("jrmod"))
-                            setRolePermission(botAPI, em, pm, messageChannel, message, SimpleRank.JR_MOD);
-                        else if (strings[4].equalsIgnoreCase("srmod"))
-                            setRolePermission(botAPI, em, pm, messageChannel, message, SimpleRank.SR_MOD);
-                        else if (strings[4].equalsIgnoreCase("jrmod"))
-                            setRolePermission(botAPI, em, pm, messageChannel, message, SimpleRank.JR_ADMIN);
-                        else if (strings[4].equalsIgnoreCase("sradmin"))
-                            setRolePermission(botAPI, em, pm, messageChannel, message, SimpleRank.SR_ADMIN);
+                        else if(strings[4].equalsIgnoreCase("mod"))
+                            setRolePermission(botAPI, em, pm, messageChannel, message, SimpleRank.MOD);
+                        else if(strings[4].equalsIgnoreCase("admin"))
+                            setRolePermission(botAPI, em, pm, messageChannel, message, SimpleRank.ADMIN);
                         else if (strings[4].equalsIgnoreCase("chief"))
                             setRolePermission(botAPI, em, pm, messageChannel, message, SimpleRank.CHIEF_ADMIN);
                     } else if (strings[2].equalsIgnoreCase("channel") && message.getMentionedChannels().size() == 1) {
@@ -132,7 +128,7 @@ public class ComSettings implements CommandExecutor {
         User user = message.getMentionedUsers().get(0);
         Member member = message.getGuild().getMember(user);
         for (SimpleRank sr : SimpleRank.values()) {
-            if (sr.isLowerThan(SimpleRank.JR_MOD) || sr.isHigherThan(SimpleRank.CHIEF_ADMIN))
+            if(sr.isLowerThan(SimpleRank.MOD) || sr.isHigherThan(SimpleRank.CHIEF_ADMIN))
                 continue;
             botAPI.getMessageManager().sendMessage(messageChannel, em.getAsDescription(String.format(":thinking: **%s** to **%s**? `AtLeast`:`%s`, `Higher`:`%s`, `Lower`:`%s`", user.getName(), sr.getDescription(), pm.userRoleAtLeast(member, sr), pm.userRoleHigherThan(member, sr), pm.userRoleLowerThan(member, sr)), Color.DARK_GRAY));
         }
@@ -141,7 +137,7 @@ public class ComSettings implements CommandExecutor {
     private void checkRolePermission(BotAPI botAPI, EmbedMessageManager em, PermissionManager pm, MessageChannel messageChannel, Message message) {
         Role role = message.getMentionedRoles().get(0);
         for (SimpleRank sr : SimpleRank.values()) {
-            if (sr.isLowerThan(SimpleRank.JR_MOD))
+            if(sr.isLowerThan(SimpleRank.MOD))
                 continue;
             botAPI.getMessageManager().sendMessage(messageChannel, em.getAsDescription(String.format(":thinking: **%s** to **%s**? `AtLeast`:`%s`, `Higher`:`%s`, `Lower`:`%s`", role.getName(), sr.getDescription(), pm.roleAtLeast(role, sr), pm.roleHigherThan(role, sr), pm.roleLowerThan(role, sr)), Color.DARK_GRAY));
         }

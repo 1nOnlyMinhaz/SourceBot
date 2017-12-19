@@ -6,10 +6,8 @@ package bid.ApixTeam.bot.utils.vars.entites.enums;
  */
 public enum SimpleRank {
     MUTED("Muted", Settings.ROLES_MUTED),
-    JR_MOD("Junior Moderator", Settings.ROLES_JR_MOD),
-    SR_MOD("Senior Moderator", Settings.ROLES_SR_MOD),
-    JR_ADMIN("Junior Administrator", Settings.ROLES_JR_ADMIN),
-    SR_ADMIN("Senior Administrator", Settings.ROLES_SR_ADMIN),
+    MOD("Moderator", Settings.ROLES_MOD),
+    ADMIN("Administrator", Settings.ROLES_ADMIN),
     CHIEF_ADMIN("Chief Administrator", Settings.ROLES_CHIEF_ADMIN),
     BOT_ADMIN("Bot Administrator", Settings.ROLES_BOT_ADMIN);
 
