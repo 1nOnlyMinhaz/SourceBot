@@ -5,6 +5,7 @@ import bid.ApixTeam.bot.utils.vars.Lists;
 import bid.ApixTeam.bot.utils.vars.Messages;
 import bid.ApixTeam.bot.utils.vars.entites.enums.RankingType;
 import net.dv8tion.jda.core.EmbedBuilder;
+import net.dv8tion.jda.core.entities.MessageChannel;
 import net.dv8tion.jda.core.entities.MessageEmbed;
 import net.dv8tion.jda.core.entities.User;
 
@@ -66,13 +67,13 @@ public class EmbedMessageManager {
 
         embedBuilder.setColor(new Color(234, 255, 235));
 
-        if (user == user.getJDA().getSelfUser()) {
+        if(user == user.getJDA().getSelfUser()) {
             embedBuilder.setDescription(brags[new Random().nextInt(brags.length)]);
             return embedBuilder.build();
-        } else if (user.isBot()) {
+        } else if(user.isBot()) {
             embedBuilder.setDescription(bots[new Random().nextInt(bots.length)]);
             return embedBuilder.build();
-        } else if (userRanking == null) {
+        } else if(userRanking == null) {
             embedBuilder.setDescription(String.format("%s hasn't ranked yet", user.getName()));
             return embedBuilder.build();
         }
@@ -102,7 +103,7 @@ public class EmbedMessageManager {
 
             Map<Integer, String> map = new TreeMap<>(Collections.reverseOrder());
 
-            for (Long l : usersRanking.keySet()) {
+            for(Long l : usersRanking.keySet()) {
                 userRanking = usersRanking.get(l);
                 int rnk = userRanking.get(RankingType.RANK);
                 int lvl = userRanking.get(RankingType.LEVEL);
@@ -113,7 +114,7 @@ public class EmbedMessageManager {
             }
 
             ArrayList<Integer> keys = new ArrayList<>(map.keySet());
-            for (int i = keys.size() - 1; i >= 0; i--) {
+            for(int i = keys.size() - 1; i >= 0; i--) {
                 String[] strings = map.get(keys.get(i)).split(";");
                 int rnk = Integer.parseInt(strings[1]);
                 int lvl = Integer.parseInt(strings[2]);
@@ -131,12 +132,20 @@ public class EmbedMessageManager {
         return null;
     }
 
+    public MessageEmbed getInfoEmbed(MessageChannel channel) {
+        return new EmbedBuilder()
+                .setAuthor("Bot Information", null, channel.getJDA().getSelfUser().getAvatarUrl())
+                .addField("", Messages.BOT_INFO, false)
+                .setColor(new Color(234, 255, 235))
+                .build();
+    }
+
     public MessageEmbed getDefaultHelpEmbed(User user) {
         EmbedBuilder defaultCommands = new EmbedBuilder();
 
         defaultCommands.setAuthor("Default Commands", null, user.getJDA().getSelfUser().getAvatarUrl())
                 .addField("!help", "You know... :unamused:", false)
-                .addField("!info", "Sends you an informal message about the bot and the server.\n **You MUST have PMs enabled for the server!**", false)
+                .addField("!info", "Sends you an informal message about the bot and the server.", false)
                 .addField("!rank", "Displays your activity ranking among the server.\n *More info at `!info rank` :wink:*", false)
                 .addField("!levels", "Displays the top `5` players on the ranking system.", false)
                 .setColor(new Color(234, 255, 235));
@@ -235,7 +244,7 @@ public class EmbedMessageManager {
                 .setColor(new Color(234, 255, 235));
         if(format != null)
             embedBuilder.addField("Format", String.format("!%s", format), false);
-        if (aliases != null)
+        if(aliases != null)
             embedBuilder.addField("Aliases", aliases, false);
         return embedBuilder.build();
     }
