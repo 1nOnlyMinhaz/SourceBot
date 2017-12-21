@@ -19,7 +19,7 @@ import net.dv8tion.jda.core.exceptions.ErrorResponseException;
  * in association with TheSourceCode (C) 2017
  */
 public class ComHelp implements CommandExecutor {
-    @Command(aliases = {"help"}, description = "displays the available commands")
+    @Command(aliases = {"help"}, description = "displays the available commands", async = true)
     public void onCommand(User user, MessageChannel messageChannel, Message message, String[] strings) {
         BotAPI botAPI = new BotAPI();
         EmbedMessageManager embedManager = botAPI.getEmbedMessageManager();
@@ -63,11 +63,11 @@ public class ComHelp implements CommandExecutor {
                     send(botAPI, user, embedManager.getUsage(user, "rank", "Displays your activity ranking among the server.", "rank [@mention]", "!level"));
                 else if (strings[0].equalsIgnoreCase("report"))
                     send(botAPI, user, embedManager.getUsage(user, "report", "Report a certain user.", "report (@mention) (reason)", null));
-                else if(strings[0].equalsIgnoreCase("settings") && botAdmin)
-                    send(botAPI, user, embedManager.getUsage(user, "settings", "Manage the bot settings", "<command> bot set channel (#channel) (type)\n<!command> bot set role (@role) (type)\n<!command> bot check (<user/role>) (@mention/@role)\n<!command> bot rankup update\n<!command> bot rankup set (@role) (level)", null));
-                else if(strings[0].equalsIgnoreCase("settings") && admin)
-                    send(botAPI, user, embedManager.getUsage(user, "settings", "Manage the bot settings", null, null));
-                else if(strings[0].equalsIgnoreCase("slowmode") && mod)
+                else if(strings[0].equalsIgnoreCase("settings") && admin) {
+                    send(botAPI, user, embedManager.getUsage(user, "settings", "Manage the bot settings", "<command> tools profanity add (word) \n<!command> tools profanity remove (word) \n<!command> tools profanity list", null));
+                    if(botAdmin)
+                        send(botAPI, user, embedManager.getUsage(user, "settings", "Manage the bot settings", "<command> bot set channel (#channel) (type)\n<!command> bot set role (@role) (type)\n<!command> bot check (<user/role>) (@mention/@role)\n<!command> bot rankup update\n<!command> bot rankup set (@role) (level)", null));
+                }else if(strings[0].equalsIgnoreCase("slowmode") && mod)
                     send(botAPI, user, embedManager.getUsage(user, "slowmode", "Slows down the chat, any message that's been sent by a user within the specified amount of time will get deleted.", "slowmode (Time in seconds|<Off>)", null));
 
                 if (b)
