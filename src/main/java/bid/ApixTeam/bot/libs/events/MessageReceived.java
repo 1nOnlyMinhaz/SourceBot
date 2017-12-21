@@ -4,12 +4,14 @@ import bid.ApixTeam.bot.utils.BotAPI;
 import bid.ApixTeam.bot.utils.vars.Lists;
 import bid.ApixTeam.bot.utils.vars.Messages;
 import bid.ApixTeam.bot.utils.vars.entites.enums.RankingType;
+import bid.ApixTeam.bot.utils.vars.entites.enums.Settings;
 import bid.ApixTeam.bot.utils.vars.entites.enums.SimpleRank;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.User;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
@@ -40,8 +42,9 @@ public class MessageReceived extends ListenerAdapter {
                 Lists.getSlowmodeUserCooldown().put(e.getChannel().getIdLong() + ":" + user.getIdLong(), System.currentTimeMillis());
         }
 
-        if (!e.getTextChannel().isNSFW())
-            for (String word : Lists.getProfanityList()) {
+        if (!e.getTextChannel().isNSFW()) {
+            String[] profanity = botAPI.getSettingsManager().getSetting(Settings.PROFANITY_LIST).split(",");
+            for (String word : profanity){
                 if (message.getContentRaw().toLowerCase().contains(word)) {
                     botAPI.getMessageManager().deleteMessage(message);
                     Message rebukeMessage = botAPI.getMessageManager().sendMessage(message.getChannel(), String.format(Messages.PROFANITY[new Random().nextInt(Messages.PROFANITY.length)], message.getAuthor().getAsMention()));
@@ -49,6 +52,7 @@ public class MessageReceived extends ListenerAdapter {
                     return;
                 }
             }
+        }
 
         if (message.getContentRaw().startsWith("!"))
             for (String s : Lists.getCommands())

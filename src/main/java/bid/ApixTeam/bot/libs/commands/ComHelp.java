@@ -24,13 +24,15 @@ public class ComHelp implements CommandExecutor {
         BotAPI botAPI = new BotAPI();
         EmbedMessageManager embedManager = botAPI.getEmbedMessageManager();
         PermissionManager pm = botAPI.getPermissionManager();
-        boolean mod = false, admin = false;
+        boolean mod = false, admin = false, botAdmin = false;
         boolean b = messageChannel.getType().isGuild();
 
         if(pm.userRoleAtLeast(user.getJDA().getGuildById(Lists.getSettings().get(Settings.MAIN_GUILD_ID)).getMember(user), SimpleRank.MOD))
             mod = true;
         if(pm.userRoleAtLeast(user.getJDA().getGuildById(Lists.getSettings().get(Settings.MAIN_GUILD_ID)).getMember(user), SimpleRank.ADMIN))
             admin = true;
+        if(pm.userAtLeast(user, SimpleRank.BOT_ADMIN))
+            botAdmin = true;
 
         try {
             if (strings.length == 0) {
@@ -61,6 +63,8 @@ public class ComHelp implements CommandExecutor {
                     send(botAPI, user, embedManager.getUsage(user, "rank", "Displays your activity ranking among the server.", "rank [@mention]", "!level"));
                 else if (strings[0].equalsIgnoreCase("report"))
                     send(botAPI, user, embedManager.getUsage(user, "report", "Report a certain user.", "report (@mention) (reason)", null));
+                else if(strings[0].equalsIgnoreCase("settings") && botAdmin)
+                    send(botAPI, user, embedManager.getUsage(user, "settings", "Manage the bot settings", "<command> bot set channel (#channel) (type)\n<!command> bot set role (@role) (type)\n<!command> bot check (<user/role>) (@mention/@role)\n<!command> bot rankup update\n<!command> bot rankup set (@role) (level)", null));
                 else if(strings[0].equalsIgnoreCase("settings") && admin)
                     send(botAPI, user, embedManager.getUsage(user, "settings", "Manage the bot settings", null, null));
                 else if(strings[0].equalsIgnoreCase("slowmode") && mod)

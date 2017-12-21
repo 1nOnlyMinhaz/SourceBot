@@ -5,6 +5,7 @@ import bid.ApixTeam.bot.utils.vars.Lists;
 import bid.ApixTeam.bot.utils.vars.Messages;
 import bid.ApixTeam.bot.utils.vars.entites.enums.RankingType;
 import net.dv8tion.jda.core.EmbedBuilder;
+import net.dv8tion.jda.core.entities.MessageChannel;
 import net.dv8tion.jda.core.entities.MessageEmbed;
 import net.dv8tion.jda.core.entities.User;
 
@@ -225,7 +226,7 @@ public class EmbedMessageManager {
                 .addField("Description", desc, false)
                 .setColor(new Color(234, 255, 235));
         if(format != null)
-            embedBuilder.addField("Format", String.format("!%s", format), false);
+            embedBuilder.addField("Format", String.format("!%s", format.replace("<command>", command).replace("<!command>", "!" + command)), false);
         if (aliases != null)
             embedBuilder.addField("Aliases", aliases, false);
         return embedBuilder.build();

@@ -128,6 +128,22 @@ public class SettingsManager extends DatabaseManager {
         }
     }
 
+    public void removeSetting(Settings setting){
+        if(!isSet(setting))
+            return;
+
+        try {
+            Connection connection = getConnection();
+            PreparedStatement ps = connection.prepareStatement("DELETE FROM `settings` WHERE `option` = ?");
+            ps.setString(1, setting.getOption());
+            ps.executeUpdate();
+            Lists.getSettings().remove(setting);
+            closeConnection(connection, ps, null);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     private static void setJda(JDA jda) {
         SettingsManager.jda = jda;
     }
