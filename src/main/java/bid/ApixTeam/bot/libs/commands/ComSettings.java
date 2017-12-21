@@ -34,7 +34,41 @@ public class ComSettings implements CommandExecutor {
             return;
 
         try {
-            if(strings[0].equalsIgnoreCase("tools")){
+            if(strings[0].equalsIgnoreCase("tools")) {
+                System.out.println("debug1");
+                if(strings[1].equalsIgnoreCase("profanity")) {
+                    System.out.println("debug2");
+                    if(strings.length != 4) {
+                        System.out.println("debug3");
+                        botAPI.getMessageManager().sendMessage(messageChannel, botAPI.getEmbedMessageManager().getAsDescription("Incorrect usage! `!settings tools profanity add|remove {word}`"));
+                        return;
+                    }
+                    if(strings[2].equalsIgnoreCase("add")) {
+                        System.out.println("debug4");
+                        if(Lists.getProfanityList().contains(strings[3])) {
+                            System.out.println("debug5");
+                            botAPI.getMessageManager().sendMessage(messageChannel, botAPI.getEmbedMessageManager().getAsDescription("That word is already added!"));
+                            return;
+                        }
+                        System.out.println("debug6");
+                        Lists.getProfanityList().add(strings[3]);
+                        botAPI.getMessageManager().sendMessage(messageChannel, botAPI.getEmbedMessageManager().getAsDescription(String.format("You have successfully added %s to the profanity word list!", strings[3])));
+                        return;
+                    }
+
+
+                    if(strings[2].equalsIgnoreCase("remove")) {
+                        System.out.println("debug7");
+                        if(!Lists.getProfanityList().contains(strings[3])) {
+                            System.out.println("debug8");
+                            botAPI.getMessageManager().sendMessage(messageChannel, botAPI.getEmbedMessageManager().getAsDescription("That word is not added!"));
+                            return;
+                        }
+                        System.out.println("debug9");
+                        Lists.getProfanityList().remove(strings[3]);
+                        botAPI.getMessageManager().sendMessage(messageChannel, botAPI.getEmbedMessageManager().getAsDescription(String.format("You have successfully removed %s from the profanity word list!", strings[3])));
+                    }
+                }
 
             } else if(strings[0].equalsIgnoreCase("bot")) {
                 if(!pm.userAtLeast(user, SimpleRank.BOT_ADMIN))
@@ -75,7 +109,7 @@ public class ComSettings implements CommandExecutor {
                         checkUserPermission(botAPI, em, pm, messageChannel, message);
                     else if (strings[2].equalsIgnoreCase("role") && message.getMentionedRoles().size() == 1)
                         checkRolePermission(botAPI, em, pm, messageChannel, message);
-                }else if (strings[1].equalsIgnoreCase("rankup")){
+                } else if (strings[1].equalsIgnoreCase("rankup")){
                     if(strings[2].equalsIgnoreCase("update"))
                         sm.retrieveOnce(Settings.RANKED_REWARDS);
 
@@ -89,7 +123,7 @@ public class ComSettings implements CommandExecutor {
                     else if(strings[2].equalsIgnoreCase("remove"))
                         botAPI.getMessageManager().sendMessage(messageChannel, em.getAsDescription("This feature is deprecated, and no longer works.", Color.RED));
                 }
-            }else
+            } else
                 botAPI.getMessageManager().sendMessage(messageChannel, em.getAsDescription("erR0r 0x11", Color.RED));
 
         }catch (ArrayIndexOutOfBoundsException e){
@@ -141,7 +175,7 @@ public class ComSettings implements CommandExecutor {
 
         if(!sm.isSet(Settings.RANKED_REWARDS))
             sm.addSetting(Settings.RANKED_REWARDS, String.format("%d-%s", level, role.getId()));
-        else{
+        else {
             String cs = sm.getSetting(Settings.RANKED_REWARDS);
             cs += String.format(",%d-%s", level, role.getId());
             sm.updateSetting(Settings.RANKED_REWARDS, cs);

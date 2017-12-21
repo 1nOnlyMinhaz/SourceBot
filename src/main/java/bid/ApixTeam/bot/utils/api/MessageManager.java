@@ -73,7 +73,7 @@ public class MessageManager {
         int counter = 1;
         for(Message iMessage : messages) {
             if(counter > amount) break;
-            if(iMessage.getAuthor().getId().equals(user.getId()) && !(iMessage.getContent().startsWith("!"))) {
+            if(iMessage.getAuthor().getId().equals(user.getId()) && !(iMessage.getContentDisplay().startsWith("!"))) {
                 Consumer<Void> callback = (response) -> System.out.printf("[%s] [INFO] [API] [%s:%s] Bulk message delete. %n", new Date(), user.getName(), textChannel.getName());
                 textChannel.deleteMessageById(iMessage.getId()).queue(callback);
                 counter++;

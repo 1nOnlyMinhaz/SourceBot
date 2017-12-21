@@ -116,6 +116,7 @@ public class EmbedMessageManager {
                 int lvl = Integer.parseInt(strings[2]);
                 int exp = Integer.parseInt(strings[3]);
                 int tot = Integer.parseInt(strings[4]);
+                //embedBuilder.addField(String.format("%d. @%s#%s", rnk, user.getJDA().getUserById(Long.valueOf(strings[0])).getName(), user.getJDA().getUserById(Long.valueOf(strings[0])).getDiscriminator()), String.format("Lvl. %d | Exp. %d", lvl, exp), false);
                 embedBuilder.appendDescription(String.format("**%d**%s. %s\n", rnk, rnk == 1 ? "st" : rnk == 2 ? "nd" : rnk == 3 ? "rd" : "th", user.getJDA().getUserById(Long.valueOf(strings[0])).getAsMention()));
                 embedBuilder.appendDescription(String.format("`Lvl. %d` | `Exp. %d`\n", lvl, exp));
             }
@@ -125,6 +126,14 @@ public class EmbedMessageManager {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public MessageEmbed getInfoEmbed(MessageChannel channel) {
+        return new EmbedBuilder()
+                .setAuthor("Bot Information", null, channel.getJDA().getSelfUser().getAvatarUrl())
+                .addField("", Messages.BOT_INFO, false)
+                .setColor(new Color(234, 255, 235))
+                .build();
     }
 
     public MessageEmbed getDefaultHelpEmbed(User user) {
