@@ -172,40 +172,6 @@ public class EmbedMessageManager {
         return jr_adminCommands.build();
     }
 
-    public MessageEmbed getInfoMain(User user) {
-        return new EmbedBuilder()
-                .setAuthor("Bot Information", null, user.getJDA().getSelfUser().getAvatarUrl())
-                .setDescription("**TheSourceCode Bot** was made by **ApixTeam** in association with **TheSourceCode**.")
-                .appendDescription(" It was made to work only for **TheSourceCode** Discord server along with PMs.")
-                .appendDescription(" It provides an interesting amount of commands which among them includes the implementation for submitting plugin spotlight forms, and user reports.")
-                .setColor(new Color(234, 255, 235))
-                .build();
-    }
-
-    public MessageEmbed getInfoRank(User user) {
-        return new EmbedBuilder()
-                .setAuthor("Rank Information", null, user.getJDA().getSelfUser().getAvatarUrl())
-                .setDescription("The ranking system for TheSourceCode Discord bot works as follows: When a user chats they get 15-25 Exp. but you only gain Exp once every minute to prevent spam ranking. When you type !rank in <#355468935413628930> it grabs the database of users that have chatted and determines your rank compared to every user, your level, and your total Exp. In conclusion the ranking system is an effective way to get people to be active.")
-                .setColor(new Color(234, 255, 235))
-                .build();
-    }
-
-    public MessageEmbed getInfoMod(User user) {
-        return new EmbedBuilder()
-                .setAuthor("Moderation Information", null, user.getJDA().getSelfUser().getAvatarUrl())
-                .setDescription("We take pride in our Moderators for their ability to be professional and to have fun at the same time. To be a Moderator you must have what it takes, our Mods definitely do!")
-                .setColor(new Color(234, 255, 235))
-                .build();
-    }
-
-    public MessageEmbed getInfoAdmin(User user) {
-        return new EmbedBuilder()
-                .setAuthor("Administration Information", null, user.getJDA().getSelfUser().getAvatarUrl())
-                .setDescription("Our Administrators are at a higher level of professionalism and loyalty, we don't mess around with our picks. They mean a lot to us as we know we mean to them!")
-                .setColor(new Color(234, 255, 235))
-                .build();
-    }
-
     public MessageEmbed getClearLimit() {
         return new EmbedBuilder()
                 .setDescription("Discord limits message removal from 1 to 100 messages only.")
