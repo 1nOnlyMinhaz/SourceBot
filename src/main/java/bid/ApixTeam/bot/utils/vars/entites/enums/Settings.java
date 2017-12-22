@@ -19,7 +19,8 @@ public enum Settings {
     ROLES_CHIEF_ADMIN("permission-chief-admin"),
     ROLES_BOT_ADMIN("permission-bot-admin"),
     PROFANITY_LIST("profanity-list"),
-    RANKED_REWARDS("ranked-rewards");
+    RANKED_REWARDS("ranked-rewards"),
+    RANKED_IGNORED("channel-ignored");
 
     final String option;
 
