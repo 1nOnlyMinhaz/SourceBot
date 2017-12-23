@@ -1,4 +1,4 @@
-package bid.ApixTeam.bot.libs.events;
+package bid.ApixTeam.bot.libs.events.guild;
 
 import bid.ApixTeam.bot.utils.BotAPI;
 import bid.ApixTeam.bot.utils.api.EmbedMessageManager;
@@ -14,7 +14,7 @@ import net.dv8tion.jda.core.hooks.ListenerAdapter;
  * TSC-Bot was created by ApixTeam (C) 2017
  * in association with TheSourceCode (C) 2017
  */
-public class GuildMemberLeft extends ListenerAdapter {
+public class MemberLeft extends ListenerAdapter {
     public void onGuildMemberLeave(GuildMemberLeaveEvent event) {
         BotAPI botAPI = new BotAPI();
         EmbedMessageManager embedManager = botAPI.getEmbedMessageManager();

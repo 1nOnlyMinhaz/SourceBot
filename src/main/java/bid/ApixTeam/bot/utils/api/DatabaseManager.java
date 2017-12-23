@@ -4,6 +4,7 @@ import bid.ApixTeam.bot.utils.connection.DataSource;
 import bid.ApixTeam.bot.utils.vars.Lists;
 import bid.ApixTeam.bot.utils.vars.entites.enums.RankingType;
 import bid.ApixTeam.bot.utils.vars.entites.enums.Settings;
+import bid.ApixTeam.bot.utils.vars.entites.enums.UserUpdate;
 import net.dv8tion.jda.core.entities.Guild;
 import net.dv8tion.jda.core.entities.User;
 

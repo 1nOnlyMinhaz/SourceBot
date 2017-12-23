@@ -3,6 +3,7 @@ package bid.ApixTeam.bot.utils.api;
 import bid.ApixTeam.bot.utils.BotAPI;
 import bid.ApixTeam.bot.utils.vars.Lists;
 import bid.ApixTeam.bot.utils.vars.entites.enums.SimpleRank;
+import bid.ApixTeam.bot.utils.vars.entites.enums.UserUpdate;
 import net.dv8tion.jda.core.entities.Member;
 import net.dv8tion.jda.core.entities.Role;
 import net.dv8tion.jda.core.entities.User;
@@ -59,6 +60,35 @@ public class PermissionManager extends DatabaseManager {
             ps.setString(5, user.getAvatarId());
             ps.executeUpdate();
             closeConnection(connection, ps, null);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void updateUser(User user, UserUpdate update){
+        if(!isMember(user)){
+            createMember(user);
+            return;
+        }
+
+        try {
+            Connection connection = getConnection();
+            PreparedStatement ps;
+            if(update.equals(UserUpdate.AVATAR)){
+                ps = connection.prepareStatement("UPDATE `members` SET `AvatarUrl` = ?, `AvatarId` = ? WHERE `UserID` = ?;");
+                ps.setString(1, user.getAvatarUrl());
+                ps.setString(2, user.getAvatarId());
+                ps.setLong(3, user.getIdLong());
+                ps.executeUpdate();
+                closeConnection(connection, ps, null);
+            }else if(update.equals(UserUpdate.USERNAME)){
+                ps = connection.prepareStatement("UPDATE `members` SET `Username` = ?, `UserTag` = ? WHERE `UserID` = ?;");
+                ps.setString(1, user.getName());
+                ps.setInt(2, Integer.parseInt(user.getDiscriminator()));
+                ps.setLong(3, user.getIdLong());
+                ps.executeUpdate();
+                closeConnection(connection, ps, null);
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
