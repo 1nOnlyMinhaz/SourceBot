@@ -64,9 +64,9 @@ public class ComHelp implements CommandExecutor {
                 else if (strings[0].equalsIgnoreCase("report"))
                     send(botAPI, user, embedManager.getUsage(user, "report", "Report a certain user.", "report (@mention) (reason)", null));
                 else if(strings[0].equalsIgnoreCase("settings") && admin) {
-                    send(botAPI, user, embedManager.getUsage(user, "settings", "Manage the bot settings", "<command> tools profanity add (word) \n<!command> tools profanity remove (word) \n<!command> tools profanity list", null));
+                    send(botAPI, user, embedManager.getUsage(user, "settings", "Manage the bot settings", "<command> tools profanity add (word) \n<!command> tools profanity remove (word) \n<!command> tools profanity list\n<!command> tools channel ignore (#channel)\n<!command> tools channel un-ignore (#channel)\n<!command> tools channel ignored\n<!command> tools rankup update\n<!command> tools rankup set (@role) (level)", null));
                     if(botAdmin)
-                        send(botAPI, user, embedManager.getUsage(user, "settings", "Manage the bot settings", "<command> bot set channel (#channel) (type)\n<!command> bot set role (@role) (type)\n<!command> bot check (<user/role>) (@mention/@role)\n<!command> bot rankup update\n<!command> bot rankup set (@role) (level)", null));
+                        send(botAPI, user, embedManager.getUsage(user, "settings", "Manage the bot settings", "<command> bot set channel (#channel) (type)\n<!command> bot set role (@role) (type)\n<!command> bot check (<user/role>) (@mention/@role)", null));
                 }else if(strings[0].equalsIgnoreCase("slowmode") && mod)
                     send(botAPI, user, embedManager.getUsage(user, "slowmode", "Slows down the chat, any message that's been sent by a user within the specified amount of time will get deleted.", "slowmode (Time in seconds|<Off>)", null));
 

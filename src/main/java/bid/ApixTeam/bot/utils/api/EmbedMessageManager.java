@@ -89,10 +89,22 @@ public class EmbedMessageManager {
 
         String setting = botAPI.getSettingsManager().getSetting(Settings.RANKED_REWARDS);
         if(setting != null) {
+            int rl = 0;
+            String role = "";
             String[] ranked = setting.split(",");
             for(String s: ranked){
                 String[] ranking = s.split("-");
+                if(Integer.parseInt(ranking[0]) > lvl) {
+                    rl = Integer.parseInt(ranking[0]) - lvl;
+                    role = ranking[1];
+                    break;
+                }
             }
+
+            if(rl != 0)
+                embedBuilder.setFooter(String.format("%d remaining level%s to get %s", rl, rl == 1 ? "" : "s",
+                        user.getJDA().getGuildById(botAPI.getSettingsManager().getSetting(Settings.MAIN_GUILD_ID)).getRoleById(role).getName()),
+                        "https://i.imgur.com/hrFDjAm.png");
         }
 
         return embedBuilder.build();
@@ -127,8 +139,11 @@ public class EmbedMessageManager {
                 int exp = Integer.parseInt(strings[3]);
                 int tot = Integer.parseInt(strings[4]);
                 //embedBuilder.addField(String.format("%d. @%s#%s", rnk, user.getJDA().getUserById(Long.valueOf(strings[0])).getName(), user.getJDA().getUserById(Long.valueOf(strings[0])).getDiscriminator()), String.format("Lvl. %d | Exp. %d", lvl, exp), false);
-                embedBuilder.appendDescription(String.format("**%d**%s. %s\n", rnk, rnk == 1 ? "st" : rnk == 2 ? "nd" : rnk == 3 ? "rd" : "th", user.getJDA().getUserById(Long.valueOf(strings[0])).getAsMention()));
-                embedBuilder.appendDescription(String.format("`Lvl. %d` | `Exp. %d`\n", lvl, exp));
+
+                if (user.getJDA().getUserById(Long.valueOf(strings[0])) != null) {
+                    embedBuilder.appendDescription(String.format("**%d**%s. %s\n", rnk, rnk == 1 ? "st" : rnk == 2 ? "nd" : rnk == 3 ? "rd" : "th", user.getJDA().getUserById(Long.valueOf(strings[0])).getAsMention()));
+                    embedBuilder.appendDescription(String.format("`Lvl. %d` | `Exp. %d`\n", lvl, exp));
+                }
             }
 
             return embedBuilder.build();

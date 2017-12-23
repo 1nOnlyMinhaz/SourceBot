@@ -60,6 +60,19 @@ public class ComSettings implements CommandExecutor {
                         botAPI.getMessageManager().sendMessage(messageChannel, em.getAsDescription(ignored.toString()));
                     } else
                         botAPI.getMessageManager().sendMessage(messageChannel, em.getAsDescription("erR0r 0x11", Color.RED));
+                } else if (strings[1].equalsIgnoreCase("rankup")) {
+                    if (strings[2].equalsIgnoreCase("update"))
+                        sm.retrieveOnce(Settings.RANKED_REWARDS);
+
+                    if (strings.length != 4 && message.getMentionedRoles().size() != 1)
+                        return;
+
+                    int level = Integer.parseInt(strings[3]);
+
+                    if (strings[2].equalsIgnoreCase("set"))
+                        setRankupRole(botAPI, sm, em, messageChannel, message, level);
+                    else if (strings[2].equalsIgnoreCase("remove"))
+                        botAPI.getMessageManager().sendMessage(messageChannel, em.getAsDescription("This feature is deprecated, and no longer works.", Color.RED));
                 } else
                     botAPI.getMessageManager().sendMessage(messageChannel, em.getAsDescription("erR0r 0x11", Color.RED));
             } else if (strings[0].equalsIgnoreCase("bot")) {
@@ -101,19 +114,6 @@ public class ComSettings implements CommandExecutor {
                         checkUserPermission(botAPI, em, pm, messageChannel, message);
                     else if (strings[2].equalsIgnoreCase("role") && message.getMentionedRoles().size() == 1)
                         checkRolePermission(botAPI, em, pm, messageChannel, message);
-                } else if (strings[1].equalsIgnoreCase("rankup")) {
-                    if (strings[2].equalsIgnoreCase("update"))
-                        sm.retrieveOnce(Settings.RANKED_REWARDS);
-
-                    if (strings.length != 4 && message.getMentionedRoles().size() != 1)
-                        return;
-
-                    int level = Integer.parseInt(strings[3]);
-
-                    if (strings[2].equalsIgnoreCase("set"))
-                        setRankupRole(botAPI, sm, em, messageChannel, message, level);
-                    else if (strings[2].equalsIgnoreCase("remove"))
-                        botAPI.getMessageManager().sendMessage(messageChannel, em.getAsDescription("This feature is deprecated, and no longer works.", Color.RED));
                 }
             } else
                 botAPI.getMessageManager().sendMessage(messageChannel, em.getAsDescription("erR0r 0x11", Color.RED));
