@@ -59,6 +59,9 @@ public class MessageReceived extends ListenerAdapter {
                 if (message.getContentRaw().startsWith(String.format("!%s", s)))
                     return;
 
+        if(botAPI.getSettingsManager().getSetting(Settings.RANKED_IGNORED) != null && e.getTextChannel().getId().equals(botAPI.getSettingsManager().getSetting(Settings.RANKED_IGNORED)))
+            return;
+
         if (!Lists.getUsers().contains(user.getIdLong()))
             botAPI.getPermissionManager().createMember(user);
 

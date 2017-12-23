@@ -11,7 +11,10 @@ public class Levels extends Lists {
         HashMap<Integer, Integer> hashMap = new HashMap<>();
         hashMap.put(0, 99);
 
-        for (int i = 1; i <= 101; i++) {
+        for (int i = 0; i <= 101; i++)
+            hashMap.put(i, 5 * (i ^ 2) + 55 * i + 100);
+
+        /*for (int i = 1; i <= 101; i++) {
             if (i <= 11)
                 hashMap.put(i, i * 115);
             else if (i <= 15)
@@ -52,8 +55,9 @@ public class Levels extends Lists {
                 hashMap.put(i, i * 720);
             else if (i == 100)
                 hashMap.put(i, i * 1080);
-        }
+        }*/
 
         Lists.setLevelsMaxExp(hashMap);
+        System.out.println(Lists.getLevelsMaxExp().toString());
     }
 }

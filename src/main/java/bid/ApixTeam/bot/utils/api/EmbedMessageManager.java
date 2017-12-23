@@ -4,6 +4,7 @@ import bid.ApixTeam.bot.utils.BotAPI;
 import bid.ApixTeam.bot.utils.vars.Lists;
 import bid.ApixTeam.bot.utils.vars.Messages;
 import bid.ApixTeam.bot.utils.vars.entites.enums.RankingType;
+import bid.ApixTeam.bot.utils.vars.entites.enums.Settings;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.MessageChannel;
 import net.dv8tion.jda.core.entities.MessageEmbed;
@@ -85,6 +86,14 @@ public class EmbedMessageManager {
         embedBuilder.addField("Rank.", String.valueOf(rnk), true);
         embedBuilder.addField("Level.", String.valueOf(lvl), true);
         embedBuilder.addField("Exp.", String.format("%s", exp + (Lists.getLevelsMaxExp().get(lvl) == null ? "/∞" : "/" + Lists.getLevelsMaxExp().get(lvl)) + (exp == tot ? "" : String.format(" (Total. %d)", tot))), true);
+
+        String setting = botAPI.getSettingsManager().getSetting(Settings.RANKED_REWARDS);
+        if(setting != null) {
+            String[] ranked = setting.split(",");
+            for(String s: ranked){
+                String[] ranking = s.split("-");
+            }
+        }
 
         return embedBuilder.build();
     }

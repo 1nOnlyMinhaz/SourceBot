@@ -44,6 +44,25 @@ public class DatabaseManager {
         return false;
     }
 
+    private boolean isInRanking(Long id) {
+        try {
+            Connection connection = getConnection();
+            PreparedStatement ps = connection.prepareStatement("SELECT `ID` FROM `rankings` WHERE `UserID` = ?");
+            ps.setLong(1, id);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                closeConnection(connection, ps, rs);
+                return true;
+            }
+
+            closeConnection(connection, ps, rs);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return false;
+    }
+
     public void createUserRanking(User user) {
         if (isInRanking(user))
             return;
@@ -52,6 +71,39 @@ public class DatabaseManager {
             Connection connection = getConnection();
             PreparedStatement ps = connection.prepareStatement("INSERT INTO `rankings` (`UserID`) VALUES (?)");
             ps.setLong(1, user.getIdLong());
+            ps.executeUpdate();
+            closeConnection(connection, ps, null);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void createUserRanking(Long id) {
+        if (isInRanking(id))
+            return;
+
+        try {
+            Connection connection = getConnection();
+            PreparedStatement ps = connection.prepareStatement("INSERT INTO `rankings` (`UserID`) VALUES (?)");
+            ps.setLong(1, id);
+            ps.executeUpdate();
+            closeConnection(connection, ps, null);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void createUserPreExistingRanking(Long id, int lvl, int xp, int total_xp) {
+        if (isInRanking(id))
+            return;
+
+        try {
+            Connection connection = getConnection();
+            PreparedStatement ps = connection.prepareStatement("INSERT INTO `rankings` (`UserID`, `level`, `experience`, `TotalExp`) VALUES (?, ?, ?, ?)");
+            ps.setLong(1, id);
+            ps.setInt(2, lvl);
+            ps.setInt(3, xp);
+            ps.setInt(4, total_xp);
             ps.executeUpdate();
             closeConnection(connection, ps, null);
         } catch (SQLException e) {

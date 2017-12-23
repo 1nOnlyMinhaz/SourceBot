@@ -26,101 +26,105 @@ public class ComSettings implements CommandExecutor {
         EmbedMessageManager em = botAPI.getEmbedMessageManager();
         SettingsManager sm = botAPI.getSettingsManager();
 
-        if(sm.isSet(Settings.CHAN_ADMIN) && !sm.getSetting(Settings.CHAN_ADMIN).equals(messageChannel.getId()))
+        if (sm.isSet(Settings.CHAN_ADMIN) && !sm.getSetting(Settings.CHAN_ADMIN).equals(messageChannel.getId()))
             return;
 
-        if(!pm.userRoleAtLeast(guild.getMember(user), SimpleRank.ADMIN))
+        if (!pm.userRoleAtLeast(guild.getMember(user), SimpleRank.ADMIN))
             return;
 
         try {
-            if(strings[0].equalsIgnoreCase("tools")) {
-                if(strings[1].equalsIgnoreCase("profanity")) {
-                    if(strings[2].equalsIgnoreCase("add")) addToProfanity(botAPI, sm, em, messageChannel, strings[3]);
-                    else if(strings[2].equalsIgnoreCase("remove"))
+            if (strings[0].equalsIgnoreCase("tools")) {
+                if (strings[1].equalsIgnoreCase("profanity")) {
+                    if (strings[2].equalsIgnoreCase("add")) addToProfanity(botAPI, sm, em, messageChannel, strings[3]);
+                    else if (strings[2].equalsIgnoreCase("remove"))
                         removeFromProfanity(botAPI, sm, em, messageChannel, strings[3]);
-                    else if(strings[2].equalsIgnoreCase("list"))
+                    else if (strings[2].equalsIgnoreCase("list"))
                         botAPI.getMessageManager().sendMessage(messageChannel, em.getAsDescription(sm.getSetting(Settings.PROFANITY_LIST)));
                     else
                         botAPI.getMessageManager().sendMessage(messageChannel, em.getAsDescription("erR0r 0x11", Color.RED));
-                } else if(strings[1].equalsIgnoreCase("channel")) {
-                    if(strings[2].equalsIgnoreCase("ignore")) {
-                        if(strings[3].equalsIgnoreCase("add"))
-                            addRankupIgnoredChannel(botAPI, SettingsManager.getSettingsManager(), EmbedMessageManager.getEmbedMessageManager(), messageChannel, message);
-                        else if(strings[3].equalsIgnoreCase("remove"))
-                            removeRankupIgnoredChannel(botAPI, SettingsManager.getSettingsManager(), EmbedMessageManager.getEmbedMessageManager(), messageChannel, message);
-                        else
-                            botAPI.getMessageManager().sendMessage(messageChannel, em.getAsDescription("erR0r 0x11", Color.RED));
-                    }
+                } else if (strings[1].equalsIgnoreCase("channel")) {
+                    if (strings[2].equalsIgnoreCase("ignore"))
+                        addIgnoredChannel(botAPI, SettingsManager.getSettingsManager(), EmbedMessageManager.getEmbedMessageManager(), messageChannel, message);
+                    else if (strings[2].equalsIgnoreCase("un-ignore"))
+                        removeIgnoredChannel(botAPI, SettingsManager.getSettingsManager(), EmbedMessageManager.getEmbedMessageManager(), messageChannel, message);
+                    else if (strings[2].equalsIgnoreCase("ignored")) {
+                        StringBuilder ignored = new StringBuilder();
+                        if (sm.getSetting(Settings.RANKED_IGNORED) == null) {
+                            botAPI.getMessageManager().sendMessage(messageChannel, em.getAsDescription("not ignoring a single channel yet :rolling_eyes:"));
+                            return;
+                        }
+
+                        for (String s : Arrays.asList(sm.getSetting(Settings.RANKED_IGNORED).split(",")))
+                            ignored.append(String.format("%s ", guild.getTextChannelById(s).getAsMention()));
+
+                        botAPI.getMessageManager().sendMessage(messageChannel, em.getAsDescription(ignored.toString()));
+                    } else
+                        botAPI.getMessageManager().sendMessage(messageChannel, em.getAsDescription("erR0r 0x11", Color.RED));
                 } else
                     botAPI.getMessageManager().sendMessage(messageChannel, em.getAsDescription("erR0r 0x11", Color.RED));
-            } else if(strings[0].equalsIgnoreCase("bot")) {
-                if(!pm.userAtLeast(user, SimpleRank.BOT_ADMIN))
+            } else if (strings[0].equalsIgnoreCase("bot")) {
+                if (!pm.userAtLeast(user, SimpleRank.BOT_ADMIN))
                     return;
 
-                if(strings[1].equalsIgnoreCase("set")) {
-                    if(strings[2].equalsIgnoreCase("role") && message.getMentionedRoles().size() == 1) {
-                        if(strings.length != 5)
+                if (strings[1].equalsIgnoreCase("set")) {
+                    if (strings[2].equalsIgnoreCase("role") && message.getMentionedRoles().size() == 1) {
+                        if (strings.length != 5)
                             return;
 
-                        if(strings[4].equalsIgnoreCase("muted"))
+                        if (strings[4].equalsIgnoreCase("muted"))
                             setRolePermission(botAPI, em, pm, messageChannel, message, SimpleRank.MUTED);
-                        else if(strings[4].equalsIgnoreCase("mod"))
+                        else if (strings[4].equalsIgnoreCase("mod"))
                             setRolePermission(botAPI, em, pm, messageChannel, message, SimpleRank.MOD);
-                        else if(strings[4].equalsIgnoreCase("admin"))
+                        else if (strings[4].equalsIgnoreCase("admin"))
                             setRolePermission(botAPI, em, pm, messageChannel, message, SimpleRank.ADMIN);
-                        else if(strings[4].equalsIgnoreCase("chief"))
+                        else if (strings[4].equalsIgnoreCase("chief"))
                             setRolePermission(botAPI, em, pm, messageChannel, message, SimpleRank.CHIEF_ADMIN);
-                    } else if(strings[2].equalsIgnoreCase("channel") && message.getMentionedChannels().size() == 1) {
-                        if(strings.length != 5)
+                    } else if (strings[2].equalsIgnoreCase("channel") && message.getMentionedChannels().size() == 1) {
+                        if (strings.length != 5)
                             return;
 
-                        if(strings[4].equalsIgnoreCase("welcome"))
+                        if (strings[4].equalsIgnoreCase("welcome"))
                             setChannelType(botAPI, sm, em, messageChannel, message, Settings.CHAN_WELCOME);
-                        else if(strings[4].equalsIgnoreCase("rank"))
+                        else if (strings[4].equalsIgnoreCase("rank"))
                             setChannelType(botAPI, sm, em, messageChannel, message, Settings.CHAN_RANK_CHECK);
-                        else if(strings[4].equalsIgnoreCase("logs"))
+                        else if (strings[4].equalsIgnoreCase("logs"))
                             setChannelType(botAPI, sm, em, messageChannel, message, Settings.CHAN_LOGS);
-                        else if(strings[4].equalsIgnoreCase("mmeez"))
+                        else if (strings[4].equalsIgnoreCase("mmeez"))
                             setChannelType(botAPI, sm, em, messageChannel, message, Settings.CHAN_MEMES);
-                        else if(strings[4].equalsIgnoreCase("reports"))
+                        else if (strings[4].equalsIgnoreCase("reports"))
                             setChannelType(botAPI, sm, em, messageChannel, message, Settings.CHAN_REPORTS);
-                        else if(strings[4].equalsIgnoreCase("admin"))
+                        else if (strings[4].equalsIgnoreCase("admin"))
                             setChannelType(botAPI, sm, em, messageChannel, message, Settings.CHAN_ADMIN);
                     }
-                } else if(strings[1].equalsIgnoreCase("check")) {
-                    if(strings[2].equalsIgnoreCase("user") && message.getMentionedUsers().size() == 1)
+                } else if (strings[1].equalsIgnoreCase("check")) {
+                    if (strings[2].equalsIgnoreCase("user") && message.getMentionedUsers().size() == 1)
                         checkUserPermission(botAPI, em, pm, messageChannel, message);
-                    else if(strings[2].equalsIgnoreCase("role") && message.getMentionedRoles().size() == 1)
+                    else if (strings[2].equalsIgnoreCase("role") && message.getMentionedRoles().size() == 1)
                         checkRolePermission(botAPI, em, pm, messageChannel, message);
-                } else if(strings[1].equalsIgnoreCase("rankup")) {
-                    if(strings[2].equalsIgnoreCase("update"))
+                } else if (strings[1].equalsIgnoreCase("rankup")) {
+                    if (strings[2].equalsIgnoreCase("update"))
                         sm.retrieveOnce(Settings.RANKED_REWARDS);
 
-                    if(strings.length != 4 && message.getMentionedRoles().size() != 1)
+                    if (strings.length != 4 && message.getMentionedRoles().size() != 1)
                         return;
 
                     int level = Integer.parseInt(strings[3]);
 
-                    if(strings[2].equalsIgnoreCase("set"))
+                    if (strings[2].equalsIgnoreCase("set"))
                         setRankupRole(botAPI, sm, em, messageChannel, message, level);
-                    else if(strings[2].equalsIgnoreCase("remove"))
+                    else if (strings[2].equalsIgnoreCase("remove"))
                         botAPI.getMessageManager().sendMessage(messageChannel, em.getAsDescription("This feature is deprecated, and no longer works.", Color.RED));
                 }
             } else
                 botAPI.getMessageManager().sendMessage(messageChannel, em.getAsDescription("erR0r 0x11", Color.RED));
 
-        } catch (
-                ArrayIndexOutOfBoundsException e)
-
-        {
+        } catch (ArrayIndexOutOfBoundsException e) {
             botAPI.getMessageManager().sendMessage(messageChannel, em.getAsDescription("erR0r 0x01", Color.RED));
-        } catch (
-                Exception e)
-
-        {
+        } catch (IndexOutOfBoundsException e) {
+            botAPI.getMessageManager().sendMessage(messageChannel, em.getAsDescription("erR0r 0x02", Color.RED));
+        } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 
     private void checkUserPermission(BotAPI botAPI, EmbedMessageManager em, PermissionManager pm, MessageChannel messageChannel, Message message) {
@@ -184,7 +188,7 @@ public class ComSettings implements CommandExecutor {
         botAPI.getMessageManager().sendMessage(messageChannel, em.getAsDescription("done.", Color.DARK_GRAY));
     }
 
-    private void addRankupIgnoredChannel(BotAPI botAPI, SettingsManager sm, EmbedMessageManager em, MessageChannel messageChannel, Message message) {
+    private void addIgnoredChannel(BotAPI botAPI, SettingsManager sm, EmbedMessageManager em, MessageChannel messageChannel, Message message) {
         TextChannel tc = message.getMentionedChannels().get(0);
         String id = tc.getId();
 
@@ -204,7 +208,7 @@ public class ComSettings implements CommandExecutor {
         botAPI.getMessageManager().sendMessage(messageChannel, em.getAsDescription("done.", Color.DARK_GRAY));
     }
 
-    private void removeRankupIgnoredChannel(BotAPI botAPI, SettingsManager sm, EmbedMessageManager em, MessageChannel messageChannel, Message message) {
+    private void removeIgnoredChannel(BotAPI botAPI, SettingsManager sm, EmbedMessageManager em, MessageChannel messageChannel, Message message) {
         TextChannel tc = message.getMentionedChannels().get(0);
         String id = tc.getId();
 

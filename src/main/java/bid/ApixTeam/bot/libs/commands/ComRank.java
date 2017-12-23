@@ -21,7 +21,8 @@ public class ComRank implements CommandExecutor {
         EmbedMessageManager embedManager = botAPI.getEmbedMessageManager();
         SettingsManager sm = botAPI.getSettingsManager();
 
-        if (sm.getSetting(Settings.CHAN_RANK_CHECK) != null && !sm.getSetting(Settings.CHAN_RANK_CHECK).equals(messageChannel.getId()) && messageChannel.getType().isGuild())
+        if ((sm.getSetting(Settings.CHAN_RANK_CHECK) != null && !sm.getSetting(Settings.CHAN_RANK_CHECK).equals(messageChannel.getId()) && messageChannel.getType().isGuild())
+        && (sm.getSetting(Settings.CHAN_RANK_CHECK) != null && !sm.getSetting(Settings.CHAN_ADMIN).equals(messageChannel.getId()) && messageChannel.getType().isGuild()))
             return;
 
         if (messageChannel.getType().isGuild()) {
