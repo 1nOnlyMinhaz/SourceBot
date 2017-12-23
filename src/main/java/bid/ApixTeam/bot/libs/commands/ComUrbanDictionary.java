@@ -23,10 +23,10 @@ public class ComUrbanDictionary implements CommandExecutor {
             return;
 
         args[0] = "";
-        botAPI.getPrivateMessageManager().sendMessage(user, urbanGuild(jda, user, args, false));
+        botAPI.getPrivateMessageManager().sendMessage(user, urbanGuild(args));
     }
 
-    private MessageEmbed urbanGuild(JDA jda, User user, String[] s, boolean b) {
+    private MessageEmbed urbanGuild(String[] s) {
         StringBuilder strBuilder = new StringBuilder();
         for(String value : s) strBuilder.append(value);
         String newString = strBuilder.toString();
