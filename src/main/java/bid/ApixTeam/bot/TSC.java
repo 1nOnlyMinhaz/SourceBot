@@ -1,6 +1,7 @@
 package bid.ApixTeam.bot;
 
 import bid.ApixTeam.bot.libs.Listener;
+import bid.ApixTeam.bot.utils.api.IncidentManager;
 import bid.ApixTeam.bot.utils.api.SettingsManager;
 import bid.ApixTeam.bot.utils.threads.dummy;
 import bid.ApixTeam.bot.utils.vars.Levels;
@@ -32,6 +33,7 @@ public class TSC extends SettingsManager {
                 .buildBlocking();
 
         setup(jda);
+        new IncidentManager().setup();
         new Levels();
         new Listener(jda);
 

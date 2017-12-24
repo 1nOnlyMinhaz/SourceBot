@@ -58,39 +58,39 @@ public class Incident implements IIncident {
         return running;
     }
 
-    protected void setId(int id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    protected void setDelay(int delay) {
+    public void setDelay(int delay) {
         this.delay = delay;
     }
 
-    protected void setTimestamp(Timestamp timestamp) {
+    public void setTimestamp(Timestamp timestamp) {
         this.timestamp = timestamp;
     }
 
-    protected void setU1id(long u1id) {
+    public void setU1id(long u1id) {
         this.u1id = u1id;
     }
 
-    protected void setU2id(long u2id) {
+    public void setU2id(long u2id) {
         this.u2id = u2id;
     }
 
-    protected void setSystime(long systime) {
+    public void setSystime(long systime) {
         this.systime = systime;
     }
 
-    protected void setType(String type) {
+    public void setType(String type) {
         this.type = type;
     }
 
-    protected void setReason(String reason) {
+    public void setReason(String reason) {
         this.reason = reason;
     }
 
-    protected void setRunning(boolean running) {
+    public void setRunning(boolean running) {
         this.running = running;
     }
 }
