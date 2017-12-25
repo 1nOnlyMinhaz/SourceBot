@@ -6,6 +6,7 @@ import bid.ApixTeam.bot.utils.vars.entites.enums.IncidentType;
 import net.dv8tion.jda.core.entities.User;
 
 import java.sql.*;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -59,7 +60,82 @@ public class IncidentManager {
         }
     }
 
-    public void createIncident(User Author, User user, IncidentType type, String reason, int delay, TimeUnit timeUnit){
+    public int createIncident(User author, User user, IncidentType type, String reason, int delay, TimeUnit timeUnit){
+        try {
+            Connection connection = getConnection();
+            PreparedStatement ps = connection.prepareStatement("INSERT INTO `incidents` (`u1id`, `u2id`, `type`, `reason`, `delay`, `systime`) VALUES (?, ?, ?, ?, ?, ?)");
+            ps.setLong(1, author.getIdLong());
+            ps.setLong(2, user.getIdLong());
+            ps.setString(3, type.getString());
+            ps.setString(4, reason);
+            ps.setLong(5, timeUnit.toMillis(delay));
+            ps.setLong(6, System.currentTimeMillis());
 
+            ps.executeUpdate();
+            closeConnection(connection, ps, null);
+
+            Incident incident = new Incident();
+            incident.setId(Lists.getLastIncident());
+            incident.setU1id(author.getIdLong());
+            incident.setU2id(user.getIdLong());
+            incident.setType(type.toString());
+            incident.setReason(reason);
+            incident.setDelay(timeUnit.toMillis(delay));
+            incident.setSystime(System.currentTimeMillis());
+            incident.setTimestamp(new Timestamp(System.currentTimeMillis()));
+            incident.setRunning(true);
+
+            Lists.setLastIncident(Lists.getLastIncident() + 1);
+            Lists.getIncidentLog().put(incident.getId(), incident);
+            return incident.getId();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return 0;
+    }
+
+    public void removeIncident(int id){
+        try {
+            Connection connection = getConnection();
+            PreparedStatement ps = connection.prepareStatement("DELETE FROM `incidents` WHERE `ID` = ?");
+            ps.setInt(1, id);
+            ps.executeUpdate();
+            closeConnection(connection, ps, null);
+
+            Lists.getIncidentLog().remove(id);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void runIncident(int id, boolean b){
+        try {
+            Connection connection = getConnection();
+            PreparedStatement ps = connection.prepareStatement("UPDATE `incidents` SET `running` = ? WHERE `ID` = ?");
+            ps.setBoolean(1, b);
+            ps.setInt(2, id);
+            ps.executeUpdate();
+            closeConnection(connection, ps, null);
+
+            Incident incident = Lists.getIncidentLog().get(id);
+            incident.setRunning(b);
+
+            Lists.getIncidentLog().put(incident.getId(), incident);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void silentUpdate(int id, Incident incident){
+        Lists.getIncidentLog().put(id, incident);
+    }
+
+    public ConcurrentHashMap<Integer, Incident> getIncidents(){
+        return Lists.getIncidentLog();
+    }
+
+    public Incident getIncident(int id){
+        return Lists.getIncidentLog().get(id);
     }
 }

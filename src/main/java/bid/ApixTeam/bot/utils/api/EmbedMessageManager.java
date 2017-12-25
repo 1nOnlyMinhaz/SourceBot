@@ -3,9 +3,11 @@ package bid.ApixTeam.bot.utils.api;
 import bid.ApixTeam.bot.utils.BotAPI;
 import bid.ApixTeam.bot.utils.vars.Lists;
 import bid.ApixTeam.bot.utils.vars.Messages;
+import bid.ApixTeam.bot.utils.vars.entites.Incident;
 import bid.ApixTeam.bot.utils.vars.entites.enums.RankingType;
 import bid.ApixTeam.bot.utils.vars.entites.enums.Settings;
 import net.dv8tion.jda.core.EmbedBuilder;
+import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.entities.MessageChannel;
 import net.dv8tion.jda.core.entities.MessageEmbed;
 import net.dv8tion.jda.core.entities.User;
@@ -229,14 +231,21 @@ public class EmbedMessageManager {
                 .build();
     }
 
-    public MessageEmbed getReportEmbed(User reporter, User reported, String reason, String timestamp) {
-        return new EmbedBuilder()
-                .setAuthor("User Report", null, reporter.getJDA().getSelfUser().getAvatarUrl())
-                .addField("Reporter", reporter.getName() + "#" + reporter.getDiscriminator(), false)
-                .addField("Reported", reported.getName() + "#" + reported.getDiscriminator(), false)
-                .addField("Reason", reason, false)
-                .addField("Timestamp", timestamp, false)
-                .setColor(new Color(234, 255, 235))
-                .build();
+    public MessageEmbed getIncidentEmbed(JDA jda, Incident incident) {
+        User issuer = jda.getUserById(incident.getU1());
+        User issued = jda.getUserById(incident.getU2());
+        EmbedBuilder embedBuilder = new EmbedBuilder()
+                .setAuthor(String.format("Incident #%d", incident.getId()), null, jda.getSelfUser().getAvatarUrl())
+                .addField("Issued By", String.format("%s • %s#%s", issuer.getAsMention(), issuer.getName(), issuer.getDiscriminator()), false)
+                .addField("Issued To", String.format("%s • %s#%s", issued.getAsMention(), issued.getName(), issued.getDiscriminator()), false)
+                .addField("Type", incident.getType(), false)
+                .addField("Reason", incident.getReason(), false)
+                .addField("Timestamp", incident.getTimestamp().toString(), false)
+                .setColor(new Color(234, 255, 235));
+
+        if(incident.getDelay() != 0)
+            embedBuilder.addField("Extra", String.format("For %d seconds (i:%d)", incident.getDelay() / 1000, incident.getSystime()), false);
+
+        return embedBuilder.build();
     }
 }

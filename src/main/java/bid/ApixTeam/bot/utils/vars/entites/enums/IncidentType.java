@@ -6,6 +6,7 @@ package bid.ApixTeam.bot.utils.vars.entites.enums;
  */
 public enum IncidentType {
     REPORT("report"),
+    WARNING("warn"),
     MUTE("mute"),
     TEMP_MUTE("temp-mute"),
     KICK("kick"),

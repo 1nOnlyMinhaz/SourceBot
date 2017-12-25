@@ -1,5 +1,7 @@
 package bid.ApixTeam.bot.utils.vars.entites;
 
+import net.dv8tion.jda.core.entities.Message;
+
 import java.sql.Timestamp;
 
 /**
@@ -7,11 +9,12 @@ import java.sql.Timestamp;
  * in association with TheSourceCode (C) 2017
  */
 public class Incident implements IIncident {
-    private int id, delay;
+    private int id;
     private Timestamp timestamp;
-    private long u1id, u2id, systime;
+    private long u1id, u2id, systime, delay;
     private String type, reason;
     private boolean running;
+    private Message message;
 
     @Override
     public int getId() {
@@ -49,7 +52,7 @@ public class Incident implements IIncident {
     }
 
     @Override
-    public int getDelay() {
+    public long getDelay() {
         return delay;
     }
 
@@ -58,11 +61,16 @@ public class Incident implements IIncident {
         return running;
     }
 
+    @Override
+    public Message getMessage(){
+        return message;
+    }
+
     public void setId(int id) {
         this.id = id;
     }
 
-    public void setDelay(int delay) {
+    public void setDelay(long delay) {
         this.delay = delay;
     }
 
@@ -92,5 +100,9 @@ public class Incident implements IIncident {
 
     public void setRunning(boolean running) {
         this.running = running;
+    }
+
+    public void setMessage(Message message) {
+        this.message = message;
     }
 }

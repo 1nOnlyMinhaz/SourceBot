@@ -1,5 +1,7 @@
 package bid.ApixTeam.bot.utils.vars.entites;
 
+import net.dv8tion.jda.core.entities.Message;
+
 import java.sql.Timestamp;
 
 /**
@@ -7,23 +9,6 @@ import java.sql.Timestamp;
  * in association with TheSourceCode (C) 2017
  */
 public interface IIncident {
-    int id = 0;
-
-    Timestamp timestamp = null;
-
-    String type = null;
-
-    long u1id = 0L;
-
-    long u2id = 0L;
-
-    String reason = null;
-
-    long systime = 0L;
-
-    int delay = 0;
-
-    boolean running = false;
 
     int getId();
 
@@ -39,7 +24,9 @@ public interface IIncident {
 
     long getSystime();
 
-    int getDelay();
+    long getDelay();
 
     boolean isRunning();
+
+    Message getMessage();
 }
