@@ -109,6 +109,28 @@ public class IncidentManager {
         }
     }
 
+    public void updateIncident(Incident incident){
+        try {
+            Connection connection = getConnection();
+            PreparedStatement ps = connection.prepareStatement("UPDATE `incidents` SET `u1id` = ?, `u2id` = ?, `type` = ?, `reason` = ?, `systime` = ?, `delay` = ?, `running` = ?, `message` = ? WHERE `ID` = ?");
+            ps.setLong(1, incident.getU1());
+            ps.setLong(2, incident.getU2());
+            ps.setString(3, incident.getType());
+            ps.setString(4, incident.getReason());
+            ps.setLong(5, incident.getSystime());
+            ps.setLong(6, incident.getDelay());
+            ps.setBoolean(7, incident.isRunning());
+            ps.setLong(8, incident.getMessageID());
+            ps.setInt(9, incident.getId());
+            ps.executeUpdate();
+            closeConnection(connection, ps, null);
+
+            Lists.getIncidentLog().put(incident.getId(), incident);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void runIncident(int id, boolean b){
         try {
             Connection connection = getConnection();
@@ -127,6 +149,7 @@ public class IncidentManager {
         }
     }
 
+    @Deprecated
     public void silentUpdate(int id, Incident incident){
         Lists.getIncidentLog().put(id, incident);
     }

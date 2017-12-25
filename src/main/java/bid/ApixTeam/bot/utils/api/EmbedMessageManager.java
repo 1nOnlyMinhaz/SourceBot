@@ -167,9 +167,9 @@ public class EmbedMessageManager {
         EmbedBuilder defaultCommands = new EmbedBuilder();
 
         defaultCommands.setAuthor("Default Commands", null, user.getJDA().getSelfUser().getAvatarUrl())
-                .addField("!help", "You know... :unamused: \n *You can use `!help (command)` to get an explanation on how to use that command :wink:*", false)
+                .addField("!help", "You know... :unamused: \n*You can use `!help (command)` to get an explanation on how to use that command :wink:*", false)
                 .addField("!info", "Sends you an informal message about the bot and the server.\n **You MUST have PMs enabled for the server!**", false)
-                .addField("!rank", "Displays your activity ranking among the server.\n *More info at `!info rank` :wink:*", false)
+                .addField("!rank", "Displays your activity ranking among the server.", false)
                 .addField("!levels", "Displays the top `5` players on the ranking system.", false)
                 .addField("!report", "Report a certain user.", false)
                 .setColor(new Color(234, 255, 235));

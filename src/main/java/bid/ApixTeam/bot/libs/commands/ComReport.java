@@ -45,8 +45,8 @@ public class ComReport implements CommandExecutor {
         Incident incident = incidentManager.getIncident(id);
         Message message = botAPI.getMessageManager().sendMessage(guild.getTextChannelById(sm.getSetting(Settings.CHAN_REPORTS)),
                 botAPI.getEmbedMessageManager().getIncidentEmbed(guild.getJDA(), incident));
-        incident.setMessage(message);
-        incidentManager.silentUpdate(id, incident);
+        incident.setMessageID(message.getIdLong());
+        incidentManager.updateIncident(incident);
         botAPI.getMessageManager().deleteMessage(command, "Auto Cleared");
     }
 

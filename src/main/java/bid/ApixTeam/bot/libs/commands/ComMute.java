@@ -48,6 +48,18 @@ public class ComMute implements CommandExecutor {
             arrayList.add(target.getAsMention());
         }
 
+        s = getMuteString(arrayList);
+
+        if(s.isEmpty()) {
+            botAPI.getMessageManager().sendMessage(messageChannel, embedManager.getAsDescription(message.getMentionedUsers().size() == 1 ? "You cannot mute that person." : "You cannot mute those people."));
+            return;
+        }
+
+        botAPI.getMessageManager().sendMessage(messageChannel, embedManager.getAsDescription(String.format("%s %s been muted!", s, message.getMentionedUsers().size() > 1 ? "have" : "has")));
+    }
+
+    static String getMuteString(ArrayList<String> arrayList) {
+        String s;
         if(arrayList.size() == 2)
             s = String.join(" and ", arrayList);
         else if (arrayList.size() > 2){
@@ -58,12 +70,6 @@ public class ComMute implements CommandExecutor {
                 s = st;
             }
         } else s = String.join(", ", arrayList);
-
-        if(s.isEmpty()) {
-            botAPI.getMessageManager().sendMessage(messageChannel, embedManager.getAsDescription(message.getMentionedUsers().size() == 1 ? "You cannot mute that person." : "You cannot mute those people."));
-            return;
-        }
-
-        botAPI.getMessageManager().sendMessage(messageChannel, embedManager.getAsDescription(String.format("%s %s been muted!", s, message.getMentionedUsers().size() > 1 ? "have" : "has")));
+        return s;
     }
 }

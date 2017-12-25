@@ -1,7 +1,5 @@
 package bid.ApixTeam.bot.utils.vars.entites;
 
-import net.dv8tion.jda.core.entities.Message;
-
 import java.sql.Timestamp;
 
 /**
@@ -28,5 +26,5 @@ public interface IIncident {
 
     boolean isRunning();
 
-    Message getMessage();
+    long getMessageID();
 }

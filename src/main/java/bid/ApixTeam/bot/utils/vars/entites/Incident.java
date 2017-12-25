@@ -1,7 +1,5 @@
 package bid.ApixTeam.bot.utils.vars.entites;
 
-import net.dv8tion.jda.core.entities.Message;
-
 import java.sql.Timestamp;
 
 /**
@@ -11,10 +9,9 @@ import java.sql.Timestamp;
 public class Incident implements IIncident {
     private int id;
     private Timestamp timestamp;
-    private long u1id, u2id, systime, delay;
+    private long u1id, u2id, systime, delay, messageID;
     private String type, reason;
     private boolean running;
-    private Message message;
 
     @Override
     public int getId() {
@@ -62,8 +59,8 @@ public class Incident implements IIncident {
     }
 
     @Override
-    public Message getMessage(){
-        return message;
+    public long getMessageID(){
+        return messageID;
     }
 
     public void setId(int id) {
@@ -102,7 +99,7 @@ public class Incident implements IIncident {
         this.running = running;
     }
 
-    public void setMessage(Message message) {
-        this.message = message;
+    public void setMessageID(long messageID) {
+        this.messageID = messageID;
     }
 }
