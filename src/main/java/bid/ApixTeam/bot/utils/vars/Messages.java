@@ -16,11 +16,11 @@ public interface Messages {
 
     String[] LEAVE = {"OH NO! :cry: %PLAYER% just left the server :sob:", "RIP! %PLAYER% abandoned us :sob:", "Cya! %PLAYER% thought that we want him :joy:", "%PLAYER% has left the game.", "Later! %PLAYER% did rage quit :joy:"};
 
-    String[] PROFANITY = {"**Watch your mouth** %s :rage:", "**Chill down** %s :rage:", "**LANGUAGE** %s :rage:", "**That's really bad** %s :rage:", "**I'M ALWAYS WATCHING YOU** %s :rage:", "**YOUR MOM SHOULD'VE TOLD YOU THAT THIS WORD IS BAD** %s :rage:", "**THAT'S CROSSING THE RED LINE** %s :rage:"};
+    String[] PROFANITY = {"**Watch your mouth** %s :rage:", "**Chill out** %s :rage:", "**LANGUAGE** %s :rage:", "**That's really bad** %s :rage:", "**I'M ALWAYS WATCHING YOU** %s :rage:", "**YOUR MOM SHOULD'VE TOLD YOU THAT THIS WORD IS BAD** %s :rage:", "**THAT'S CROSSING THE RED LINE** %s :rage:"};
 
     String BOT_INFO = "In the past, our server has used many pre-built Discord Bots made by other people, such as Dyno, and Mee6. We moved on from Dyno pretty quickly, but up until this bot was released, we have always used Mee6. Now of course it's a good bot with some perks, but we could do better. So we did. We, the ApixTeam, consistent of yours truly, Alw7SHxD, and Andrewboy159, have created a bot that has been in the making for months on end. We are proud of what we have created. We hope all of you users also are proud of what has been made specifically for this server that we all love.";
 
     String[] GAME_PLAYIN = {"some minigames on SourceCade", "emily is away"};
-    String[] GAME_WATCHIN = {"videos while vapin with Ned", "Ned vape", "drunk Alw", "Andrew"};
-    String[] GAME_LISTENIN = {"Daeshan's voice", "earrape with Alw", "huh."};
+    String[] GAME_WATCHIN = {"videos while vapin with Ned", "Ned vape", "drunk Alw", "Andrew suck at coding"};
+    String[] GAME_LISTENIN = {"Daeshan's voice", "earrape with Alw"};
 }
