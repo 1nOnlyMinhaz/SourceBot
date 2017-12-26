@@ -58,12 +58,12 @@ public class JsonParser {
                 "      \"avatar\": \"f402b04bb0ae01c0272c463d16149285\", \n" +
                 "      \"discriminator\": \"9725\", \n" +
                 "      \"id\": \"265801594875019264\", \n" +
-                "      \"lvl\": 31, \n" +
-                "      \"lvl_xp\": 6455, \n" +
+                "      \"lvl\": 32, \n" +
+                "      \"lvl_xp\": 6820, \n" +
                 "      \"name\": \"RedNyanCat\", \n" +
-                "      \"total_xp\": 79100, \n" +
-                "      \"xp\": 5475, \n" +
-                "      \"xp_percent\": 84\n" +
+                "      \"total_xp\": 81359, \n" +
+                "      \"xp\": 1279, \n" +
+                "      \"xp_percent\": 18\n" +
                 "    }, \n" +
                 "    {\n" +
                 "      \"avatar\": \"bd7a5ed7e8223a7d20d620d33a56e6db\", \n" +
@@ -83,9 +83,9 @@ public class JsonParser {
                 "      \"lvl\": 30, \n" +
                 "      \"lvl_xp\": 6100, \n" +
                 "      \"name\": \"TcpAckFrequency DEPRECATED\", \n" +
-                "      \"total_xp\": 69628, \n" +
-                "      \"xp\": 2103, \n" +
-                "      \"xp_percent\": 34\n" +
+                "      \"total_xp\": 70625, \n" +
+                "      \"xp\": 3100, \n" +
+                "      \"xp_percent\": 50\n" +
                 "    }, \n" +
                 "    {\n" +
                 "      \"avatar\": \"73258b4ecb8250431a2cb093e9ee4dcb\", \n" +
@@ -99,15 +99,15 @@ public class JsonParser {
                 "      \"xp_percent\": 88\n" +
                 "    }, \n" +
                 "    {\n" +
-                "      \"avatar\": \"45dc4496b85c7887b73171a7266d61ef\", \n" +
+                "      \"avatar\": \"0cc8342906efeabd581adbadf92da3cd\", \n" +
                 "      \"discriminator\": \"0438\", \n" +
                 "      \"id\": \"288327724702105611\", \n" +
                 "      \"lvl\": 29, \n" +
                 "      \"lvl_xp\": 5755, \n" +
                 "      \"name\": \"Ricky12Awesome\", \n" +
-                "      \"total_xp\": 62554, \n" +
-                "      \"xp\": 784, \n" +
-                "      \"xp_percent\": 13\n" +
+                "      \"total_xp\": 65095, \n" +
+                "      \"xp\": 3325, \n" +
+                "      \"xp_percent\": 57\n" +
                 "    }, \n" +
                 "    {\n" +
                 "      \"avatar\": \"c5fef14d2c4e8fde8c41ae61fe4db400\", \n" +
@@ -127,9 +127,9 @@ public class JsonParser {
                 "      \"lvl\": 25, \n" +
                 "      \"lvl_xp\": 4475, \n" +
                 "      \"name\": \"Hwiggy\", \n" +
-                "      \"total_xp\": 43851, \n" +
-                "      \"xp\": 1851, \n" +
-                "      \"xp_percent\": 41\n" +
+                "      \"total_xp\": 45049, \n" +
+                "      \"xp\": 3049, \n" +
+                "      \"xp_percent\": 68\n" +
                 "    }, \n" +
                 "    {\n" +
                 "      \"avatar\": \"0630a0378a93e15c922e7058ca9b762a\", \n" +
@@ -149,9 +149,9 @@ public class JsonParser {
                 "      \"lvl\": 23, \n" +
                 "      \"lvl_xp\": 3895, \n" +
                 "      \"name\": \"SebastiaanYN\", \n" +
-                "      \"total_xp\": 35198, \n" +
-                "      \"xp\": 1273, \n" +
-                "      \"xp_percent\": 32\n" +
+                "      \"total_xp\": 36128, \n" +
+                "      \"xp\": 2203, \n" +
+                "      \"xp_percent\": 56\n" +
                 "    }, \n" +
                 "    {\n" +
                 "      \"avatar\": \"087ef2bd8a8647f9c9c4df16d50d2555\", \n" +
@@ -160,20 +160,20 @@ public class JsonParser {
                 "      \"lvl\": 22, \n" +
                 "      \"lvl_xp\": 3620, \n" +
                 "      \"name\": \"Reflxction v2.7\", \n" +
-                "      \"total_xp\": 31022, \n" +
-                "      \"xp\": 717, \n" +
-                "      \"xp_percent\": 19\n" +
+                "      \"total_xp\": 31095, \n" +
+                "      \"xp\": 790, \n" +
+                "      \"xp_percent\": 21\n" +
                 "    }, \n" +
                 "    {\n" +
                 "      \"avatar\": \"a09e28b71bbf211a36c41577432fd495\", \n" +
                 "      \"discriminator\": \"2430\", \n" +
                 "      \"id\": \"234074387467206656\", \n" +
-                "      \"lvl\": 21, \n" +
-                "      \"lvl_xp\": 3355, \n" +
+                "      \"lvl\": 22, \n" +
+                "      \"lvl_xp\": 3620, \n" +
                 "      \"name\": \"Plump_Orange\", \n" +
-                "      \"total_xp\": 29987, \n" +
-                "      \"xp\": 3037, \n" +
-                "      \"xp_percent\": 90\n" +
+                "      \"total_xp\": 30928, \n" +
+                "      \"xp\": 623, \n" +
+                "      \"xp_percent\": 17\n" +
                 "    }, \n" +
                 "    {\n" +
                 "      \"avatar\": \"96e3d174ac61ff33105e59ebf4c9cada\", \n" +
@@ -182,9 +182,9 @@ public class JsonParser {
                 "      \"lvl\": 21, \n" +
                 "      \"lvl_xp\": 3355, \n" +
                 "      \"name\": \"Deathkiller || Developer\", \n" +
-                "      \"total_xp\": 29556, \n" +
-                "      \"xp\": 2606, \n" +
-                "      \"xp_percent\": 77\n" +
+                "      \"total_xp\": 29888, \n" +
+                "      \"xp\": 2938, \n" +
+                "      \"xp_percent\": 87\n" +
                 "    }, \n" +
                 "    {\n" +
                 "      \"avatar\": \"e922495074e55107f8c977a7734d7cce\", \n" +
@@ -193,9 +193,20 @@ public class JsonParser {
                 "      \"lvl\": 21, \n" +
                 "      \"lvl_xp\": 3355, \n" +
                 "      \"name\": \"David.\", \n" +
-                "      \"total_xp\": 27684, \n" +
-                "      \"xp\": 734, \n" +
-                "      \"xp_percent\": 21\n" +
+                "      \"total_xp\": 28389, \n" +
+                "      \"xp\": 1439, \n" +
+                "      \"xp_percent\": 42\n" +
+                "    }, \n" +
+                "    {\n" +
+                "      \"avatar\": \"3930d6c21f6bd43608a17a016e5ca1eb\", \n" +
+                "      \"discriminator\": \"0330\", \n" +
+                "      \"id\": \"136715258134790144\", \n" +
+                "      \"lvl\": 21, \n" +
+                "      \"lvl_xp\": 3355, \n" +
+                "      \"name\": \"A Nomar\", \n" +
+                "      \"total_xp\": 27629, \n" +
+                "      \"xp\": 679, \n" +
+                "      \"xp_percent\": 20\n" +
                 "    }, \n" +
                 "    {\n" +
                 "      \"avatar\": null, \n" +
@@ -209,15 +220,15 @@ public class JsonParser {
                 "      \"xp_percent\": 83\n" +
                 "    }, \n" +
                 "    {\n" +
-                "      \"avatar\": \"3930d6c21f6bd43608a17a016e5ca1eb\", \n" +
-                "      \"discriminator\": \"0330\", \n" +
-                "      \"id\": \"136715258134790144\", \n" +
+                "      \"avatar\": \"1626cb518c1ed2e66bfdb51e29f532fd\", \n" +
+                "      \"discriminator\": \"4603\", \n" +
+                "      \"id\": \"127529580604030977\", \n" +
                 "      \"lvl\": 20, \n" +
                 "      \"lvl_xp\": 3100, \n" +
-                "      \"name\": \"A Nomar\", \n" +
-                "      \"total_xp\": 25742, \n" +
-                "      \"xp\": 1892, \n" +
-                "      \"xp_percent\": 61\n" +
+                "      \"name\": \"DarkSeraphim\", \n" +
+                "      \"total_xp\": 26182, \n" +
+                "      \"xp\": 2332, \n" +
+                "      \"xp_percent\": 75\n" +
                 "    }, \n" +
                 "    {\n" +
                 "      \"avatar\": null, \n" +
@@ -229,17 +240,6 @@ public class JsonParser {
                 "      \"total_xp\": 24771, \n" +
                 "      \"xp\": 921, \n" +
                 "      \"xp_percent\": 29\n" +
-                "    }, \n" +
-                "    {\n" +
-                "      \"avatar\": \"1626cb518c1ed2e66bfdb51e29f532fd\", \n" +
-                "      \"discriminator\": \"4603\", \n" +
-                "      \"id\": \"127529580604030977\", \n" +
-                "      \"lvl\": 20, \n" +
-                "      \"lvl_xp\": 3100, \n" +
-                "      \"name\": \"DarkSeraphim\", \n" +
-                "      \"total_xp\": 24633, \n" +
-                "      \"xp\": 783, \n" +
-                "      \"xp_percent\": 25\n" +
                 "    }, \n" +
                 "    {\n" +
                 "      \"avatar\": \"a_3d036b895069c08f3390d303a5c4f135\", \n" +
@@ -270,20 +270,20 @@ public class JsonParser {
                 "      \"lvl\": 18, \n" +
                 "      \"lvl_xp\": 2620, \n" +
                 "      \"name\": \"SatproMC\", \n" +
-                "      \"total_xp\": 20572, \n" +
-                "      \"xp\": 2197, \n" +
-                "      \"xp_percent\": 83\n" +
+                "      \"total_xp\": 20796, \n" +
+                "      \"xp\": 2421, \n" +
+                "      \"xp_percent\": 92\n" +
                 "    }, \n" +
                 "    {\n" +
                 "      \"avatar\": \"85cfbc09177f4e56f292523007a329b4\", \n" +
                 "      \"discriminator\": \"3188\", \n" +
                 "      \"id\": \"206504892091727872\", \n" +
-                "      \"lvl\": 16, \n" +
-                "      \"lvl_xp\": 2180, \n" +
+                "      \"lvl\": 17, \n" +
+                "      \"lvl_xp\": 2395, \n" +
                 "      \"name\": \"Laura\\u2665Russels\", \n" +
-                "      \"total_xp\": 15294, \n" +
-                "      \"xp\": 1494, \n" +
-                "      \"xp_percent\": 68\n" +
+                "      \"total_xp\": 16374, \n" +
+                "      \"xp\": 394, \n" +
+                "      \"xp_percent\": 16\n" +
                 "    }, \n" +
                 "    {\n" +
                 "      \"avatar\": \"883043ac361cfe2c61a9f015c5d84543\", \n" +
@@ -292,9 +292,9 @@ public class JsonParser {
                 "      \"lvl\": 16, \n" +
                 "      \"lvl_xp\": 2180, \n" +
                 "      \"name\": \"JustWesley\", \n" +
-                "      \"total_xp\": 15268, \n" +
-                "      \"xp\": 1468, \n" +
-                "      \"xp_percent\": 67\n" +
+                "      \"total_xp\": 15634, \n" +
+                "      \"xp\": 1834, \n" +
+                "      \"xp_percent\": 84\n" +
                 "    }, \n" +
                 "    {\n" +
                 "      \"avatar\": \"40982f165b9fa0225c799e02b851947d\", \n" +
@@ -314,9 +314,9 @@ public class JsonParser {
                 "      \"lvl\": 16, \n" +
                 "      \"lvl_xp\": 2180, \n" +
                 "      \"name\": \"Ned\", \n" +
-                "      \"total_xp\": 14381, \n" +
-                "      \"xp\": 581, \n" +
-                "      \"xp_percent\": 26\n" +
+                "      \"total_xp\": 14679, \n" +
+                "      \"xp\": 879, \n" +
+                "      \"xp_percent\": 40\n" +
                 "    }, \n" +
                 "    {\n" +
                 "      \"avatar\": \"ccbbceeefd2fe6c9d652fe639e0406d1\", \n" +
@@ -336,9 +336,9 @@ public class JsonParser {
                 "      \"lvl\": 15, \n" +
                 "      \"lvl_xp\": 1975, \n" +
                 "      \"name\": \"By_Jack\", \n" +
-                "      \"total_xp\": 13141, \n" +
-                "      \"xp\": 1316, \n" +
-                "      \"xp_percent\": 66\n" +
+                "      \"total_xp\": 13202, \n" +
+                "      \"xp\": 1377, \n" +
+                "      \"xp_percent\": 69\n" +
                 "    }, \n" +
                 "    {\n" +
                 "      \"avatar\": \"0411e337d734dce3f4c74cc43a86e44b\", \n" +
@@ -358,9 +358,9 @@ public class JsonParser {
                 "      \"lvl\": 15, \n" +
                 "      \"lvl_xp\": 1975, \n" +
                 "      \"name\": \"VRCube | Cubxity\", \n" +
-                "      \"total_xp\": 12573, \n" +
-                "      \"xp\": 748, \n" +
-                "      \"xp_percent\": 37\n" +
+                "      \"total_xp\": 12591, \n" +
+                "      \"xp\": 766, \n" +
+                "      \"xp_percent\": 38\n" +
                 "    }, \n" +
                 "    {\n" +
                 "      \"avatar\": \"62de0de594a553aa9edf61c996b50584\", \n" +
@@ -369,9 +369,9 @@ public class JsonParser {
                 "      \"lvl\": 14, \n" +
                 "      \"lvl_xp\": 1780, \n" +
                 "      \"name\": \"Austin\", \n" +
-                "      \"total_xp\": 11089, \n" +
-                "      \"xp\": 1044, \n" +
-                "      \"xp_percent\": 58\n" +
+                "      \"total_xp\": 11107, \n" +
+                "      \"xp\": 1062, \n" +
+                "      \"xp_percent\": 59\n" +
                 "    }, \n" +
                 "    {\n" +
                 "      \"avatar\": null, \n" +
@@ -418,6 +418,17 @@ public class JsonParser {
                 "      \"xp_percent\": 88\n" +
                 "    }, \n" +
                 "    {\n" +
+                "      \"avatar\": \"04e50494c8ca23d8dc447ce0030c5aad\", \n" +
+                "      \"discriminator\": \"5735\", \n" +
+                "      \"id\": \"161186477924024320\", \n" +
+                "      \"lvl\": 13, \n" +
+                "      \"lvl_xp\": 1595, \n" +
+                "      \"name\": \"Kyrix\", \n" +
+                "      \"total_xp\": 9627, \n" +
+                "      \"xp\": 1177, \n" +
+                "      \"xp_percent\": 73\n" +
+                "    }, \n" +
+                "    {\n" +
                 "      \"avatar\": null, \n" +
                 "      \"discriminator\": 966, \n" +
                 "      \"id\": \"319535368992980994\", \n" +
@@ -462,15 +473,15 @@ public class JsonParser {
                 "      \"xp_percent\": 20\n" +
                 "    }, \n" +
                 "    {\n" +
-                "      \"avatar\": \"04e50494c8ca23d8dc447ce0030c5aad\", \n" +
-                "      \"discriminator\": \"5735\", \n" +
-                "      \"id\": \"161186477924024320\", \n" +
-                "      \"lvl\": 13, \n" +
-                "      \"lvl_xp\": 1595, \n" +
-                "      \"name\": \"Kyrix's Gender- Alw\", \n" +
-                "      \"total_xp\": 8550, \n" +
-                "      \"xp\": 100, \n" +
-                "      \"xp_percent\": 6\n" +
+                "      \"avatar\": \"6311f7d032b9c4021fda426305e5849a\", \n" +
+                "      \"discriminator\": \"9035\", \n" +
+                "      \"id\": \"144285736277901312\", \n" +
+                "      \"lvl\": 12, \n" +
+                "      \"lvl_xp\": 1420, \n" +
+                "      \"name\": \"Daeshan\", \n" +
+                "      \"total_xp\": 8080, \n" +
+                "      \"xp\": 1050, \n" +
+                "      \"xp_percent\": 73\n" +
                 "    }, \n" +
                 "    {\n" +
                 "      \"avatar\": null, \n" +
@@ -484,26 +495,26 @@ public class JsonParser {
                 "      \"xp_percent\": 64\n" +
                 "    }, \n" +
                 "    {\n" +
-                "      \"avatar\": null, \n" +
+                "      \"avatar\": \"53fb62520bfc4ae1f5bcb9c78fbe8da2\", \n" +
                 "      \"discriminator\": \"5438\", \n" +
                 "      \"id\": \"176900607666421760\", \n" +
                 "      \"lvl\": 12, \n" +
                 "      \"lvl_xp\": 1420, \n" +
                 "      \"name\": \"logon1027\", \n" +
-                "      \"total_xp\": 7178, \n" +
-                "      \"xp\": 148, \n" +
-                "      \"xp_percent\": 10\n" +
+                "      \"total_xp\": 7225, \n" +
+                "      \"xp\": 195, \n" +
+                "      \"xp_percent\": 13\n" +
                 "    }, \n" +
                 "    {\n" +
-                "      \"avatar\": \"6311f7d032b9c4021fda426305e5849a\", \n" +
-                "      \"discriminator\": \"9035\", \n" +
-                "      \"id\": \"144285736277901312\", \n" +
-                "      \"lvl\": 11, \n" +
-                "      \"lvl_xp\": 1255, \n" +
-                "      \"name\": \"Daeshan\", \n" +
-                "      \"total_xp\": 6810, \n" +
-                "      \"xp\": 1035, \n" +
-                "      \"xp_percent\": 82\n" +
+                "      \"avatar\": \"5444cd6d69299670609a2d4b8ec6a26d\", \n" +
+                "      \"discriminator\": \"0448\", \n" +
+                "      \"id\": \"325576647531298816\", \n" +
+                "      \"lvl\": 12, \n" +
+                "      \"lvl_xp\": 1420, \n" +
+                "      \"name\": \"Womas_the_programmer\", \n" +
+                "      \"total_xp\": 7133, \n" +
+                "      \"xp\": 103, \n" +
+                "      \"xp_percent\": 7\n" +
                 "    }, \n" +
                 "    {\n" +
                 "      \"avatar\": null, \n" +
@@ -512,9 +523,20 @@ public class JsonParser {
                 "      \"lvl\": 11, \n" +
                 "      \"lvl_xp\": 1255, \n" +
                 "      \"name\": \"DeanGamesALot\", \n" +
-                "      \"total_xp\": 6507, \n" +
-                "      \"xp\": 732, \n" +
-                "      \"xp_percent\": 58\n" +
+                "      \"total_xp\": 6833, \n" +
+                "      \"xp\": 1058, \n" +
+                "      \"xp_percent\": 84\n" +
+                "    }, \n" +
+                "    {\n" +
+                "      \"avatar\": \"3af2041a99aaa0663728ea1d2b3ccea4\", \n" +
+                "      \"discriminator\": \"1262\", \n" +
+                "      \"id\": \"169903950512783361\", \n" +
+                "      \"lvl\": 11, \n" +
+                "      \"lvl_xp\": 1255, \n" +
+                "      \"name\": \"TheTomTom3901\", \n" +
+                "      \"total_xp\": 6632, \n" +
+                "      \"xp\": 857, \n" +
+                "      \"xp_percent\": 68\n" +
                 "    }, \n" +
                 "    {\n" +
                 "      \"avatar\": null, \n" +
@@ -550,23 +572,12 @@ public class JsonParser {
                 "      \"xp_percent\": 31\n" +
                 "    }, \n" +
                 "    {\n" +
-                "      \"avatar\": \"3af2041a99aaa0663728ea1d2b3ccea4\", \n" +
-                "      \"discriminator\": \"1262\", \n" +
-                "      \"id\": \"169903950512783361\", \n" +
+                "      \"avatar\": \"99d5e50a50bbd8e494775edff409415e\", \n" +
+                "      \"discriminator\": \"1933\", \n" +
+                "      \"id\": \"171915534164557824\", \n" +
                 "      \"lvl\": 11, \n" +
                 "      \"lvl_xp\": 1255, \n" +
-                "      \"name\": \"TheTomTom3901\", \n" +
-                "      \"total_xp\": 6130, \n" +
-                "      \"xp\": 355, \n" +
-                "      \"xp_percent\": 28\n" +
-                "    }, \n" +
-                "    {\n" +
-                "      \"avatar\": \"9ff8256f82efc3af1ba8206bc3bb2ab7\", \n" +
-                "      \"discriminator\": \"0448\", \n" +
-                "      \"id\": \"325576647531298816\", \n" +
-                "      \"lvl\": 11, \n" +
-                "      \"lvl_xp\": 1255, \n" +
-                "      \"name\": \"Womas_the_programmer\", \n" +
+                "      \"name\": \"And\\u00farilUnlogic\", \n" +
                 "      \"total_xp\": 5965, \n" +
                 "      \"xp\": 190, \n" +
                 "      \"xp_percent\": 15\n" +
@@ -584,17 +595,6 @@ public class JsonParser {
                 "    }, \n" +
                 "    {\n" +
                 "      \"avatar\": null, \n" +
-                "      \"discriminator\": \"1933\", \n" +
-                "      \"id\": \"171915534164557824\", \n" +
-                "      \"lvl\": 10, \n" +
-                "      \"lvl_xp\": 1100, \n" +
-                "      \"name\": \"And\\u00farilUnlogic\", \n" +
-                "      \"total_xp\": 5663, \n" +
-                "      \"xp\": 988, \n" +
-                "      \"xp_percent\": 89\n" +
-                "    }, \n" +
-                "    {\n" +
-                "      \"avatar\": null, \n" +
                 "      \"discriminator\": 3173, \n" +
                 "      \"id\": \"247709019958018048\", \n" +
                 "      \"lvl\": 10, \n" +
@@ -603,6 +603,17 @@ public class JsonParser {
                 "      \"total_xp\": 5457, \n" +
                 "      \"xp\": 782, \n" +
                 "      \"xp_percent\": 71\n" +
+                "    }, \n" +
+                "    {\n" +
+                "      \"avatar\": \"28d1be6df24d6704cfe282e1f0846137\", \n" +
+                "      \"discriminator\": \"3532\", \n" +
+                "      \"id\": \"378616437880913920\", \n" +
+                "      \"lvl\": 10, \n" +
+                "      \"lvl_xp\": 1100, \n" +
+                "      \"name\": \"5568\", \n" +
+                "      \"total_xp\": 5445, \n" +
+                "      \"xp\": 770, \n" +
+                "      \"xp_percent\": 70\n" +
                 "    }, \n" +
                 "    {\n" +
                 "      \"avatar\": null, \n" +
@@ -660,6 +671,28 @@ public class JsonParser {
                 "      \"xp_percent\": 27\n" +
                 "    }, \n" +
                 "    {\n" +
+                "      \"avatar\": \"51135dd6093ceefa37167ec176128312\", \n" +
+                "      \"discriminator\": \"1888\", \n" +
+                "      \"id\": \"241938871925866496\", \n" +
+                "      \"lvl\": 10, \n" +
+                "      \"lvl_xp\": 1100, \n" +
+                "      \"name\": \"Jack The Ripper\", \n" +
+                "      \"total_xp\": 4954, \n" +
+                "      \"xp\": 279, \n" +
+                "      \"xp_percent\": 25\n" +
+                "    }, \n" +
+                "    {\n" +
+                "      \"avatar\": \"8dcd2f166c0a39ecdc676653f0b1f045\", \n" +
+                "      \"discriminator\": \"4886\", \n" +
+                "      \"id\": \"195895802579779584\", \n" +
+                "      \"lvl\": 10, \n" +
+                "      \"lvl_xp\": 1100, \n" +
+                "      \"name\": \"CodedByYou\", \n" +
+                "      \"total_xp\": 4917, \n" +
+                "      \"xp\": 242, \n" +
+                "      \"xp_percent\": 22\n" +
+                "    }, \n" +
+                "    {\n" +
                 "      \"avatar\": null, \n" +
                 "      \"discriminator\": 2507, \n" +
                 "      \"id\": \"200272731332280321\", \n" +
@@ -669,39 +702,6 @@ public class JsonParser {
                 "      \"total_xp\": 4916, \n" +
                 "      \"xp\": 241, \n" +
                 "      \"xp_percent\": 21\n" +
-                "    }, \n" +
-                "    {\n" +
-                "      \"avatar\": \"51135dd6093ceefa37167ec176128312\", \n" +
-                "      \"discriminator\": \"1888\", \n" +
-                "      \"id\": \"241938871925866496\", \n" +
-                "      \"lvl\": 10, \n" +
-                "      \"lvl_xp\": 1100, \n" +
-                "      \"name\": \"Jack The Ripper\", \n" +
-                "      \"total_xp\": 4913, \n" +
-                "      \"xp\": 238, \n" +
-                "      \"xp_percent\": 21\n" +
-                "    }, \n" +
-                "    {\n" +
-                "      \"avatar\": \"8dcd2f166c0a39ecdc676653f0b1f045\", \n" +
-                "      \"discriminator\": \"4886\", \n" +
-                "      \"id\": \"195895802579779584\", \n" +
-                "      \"lvl\": 10, \n" +
-                "      \"lvl_xp\": 1100, \n" +
-                "      \"name\": \"CodedByYou\", \n" +
-                "      \"total_xp\": 4898, \n" +
-                "      \"xp\": 223, \n" +
-                "      \"xp_percent\": 20\n" +
-                "    }, \n" +
-                "    {\n" +
-                "      \"avatar\": \"28d1be6df24d6704cfe282e1f0846137\", \n" +
-                "      \"discriminator\": \"3532\", \n" +
-                "      \"id\": \"378616437880913920\", \n" +
-                "      \"lvl\": 10, \n" +
-                "      \"lvl_xp\": 1100, \n" +
-                "      \"name\": \"5568\", \n" +
-                "      \"total_xp\": 4882, \n" +
-                "      \"xp\": 207, \n" +
-                "      \"xp_percent\": 18\n" +
                 "    }, \n" +
                 "    {\n" +
                 "      \"avatar\": null, \n" +
@@ -726,6 +726,17 @@ public class JsonParser {
                 "      \"xp_percent\": 64\n" +
                 "    }, \n" +
                 "    {\n" +
+                "      \"avatar\": \"894fc34bd10dc9fd855fa2c4a436872a\", \n" +
+                "      \"discriminator\": \"8239\", \n" +
+                "      \"id\": \"223119799478124544\", \n" +
+                "      \"lvl\": 9, \n" +
+                "      \"lvl_xp\": 955, \n" +
+                "      \"name\": \"PluginerTR\", \n" +
+                "      \"total_xp\": 4296, \n" +
+                "      \"xp\": 576, \n" +
+                "      \"xp_percent\": 60\n" +
+                "    }, \n" +
+                "    {\n" +
                 "      \"avatar\": null, \n" +
                 "      \"discriminator\": 3183, \n" +
                 "      \"id\": \"203053198003404802\", \n" +
@@ -737,15 +748,15 @@ public class JsonParser {
                 "      \"xp_percent\": 56\n" +
                 "    }, \n" +
                 "    {\n" +
-                "      \"avatar\": null, \n" +
-                "      \"discriminator\": 8593, \n" +
+                "      \"avatar\": \"161e7a0eeec88f3c3fa2f5a99d59d96d\", \n" +
+                "      \"discriminator\": \"8593\", \n" +
                 "      \"id\": \"221954404868161537\", \n" +
                 "      \"lvl\": 9, \n" +
                 "      \"lvl_xp\": 955, \n" +
                 "      \"name\": \"Doomfull\", \n" +
-                "      \"total_xp\": 4228, \n" +
-                "      \"xp\": 508, \n" +
-                "      \"xp_percent\": 53\n" +
+                "      \"total_xp\": 4252, \n" +
+                "      \"xp\": 532, \n" +
+                "      \"xp_percent\": 55\n" +
                 "    }, \n" +
                 "    {\n" +
                 "      \"avatar\": null, \n" +
@@ -765,20 +776,20 @@ public class JsonParser {
                 "      \"lvl\": 9, \n" +
                 "      \"lvl_xp\": 955, \n" +
                 "      \"name\": \"Xyphn\", \n" +
-                "      \"total_xp\": 3943, \n" +
-                "      \"xp\": 223, \n" +
-                "      \"xp_percent\": 23\n" +
+                "      \"total_xp\": 4085, \n" +
+                "      \"xp\": 365, \n" +
+                "      \"xp_percent\": 38\n" +
                 "    }, \n" +
                 "    {\n" +
-                "      \"avatar\": \"894fc34bd10dc9fd855fa2c4a436872a\", \n" +
-                "      \"discriminator\": \"8239\", \n" +
-                "      \"id\": \"223119799478124544\", \n" +
+                "      \"avatar\": null, \n" +
+                "      \"discriminator\": \"4101\", \n" +
+                "      \"id\": \"228635513752518656\", \n" +
                 "      \"lvl\": 9, \n" +
                 "      \"lvl_xp\": 955, \n" +
-                "      \"name\": \"PluginerTR\", \n" +
-                "      \"total_xp\": 3907, \n" +
-                "      \"xp\": 187, \n" +
-                "      \"xp_percent\": 19\n" +
+                "      \"name\": \"NarutoUzumaki22\", \n" +
+                "      \"total_xp\": 4074, \n" +
+                "      \"xp\": 354, \n" +
+                "      \"xp_percent\": 37\n" +
                 "    }, \n" +
                 "    {\n" +
                 "      \"avatar\": \"f524898efbf6d4640f636a9207e940cf\", \n" +
@@ -787,20 +798,31 @@ public class JsonParser {
                 "      \"lvl\": 9, \n" +
                 "      \"lvl_xp\": 955, \n" +
                 "      \"name\": \"TrueParrot\", \n" +
-                "      \"total_xp\": 3902, \n" +
-                "      \"xp\": 182, \n" +
-                "      \"xp_percent\": 19\n" +
+                "      \"total_xp\": 4009, \n" +
+                "      \"xp\": 289, \n" +
+                "      \"xp_percent\": 30\n" +
                 "    }, \n" +
                 "    {\n" +
-                "      \"avatar\": null, \n" +
-                "      \"discriminator\": 7895, \n" +
+                "      \"avatar\": \"533fe4c7a4f73e1b8155189caa280613\", \n" +
+                "      \"discriminator\": \"8351\", \n" +
+                "      \"id\": \"384502625523204097\", \n" +
+                "      \"lvl\": 9, \n" +
+                "      \"lvl_xp\": 955, \n" +
+                "      \"name\": \"</> Josh </>\", \n" +
+                "      \"total_xp\": 3960, \n" +
+                "      \"xp\": 240, \n" +
+                "      \"xp_percent\": 25\n" +
+                "    }, \n" +
+                "    {\n" +
+                "      \"avatar\": \"534410ad958e67629700c2a4aec75da6\", \n" +
+                "      \"discriminator\": \"7895\", \n" +
                 "      \"id\": \"244240687233499136\", \n" +
                 "      \"lvl\": 9, \n" +
                 "      \"lvl_xp\": 955, \n" +
                 "      \"name\": \"Nathan\", \n" +
-                "      \"total_xp\": 3863, \n" +
-                "      \"xp\": 143, \n" +
-                "      \"xp_percent\": 14\n" +
+                "      \"total_xp\": 3879, \n" +
+                "      \"xp\": 159, \n" +
+                "      \"xp_percent\": 16\n" +
                 "    }, \n" +
                 "    {\n" +
                 "      \"avatar\": null, \n" +
@@ -826,17 +848,6 @@ public class JsonParser {
                 "    }, \n" +
                 "    {\n" +
                 "      \"avatar\": null, \n" +
-                "      \"discriminator\": 4101, \n" +
-                "      \"id\": \"228635513752518656\", \n" +
-                "      \"lvl\": 8, \n" +
-                "      \"lvl_xp\": 820, \n" +
-                "      \"name\": \"NarutoUzumaki22\", \n" +
-                "      \"total_xp\": 3592, \n" +
-                "      \"xp\": 692, \n" +
-                "      \"xp_percent\": 84\n" +
-                "    }, \n" +
-                "    {\n" +
-                "      \"avatar\": null, \n" +
                 "      \"discriminator\": 3801, \n" +
                 "      \"id\": \"184002931987578880\", \n" +
                 "      \"lvl\": 8, \n" +
@@ -853,9 +864,9 @@ public class JsonParser {
                 "      \"lvl\": 8, \n" +
                 "      \"lvl_xp\": 820, \n" +
                 "      \"name\": \"\\ud83c\\udf85\\ud83c\\udffb BlazingTide\", \n" +
-                "      \"total_xp\": 3464, \n" +
-                "      \"xp\": 564, \n" +
-                "      \"xp_percent\": 68\n" +
+                "      \"total_xp\": 3522, \n" +
+                "      \"xp\": 622, \n" +
+                "      \"xp_percent\": 75\n" +
                 "    }, \n" +
                 "    {\n" +
                 "      \"avatar\": null, \n" +
@@ -891,26 +902,26 @@ public class JsonParser {
                 "      \"xp_percent\": 47\n" +
                 "    }, \n" +
                 "    {\n" +
-                "      \"avatar\": \"335a3e24de83ac1a0fe1a5c69297f636\", \n" +
-                "      \"discriminator\": \"3808\", \n" +
-                "      \"id\": \"349897828107026432\", \n" +
-                "      \"lvl\": 8, \n" +
-                "      \"lvl_xp\": 820, \n" +
-                "      \"name\": \"Higos\", \n" +
-                "      \"total_xp\": 3166, \n" +
-                "      \"xp\": 266, \n" +
-                "      \"xp_percent\": 32\n" +
-                "    }, \n" +
-                "    {\n" +
                 "      \"avatar\": \"13208b5e7d96b8df042baf955961a744\", \n" +
                 "      \"discriminator\": \"6858\", \n" +
                 "      \"id\": \"280026224682729473\", \n" +
                 "      \"lvl\": 8, \n" +
                 "      \"lvl_xp\": 820, \n" +
                 "      \"name\": \"SunnyLo\", \n" +
-                "      \"total_xp\": 3144, \n" +
-                "      \"xp\": 244, \n" +
-                "      \"xp_percent\": 29\n" +
+                "      \"total_xp\": 3247, \n" +
+                "      \"xp\": 347, \n" +
+                "      \"xp_percent\": 42\n" +
+                "    }, \n" +
+                "    {\n" +
+                "      \"avatar\": \"335a3e24de83ac1a0fe1a5c69297f636\", \n" +
+                "      \"discriminator\": \"3808\", \n" +
+                "      \"id\": \"349897828107026432\", \n" +
+                "      \"lvl\": 8, \n" +
+                "      \"lvl_xp\": 820, \n" +
+                "      \"name\": \"Higos\", \n" +
+                "      \"total_xp\": 3183, \n" +
+                "      \"xp\": 283, \n" +
+                "      \"xp_percent\": 34\n" +
                 "    }, \n" +
                 "    {\n" +
                 "      \"avatar\": null, \n" +
@@ -932,17 +943,6 @@ public class JsonParser {
                 "      \"name\": \"Drawfull\", \n" +
                 "      \"total_xp\": 3036, \n" +
                 "      \"xp\": 136, \n" +
-                "      \"xp_percent\": 16\n" +
-                "    }, \n" +
-                "    {\n" +
-                "      \"avatar\": \"8d2f9054976d64753b395f98919c058e\", \n" +
-                "      \"discriminator\": \"8351\", \n" +
-                "      \"id\": \"384502625523204097\", \n" +
-                "      \"lvl\": 8, \n" +
-                "      \"lvl_xp\": 820, \n" +
-                "      \"name\": \"Josh Gamblin\", \n" +
-                "      \"total_xp\": 3035, \n" +
-                "      \"xp\": 135, \n" +
                 "      \"xp_percent\": 16\n" +
                 "    }, \n" +
                 "    {\n" +
@@ -1089,15 +1089,15 @@ public class JsonParser {
                 "      \"xp_percent\": 95\n" +
                 "    }, \n" +
                 "    {\n" +
-                "      \"avatar\": null, \n" +
-                "      \"discriminator\": 2454, \n" +
+                "      \"avatar\": \"a_2326b50492b18fb2a0eed447851bedea\", \n" +
+                "      \"discriminator\": \"2454\", \n" +
                 "      \"id\": \"232549284124295168\", \n" +
                 "      \"lvl\": 6, \n" +
                 "      \"lvl_xp\": 580, \n" +
                 "      \"name\": \"Auki\", \n" +
-                "      \"total_xp\": 2118, \n" +
-                "      \"xp\": 493, \n" +
-                "      \"xp_percent\": 85\n" +
+                "      \"total_xp\": 2134, \n" +
+                "      \"xp\": 509, \n" +
+                "      \"xp_percent\": 87\n" +
                 "    }, \n" +
                 "    {\n" +
                 "      \"avatar\": null, \n" +

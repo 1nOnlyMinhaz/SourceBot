@@ -42,8 +42,9 @@ public class MessageReceived extends ListenerAdapter {
                 Lists.getSlowmodeUserCooldown().put(e.getChannel().getIdLong() + ":" + user.getIdLong(), System.currentTimeMillis());
         }
 
-        if (!e.getTextChannel().isNSFW()) {
-            String[] profanity = botAPI.getSettingsManager().getSetting(Settings.PROFANITY_LIST).split(",");
+        String prof = botAPI.getSettingsManager().getSetting(Settings.PROFANITY_LIST);
+        if (!e.getTextChannel().isNSFW() && prof != null) {
+            String[] profanity = prof.split(",");
             for (String word : profanity){
                 if (message.getContentRaw().toLowerCase().contains(word)) {
                     botAPI.getMessageManager().deleteMessage(message);
