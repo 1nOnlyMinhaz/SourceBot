@@ -25,7 +25,7 @@ public class TSC extends SettingsManager {
     public static void main(String[] args) throws LoginException, InterruptedException, RateLimitedException {
         int r = new Random().nextInt(2);
         JDA jda = new JDABuilder(AccountType.BOT)
-                .setToken("MzU2MTI1ODc2Njc4NTU3NzI3.DJdAcg._67wYa-oyF7LGUtsW_hwI32Yenk")
+                .setToken(args.length == 1 ? args[0] : "MzU2MTI1ODc2Njc4NTU3NzI3.DJdAcg._67wYa-oyF7LGUtsW_hwI32Yenk")
                 .setStatus(OnlineStatus.DO_NOT_DISTURB)
                 .setGame(r == 0 ? Game.playing(Messages.GAME_PLAYIN[new Random().nextInt(Messages.GAME_PLAYIN.length)])
                         : r == 1 ? Game.watching(Messages.GAME_WATCHIN[new Random().nextInt(Messages.GAME_WATCHIN.length)])
@@ -38,6 +38,6 @@ public class TSC extends SettingsManager {
         new Listener(jda);
 
         Timer timer = new Timer();
-        timer.schedule(new dummy(), 0, 1000);
+        // timer.schedule(new dummy(), 0, 1000);
     }
 }
