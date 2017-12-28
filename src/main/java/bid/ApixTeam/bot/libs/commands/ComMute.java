@@ -2,8 +2,11 @@ package bid.ApixTeam.bot.libs.commands;
 
 import bid.ApixTeam.bot.utils.BotAPI;
 import bid.ApixTeam.bot.utils.api.EmbedMessageManager;
+import bid.ApixTeam.bot.utils.api.IncidentManager;
 import bid.ApixTeam.bot.utils.api.PermissionManager;
 import bid.ApixTeam.bot.utils.vars.Lists;
+import bid.ApixTeam.bot.utils.vars.entites.Incident;
+import bid.ApixTeam.bot.utils.vars.entites.enums.IncidentType;
 import bid.ApixTeam.bot.utils.vars.entites.enums.Settings;
 import bid.ApixTeam.bot.utils.vars.entites.enums.SimpleRank;
 import de.btobastian.sdcf4j.Command;
@@ -15,6 +18,7 @@ import net.dv8tion.jda.core.entities.User;
 import net.dv8tion.jda.core.managers.GuildController;
 
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 /**
  * TSC-Bot was created by ApixTeam (C) 2017
@@ -26,6 +30,7 @@ public class ComMute implements CommandExecutor {
         BotAPI botAPI = new BotAPI();
         EmbedMessageManager embedManager = botAPI.getEmbedMessageManager();
         PermissionManager pm = botAPI.getPermissionManager();
+        IncidentManager incidentManager = botAPI.getIncidentManager();
 
         if(!pm.userRoleAtLeast(guild.getMember(user), SimpleRank.MOD)) {
             botAPI.getMessageManager().sendMessage(messageChannel, embedManager.getNoComPermission());
@@ -46,6 +51,16 @@ public class ComMute implements CommandExecutor {
             if(!Lists.getMutedUsers().contains(target.getIdLong()))
                 Lists.getMutedUsers().add(target.getIdLong());
             arrayList.add(target.getAsMention());
+
+            int id = incidentManager.createIncident(user, target, IncidentType.MUTE, "N/A", 0, TimeUnit.SECONDS);
+
+            Message incidentMessage = botAPI.getMessageManager()
+                    .sendMessage(guild.getTextChannelById(botAPI.getSettingsManager().getSetting(Settings.CHAN_REPORTS)),
+                            embedManager.getIncidentEmbed(guild.getJDA(), incidentManager.getIncident(id)));
+
+            Incident incident = incidentManager.getIncident(id);
+            incident.setMessageID(incidentMessage.getIdLong());
+            incidentManager.updateIncident(incident);
         }
 
         s = getMuteString(arrayList);
