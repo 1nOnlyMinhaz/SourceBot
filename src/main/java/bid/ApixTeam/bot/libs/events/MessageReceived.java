@@ -60,11 +60,10 @@ public class MessageReceived extends ListenerAdapter {
                 if (message.getContentRaw().startsWith(String.format("!%s", s)))
                     return;
 
+        if (!Lists.getUsers().contains(user.getIdLong())) botAPI.getPermissionManager().createMember(user);
+
         if(botAPI.getSettingsManager().getSetting(Settings.RANKED_IGNORED) != null && e.getTextChannel().getId().equals(botAPI.getSettingsManager().getSetting(Settings.RANKED_IGNORED)))
             return;
-
-        if (!Lists.getUsers().contains(user.getIdLong()))
-            botAPI.getPermissionManager().createMember(user);
 
         if (Lists.getUserRankingCooldown().containsKey(user.getIdLong())) {
             long seconds = ((Lists.getUserRankingCooldown().get(user.getIdLong()) / 1000) + 60) - (System.currentTimeMillis() / 1000);
@@ -78,6 +77,9 @@ public class MessageReceived extends ListenerAdapter {
         botAPI.getDatabaseManager().createUserRanking(user);
         Random random = new Random();
         int exp = random.nextInt((25 - 15)) + 15;
+
+        if(!Lists.getUserRankingCooldown().containsKey(user.getIdLong()))
+            Lists.getUserRankingCooldown().put(user.getIdLong(), System.currentTimeMillis());
 
         botAPI.getDatabaseManager().giveUserExp(user, exp);
         botAPI.getMessageManager().log(false, String.format("@%s#%s earned %d exp.", user.getName(), user.getDiscriminator(), exp));

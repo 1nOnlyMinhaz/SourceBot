@@ -31,8 +31,11 @@ public class ComHelp implements CommandExecutor {
             mod = true;
         if(pm.userRoleAtLeast(user.getJDA().getGuildById(Lists.getSettings().get(Settings.MAIN_GUILD_ID)).getMember(user), SimpleRank.ADMIN))
             admin = true;
-        if(pm.userAtLeast(user, SimpleRank.BOT_ADMIN))
+        if(pm.userAtLeast(user, SimpleRank.BOT_ADMIN)) {
+            mod = true;
+            admin = true;
             botAdmin = true;
+        }
 
         try {
             if (strings.length == 0) {
@@ -64,7 +67,7 @@ public class ComHelp implements CommandExecutor {
                 else if (strings[0].equalsIgnoreCase("report"))
                     send(botAPI, user, embedManager.getUsage(user, "report", "Report a certain user.", "report (@mention) (reason)", null));
                 else if(strings[0].equalsIgnoreCase("settings") && admin) {
-                    send(botAPI, user, embedManager.getUsage(user, "settings", "Manage the bot settings", "<command> tools profanity add (word) \n<!command> tools profanity remove (word) \n<!command> tools profanity list\n<!command> tools channel ignore (#channel)\n<!command> tools channel un-ignore (#channel)\n<!command> tools channel ignored\n<!command> tools rankup update\n<!command> tools rankup set (@role) (level)", null));
+                    send(botAPI, user, embedManager.getUsage(user, "settings", "Manage the bot settings", "<command> tools profanity add (word) \n<!command> tools profanity remove (word) \n<!command> tools profanity list\n<!command> tools channel ignore (#channel)\n<!command> tools channel un-ignore (#channel)\n<!command> tools channel ignored\n<!command> tools rankup update\n<!command> tools rankup set (level) (@role)", null));
                     if(botAdmin)
                         send(botAPI, user, embedManager.getUsage(user, "settings", "Manage the bot settings", "<command> bot set channel (#channel) (type)\n<!command> bot set role (@role) (type)\n<!command> bot check (<user/role>) (@mention/@role)", null));
                 }else if(strings[0].equalsIgnoreCase("slowmode") && mod)

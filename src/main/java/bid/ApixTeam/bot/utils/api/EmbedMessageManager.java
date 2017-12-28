@@ -28,21 +28,21 @@ public class EmbedMessageManager {
 
     public MessageEmbed getNoPermission() {
         return new EmbedBuilder()
-                .setColor(new Color(234, 255, 235))
+                .setColor(new Color(103, 161, 237))
                 .setDescription(Messages.NO_PERMISSION)
                 .build();
     }
 
     public MessageEmbed getNoComPermission() {
         return new EmbedBuilder()
-                .setColor(new Color(234, 255, 235))
+                .setColor(new Color(103, 161, 237))
                 .setDescription(Messages.NO_COM_PERMISSION)
                 .build();
     }
 
     public MessageEmbed getAsDescription(String s) {
         return new EmbedBuilder()
-                .setColor(new Color(234, 255, 235))
+                .setColor(new Color(103, 161, 237))
                 .setDescription(s)
                 .build();
     }
@@ -56,7 +56,7 @@ public class EmbedMessageManager {
 
     public MessageEmbed getUsage(String command) {
         return new EmbedBuilder()
-                .setColor(new Color(234, 255, 235))
+                .setColor(new Color(103, 161, 237))
                 .setDescription(String.format(Messages.INCORRECT_USAGE, command))
                 .build();
     }
@@ -65,7 +65,7 @@ public class EmbedMessageManager {
         HashMap<RankingType, Integer> userRanking = botAPI.getDatabaseManager().getUserRankings(user);
         EmbedBuilder embedBuilder = new EmbedBuilder();
 
-        embedBuilder.setColor(new Color(234, 255, 235));
+        embedBuilder.setColor(new Color(103, 161, 237));
 
         if (user == user.getJDA().getSelfUser()) {
             embedBuilder.setDescription(Messages.RANK_BRAGS[new Random().nextInt(Messages.RANK_BRAGS.length)]);
@@ -89,6 +89,7 @@ public class EmbedMessageManager {
         embedBuilder.addField("Level.", String.valueOf(lvl), true);
         embedBuilder.addField("Exp.", String.format("%s", exp + (Lists.getLevelsMaxExp().get(lvl) == null ? "/∞" : "/" + Lists.getLevelsMaxExp().get(lvl)) + (exp == tot ? "" : String.format(" (Total. %d)", tot))), true);
 
+        String guild = botAPI.getSettingsManager().getSetting(Settings.MAIN_GUILD_ID);
         String setting = botAPI.getSettingsManager().getSetting(Settings.RANKED_REWARDS);
         if(setting != null) {
             int rl = 0;
@@ -96,7 +97,7 @@ public class EmbedMessageManager {
             String[] ranked = setting.split(",");
             for(String s: ranked){
                 String[] ranking = s.split("-");
-                if(Integer.parseInt(ranking[0]) > lvl) {
+                if(Integer.parseInt(ranking[0]) > lvl && !user.getJDA().getGuildById(guild).getMember(user).getRoles().contains(user.getJDA().getRoleById(ranking[1]))) {
                     rl = Integer.parseInt(ranking[0]) - lvl;
                     role = ranking[1];
                     break;
@@ -118,7 +119,7 @@ public class EmbedMessageManager {
             HashMap<RankingType, Integer> userRanking;
             EmbedBuilder embedBuilder = new EmbedBuilder();
 
-            embedBuilder.setColor(new Color(234, 255, 235));
+            embedBuilder.setColor(new Color(103, 161, 237));
             embedBuilder.setAuthor("Top 5 leaderboard", null, user.getJDA().getSelfUser().getAvatarUrl());
 
             Map<Integer, String> map = new TreeMap<>(Collections.reverseOrder());
@@ -159,7 +160,7 @@ public class EmbedMessageManager {
         return new EmbedBuilder()
                 .setAuthor("Bot Information", null, channel.getJDA().getSelfUser().getAvatarUrl())
                 .addField("", Messages.BOT_INFO, false)
-                .setColor(new Color(234, 255, 235))
+                .setColor(new Color(103, 161, 237))
                 .build();
     }
 
@@ -172,7 +173,7 @@ public class EmbedMessageManager {
                 .addField("!rank", "Displays your activity ranking among the server.", false)
                 .addField("!levels", "Displays the top `5` players on the ranking system.", false)
                 .addField("!report", "Report a certain user.", false)
-                .setColor(new Color(234, 255, 235));
+                .setColor(new Color(103, 161, 237));
         return defaultCommands.build();
     }
 
@@ -184,7 +185,7 @@ public class EmbedMessageManager {
                 .addField("!tempmute", "Prevents a user from speaking in all channels temporarily.", false)
                 .addField("!unmute", "... u dumb?", false)
                 .addField("!slowmode", "slows the chat", false)
-                .setColor(new Color(234, 255, 235));
+                .setColor(new Color(103, 161, 237));
         return sr_modCommands.build();
     }
 
@@ -194,21 +195,21 @@ public class EmbedMessageManager {
                 .addField("!broadcast", "duuhhh", false)
                 .addField("!clear", "Clears a set amount of messages.", false)
                 .addField("!tempban", "Bans a specific user for a set amount of time.", false)
-                .setColor(new Color(234, 255, 235));
+                .setColor(new Color(103, 161, 237));
         return jr_adminCommands.build();
     }
 
     public MessageEmbed getClearLimit() {
         return new EmbedBuilder()
                 .setDescription("Discord limits message removal from 1 to 100 messages only.")
-                .setColor(new Color(234, 255, 235))
+                .setColor(new Color(103, 161, 237))
                 .build();
     }
 
     public MessageEmbed getClearSuccess(int amount, String s) {
         return new EmbedBuilder()
                 .setDescription(String.format("Successfully cleared `%d` %s.", amount, s))
-                .setColor(new Color(234, 255, 235))
+                .setColor(new Color(103, 161, 237))
                 .build();
     }
 
@@ -216,7 +217,7 @@ public class EmbedMessageManager {
         EmbedBuilder embedBuilder = new EmbedBuilder()
                 .setAuthor(String.format("Usage of !%s", command), null, user.getJDA().getSelfUser().getAvatarUrl())
                 .addField("Description", desc, false)
-                .setColor(new Color(234, 255, 235));
+                .setColor(new Color(103, 161, 237));
         if(format != null)
             embedBuilder.addField("Format", String.format("!%s", format.replace("<command>", command).replace("<!command>", "!" + command)), false);
         if (aliases != null)
@@ -227,7 +228,7 @@ public class EmbedMessageManager {
     public MessageEmbed getLeaveEmbed(User user) {
         return new EmbedBuilder()
                 .setDescription(Messages.LEAVE[new Random().nextInt(Messages.LEAVE.length)].replace("%PLAYER%", user.getAsMention()))
-                .setColor(new Color(234, 255, 235))
+                .setColor(new Color(103, 161, 237))
                 .build();
     }
 
@@ -241,7 +242,7 @@ public class EmbedMessageManager {
                 .addField("Type", incident.getType(), false)
                 .addField("Reason", incident.getReason(), false)
                 .addField("Timestamp", incident.getTimestamp().toString(), false)
-                .setColor(new Color(234, 255, 235));
+                .setColor(new Color(103, 161, 237));
 
         if(incident.getDelay() != 0)
             embedBuilder.addField("Extra", String.format("For %d seconds (i:%d)", incident.getDelay() / 1000, incident.getSystime()), false);

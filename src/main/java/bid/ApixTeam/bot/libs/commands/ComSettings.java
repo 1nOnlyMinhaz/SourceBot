@@ -4,6 +4,7 @@ import bid.ApixTeam.bot.utils.BotAPI;
 import bid.ApixTeam.bot.utils.api.EmbedMessageManager;
 import bid.ApixTeam.bot.utils.api.PermissionManager;
 import bid.ApixTeam.bot.utils.api.SettingsManager;
+import bid.ApixTeam.bot.utils.vars.Lists;
 import bid.ApixTeam.bot.utils.vars.entites.enums.Settings;
 import bid.ApixTeam.bot.utils.vars.entites.enums.SimpleRank;
 import de.btobastian.sdcf4j.Command;
@@ -29,7 +30,7 @@ public class ComSettings implements CommandExecutor {
         if (sm.isSet(Settings.CHAN_ADMIN) && !sm.getSetting(Settings.CHAN_ADMIN).equals(messageChannel.getId()))
             return;
 
-        if (!pm.userRoleAtLeast(guild.getMember(user), SimpleRank.ADMIN))
+        if (!pm.userAtLeast(user, SimpleRank.BOT_ADMIN) && !pm.userRoleAtLeast(guild.getMember(user), SimpleRank.ADMIN))
             return;
 
         try {
@@ -114,6 +115,16 @@ public class ComSettings implements CommandExecutor {
                         checkUserPermission(botAPI, em, pm, messageChannel, message);
                     else if (strings[2].equalsIgnoreCase("role") && message.getMentionedRoles().size() == 1)
                         checkRolePermission(botAPI, em, pm, messageChannel, message);
+                }
+            }else if(strings[0].equalsIgnoreCase("ptr")){
+                if (!pm.userAtLeast(user, SimpleRank.BOT_ADMIN))
+                    return;
+
+                if(strings[1].equalsIgnoreCase("ranking")) {
+                    for (long id : Lists.getUserRankingCooldown().keySet()) {
+                        long seconds = ((Lists.getUserRankingCooldown().get(id) / 1000) + 60) - (System.currentTimeMillis() / 1000);
+                        botAPI.getMessageManager().sendMessage(messageChannel, em.getAsDescription(String.format("**%s**: %d seconds (%d)", guild.getMemberById(id).getUser().getAsMention(), seconds, Lists.getUserRankingCooldown().get(id)), Color.BLACK));
+                    }
                 }
             } else
                 botAPI.getMessageManager().sendMessage(messageChannel, em.getAsDescription("erR0r 0x11", Color.RED));
