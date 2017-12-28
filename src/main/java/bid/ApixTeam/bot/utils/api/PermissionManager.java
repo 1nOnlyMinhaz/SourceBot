@@ -55,7 +55,7 @@ public class PermissionManager extends DatabaseManager {
             PreparedStatement ps = connection.prepareStatement("INSERT INTO `members` (`UserID`, `Username`, `UserTag`, `AvatarUrl`, `AvatarId`) VALUES (?, ?, ?, ?, ?)");
             ps.setLong(1, user.getIdLong());
             ps.setString(2, user.getName());
-            ps.setInt(3, Integer.parseInt(user.getDiscriminator()));
+            ps.setString(3, user.getDiscriminator());
             ps.setString(4, user.getAvatarUrl());
             ps.setString(5, user.getAvatarId());
             ps.executeUpdate();
@@ -84,7 +84,7 @@ public class PermissionManager extends DatabaseManager {
             }else if(update.equals(UserUpdate.USERNAME)){
                 ps = connection.prepareStatement("UPDATE `members` SET `Username` = ?, `UserTag` = ? WHERE `UserID` = ?;");
                 ps.setString(1, user.getName());
-                ps.setInt(2, Integer.parseInt(user.getDiscriminator()));
+                ps.setString(2, user.getDiscriminator());
                 ps.setLong(3, user.getIdLong());
                 ps.executeUpdate();
                 closeConnection(connection, ps, null);
