@@ -22,7 +22,7 @@ public class DataSource {
 
         Yaml yaml = new Yaml();
         try {
-            Map<String, Map<String, String>> values = yaml.load(new FileInputStream(new File(System.getProperty("user.dir") + "\\config.yml")));
+            Map<String, Map<String, String>> values = yaml.load(new FileInputStream(new File(System.getProperty("user.dir") + "/config.yml")));
 
             boolean b = false;
             String host = "localhost", database = "discord", username = "root", password = "", port = "3306", ssl = "false";
@@ -53,8 +53,7 @@ public class DataSource {
                 config.setPassword(password);
             }
         } catch (Exception e) {
-            System.out.println("An error occurred while trying to retrieve database credentials, forcing dev-local database!");
-            e.printStackTrace();
+            System.out.println("[ERROR] An error occurred while trying to retrieve database credentials, forcing dev-local database!");
             config.setJdbcUrl("jdbc:mysql://uae.sytes.net:3306/tsc_discord");
             config.setUsername("tscroot");
             config.setPassword("fvIyCvRohwjCjuqe");

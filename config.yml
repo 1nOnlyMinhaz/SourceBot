@@ -1,7 +1,0 @@
-connection:
-  host: "ranni.ca"
-  port: "3306"
-  database: "server454"
-  username: "server454"
-  password: "77a44a9660"
-  use-ssl: "true"

@@ -55,12 +55,12 @@ public class ComTempBan implements CommandExecutor {
             String s;
             ArrayList<String> arrayList = new ArrayList<>();
             for(User target : message.getMentionedUsers()) {
-                if(pm.userAtLeast(target, SimpleRank.ADMIN) || pm.userRoleAtLeast(guild.getMember(target), SimpleRank.MOD) || target == guild.getJDA().getSelfUser())
+                if(pm.userAtLeast(target, SimpleRank.ADMIN) || pm.userRoleAtLeast(guild.getMember(target), SimpleRank.ADMIN) || target == guild.getJDA().getSelfUser())
                     continue;
 
-                int id = incidentManager.createIncident(user, target, IncidentType.TEMP_BAN, "N/A", delay, timeUnit);
+                int id = incidentManager.createIncident(user, target, IncidentType.TEMP_BAN, String.format("Temporarily banned by %s#%s", user.getName(), user.getDiscriminator()), delay, timeUnit);
 
-                //TODO: Ban here
+                guildController.ban(target, 1).reason(String.format("Temporarily banned by %s#%s", user.getName(), user.getDiscriminator())).queue();
                 arrayList.add(target.getAsMention());
 
                 Message incidentMessage = botAPI.getMessageManager()
@@ -73,11 +73,11 @@ public class ComTempBan implements CommandExecutor {
             }
 
             s = ComMute.getMuteString(arrayList);
-//
-//            if (s.isEmpty()) {
-//                botAPI.getMessageManager().sendMessage(messageChannel, embedManager.getAsDescription(message.getMentionedUsers().size() == 1 ? "You cannot ban that person." : "You cannot ban those people."));
-//                return;
-//            }
+
+            if (s.isEmpty()) {
+                botAPI.getMessageManager().sendMessage(messageChannel, embedManager.getAsDescription(message.getMentionedUsers().size() == 1 ? "You cannot ban that person." : "You cannot ban those people."));
+                return;
+            }
 
             botAPI.getMessageManager().sendMessage(messageChannel, embedManager.getAsDescription(String.format("%s %s been temporarily banned!", s, message.getMentionedUsers().size() > 1 ? "have" : "has")));
         } catch (NumberFormatException e) {

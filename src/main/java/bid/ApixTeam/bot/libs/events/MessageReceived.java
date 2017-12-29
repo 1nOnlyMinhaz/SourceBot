@@ -30,6 +30,7 @@ public class MessageReceived extends ListenerAdapter {
         if (!e.getChannel().getType().isGuild() || user.isBot())
             return;
 
+        /**  SLOWMODE   */
         if(Lists.getSlowmodeChannelCooldown().containsKey(e.getChannel().getIdLong()) && !botAPI.getPermissionManager().userAtLeast(user, SimpleRank.MOD)) {
             if (Lists.getSlowmodeUserCooldown().containsKey(e.getChannel().getIdLong() + ":" + user.getIdLong())) {
                 long seconds = ((Lists.getSlowmodeUserCooldown().get(e.getChannel().getIdLong() + ":" + user.getIdLong()) / 1000) + Lists.getSlowmodeChannelCooldown().get(e.getChannel().getIdLong())) - (System.currentTimeMillis() / 1000);
@@ -42,6 +43,7 @@ public class MessageReceived extends ListenerAdapter {
                 Lists.getSlowmodeUserCooldown().put(e.getChannel().getIdLong() + ":" + user.getIdLong(), System.currentTimeMillis());
         }
 
+        /**  PROFANITY  */
         String prof = botAPI.getSettingsManager().getSetting(Settings.PROFANITY_LIST);
         if (!e.getTextChannel().isNSFW() && prof != null) {
             String[] profanity = prof.split(",");
@@ -55,6 +57,7 @@ public class MessageReceived extends ListenerAdapter {
             }
         }
 
+        /** COMMAND CHECKER   */
         if (message.getContentRaw().startsWith("!"))
             for (String s : Lists.getCommands())
                 if (message.getContentRaw().startsWith(String.format("!%s", s)))
@@ -63,6 +66,9 @@ public class MessageReceived extends ListenerAdapter {
         if (!Lists.getUsers().contains(user.getIdLong())) botAPI.getPermissionManager().createMember(user);
 
         if(botAPI.getSettingsManager().getSetting(Settings.RANKED_IGNORED) != null && e.getTextChannel().getId().equals(botAPI.getSettingsManager().getSetting(Settings.RANKED_IGNORED)))
+            return;
+
+        if(e.getMember().getRoles().contains(e.getGuild().getRoleById(botAPI.getSettingsManager().getSetting(Settings.ROLES_MUTED))))
             return;
 
         if (Lists.getUserRankingCooldown().containsKey(user.getIdLong())) {

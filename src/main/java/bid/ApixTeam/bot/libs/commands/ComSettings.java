@@ -74,6 +74,14 @@ public class ComSettings implements CommandExecutor {
                         setRankupRole(botAPI, sm, em, messageChannel, message, level);
                     else if (strings[2].equalsIgnoreCase("remove"))
                         botAPI.getMessageManager().sendMessage(messageChannel, em.getAsDescription("This feature is deprecated, and no longer works.", Color.RED));
+                } else if (strings[1].equalsIgnoreCase("ranking")) {
+                    if (strings.length != 3 && message.getMentionedUsers().size() != 1)
+                        return;
+
+                    if (strings[2].equalsIgnoreCase("reset")){
+                        botAPI.getDatabaseManager().resetUserRanking(message.getMentionedUsers().get(0));
+                        botAPI.getMessageManager().sendMessage(messageChannel, em.getAsDescription("done :worried:", Color.DARK_GRAY));
+                    }
                 } else
                     botAPI.getMessageManager().sendMessage(messageChannel, em.getAsDescription("erR0r 0x11", Color.RED));
             } else if (strings[0].equalsIgnoreCase("bot")) {

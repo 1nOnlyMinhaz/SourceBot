@@ -40,41 +40,48 @@ public class ComHelp implements CommandExecutor {
         try {
             if (strings.length == 0) {
                 send(botAPI, user, embedManager.getDefaultHelpEmbed(user));
+                if (b)
+                    botAPI.getMessageManager().sendMessage(messageChannel, botAPI.getEmbedMessageManager().getAsDescription(":white_check_mark: *sent you some help*.. please check your PMs."));
                 if(mod)
                     send(botAPI, user, embedManager.getModerationHelpEmbed(user));
                 if(admin)
                     send(botAPI, user, embedManager.getAdministrationHelpEmbed(user));
 
-                if (b)
-                    botAPI.getMessageManager().sendMessage(messageChannel, botAPI.getEmbedMessageManager().getAsDescription(":white_check_mark: *sent you some help*.. please check your PMs."));
             } else if (strings.length == 1) {
+                boolean v = false;
                 if(strings[0].equalsIgnoreCase("broadcast") && admin)
-                    send(botAPI, user, embedManager.getUsage(user, "broadcast", "Announces/broadcasts a message to a certain channel, can be executed once or placed in a loop.", "broadcast (Now|Later|Repeat) [L|R Time] [L|R Unit] (#Channel) (Message)", "!announce\n!bc"));
-                else if(strings[0].equalsIgnoreCase("clear") && mod)
-                    send(botAPI, user, embedManager.getUsage(user, "clear", "Clears a set amount of messages.", "clear (number) [<-s>|@mention]", "!clean\n!purge\n!cls"));
+                    v = send(botAPI, user, embedManager.getUsage(user, "broadcast", "Announces/broadcasts a message to a certain channel, can be executed once or placed in a loop.", "broadcast (Now|Later|~~Repeat~~) [L|~~R~~ Time] [L|~~R~~ Unit] (#Channel) (Message)", "!announce\n!bc"));
+                else if(strings[0].equalsIgnoreCase("clear") && admin)
+                    v = send(botAPI, user, embedManager.getUsage(user, "clear", "Clears a set amount of messages.", "clear (number) [<-s>|@mention]", "!clean\n!purge\n!cls"));
                 else if (strings[0].equalsIgnoreCase("help"))
-                    send(botAPI, user, embedManager.getUsage(user, "help", ":rolling_eyes:", "help [Command]", null));
+                    v = send(botAPI, user, embedManager.getUsage(user, "help", ":rolling_eyes:", "help [Command]", null));
                 else if (strings[0].equalsIgnoreCase("info"))
-                    send(botAPI, user, embedManager.getUsage(user, "info", "Information about various amount of things, such as how ranking works.", "info [ranks/mods/admins]", null));
+                    v = send(botAPI, user, embedManager.getUsage(user, "info", "Information about various amount of things, such as how ranking works.", "info [ranks/mods/admins]", null));
                 else if (strings[0].equalsIgnoreCase("levels"))
-                    send(botAPI, user, embedManager.getUsage(user, "levels", "Displays the top `5` players on the server", null, "!ranks"));
+                    v = send(botAPI, user, embedManager.getUsage(user, "levels", "Displays the top `5` players on the server", null, "!ranks"));
                 else if(strings[0].equalsIgnoreCase("mute") && mod)
-                    send(botAPI, user, embedManager.getUsage(user, "mute", "Do I really need to explain this?", "mute (@mention[s])", "!shut_up"));
+                    v = send(botAPI, user, embedManager.getUsage(user, "mute", "Do I really need to explain this?", "mute (@mention[s])", "!shut_up"));
+                else if(strings[0].equalsIgnoreCase("tempmute") && mod)
+                    v = send(botAPI, user, embedManager.getUsage(user, "tempmute", "Mutes a user for a certain amount of time", "tempmute (delay) (<s/m/h/d>) (@mention[s])", "!temp_mute"));
+                else if(strings[0].equalsIgnoreCase("tempban") && admin)
+                    v = send(botAPI, user, embedManager.getUsage(user, "tempban", "Bans a user for a certain amount of time", "tempban (delay) (<s/m/h/d>) (@mention[s])", "!temp_ban"));
                 else if(strings[0].equalsIgnoreCase("unmute") && mod)
-                    send(botAPI, user, embedManager.getUsage(user, "unmute", "srsly tho?", "unmute (@mention[s])", "!un_mute"));
+                    v = send(botAPI, user, embedManager.getUsage(user, "unmute", "srsly tho?", "unmute (@mention[s])", "!un_mute"));
                 else if (strings[0].equalsIgnoreCase("rank"))
-                    send(botAPI, user, embedManager.getUsage(user, "rank", "Displays your activity ranking among the server.", "rank [@mention]", "!level"));
+                    v = send(botAPI, user, embedManager.getUsage(user, "rank", "Displays your activity ranking among the server.", "rank [@mention]", "!level"));
                 else if (strings[0].equalsIgnoreCase("report"))
-                    send(botAPI, user, embedManager.getUsage(user, "report", "Report a certain user.", "report (@mention) (reason)", null));
+                    v = send(botAPI, user, embedManager.getUsage(user, "report", "Report a certain user.", "report (@mention) (reason)", null));
                 else if(strings[0].equalsIgnoreCase("settings") && admin) {
-                    send(botAPI, user, embedManager.getUsage(user, "settings", "Manage the bot settings", "<command> tools profanity add (word) \n<!command> tools profanity remove (word) \n<!command> tools profanity list\n<!command> tools channel ignore (#channel)\n<!command> tools channel un-ignore (#channel)\n<!command> tools channel ignored\n<!command> tools rankup update\n<!command> tools rankup set (level) (@role)", null));
+                    v = send(botAPI, user, embedManager.getUsage(user, "settings", "Manage the bot settings", "<command> tools profanity add (word) \n<!command> tools profanity remove (word) \n<!command> tools profanity list\n<!command> tools channel ignore (#channel)\n<!command> tools channel un-ignore (#channel)\n<!command> tools channel ignored\n<!command> tools rankup update\n<!command> tools rankup set (level) (@role)", null));
                     if(botAdmin)
-                        send(botAPI, user, embedManager.getUsage(user, "settings", "Manage the bot settings", "<command> bot set channel (#channel) (type)\n<!command> bot set role (@role) (type)\n<!command> bot check (<user/role>) (@mention/@role)", null));
+                        v = send(botAPI, user, embedManager.getUsage(user, "settings", "Manage the bot settings", "<command> bot set channel (#channel) (type)\n<!command> bot set role (@role) (type)\n<!command> bot check (<user/role>) (@mention/@role)", null));
                 }else if(strings[0].equalsIgnoreCase("slowmode") && mod)
-                    send(botAPI, user, embedManager.getUsage(user, "slowmode", "Slows down the chat, any message that's been sent by a user within the specified amount of time will get deleted.", "slowmode (Time in seconds|<Off>)", null));
+                    v = send(botAPI, user, embedManager.getUsage(user, "slowmode", "Slows down the chat, any message that's been sent by a user within the specified amount of time will get deleted.", "slowmode (Time in seconds|<Off>)", null));
 
-                if (b)
+                if (b && v)
                     botAPI.getMessageManager().sendMessage(messageChannel, botAPI.getEmbedMessageManager().getAsDescription(":white_check_mark: *sent you some help*.. please check your PMs."));
+                else if(!v)
+                    botAPI.getMessageManager().sendMessage(messageChannel, botAPI.getEmbedMessageManager().getAsDescription(":cold_sweat: I don't think you have access to that command."));
             } else
                 botAPI.getMessageManager().sendMessage(messageChannel, embedManager.getUsage("!help"));
         } catch (ErrorResponseException e) {
@@ -84,7 +91,8 @@ public class ComHelp implements CommandExecutor {
         }
     }
 
-    private void send(BotAPI botAPI, User user, MessageEmbed messageEmbed) {
+    private boolean send(BotAPI botAPI, User user, MessageEmbed messageEmbed) {
         botAPI.getPrivateMessageManager().sendMessage(user, messageEmbed);
+        return true;
     }
 }

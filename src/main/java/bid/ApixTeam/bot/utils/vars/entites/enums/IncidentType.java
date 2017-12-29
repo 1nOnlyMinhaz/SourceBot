@@ -8,9 +8,9 @@ public enum IncidentType {
     REPORT("report"),
     WARNING("warn"),
     MUTE("mute"),
-    TEMP_MUTE("temp-mute"),
+    TEMP_MUTE("temp_mute"),
     KICK("kick"),
-    TEMP_BAN("temp-ban"),
+    TEMP_BAN("temp_ban"),
     BAN("ban");
 
     final String string;

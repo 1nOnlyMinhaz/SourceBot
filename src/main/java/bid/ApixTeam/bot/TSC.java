@@ -38,6 +38,6 @@ public class TSC extends SettingsManager {
         new Listener(jda);
 
         Timer timer = new Timer();
-        // timer.schedule(new dummy(), 0, 1000);
+        timer.schedule(new dummy(jda), 0, 1000);
     }
 }
