@@ -40,7 +40,10 @@ public class ComSettings implements CommandExecutor {
                     else if (strings[2].equalsIgnoreCase("remove"))
                         removeFromProfanity(botAPI, sm, em, messageChannel, strings[3]);
                     else if (strings[2].equalsIgnoreCase("list"))
-                        botAPI.getMessageManager().sendMessage(messageChannel, em.getAsDescription(sm.getSetting(Settings.PROFANITY_LIST)));
+                        if(sm.getSetting(Settings.PROFANITY_LIST) != null)
+                            botAPI.getMessageManager().sendMessage(messageChannel, em.getAsDescription(sm.getSetting(Settings.PROFANITY_LIST)));
+                    else
+                        botAPI.getMessageManager().sendMessage(messageChannel, em.getAsDescription("My dictionary doesn't contain a single word yet :scream:"));
                     else
                         botAPI.getMessageManager().sendMessage(messageChannel, em.getAsDescription("erR0r 0x11", Color.RED));
                 } else if (strings[1].equalsIgnoreCase("channel")) {

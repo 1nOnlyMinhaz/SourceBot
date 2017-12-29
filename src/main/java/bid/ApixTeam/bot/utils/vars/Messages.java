@@ -14,7 +14,7 @@ public interface Messages {
 
     String[] RANK_BOTS = {"Ew, ban that thing", "GET THAT THING OUTTA HERE!", "reminds me of stupid mee6", "boooooooooooooooriingg", "if you ask me, i'd rather ban it.", "pfffft, I'm much better."};
 
-    String[] LEAVE = {"OH NO! :cry: %PLAYER% just left the server :sob:", "RIP! %PLAYER% abandoned us :sob:", "Cya! %PLAYER% thought that we want him :joy:", "%PLAYER% has left the game.", "Later! %PLAYER% did rage quit :joy:"};
+    String[] LEAVE = {"OH NO! :cry: %PLAYER% just left the server :sob:", "RIP! %PLAYER% abandoned us :sob:", "Cya! %PLAYER% thought that we wanted them :joy:", "%PLAYER% has left the game.", "Later! %PLAYER% did rage quit :joy:"};
 
     String[] PROFANITY = {"**Watch your mouth** %s :rage:", "**Chill out** %s :rage:", "**LANGUAGE** %s :rage:", "**That's really bad** %s :rage:", "**I'M ALWAYS WATCHING YOU** %s :rage:", "**YOUR MOM SHOULD'VE TOLD YOU THAT THIS WORD IS BAD** %s :rage:", "**THAT'S CROSSING THE RED LINE** %s :rage:"};
 

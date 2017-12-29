@@ -44,6 +44,22 @@ public class ComBroadcast extends Announcement implements CommandExecutor{
                 botAPI.getMessageManager().sendMessage(command.getMentionedChannels().get(0), embedManager.getAsDescription(message));
                 botAPI.getMessageManager().deleteMessage(command, "Auto Cleared");
             }
+        }else if(args[0].equalsIgnoreCase("--now")) {
+            String channel = args[1];
+
+            StringBuilder str = new StringBuilder();
+            for(int i = 2; i < args.length; i++) {
+                str.append(args[i]).append(" ");
+            }
+
+            String message = str.toString().trim();
+
+            if(command.getMentionedChannels().size() != 1) {
+                botAPI.getMessageManager().sendMessage(messageChannel, getUsage());
+            } else {
+                botAPI.getMessageManager().sendMessage(command.getMentionedChannels().get(0), message);
+                botAPI.getMessageManager().deleteMessage(command, "Auto Cleared");
+            }
         } else if(args[0].equalsIgnoreCase("later")) {
             try {
                 String timeString = args[1];
@@ -63,6 +79,31 @@ public class ComBroadcast extends Announcement implements CommandExecutor{
                 } else {
                     botAPI.getMessageManager().deleteMessage(command, "Auto Cleared");
                     botAPI.getMessageManager().sendMessage(command.getMentionedChannels().get(0), embedManager.getAsDescription(message), time, timeUnit); //Idk how to queueAfter here, wont let me plx fix father
+                }
+            }catch (Exception e){
+                e.printStackTrace();
+                botAPI.getMessageManager().sendMessage(messageChannel, getUsage());
+            }
+
+        } else if(args[0].equalsIgnoreCase("--later")) {
+            try {
+                String timeString = args[1];
+                long time;
+                time = Long.parseLong(timeString);
+                TimeUnit timeUnit = TimeUnit.valueOf(args[2].toUpperCase());
+
+                StringBuilder str = new StringBuilder();
+                for (int i = 4; i < args.length; i++) {
+                    str.append(args[i]).append(" ");
+                }
+
+                String message = str.toString().trim();
+
+                if (command.getMentionedChannels().size() != 1) {
+                    botAPI.getMessageManager().sendMessage(messageChannel, getUsage());
+                } else {
+                    botAPI.getMessageManager().deleteMessage(command, "Auto Cleared");
+                    botAPI.getMessageManager().sendMessage(command.getMentionedChannels().get(0), message, time, timeUnit);
                 }
             }catch (Exception e){
                 e.printStackTrace();
