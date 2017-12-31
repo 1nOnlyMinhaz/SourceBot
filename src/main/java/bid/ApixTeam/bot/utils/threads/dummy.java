@@ -27,17 +27,18 @@ public class dummy extends TimerTask {
      */
     @Override
     public void run() {
-        if (Lists.getIncidentLog().size() >= 1) {
-            for (int id : Lists.getIncidentLog().keySet()) {
-                Incident incident = IncidentManager.getIncidentManager().getIncident(id);
-                if (!incident.isRunning())
-                    continue;
+        try {
+            if (Lists.getIncidentLog().size() >= 1) {
+                for (int id : Lists.getIncidentLog().keySet()) {
+                    Incident incident = IncidentManager.getIncidentManager().getIncident(id);
+                    if (!incident.isRunning())
+                        continue;
 
-                IncidentType type = IncidentType.valueOf(incident.getType());
+                    IncidentType type = IncidentType.valueOf(incident.getType());
 
-                long seconds = ((incident.getSystime() / 1000) + (incident.getDelay() / 1000)) - (System.currentTimeMillis() / 1000);
-                if (seconds > 1)
-                    continue;
+                    long seconds = ((incident.getSystime() / 1000) + (incident.getDelay() / 1000)) - (System.currentTimeMillis() / 1000);
+                    if (seconds > 1)
+                        continue;
 
                     Guild guild = jda.getGuildById(SettingsManager.getSettingsManager().getSetting(Settings.MAIN_GUILD_ID));
                     if (type.equals(IncidentType.TEMP_MUTE))
@@ -48,7 +49,10 @@ public class dummy extends TimerTask {
 
                     incident.setRunning(false);
                     IncidentManager.getIncidentManager().updateIncident(incident);
+                }
             }
+        } catch (Exception ignored){
+            // ignored
         }
     }
 }
