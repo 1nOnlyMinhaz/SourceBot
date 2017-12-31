@@ -29,6 +29,15 @@ public class Lists {
     private static ConcurrentHashMap<Integer, Announcement> Announcements = new ConcurrentHashMap<>();
     private static ConcurrentHashMap<Integer, Incident> IncidentLog = new ConcurrentHashMap<>();
     private static int lastIncident;
+    private static boolean testingEnvironment = false;
+
+    public static boolean isTestingEnvironment() {
+        return testingEnvironment;
+    }
+
+    public static void setTestingEnvironment(boolean testingEnvironment) {
+        Lists.testingEnvironment = testingEnvironment;
+    }
 
     public static int getLastIncident() {
         return lastIncident;

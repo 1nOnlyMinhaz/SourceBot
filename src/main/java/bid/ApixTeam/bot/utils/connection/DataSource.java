@@ -1,5 +1,6 @@
 package bid.ApixTeam.bot.utils.connection;
 
+import bid.ApixTeam.bot.utils.vars.Lists;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import org.yaml.snakeyaml.Yaml;
@@ -57,6 +58,7 @@ public class DataSource {
             config.setJdbcUrl("jdbc:mysql://uae.sytes.net:3306/tsc_discord");
             config.setUsername("tscroot");
             config.setPassword("fvIyCvRohwjCjuqe");
+            Lists.setTestingEnvironment(true);
         }
 
         config.addDataSourceProperty("cachePrepStmts", "true");

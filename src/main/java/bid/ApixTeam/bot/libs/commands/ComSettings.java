@@ -9,6 +9,7 @@ import bid.ApixTeam.bot.utils.vars.entites.enums.Settings;
 import bid.ApixTeam.bot.utils.vars.entites.enums.SimpleRank;
 import de.btobastian.sdcf4j.Command;
 import de.btobastian.sdcf4j.CommandExecutor;
+import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.entities.*;
 
 import java.awt.*;
@@ -21,7 +22,7 @@ import java.util.Arrays;
  */
 public class ComSettings implements CommandExecutor {
     @Command(aliases = "settings", async = true, privateMessages = false)
-    public void onCommand(Guild guild, User user, MessageChannel messageChannel, Message message, String[] strings) {
+    public void onCommand(JDA jda, Guild guild, User user, MessageChannel messageChannel, Message message, String[] strings) {
         BotAPI botAPI = new BotAPI();
         PermissionManager pm = botAPI.getPermissionManager();
         EmbedMessageManager em = botAPI.getEmbedMessageManager();
@@ -65,8 +66,14 @@ public class ComSettings implements CommandExecutor {
                     } else
                         botAPI.getMessageManager().sendMessage(messageChannel, em.getAsDescription("erR0r 0x11", Color.RED));
                 } else if (strings[1].equalsIgnoreCase("rankup")) {
-                    if (strings[2].equalsIgnoreCase("update"))
+                    if (strings[2].equalsIgnoreCase("update")) {
                         sm.retrieveOnce(Settings.RANKED_REWARDS);
+                        botAPI.getMessageManager().sendMessage(messageChannel, em.getAsDescription("done.", Color.DARK_GRAY));
+                        return;
+                    } else if (strings[2].equalsIgnoreCase("list")) {
+                        listRankupRoles(jda, botAPI, sm, em, messageChannel);
+                        return;
+                    }
 
                     if (strings.length != 4 && message.getMentionedRoles().size() != 1)
                         return;
@@ -283,5 +290,29 @@ public class ComSettings implements CommandExecutor {
             sm.updateSetting(Settings.RANKED_REWARDS, cs);
         }
         botAPI.getMessageManager().sendMessage(messageChannel, em.getAsDescription("done", Color.DARK_GRAY));
+    }
+
+    private void listRankupRoles(JDA jda, BotAPI botAPI, SettingsManager sm, EmbedMessageManager em, MessageChannel messageChannel){
+        String setting = sm.getSetting(Settings.RANKED_REWARDS);
+        if(setting == null){
+            botAPI.getMessageManager().sendMessage(messageChannel, "couldn't reach the other side, aka there are no rankups");
+            return;
+        }
+
+        StringBuilder rankup = new StringBuilder();
+        rankup.append("**Here's a list of current rankups**:\n\n");
+
+        String[] rankUps = setting.split(",");
+        for(String s: rankUps){
+            String[] ranking = s.split("-");
+            if(jda.getRoleById(ranking[1]) == null){
+                rankup.append(String.format("NullRole **=** lvl. %s\n", ranking[0]));
+                continue;
+            }
+
+            rankup.append(String.format("%s *=* lvl. %s\n", jda.getRoleById(ranking[1]).getName(), ranking[0]));
+        }
+
+        botAPI.getMessageManager().sendMessage(messageChannel, em.getAsDescription(rankup.toString()));
     }
 }

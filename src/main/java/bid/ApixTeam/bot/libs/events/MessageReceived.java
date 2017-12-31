@@ -88,7 +88,8 @@ public class MessageReceived extends ListenerAdapter {
             Lists.getUserRankingCooldown().put(user.getIdLong(), System.currentTimeMillis());
 
         botAPI.getDatabaseManager().giveUserExp(user, exp);
-        botAPI.getMessageManager().log(false, String.format("@%s#%s earned %d exp.", user.getName(), user.getDiscriminator(), exp));
+        if(Lists.isTestingEnvironment())
+            botAPI.getMessageManager().log(false, String.format("@%s#%s earned %d exp.", user.getName(), user.getDiscriminator(), exp));
 
         HashMap<RankingType, Integer> ranking = botAPI.getDatabaseManager().getUserRanking(user);
         if (Lists.getLevelsMaxExp().get(ranking.get(RankingType.LEVEL)) != null && ranking.get(RankingType.EXPERIENCE) >= Lists.getLevelsMaxExp().get(ranking.get(RankingType.LEVEL)))
