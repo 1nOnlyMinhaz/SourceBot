@@ -23,7 +23,10 @@ public class ComInfo implements CommandExecutor {
             return;
         }
 
-        botAPI.getMessageManager().sendMessage(messageChannel, embedManager.getInfoEmbed(messageChannel));
+        botAPI.getPrivateMessageManager().sendMessage(user, embedManager.getInfoEmbed(messageChannel));
+        if(messageChannel.getType().isGuild()) {
+            botAPI.getMessageManager().sendMessage(messageChannel, botAPI.getEmbedMessageManager().getAsDescription(":white_check_mark: *sent you some information*.. please check your PMs."));
+        }
     }
 
     private MessageEmbed getUsage() {
