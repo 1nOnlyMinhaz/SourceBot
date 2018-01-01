@@ -22,21 +22,6 @@ import java.util.concurrent.TimeUnit;
  * in association with TheSourceCode (C) 2017
  */
 public class ComMute implements CommandExecutor {
-    static String getMuteString(ArrayList<String> arrayList) {
-        String s;
-        if(arrayList.size() == 2)
-            s = String.join(" and ", arrayList);
-        else if(arrayList.size() > 2) {
-            s = String.join(", ", arrayList);
-            String st = s.substring(0, s.lastIndexOf(","));
-            if(!st.contains(arrayList.get(arrayList.size() - 1))) {
-                st += " and " + arrayList.get(arrayList.size() - 1);
-                s = st;
-            }
-        } else s = String.join(", ", arrayList);
-        return s;
-    }
-
     @Command(aliases = {"mute", "shut_up"}, privateMessages = false)
     public void onCommand(Guild guild, User user, MessageChannel messageChannel, Message message, String[] strings) {
         BotAPI botAPI = new BotAPI();
@@ -55,13 +40,7 @@ public class ComMute implements CommandExecutor {
         GuildController guildController = guild.getController();
 
         User target = message.getMentionedUsers().get(0);
-        if(pm.userRoleAtLeast(guild.getMember(target), SimpleRank.MOD) && !pm.userRoleAtLeast(guild.getMember(user), SimpleRank.ADMIN)) {
-            botAPI.getMessageManager().sendMessage(messageChannel, embedManager.getAsDescription("You cannot mute this person!"));
-            return;
-        } else if(target == guild.getJDA().getSelfUser()) {
-            botAPI.getMessageManager().sendMessage(messageChannel, embedManager.getAsDescription("Nice try nerd"));
-            return;
-        }
+        if (canMute(guild, user, messageChannel, botAPI, embedManager, pm, target)) return;
 
         StringBuilder str = new StringBuilder();
         for(int i = 1; i < strings.length; i++) {
@@ -91,7 +70,7 @@ public class ComMute implements CommandExecutor {
         incident.setMessageID(incidentMessage.getIdLong());
         incidentManager.updateIncident(incident);
 
-        s = getMuteString(arrayList);
+        s = separateUsers(arrayList);
 
         if(s.isEmpty()) {
             botAPI.getMessageManager().sendMessage(messageChannel, embedManager.getAsDescription(message.getMentionedUsers().size() == 1 ? "You cannot mute that person." : "You cannot mute those people."));
@@ -99,6 +78,32 @@ public class ComMute implements CommandExecutor {
         }
 
         botAPI.getMessageManager().sendMessage(messageChannel, embedManager.getAsDescription(String.format("%s %s been muted!", s, message.getMentionedUsers().size() > 1 ? "have" : "has")));
+    }
+
+    static String separateUsers(ArrayList<String> arrayList) {
+        String s;
+        if(arrayList.size() == 2)
+            s = String.join(" and ", arrayList);
+        else if(arrayList.size() > 2) {
+            s = String.join(", ", arrayList);
+            String st = s.substring(0, s.lastIndexOf(","));
+            if(!st.contains(arrayList.get(arrayList.size() - 1))) {
+                st += " and " + arrayList.get(arrayList.size() - 1);
+                s = st;
+            }
+        } else s = String.join(", ", arrayList);
+        return s;
+    }
+
+    static boolean canMute(Guild guild, User user, MessageChannel messageChannel, BotAPI botAPI, EmbedMessageManager embedManager, PermissionManager pm, User target) {
+        if(pm.userRoleAtLeast(guild.getMember(target), SimpleRank.MOD) && !pm.userRoleAtLeast(guild.getMember(user), SimpleRank.ADMIN)) {
+            botAPI.getMessageManager().sendMessage(messageChannel, embedManager.getAsDescription("You cannot mute this person!"));
+            return true;
+        } else if(target == guild.getJDA().getSelfUser()) {
+            botAPI.getMessageManager().sendMessage(messageChannel, embedManager.getAsDescription("Nice try nerd"));
+            return true;
+        }
+        return false;
     }
 
     private MessageEmbed getUsage() {

@@ -81,8 +81,7 @@ public class ComBroadcast extends Announcement implements CommandExecutor{
                     botAPI.getMessageManager().sendMessage(command.getMentionedChannels().get(0), embedManager.getAsDescription(message), time, timeUnit); //Idk how to queueAfter here, wont let me plx fix father
                 }
             }catch (Exception e){
-                e.printStackTrace();
-                botAPI.getMessageManager().sendMessage(messageChannel, getUsage());
+                botAPI.getMessageManager().sendMessage(messageChannel, embedManager.getAsDescription("an error occurred, probably because you're using s or second instead of seconds etc"));
             }
 
         } else if(args[0].equalsIgnoreCase("--later")) {
@@ -106,8 +105,7 @@ public class ComBroadcast extends Announcement implements CommandExecutor{
                     botAPI.getMessageManager().sendMessage(command.getMentionedChannels().get(0), message, time, timeUnit);
                 }
             }catch (Exception e){
-                e.printStackTrace();
-                botAPI.getMessageManager().sendMessage(messageChannel, getUsage());
+                botAPI.getMessageManager().sendMessage(messageChannel, embedManager.getAsDescription("an error occurred, probably because you're using s or second instead of seconds etc"));
             }
 
         } else if(args[0].equalsIgnoreCase("repeat")) {

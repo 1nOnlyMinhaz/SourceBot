@@ -56,13 +56,7 @@ public class ComTempMute implements CommandExecutor {
             GuildController guildController = guild.getController();
 
             User target = message.getMentionedUsers().get(0);
-            if(pm.userRoleAtLeast(guild.getMember(target), SimpleRank.MOD) && !pm.userRoleAtLeast(guild.getMember(user), SimpleRank.ADMIN)) {
-                botAPI.getMessageManager().sendMessage(messageChannel, embedManager.getAsDescription("You cannot mute this person!"));
-                return;
-            } else if(target == guild.getJDA().getSelfUser()) {
-                botAPI.getMessageManager().sendMessage(messageChannel, embedManager.getAsDescription("Nice try nerd"));
-                return;
-            }
+            if (ComMute.canMute(guild, user, messageChannel, botAPI, embedManager, pm, target)) return;
 
             StringBuilder str = new StringBuilder();
             for(int i = 3; i < strings.length; i++) {
@@ -93,7 +87,7 @@ public class ComTempMute implements CommandExecutor {
             incidentManager.updateIncident(incident);
 
 
-            s = ComMute.getMuteString(arrayList);
+            s = ComMute.separateUsers(arrayList);
 
             if (s.isEmpty()) {
                 botAPI.getMessageManager().sendMessage(messageChannel, embedManager.getAsDescription("You cannot mute that person."));
