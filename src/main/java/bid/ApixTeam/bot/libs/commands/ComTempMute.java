@@ -11,10 +11,7 @@ import bid.ApixTeam.bot.utils.vars.entites.enums.Settings;
 import bid.ApixTeam.bot.utils.vars.entites.enums.SimpleRank;
 import de.btobastian.sdcf4j.Command;
 import de.btobastian.sdcf4j.CommandExecutor;
-import net.dv8tion.jda.core.entities.Guild;
-import net.dv8tion.jda.core.entities.Message;
-import net.dv8tion.jda.core.entities.MessageChannel;
-import net.dv8tion.jda.core.entities.User;
+import net.dv8tion.jda.core.entities.*;
 import net.dv8tion.jda.core.managers.GuildController;
 
 import java.util.ArrayList;
@@ -32,11 +29,14 @@ public class ComTempMute implements CommandExecutor {
         EmbedMessageManager embedManager = botAPI.getEmbedMessageManager();
         PermissionManager pm = botAPI.getPermissionManager();
 
-        if (!pm.userRoleAtLeast(guild.getMember(user), SimpleRank.MOD)) {
+        if(!pm.userRoleAtLeast(guild.getMember(user), SimpleRank.MOD)) {
             botAPI.getMessageManager().sendMessage(messageChannel, embedManager.getNoComPermission());
             return;
-        } else if (strings.length < 3 && message.getMentionedUsers().size() < 1) {
-            botAPI.getMessageManager().sendMessage(messageChannel, embedManager.getAsDescription("Please make sure to mention at least one user that should get muted!"));
+        } else if(message.getMentionedUsers().size() != 1) {
+            botAPI.getMessageManager().sendMessage(messageChannel, getUsage());
+            return;
+        } else if(strings.length < 4) {
+            botAPI.getMessageManager().sendMessage(messageChannel, getUsage());
             return;
         }
 
@@ -52,39 +52,61 @@ public class ComTempMute implements CommandExecutor {
             else
                 timeUnit = TimeUnit.SECONDS;
 
+
             GuildController guildController = guild.getController();
+
+            User target = message.getMentionedUsers().get(0);
+            if(pm.userRoleAtLeast(guild.getMember(target), SimpleRank.MOD) && !pm.userRoleAtLeast(guild.getMember(user), SimpleRank.ADMIN)) {
+                botAPI.getMessageManager().sendMessage(messageChannel, embedManager.getAsDescription("You cannot mute this person!"));
+                return;
+            } else if(target == guild.getJDA().getSelfUser()) {
+                botAPI.getMessageManager().sendMessage(messageChannel, embedManager.getAsDescription("Nice try nerd"));
+                return;
+            }
+
+            StringBuilder str = new StringBuilder();
+            for(int i = 3; i < strings.length; i++) {
+                str.append(strings[i]).append(" ");
+            }
+            String reason = str.toString().trim();
+
+            int id = incidentManager.createIncident(user, target, IncidentType.TEMP_MUTE, reason, delay, timeUnit);
+
             String s;
             ArrayList<String> arrayList = new ArrayList<>();
-            for (User target : message.getMentionedUsers()) {
-                if (pm.userAtLeast(target, SimpleRank.MOD) || pm.userRoleAtLeast(guild.getMember(target), SimpleRank.MOD) || target == guild.getJDA().getSelfUser())
-                    continue;
 
-                int id = incidentManager.createIncident(user, target, IncidentType.TEMP_MUTE, "N/A", delay, timeUnit);
-
-                guildController.addSingleRoleToMember(guild.getMember(target), guild.getRoleById(Lists.getSettings().get(Settings.ROLES_MUTED))).queue();
-                if (!Lists.getMutedUsers().contains(target.getIdLong()))
-                    Lists.getMutedUsers().add(target.getIdLong());
-                arrayList.add(target.getAsMention());
-
-                Message incidentMessage = botAPI.getMessageManager()
-                        .sendMessage(guild.getTextChannelById(botAPI.getSettingsManager().getSetting(Settings.CHAN_REPORTS)),
-                        embedManager.getIncidentEmbed(guild.getJDA(), incidentManager.getIncident(id)));
-
-                Incident incident = incidentManager.getIncident(id);
-                incident.setMessageID(incidentMessage.getIdLong());
-                incidentManager.updateIncident(incident);
+            guildController.addSingleRoleToMember(guild.getMember(target), guild.getRoleById(Lists.getSettings().get(Settings.ROLES_MUTED))).queue();
+            if(!Lists.getMutedUsers().contains(target.getIdLong())) {
+                Lists.getMutedUsers().add(target.getIdLong());
+            } else {
+                botAPI.getMessageManager().sendMessage(messageChannel, embedManager.getAsDescription("That user is already muted!"));
+                return;
             }
+            arrayList.add(target.getAsMention());
+
+            Message incidentMessage = botAPI.getMessageManager()
+                    .sendMessage(guild.getTextChannelById(botAPI.getSettingsManager().getSetting(Settings.CHAN_REPORTS)),
+                            embedManager.getIncidentEmbed(guild.getJDA(), incidentManager.getIncident(id)));
+
+            Incident incident = incidentManager.getIncident(id);
+            incident.setMessageID(incidentMessage.getIdLong());
+            incidentManager.updateIncident(incident);
+
 
             s = ComMute.getMuteString(arrayList);
 
             if (s.isEmpty()) {
-                botAPI.getMessageManager().sendMessage(messageChannel, embedManager.getAsDescription(message.getMentionedUsers().size() == 1 ? "You cannot mute that person." : "You cannot mute those people."));
+                botAPI.getMessageManager().sendMessage(messageChannel, embedManager.getAsDescription("You cannot mute that person."));
                 return;
             }
 
-            botAPI.getMessageManager().sendMessage(messageChannel, embedManager.getAsDescription(String.format("%s %s been muted!", s, message.getMentionedUsers().size() > 1 ? "have" : "has")));
+            botAPI.getMessageManager().sendMessage(messageChannel, embedManager.getAsDescription(String.format("%s has been muted!", s)));
         }catch (NumberFormatException e){
             botAPI.getMessageManager().sendMessage(messageChannel, embedManager.getAsDescription("The first parameter isn't a numeral value :rage:"));
         }
+    }
+
+    private MessageEmbed getUsage() {
+        return EmbedMessageManager.getEmbedMessageManager().getAsDescription("**Incorrect usage!** Correct format: `!tempmute {time} {s|m|h|d} {@mention} {reason}` :wink:");
     }
 }

@@ -11,10 +11,7 @@ import bid.ApixTeam.bot.utils.vars.entites.enums.Settings;
 import bid.ApixTeam.bot.utils.vars.entites.enums.SimpleRank;
 import de.btobastian.sdcf4j.Command;
 import de.btobastian.sdcf4j.CommandExecutor;
-import net.dv8tion.jda.core.entities.Guild;
-import net.dv8tion.jda.core.entities.Message;
-import net.dv8tion.jda.core.entities.MessageChannel;
-import net.dv8tion.jda.core.entities.User;
+import net.dv8tion.jda.core.entities.*;
 import net.dv8tion.jda.core.managers.GuildController;
 
 import java.util.ArrayList;
@@ -25,8 +22,23 @@ import java.util.concurrent.TimeUnit;
  * in association with TheSourceCode (C) 2017
  */
 public class ComMute implements CommandExecutor {
+    static String getMuteString(ArrayList<String> arrayList) {
+        String s;
+        if(arrayList.size() == 2)
+            s = String.join(" and ", arrayList);
+        else if(arrayList.size() > 2) {
+            s = String.join(", ", arrayList);
+            String st = s.substring(0, s.lastIndexOf(","));
+            if(!st.contains(arrayList.get(arrayList.size() - 1))) {
+                st += " and " + arrayList.get(arrayList.size() - 1);
+                s = st;
+            }
+        } else s = String.join(", ", arrayList);
+        return s;
+    }
+
     @Command(aliases = {"mute", "shut_up"}, privateMessages = false)
-    public void onCommand(Guild guild, User user, MessageChannel messageChannel, Message message, String[] strings){
+    public void onCommand(Guild guild, User user, MessageChannel messageChannel, Message message, String[] strings) {
         BotAPI botAPI = new BotAPI();
         EmbedMessageManager embedManager = botAPI.getEmbedMessageManager();
         PermissionManager pm = botAPI.getPermissionManager();
@@ -35,33 +47,49 @@ public class ComMute implements CommandExecutor {
         if(!pm.userRoleAtLeast(guild.getMember(user), SimpleRank.MOD)) {
             botAPI.getMessageManager().sendMessage(messageChannel, embedManager.getNoComPermission());
             return;
-        }else if(strings.length < 1 && message.getMentionedUsers().size() < 1){
-            botAPI.getMessageManager().sendMessage(messageChannel, embedManager.getAsDescription("Please make sure to mention at least one user that should get muted!"));
+        } else if(strings.length < 2 || message.getMentionedUsers().size() != 1) {
+            botAPI.getMessageManager().sendMessage(messageChannel, getUsage());
             return;
         }
 
         GuildController guildController = guild.getController();
+
+        User target = message.getMentionedUsers().get(0);
+        if(pm.userRoleAtLeast(guild.getMember(target), SimpleRank.MOD) && !pm.userRoleAtLeast(guild.getMember(user), SimpleRank.ADMIN)) {
+            botAPI.getMessageManager().sendMessage(messageChannel, embedManager.getAsDescription("You cannot mute this person!"));
+            return;
+        } else if(target == guild.getJDA().getSelfUser()) {
+            botAPI.getMessageManager().sendMessage(messageChannel, embedManager.getAsDescription("Nice try nerd"));
+            return;
+        }
+
+        StringBuilder str = new StringBuilder();
+        for(int i = 1; i < strings.length; i++) {
+            str.append(strings[i]).append(" ");
+        }
+        String reason = str.toString().trim();
+
+        int id = incidentManager.createIncident(user, target, IncidentType.MUTE, reason, 0, TimeUnit.SECONDS);
+
         String s;
         ArrayList<String> arrayList = new ArrayList<>();
-        for(User target : message.getMentionedUsers()) {
-            if(pm.userAtLeast(target, SimpleRank.MOD) || pm.userRoleAtLeast(guild.getMember(target), SimpleRank.MOD) || target == guild.getJDA().getSelfUser())
-                continue;
 
-            guildController.addSingleRoleToMember(guild.getMember(target), guild.getRoleById(Lists.getSettings().get(Settings.ROLES_MUTED))).queue();
-            if(!Lists.getMutedUsers().contains(target.getIdLong()))
-                Lists.getMutedUsers().add(target.getIdLong());
-            arrayList.add(target.getAsMention());
-
-            int id = incidentManager.createIncident(user, target, IncidentType.MUTE, "N/A", 0, TimeUnit.SECONDS);
-
-            Message incidentMessage = botAPI.getMessageManager()
-                    .sendMessage(guild.getTextChannelById(botAPI.getSettingsManager().getSetting(Settings.CHAN_REPORTS)),
-                            embedManager.getIncidentEmbed(guild.getJDA(), incidentManager.getIncident(id)));
-
-            Incident incident = incidentManager.getIncident(id);
-            incident.setMessageID(incidentMessage.getIdLong());
-            incidentManager.updateIncident(incident);
+        guildController.addSingleRoleToMember(guild.getMember(target), guild.getRoleById(Lists.getSettings().get(Settings.ROLES_MUTED))).queue();
+        if(!Lists.getMutedUsers().contains(target.getIdLong())) {
+            Lists.getMutedUsers().add(target.getIdLong());
+        } else {
+            botAPI.getMessageManager().sendMessage(messageChannel, embedManager.getAsDescription("That user is already muted!"));
+            return;
         }
+        arrayList.add(target.getAsMention());
+
+        Message incidentMessage = botAPI.getMessageManager()
+                .sendMessage(guild.getTextChannelById(botAPI.getSettingsManager().getSetting(Settings.CHAN_REPORTS)),
+                        embedManager.getIncidentEmbed(guild.getJDA(), incidentManager.getIncident(id)));
+
+        Incident incident = incidentManager.getIncident(id);
+        incident.setMessageID(incidentMessage.getIdLong());
+        incidentManager.updateIncident(incident);
 
         s = getMuteString(arrayList);
 
@@ -73,18 +101,7 @@ public class ComMute implements CommandExecutor {
         botAPI.getMessageManager().sendMessage(messageChannel, embedManager.getAsDescription(String.format("%s %s been muted!", s, message.getMentionedUsers().size() > 1 ? "have" : "has")));
     }
 
-    static String getMuteString(ArrayList<String> arrayList) {
-        String s;
-        if(arrayList.size() == 2)
-            s = String.join(" and ", arrayList);
-        else if (arrayList.size() > 2){
-            s = String.join(", ", arrayList);
-            String st = s.substring(0, s.lastIndexOf(","));
-            if(!st.contains(arrayList.get(arrayList.size() - 1))) {
-                st += " and " + arrayList.get(arrayList.size() - 1);
-                s = st;
-            }
-        } else s = String.join(", ", arrayList);
-        return s;
+    private MessageEmbed getUsage() {
+        return EmbedMessageManager.getEmbedMessageManager().getAsDescription("**Incorrect usage!** Correct format: `!mute {@mention} {reason}` :wink:");
     }
 }

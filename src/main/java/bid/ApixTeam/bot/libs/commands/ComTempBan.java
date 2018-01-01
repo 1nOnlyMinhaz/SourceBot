@@ -10,10 +10,7 @@ import bid.ApixTeam.bot.utils.vars.entites.enums.Settings;
 import bid.ApixTeam.bot.utils.vars.entites.enums.SimpleRank;
 import de.btobastian.sdcf4j.Command;
 import de.btobastian.sdcf4j.CommandExecutor;
-import net.dv8tion.jda.core.entities.Guild;
-import net.dv8tion.jda.core.entities.Message;
-import net.dv8tion.jda.core.entities.MessageChannel;
-import net.dv8tion.jda.core.entities.User;
+import net.dv8tion.jda.core.entities.*;
 import net.dv8tion.jda.core.managers.GuildController;
 
 import java.util.ArrayList;
@@ -34,48 +31,71 @@ public class ComTempBan implements CommandExecutor {
         if(!pm.userRoleAtLeast(guild.getMember(user), SimpleRank.ADMIN)) {
             botAPI.getMessageManager().sendMessage(messageChannel, embedManager.getNoComPermission());
             return;
-        } else if(strings.length < 3 && message.getMentionedUsers().size() < 1) {
-            botAPI.getMessageManager().sendMessage(messageChannel, embedManager.getAsDescription("Please make sure to mention at least one user that should get tempbanned!"));
+        } else if(message.getMentionedUsers().size() != 1) {
+            botAPI.getMessageManager().sendMessage(messageChannel, getUsage());
+            return;
+        } else if(strings.length < 4) {
+            botAPI.getMessageManager().sendMessage(messageChannel, getUsage());
             return;
         }
 
         try {
-            int delay = Integer.parseInt(strings[0]);
+            int delay;
+            try {
+                delay = Integer.parseInt(strings[0]);
+            } catch (NumberFormatException e) {
+                botAPI.getMessageManager().sendMessage(messageChannel, getUsage());
+                return;
+            }
+
             TimeUnit timeUnit;
             if(strings[1].equalsIgnoreCase("m"))
                 timeUnit = TimeUnit.MINUTES;
             else if(strings[1].equalsIgnoreCase("h"))
                 timeUnit = TimeUnit.HOURS;
-            else if(strings[1].equalsIgnoreCase("d"))
+            else if(strings[1].equalsIgnoreCase("d")) {
                 timeUnit = TimeUnit.DAYS;
-            else
+            } else {
                 timeUnit = TimeUnit.SECONDS;
+            }
 
             GuildController guildController = guild.getController();
+
+            User target = message.getMentionedUsers().get(0);
+            if(pm.userRoleAtLeast(guild.getMember(target), SimpleRank.ADMIN)) {
+                botAPI.getMessageManager().sendMessage(messageChannel, embedManager.getAsDescription("You cannot ban this person!"));
+                return;
+            } else if(target == guild.getJDA().getSelfUser()) {
+                botAPI.getMessageManager().sendMessage(messageChannel, embedManager.getAsDescription("Nice try nerd"));
+                return;
+            }
+
+            StringBuilder str = new StringBuilder();
+            for(int i = 3; i < strings.length; i++) {
+                str.append(strings[i]).append(" ");
+            }
+            String reason = str.toString().trim();
+
+            int id = incidentManager.createIncident(user, target, IncidentType.TEMP_BAN, reason, delay, timeUnit);
+
             String s;
             ArrayList<String> arrayList = new ArrayList<>();
-            for(User target : message.getMentionedUsers()) {
-                if(pm.userAtLeast(target, SimpleRank.ADMIN) || pm.userRoleAtLeast(guild.getMember(target), SimpleRank.ADMIN) || target == guild.getJDA().getSelfUser())
-                    continue;
 
-                int id = incidentManager.createIncident(user, target, IncidentType.TEMP_BAN, String.format("Temporarily banned by %s#%s", user.getName(), user.getDiscriminator()), delay, timeUnit);
+            guildController.ban(target, 1).reason(reason).queue();
+            arrayList.add(target.getAsMention());
 
-                guildController.ban(target, 1).reason(String.format("Temporarily banned by %s#%s", user.getName(), user.getDiscriminator())).queue();
-                arrayList.add(target.getAsMention());
+            Message incidentMessage = botAPI.getMessageManager()
+                    .sendMessage(guild.getTextChannelById(botAPI.getSettingsManager().getSetting(Settings.CHAN_REPORTS)),
+                            embedManager.getIncidentEmbed(guild.getJDA(), incidentManager.getIncident(id)));
 
-                Message incidentMessage = botAPI.getMessageManager()
-                        .sendMessage(guild.getTextChannelById(botAPI.getSettingsManager().getSetting(Settings.CHAN_REPORTS)),
-                                embedManager.getIncidentEmbed(guild.getJDA(), incidentManager.getIncident(id)));
-
-                Incident incident = incidentManager.getIncident(id);
-                incident.setMessageID(incidentMessage.getIdLong());
-                incidentManager.updateIncident(incident);
-            }
+            Incident incident = incidentManager.getIncident(id);
+            incident.setMessageID(incidentMessage.getIdLong());
+            incidentManager.updateIncident(incident);
 
             s = ComMute.getMuteString(arrayList);
 
             if (s.isEmpty()) {
-                botAPI.getMessageManager().sendMessage(messageChannel, embedManager.getAsDescription(message.getMentionedUsers().size() == 1 ? "You cannot ban that person." : "You cannot ban those people."));
+                botAPI.getMessageManager().sendMessage(messageChannel, "You cannot ban that person.");
                 return;
             }
 
@@ -83,5 +103,9 @@ public class ComTempBan implements CommandExecutor {
         } catch (NumberFormatException e) {
             botAPI.getMessageManager().sendMessage(messageChannel, embedManager.getAsDescription("The first parameter isn't a numeral value :rage:"));
         }
+    }
+
+    private MessageEmbed getUsage() {
+        return EmbedMessageManager.getEmbedMessageManager().getAsDescription("**Incorrect usage!** Correct format: `!tempban {time} {s|m|h|d} {@mention} {reason}` :wink:");
     }
 }
