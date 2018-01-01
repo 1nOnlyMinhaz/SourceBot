@@ -227,7 +227,7 @@ public class EmbedMessageManager {
 
     public MessageEmbed getLeaveEmbed(User user) {
         return new EmbedBuilder()
-                .setDescription(Messages.LEAVE[new Random().nextInt(Messages.LEAVE.length)].replace("%PLAYER%", user.getName() ))
+                .setDescription(Messages.LEAVE[new Random().nextInt(Messages.LEAVE.length)].replace("%PLAYER%", String.format("**%s#%s**", user.getName(), user.getDiscriminator())))
                 .setColor(new Color(103, 161, 237))
                 .build();
     }
