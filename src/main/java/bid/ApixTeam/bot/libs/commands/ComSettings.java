@@ -15,6 +15,7 @@ import net.dv8tion.jda.core.entities.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 
 /**
  * TSC-Bot was created by ApixTeam (C) 2017
@@ -72,6 +73,8 @@ public class ComSettings implements CommandExecutor {
                         return;
                     } else if (strings[2].equalsIgnoreCase("list")) {
                         listRankupRoles(jda, botAPI, sm, em, messageChannel);
+                        if(strings[3].equalsIgnoreCase("raw") && sm.getSetting(Settings.RANKED_REWARDS) != null)
+                            botAPI.getMessageManager().sendMessage(messageChannel, em.getAsDescription(sm.getSetting(Settings.RANKED_REWARDS)));
                         return;
                     }
 
@@ -83,7 +86,7 @@ public class ComSettings implements CommandExecutor {
                     if (strings[2].equalsIgnoreCase("set"))
                         setRankupRole(botAPI, sm, em, messageChannel, message, level);
                     else if (strings[2].equalsIgnoreCase("remove"))
-                        botAPI.getMessageManager().sendMessage(messageChannel, em.getAsDescription("This feature is deprecated, and no longer works.", Color.RED));
+                        removeRankupRole(botAPI, sm, em, messageChannel, message, level);
                 } else if (strings[1].equalsIgnoreCase("ranking")) {
                     if (strings.length != 3 && message.getMentionedUsers().size() != 1)
                         return;
@@ -143,6 +146,15 @@ public class ComSettings implements CommandExecutor {
                         long seconds = ((Lists.getUserRankingCooldown().get(id) / 1000) + 60) - (System.currentTimeMillis() / 1000);
                         botAPI.getMessageManager().sendMessage(messageChannel, em.getAsDescription(String.format("**%s**: %d seconds (%d)", guild.getMemberById(id).getUser().getAsMention(), seconds, Lists.getUserRankingCooldown().get(id)), Color.BLACK));
                     }
+                } else if (strings[1].equalsIgnoreCase("set-rankup")){
+                    if(strings[2].isEmpty() || strings == null)
+                        throw new ArrayIndexOutOfBoundsException();
+                    else if(strings[2].equalsIgnoreCase("reset")) {
+                        sm.removeSetting(Settings.RANKED_REWARDS);
+                        return;
+                    }
+
+                    sm.updateSetting(Settings.RANKED_REWARDS, strings[2]);
                 }
             } else
                 botAPI.getMessageManager().sendMessage(messageChannel, em.getAsDescription("erR0r 0x11", Color.RED));
@@ -151,7 +163,10 @@ public class ComSettings implements CommandExecutor {
             botAPI.getMessageManager().sendMessage(messageChannel, em.getAsDescription("erR0r 0x01", Color.RED));
         } catch (IndexOutOfBoundsException e) {
             botAPI.getMessageManager().sendMessage(messageChannel, em.getAsDescription("erR0r 0x02", Color.RED));
+        } catch (NumberFormatException e) {
+            botAPI.getMessageManager().sendMessage(messageChannel, em.getAsDescription("erR0r 0x03", Color.RED));
         } catch (Exception e) {
+            botAPI.getMessageManager().sendMessage(messageChannel, em.getAsDescription("erR0r 0x404", Color.RED));
             e.printStackTrace();
         }
     }
@@ -290,6 +305,10 @@ public class ComSettings implements CommandExecutor {
             sm.updateSetting(Settings.RANKED_REWARDS, cs);
         }
         botAPI.getMessageManager().sendMessage(messageChannel, em.getAsDescription("done", Color.DARK_GRAY));
+    }
+
+    private void removeRankupRole(BotAPI botAPI, SettingsManager sm, EmbedMessageManager em, MessageChannel messageChannel, Message message, int level) {
+        botAPI.getMessageManager().sendMessage(messageChannel, em.getAsDescription("This feature has been deprecated and no longer works, only way of removing rankups is by editing it on the database.", Color.RED));
     }
 
     private void listRankupRoles(JDA jda, BotAPI botAPI, SettingsManager sm, EmbedMessageManager em, MessageChannel messageChannel){
