@@ -76,7 +76,7 @@ public class ComHelp implements CommandExecutor {
                     if(botAdmin)
                         v = send(botAPI, user, embedManager.getUsage(user, "settings", "Manage the bot settings", "<command> bot set channel (#channel) (type)\n<!command> bot set role (@role) (type)\n<!command> bot check (<user/role>) (@mention/@role)", null));
                 }else if(strings[0].equalsIgnoreCase("slowmode") && mod)
-                    v = send(botAPI, user, embedManager.getUsage(user, "slowmode", "Slows down the chat, any message that's been sent by a user within the specified amount of time will get deleted.", "slowmode (Time in seconds|<Off>)", null));
+                    v = send(botAPI, user, embedManager.getUsage(user, "slowmode", "Slows down the chat, any message that's been sent by a user within the specified amount of time will get deleted.", "slowmode (Time in seconds|<Off>)", "!slowdown"));
 
                 if (b && v)
                     botAPI.getMessageManager().sendMessage(messageChannel, botAPI.getEmbedMessageManager().getAsDescription(":white_check_mark: *sent you some help*.. please check your PMs."));

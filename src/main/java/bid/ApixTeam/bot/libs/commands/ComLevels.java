@@ -15,7 +15,7 @@ import net.dv8tion.jda.core.entities.User;
  * in association with TheSourceCode (C) 2017
  */
 public class ComLevels implements CommandExecutor {
-    @Command(aliases = {"ranks", "levels"}, async = true)
+    @Command(aliases = {"ranks", "levels", "leaderboard"}, async = true)
     public void onCommand(User user, MessageChannel messageChannel, Message message, Object[] objects) {
         BotAPI botAPI = new BotAPI();
         EmbedMessageManager embedManager = botAPI.getEmbedMessageManager();

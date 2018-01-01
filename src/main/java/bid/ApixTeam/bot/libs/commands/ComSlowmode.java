@@ -16,7 +16,7 @@ import net.dv8tion.jda.core.entities.User;
  * in association with TheSourceCode (C) 2017
  */
 public class ComSlowmode implements CommandExecutor {
-    @Command(aliases = {"slowmode"}, privateMessages = false)
+    @Command(aliases = {"slowmode", "slowdown"}, privateMessages = false)
     public void onCommand(Guild guild, User user, MessageChannel messageChannel, Object[] objects){
         BotAPI botAPI = new BotAPI();
         PermissionManager pm = botAPI.getPermissionManager();
@@ -32,13 +32,13 @@ public class ComSlowmode implements CommandExecutor {
             return;
         }
 
-        if(objects[0] instanceof Integer){
+        if(botAPI.getExtraUtils().isInteger(objects[0].toString())){
             if(Lists.getSlowmodeChannelCooldown().containsKey(messageChannel.getIdLong())){
                 botAPI.getMessageManager().sendMessage(messageChannel, embedManager.getAsDescription("This channel is already in slowmode"));
                 return;
             }
 
-            Lists.getSlowmodeChannelCooldown().put(messageChannel.getIdLong(), (Integer) objects[0]);
+            Lists.getSlowmodeChannelCooldown().put(messageChannel.getIdLong(), Integer.valueOf(objects[0].toString()));
             botAPI.getMessageManager().sendMessage(messageChannel, embedManager.getAsDescription("This channel is in slowmode now :upside_down:"));
         }else if(objects[0].toString().equalsIgnoreCase("off")){
             if(!Lists.getSlowmodeChannelCooldown().containsKey(messageChannel.getIdLong())){

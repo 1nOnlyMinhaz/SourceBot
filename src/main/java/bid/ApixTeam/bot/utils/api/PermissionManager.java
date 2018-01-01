@@ -207,16 +207,19 @@ public class PermissionManager extends DatabaseManager {
         return b;
     }
 
+    @Deprecated
     public boolean userAtLeast(User user, SimpleRank simpleRank) {
         SimpleRank rank = getUserPermission(user);
         return rank != null && rank.isAtLeast(simpleRank);
     }
 
+    @Deprecated
     public boolean userHigherThan(User user, SimpleRank simpleRank) {
         SimpleRank rank = getUserPermission(user);
         return rank != null && rank.isHigherThan(simpleRank);
     }
 
+    @Deprecated
     public boolean userLowerThan(User user, SimpleRank simpleRank) {
         SimpleRank rank = getUserPermission(user);
         return rank == null || rank.isLowerThan(simpleRank);
