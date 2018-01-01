@@ -34,4 +34,8 @@ public class BotAPI {
     public IncidentManager getIncidentManager(){
         return IncidentManager.getIncidentManager();
     }
+
+    public ExtraUtils getExtraUtils() {
+        return ExtraUtils.getExtraUtils();
+    }
 }
