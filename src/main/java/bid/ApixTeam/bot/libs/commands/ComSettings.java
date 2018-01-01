@@ -15,7 +15,6 @@ import net.dv8tion.jda.core.entities.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 
 /**
  * TSC-Bot was created by ApixTeam (C) 2017
@@ -73,8 +72,7 @@ public class ComSettings implements CommandExecutor {
                         return;
                     } else if (strings[2].equalsIgnoreCase("list")) {
                         listRankupRoles(jda, botAPI, sm, em, messageChannel);
-                        if(strings[3].equalsIgnoreCase("raw") && sm.getSetting(Settings.RANKED_REWARDS) != null)
-                            botAPI.getMessageManager().sendMessage(messageChannel, em.getAsDescription(sm.getSetting(Settings.RANKED_REWARDS)));
+                        botAPI.getMessageManager().sendMessage(messageChannel, em.getAsDescription(sm.getSetting(Settings.RANKED_REWARDS)));
                         return;
                     }
 
@@ -147,7 +145,7 @@ public class ComSettings implements CommandExecutor {
                         botAPI.getMessageManager().sendMessage(messageChannel, em.getAsDescription(String.format("**%s**: %d seconds (%d)", guild.getMemberById(id).getUser().getAsMention(), seconds, Lists.getUserRankingCooldown().get(id)), Color.BLACK));
                     }
                 } else if (strings[1].equalsIgnoreCase("set-rankup")){
-                    if(strings[2].isEmpty() || strings == null)
+                    if(strings[2].isEmpty() || strings[2] == null)
                         throw new ArrayIndexOutOfBoundsException();
                     else if(strings[2].equalsIgnoreCase("reset")) {
                         sm.removeSetting(Settings.RANKED_REWARDS);
@@ -155,6 +153,7 @@ public class ComSettings implements CommandExecutor {
                     }
 
                     sm.updateSetting(Settings.RANKED_REWARDS, strings[2]);
+                    botAPI.getMessageManager().sendMessage(messageChannel, em.getAsDescription("done.", Color.BLACK));
                 }
             } else
                 botAPI.getMessageManager().sendMessage(messageChannel, em.getAsDescription("erR0r 0x11", Color.RED));
