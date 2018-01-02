@@ -62,10 +62,16 @@ public class ComBroadcast extends Announcement implements CommandExecutor{
             }
         } else if(args[0].equalsIgnoreCase("later")) {
             try {
-                String timeString = args[1];
-                long time;
-                time = Long.parseLong(timeString);
-                TimeUnit timeUnit = TimeUnit.valueOf(args[2].toUpperCase());
+                int timeString = Integer.parseInt(args[1]);
+                TimeUnit timeUnit;
+                if(args[2].equalsIgnoreCase("m"))
+                    timeUnit = TimeUnit.MINUTES;
+                else if(args[2].equalsIgnoreCase("h"))
+                    timeUnit = TimeUnit.HOURS;
+                else if(args[2].equalsIgnoreCase("d"))
+                    timeUnit = TimeUnit.DAYS;
+                else
+                    timeUnit = TimeUnit.SECONDS;
 
                 StringBuilder str = new StringBuilder();
                 for (int i = 4; i < args.length; i++) {
@@ -78,18 +84,24 @@ public class ComBroadcast extends Announcement implements CommandExecutor{
                     botAPI.getMessageManager().sendMessage(messageChannel, getUsage());
                 } else {
                     botAPI.getMessageManager().deleteMessage(command, "Auto Cleared");
-                    botAPI.getMessageManager().sendMessage(command.getMentionedChannels().get(0), embedManager.getAsDescription(message), time, timeUnit); //Idk how to queueAfter here, wont let me plx fix father
+                    botAPI.getMessageManager().sendMessage(command.getMentionedChannels().get(0), embedManager.getAsDescription(message), timeString, timeUnit);
                 }
             }catch (Exception e){
-                botAPI.getMessageManager().sendMessage(messageChannel, embedManager.getAsDescription("an error occurred, probably because you're using s or second instead of seconds etc"));
+                botAPI.getMessageManager().sendMessage(messageChannel, getUsage());
             }
 
         } else if(args[0].equalsIgnoreCase("--later")) {
             try {
-                String timeString = args[1];
-                long time;
-                time = Long.parseLong(timeString);
-                TimeUnit timeUnit = TimeUnit.valueOf(args[2].toUpperCase());
+                int timeString = Integer.parseInt(args[1]);
+                TimeUnit timeUnit;
+                if(args[2].equalsIgnoreCase("m"))
+                    timeUnit = TimeUnit.MINUTES;
+                else if(args[2].equalsIgnoreCase("h"))
+                    timeUnit = TimeUnit.HOURS;
+                else if(args[2].equalsIgnoreCase("d"))
+                    timeUnit = TimeUnit.DAYS;
+                else
+                    timeUnit = TimeUnit.SECONDS;
 
                 StringBuilder str = new StringBuilder();
                 for (int i = 4; i < args.length; i++) {
@@ -102,14 +114,13 @@ public class ComBroadcast extends Announcement implements CommandExecutor{
                     botAPI.getMessageManager().sendMessage(messageChannel, getUsage());
                 } else {
                     botAPI.getMessageManager().deleteMessage(command, "Auto Cleared");
-                    botAPI.getMessageManager().sendMessage(command.getMentionedChannels().get(0), message, time, timeUnit);
+                    botAPI.getMessageManager().sendMessage(command.getMentionedChannels().get(0), message, timeString, timeUnit);
                 }
             }catch (Exception e){
                 botAPI.getMessageManager().sendMessage(messageChannel, embedManager.getAsDescription("an error occurred, probably because you're using s or second instead of seconds etc"));
             }
 
         } else if(args[0].equalsIgnoreCase("repeat")) {
-            //Daddy fix plx
             Announcement announcement = new Announcement();
             announcement.setID(1);
         } else {
