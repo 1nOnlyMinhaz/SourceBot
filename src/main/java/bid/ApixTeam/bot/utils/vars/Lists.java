@@ -1,6 +1,7 @@
 package bid.ApixTeam.bot.utils.vars;
 
 import bid.ApixTeam.bot.utils.vars.entites.Announcement;
+import bid.ApixTeam.bot.utils.vars.entites.Cooldown;
 import bid.ApixTeam.bot.utils.vars.entites.Incident;
 import bid.ApixTeam.bot.utils.vars.entites.enums.RankingType;
 import bid.ApixTeam.bot.utils.vars.entites.enums.Settings;
@@ -30,6 +31,8 @@ public class Lists {
     private static ConcurrentHashMap<Integer, Incident> IncidentLog = new ConcurrentHashMap<>();
     private static int lastIncident;
     private static boolean testingEnvironment = false;
+    private static ConcurrentHashMap<Long, Cooldown> globalCooldown = new ConcurrentHashMap<>();
+    private static ConcurrentHashMap<Long, ArrayList<Cooldown>> commandCooldown = new ConcurrentHashMap<>();
 
     public static boolean isTestingEnvironment() {
         return testingEnvironment;
@@ -101,5 +104,13 @@ public class Lists {
 
     public static ConcurrentHashMap<Integer, Incident> getIncidentLog() {
         return IncidentLog;
+    }
+
+    public static ConcurrentHashMap<Long, Cooldown> getGlobalCooldown() {
+        return globalCooldown;
+    }
+
+    public static ConcurrentHashMap<Long, ArrayList<Cooldown>> getCommandCooldown() {
+        return commandCooldown;
     }
 }

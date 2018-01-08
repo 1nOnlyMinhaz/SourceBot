@@ -1,4 +1,4 @@
-package bid.ApixTeam.bot.utils.vars.entites;
+package bid.ApixTeam.bot.utils.vars.entites.interfaces;
 
 import java.sql.Timestamp;
 

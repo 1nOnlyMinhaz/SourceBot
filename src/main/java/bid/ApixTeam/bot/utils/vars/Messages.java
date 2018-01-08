@@ -8,6 +8,10 @@ public interface Messages {
     String NO_PERMISSION = ":cold_sweat: Sorry, but you don't have permissions to do that.";
     String NO_COM_PERMISSION = ":cold_sweat: Sorry, but you don't have permissions to use that command.";
 
+    String NO_COOLDOWN = ":speaking_head: You're no longer on cooldown.";
+    String ON_COOLDOWN = ":speaking_head: Sorry, but you cannot use that for the next %d second%s.s";
+    String ON_COM_COOLDOWN = ":speaking_head: Sorry, but you cannot use that command for the next %d second%s.s";
+
     String INCORRECT_USAGE = "**Incorrect usage!** Correct format: `%s` :wink:";
 
     String[] RANK_BRAGS = {"Try and keep up.", "pffftt, gud one.", "I'm always in the top.", "ez.", "huh, too eazy.", "Is this ez mode?", "Over 9000!"};

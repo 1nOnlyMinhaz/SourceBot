@@ -1,5 +1,7 @@
 package bid.ApixTeam.bot.utils.vars.entites;
 
+import bid.ApixTeam.bot.utils.vars.entites.interfaces.IBroadcast;
+
 public class Announcement implements IBroadcast {
     private int id;
     private long channelID;

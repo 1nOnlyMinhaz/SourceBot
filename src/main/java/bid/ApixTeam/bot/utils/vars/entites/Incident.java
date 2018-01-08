@@ -1,5 +1,7 @@
 package bid.ApixTeam.bot.utils.vars.entites;
 
+import bid.ApixTeam.bot.utils.vars.entites.interfaces.IIncident;
+
 import java.sql.Timestamp;
 
 /**

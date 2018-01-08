@@ -38,6 +38,7 @@ public class Listener {
         commandHandler.registerCommand(new ComReport());
         commandHandler.registerCommand(new ComUrbanDictionary());
         commandHandler.registerCommand(new ComTempBan());
+        commandHandler.registerCommand(new ComPing());
 
         for (CommandHandler.SimpleCommand sm : commandHandler.getCommands())
             for (String s : sm.getCommandAnnotation().aliases())
