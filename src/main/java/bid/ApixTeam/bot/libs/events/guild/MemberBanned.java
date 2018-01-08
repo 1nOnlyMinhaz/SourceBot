@@ -9,7 +9,7 @@ import net.dv8tion.jda.core.hooks.ListenerAdapter;
  * TSC-Bot was created by ApixTeam (C) 2017
  * in association with TheSourceCode (C) 2017
  */
-public class BanMember extends ListenerAdapter {
+public class MemberBanned extends ListenerAdapter {
     public void onGuildBan(GuildBanEvent event) {
         BotAPI botAPI = new BotAPI();
         User user = event.getUser();

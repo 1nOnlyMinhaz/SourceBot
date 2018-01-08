@@ -1,11 +1,8 @@
 package bid.ApixTeam.bot.libs;
 
 import bid.ApixTeam.bot.libs.commands.*;
-import bid.ApixTeam.bot.libs.events.guild.BanMember;
-import bid.ApixTeam.bot.libs.events.guild.MemberLeft;
-import bid.ApixTeam.bot.libs.events.guild.MessageReceived;
-import bid.ApixTeam.bot.libs.events.user.AvatarUpdate;
-import bid.ApixTeam.bot.libs.events.user.NameUpdate;
+import bid.ApixTeam.bot.libs.events.guild.*;
+import bid.ApixTeam.bot.libs.events.user.*;
 import bid.ApixTeam.bot.utils.vars.Lists;
 import de.btobastian.sdcf4j.CommandHandler;
 import de.btobastian.sdcf4j.handler.JDA3Handler;
@@ -19,7 +16,8 @@ public class Listener {
     public Listener(JDA jda) {
         // Events
         jda.addEventListener(new MessageReceived(), new MemberLeft(),
-                new BanMember(), new AvatarUpdate(), new NameUpdate());
+                new MemberBanned(), new AvatarUpdate(), new NameUpdate(),
+                new MemberJoined());
 
         // Commands
         CommandHandler commandHandler = new JDA3Handler(jda);
