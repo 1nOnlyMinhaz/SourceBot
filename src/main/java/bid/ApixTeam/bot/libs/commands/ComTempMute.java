@@ -32,10 +32,10 @@ public class ComTempMute implements CommandExecutor {
         if(!pm.userRoleAtLeast(guild.getMember(user), SimpleRank.MOD)) {
             botAPI.getMessageManager().sendMessage(messageChannel, embedManager.getNoComPermission());
             return;
-        } else if(message.getMentionedUsers().size() != 1) {
+        } else if(strings.length < 4) {
             botAPI.getMessageManager().sendMessage(messageChannel, getUsage());
             return;
-        } else if(strings.length < 4) {
+        } else if(message.getMentionedUsers().size() != 1) {
             botAPI.getMessageManager().sendMessage(messageChannel, getUsage());
             return;
         }
@@ -79,7 +79,7 @@ public class ComTempMute implements CommandExecutor {
             arrayList.add(target.getAsMention());
 
             Message incidentMessage = botAPI.getMessageManager()
-                    .sendMessage(guild.getTextChannelById(botAPI.getSettingsManager().getSetting(Settings.CHAN_REPORTS)),
+                    .sendMessage(guild.getTextChannelById(botAPI.getSettingsManager().getSetting(Settings.CHAN_INCIDENTS)),
                             embedManager.getIncidentEmbed(guild.getJDA(), incidentManager.getIncident(id)));
 
             Incident incident = incidentManager.getIncident(id);

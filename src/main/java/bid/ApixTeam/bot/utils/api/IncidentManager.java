@@ -49,7 +49,7 @@ public class IncidentManager {
                 Lists.getIncidentLog().put(incident.getId(), incident);
             }
 
-            ps = connection.prepareStatement("SELECT `AUTO_INCREMENT` FROM  INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'tsc_discord' AND TABLE_NAME = 'incidents'");
+            ps = connection.prepareStatement("SELECT `AUTO_INCREMENT` FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'incidents'");
             rs = ps.executeQuery();
 
             while (rs.next()) Lists.setLastIncident(rs.getInt(1));

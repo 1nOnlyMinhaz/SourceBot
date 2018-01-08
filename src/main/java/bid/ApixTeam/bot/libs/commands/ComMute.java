@@ -63,7 +63,7 @@ public class ComMute implements CommandExecutor {
         arrayList.add(target.getAsMention());
 
         Message incidentMessage = botAPI.getMessageManager()
-                .sendMessage(guild.getTextChannelById(botAPI.getSettingsManager().getSetting(Settings.CHAN_REPORTS)),
+                .sendMessage(guild.getTextChannelById(botAPI.getSettingsManager().getSetting(Settings.CHAN_INCIDENTS)),
                         embedManager.getIncidentEmbed(guild.getJDA(), incidentManager.getIncident(id)));
 
         Incident incident = incidentManager.getIncident(id);
