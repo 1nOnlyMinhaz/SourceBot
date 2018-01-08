@@ -1,6 +1,7 @@
 package bid.ApixTeam.bot.libs.commands;
 
 import bid.ApixTeam.bot.utils.BotAPI;
+import bid.ApixTeam.bot.utils.api.ExtraUtils;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
@@ -15,9 +16,18 @@ import org.json.JSONObject;
 import java.awt.*;
 
 public class ComUrbanDictionary implements CommandExecutor {
-    @Command(aliases = {"ud", "urban", "dictionary", "define"}, description = "Search for a word on urban dictionary", async = true)
+    @Command(aliases = {"ud", "urban", "dictionary", "define", "definition"}, description = "Search for a word on urban dictionary", async = true)
     public void onCommand(JDA jda, Guild guild, User user, MessageChannel messageChannel, Message message) {
         BotAPI botAPI = new BotAPI();
+        ExtraUtils eu = botAPI.getExtraUtils();
+        String command = "help";
+
+        if(eu.isCoolingdown(user, command)){
+            botAPI.getMessageManager().sendMessage(messageChannel, eu.getCooldownMessage(user, command));
+            return;
+        }else
+            eu.throwCooldown(user, command, 15);
+
         String[] args = message.getContentDisplay().split("\\s+");
         if(!(args.length > 1))
             return;

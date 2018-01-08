@@ -70,20 +70,21 @@ public class ExtraUtils {
     }
 
     public String getCooldownMessage(User user, String command){
-        if(!isCoolingdown(user))
+        if(!isCoolingdown(user, command))
             return Messages.NO_COOLDOWN;
 
         return String.format(Messages.ON_COM_COOLDOWN, getCooldownDelay(user, command), getCooldownDelay(user, command) != 1 ? "s" : "");
     }
 
-    public int getCooldownDelay(User user){
+    public long getCooldownDelay(User user){
         if(!isCoolingdown(user))
             return 0;
 
-        return Lists.getGlobalCooldown().get(user.getIdLong()).getDelay();
+        Cooldown cooldown = Lists.getGlobalCooldown().get(user.getIdLong());
+        return ((cooldown.getSystime() / 1000) + cooldown.getDelay()) - (System.currentTimeMillis() / 1000);
     }
 
-    public int getCooldownDelay(User user, String command){
+    public long getCooldownDelay(User user, String command){
         if(!isCoolingdown(user, command))
             return 0;
 
@@ -96,7 +97,7 @@ public class ExtraUtils {
         }
 
         assert cooldown != null;
-        return cooldown.getDelay();
+        return ((cooldown.getSystime() / 1000) + cooldown.getDelay()) - (System.currentTimeMillis() / 1000);
     }
 
     public boolean isCoolingdown(User user) {

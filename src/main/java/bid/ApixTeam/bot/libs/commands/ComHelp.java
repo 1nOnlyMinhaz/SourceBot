@@ -2,6 +2,7 @@ package bid.ApixTeam.bot.libs.commands;
 
 import bid.ApixTeam.bot.utils.BotAPI;
 import bid.ApixTeam.bot.utils.api.EmbedMessageManager;
+import bid.ApixTeam.bot.utils.api.ExtraUtils;
 import bid.ApixTeam.bot.utils.api.PermissionManager;
 import bid.ApixTeam.bot.utils.vars.Lists;
 import bid.ApixTeam.bot.utils.vars.entites.enums.Settings;
@@ -19,9 +20,18 @@ import net.dv8tion.jda.core.exceptions.ErrorResponseException;
  * in association with TheSourceCode (C) 2017
  */
 public class ComHelp implements CommandExecutor {
-    @Command(aliases = {"help"}, description = "displays the available commands", async = true)
+    @Command(aliases = {"help"}, description = "displays the available commands")
     public void onCommand(User user, MessageChannel messageChannel, Message message, String[] strings) {
         BotAPI botAPI = new BotAPI();
+        ExtraUtils eu = botAPI.getExtraUtils();
+        String command = "help";
+
+        if(eu.isCoolingdown(user, command)){
+            botAPI.getMessageManager().sendMessage(messageChannel, eu.getCooldownMessage(user, command));
+            return;
+        }else
+            eu.throwCooldown(user, command, 60);
+
         EmbedMessageManager embedManager = botAPI.getEmbedMessageManager();
         PermissionManager pm = botAPI.getPermissionManager();
         boolean mod = false, admin = false, botAdmin = false;

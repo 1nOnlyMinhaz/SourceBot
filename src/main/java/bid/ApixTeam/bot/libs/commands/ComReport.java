@@ -1,6 +1,7 @@
 package bid.ApixTeam.bot.libs.commands;
 
 import bid.ApixTeam.bot.utils.BotAPI;
+import bid.ApixTeam.bot.utils.api.ExtraUtils;
 import bid.ApixTeam.bot.utils.api.IncidentManager;
 import bid.ApixTeam.bot.utils.api.SettingsManager;
 import bid.ApixTeam.bot.utils.vars.entites.Incident;
@@ -16,6 +17,15 @@ public class ComReport implements CommandExecutor {
     @Command(aliases = "report")
     public void onCommand(Guild guild, MessageChannel messageChannel, Message command, User user, String args[]) {
         BotAPI botAPI = new BotAPI();
+        ExtraUtils eu = botAPI.getExtraUtils();
+        String cmd = "help";
+
+        if(eu.isCoolingdown(user, cmd)){
+            botAPI.getMessageManager().sendMessage(messageChannel, eu.getCooldownMessage(user, cmd));
+            return;
+        }else
+            eu.throwCooldown(user, cmd, 120);
+
         SettingsManager sm = botAPI.getSettingsManager();
         IncidentManager incidentManager = botAPI.getIncidentManager();
 

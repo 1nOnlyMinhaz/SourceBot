@@ -9,8 +9,8 @@ public interface Messages {
     String NO_COM_PERMISSION = ":cold_sweat: Sorry, but you don't have permissions to use that command.";
 
     String NO_COOLDOWN = ":speaking_head: You're no longer on cooldown.";
-    String ON_COOLDOWN = ":speaking_head: Sorry, but you cannot use that for the next %d second%s.s";
-    String ON_COM_COOLDOWN = ":speaking_head: Sorry, but you cannot use that command for the next %d second%s.s";
+    String ON_COOLDOWN = ":speaking_head: Sorry, but you cannot use that for the next %d second%s.";
+    String ON_COM_COOLDOWN = ":speaking_head: Sorry, but you cannot use that command for the next %d second%s.";
 
     String INCORRECT_USAGE = "**Incorrect usage!** Correct format: `%s` :wink:";
 
