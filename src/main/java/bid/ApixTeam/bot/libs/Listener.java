@@ -3,7 +3,7 @@ package bid.ApixTeam.bot.libs;
 import bid.ApixTeam.bot.libs.commands.*;
 import bid.ApixTeam.bot.libs.events.guild.BanMember;
 import bid.ApixTeam.bot.libs.events.guild.MemberLeft;
-import bid.ApixTeam.bot.libs.events.MessageReceived;
+import bid.ApixTeam.bot.libs.events.guild.MessageReceived;
 import bid.ApixTeam.bot.libs.events.user.AvatarUpdate;
 import bid.ApixTeam.bot.libs.events.user.NameUpdate;
 import bid.ApixTeam.bot.utils.vars.Lists;

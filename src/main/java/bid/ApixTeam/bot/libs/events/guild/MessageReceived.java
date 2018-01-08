@@ -1,4 +1,4 @@
-package bid.ApixTeam.bot.libs.events;
+package bid.ApixTeam.bot.libs.events.guild;
 
 import bid.ApixTeam.bot.utils.BotAPI;
 import bid.ApixTeam.bot.utils.vars.Lists;
@@ -8,7 +8,7 @@ import bid.ApixTeam.bot.utils.vars.entites.enums.Settings;
 import bid.ApixTeam.bot.utils.vars.entites.enums.SimpleRank;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.User;
-import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
 
 import java.util.HashMap;
@@ -20,7 +20,7 @@ import java.util.concurrent.TimeUnit;
  * in association with TheSourceCode (C) 2017
  */
 public class MessageReceived extends ListenerAdapter {
-    public void onMessageReceived(MessageReceivedEvent e) {
+    public void onGuildMessageReceived(GuildMessageReceivedEvent e) {
         BotAPI botAPI = new BotAPI();
 
         User user = e.getAuthor();
@@ -44,7 +44,7 @@ public class MessageReceived extends ListenerAdapter {
 
         /**  PROFANITY  */
         String prof = botAPI.getSettingsManager().getSetting(Settings.PROFANITY_LIST);
-        if (!e.getTextChannel().isNSFW() && prof != null) {
+        if (!e.getChannel().isNSFW() && prof != null) {
             String[] profanity = prof.split(",");
             for (String word : profanity){
                 if (message.getContentRaw().toLowerCase().contains(word)) {
@@ -64,7 +64,7 @@ public class MessageReceived extends ListenerAdapter {
 
         if (!Lists.getUsers().contains(user.getIdLong())) botAPI.getPermissionManager().createMember(user);
 
-        if(botAPI.getSettingsManager().getSetting(Settings.RANKED_IGNORED) != null && e.getTextChannel().getId().equals(botAPI.getSettingsManager().getSetting(Settings.RANKED_IGNORED)))
+        if(botAPI.getSettingsManager().getSetting(Settings.RANKED_IGNORED) != null && e.getChannel().getId().equals(botAPI.getSettingsManager().getSetting(Settings.RANKED_IGNORED)))
             return;
 
         if(e.getMember().getRoles().contains(e.getGuild().getRoleById(botAPI.getSettingsManager().getSetting(Settings.ROLES_MUTED))))
