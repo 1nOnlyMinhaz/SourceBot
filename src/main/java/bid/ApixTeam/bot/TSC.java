@@ -3,6 +3,7 @@ package bid.ApixTeam.bot;
 import bid.ApixTeam.bot.libs.Listener;
 import bid.ApixTeam.bot.utils.api.IncidentManager;
 import bid.ApixTeam.bot.utils.api.SettingsManager;
+import bid.ApixTeam.bot.utils.threads.GameStatue;
 import bid.ApixTeam.bot.utils.threads.dummy;
 import bid.ApixTeam.bot.utils.vars.Levels;
 import bid.ApixTeam.bot.utils.vars.Messages;
@@ -39,5 +40,6 @@ public class TSC extends SettingsManager {
 
         Timer timer = new Timer();
         timer.schedule(new dummy(jda), 0, 1000);
+        timer.schedule(new GameStatue(jda), 0, 10800000);
     }
 }
