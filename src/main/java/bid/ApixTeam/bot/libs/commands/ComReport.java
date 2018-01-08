@@ -68,12 +68,11 @@ public class ComReport implements CommandExecutor {
                 return;
             }
 
-            Guild guild1 = command.getJDA().getGuildById("314780941526499328");
-            System.out.println(guild1.getName());
+            Guild guildById = command.getJDA().getGuildById(sm.getSetting(Settings.MAIN_GUILD_ID));
             int counter = 0;
-            for(Member member : guild1.getMembers()) {
+            for(Member member : guildById.getMembers()) {
                 if(member.getUser().getIdLong() != command.getMentionedUsers().get(0).getIdLong()) {
-                    if(counter == guild1.getMembers().size()) {
+                    if(counter == guildById.getMembers().size()) {
                         botAPI.getPrivateMessageManager().sendMessage(user, botAPI.getEmbedMessageManager().getAsDescription("Maybe next time try a user that exists?"));
                     }
                 }
@@ -89,8 +88,8 @@ public class ComReport implements CommandExecutor {
             int id = incidentManager.createIncident(user, command.getMentionedUsers().get(0), IncidentType.REPORT, reason, 0, TimeUnit.SECONDS);
 
             Incident incident = incidentManager.getIncident(id);
-            Message message = botAPI.getMessageManager().sendMessage(guild1.getTextChannelById(sm.getSetting(Settings.CHAN_REPORTS)),
-                    botAPI.getEmbedMessageManager().getIncidentEmbed(guild1.getJDA(), incident));
+            Message message = botAPI.getMessageManager().sendMessage(guildById.getTextChannelById(sm.getSetting(Settings.CHAN_REPORTS)),
+                    botAPI.getEmbedMessageManager().getIncidentEmbed(guildById.getJDA(), incident));
             incident.setMessageID(message.getIdLong());
             incidentManager.updateIncident(incident);
             botAPI.getPrivateMessageManager().sendMessage(user, botAPI.getEmbedMessageManager().getAsDescription(String.format("You have successfully reported %s!", command.getMentionedUsers().get(0).getAsMention())));
