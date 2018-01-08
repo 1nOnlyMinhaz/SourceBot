@@ -20,7 +20,7 @@ public class ComUrbanDictionary implements CommandExecutor {
     public void onCommand(JDA jda, Guild guild, User user, MessageChannel messageChannel, Message message) {
         BotAPI botAPI = new BotAPI();
         ExtraUtils eu = botAPI.getExtraUtils();
-        String command = "help";
+        String command = "urban";
 
         if(eu.isCoolingdown(user, command)){
             botAPI.getMessageManager().sendMessage(messageChannel, eu.getCooldownMessage(user, command));

@@ -20,7 +20,7 @@ public class ComRank implements CommandExecutor {
     public void onCommand(User user, MessageChannel messageChannel, Message message, Object[] objects) {
         BotAPI botAPI = new BotAPI();
         ExtraUtils eu = botAPI.getExtraUtils();
-        String command = "help";
+        String command = "rank";
 
         if(eu.isCoolingdown(user, command)){
             botAPI.getMessageManager().sendMessage(messageChannel, eu.getCooldownMessage(user, command));

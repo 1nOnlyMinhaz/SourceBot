@@ -18,7 +18,7 @@ public class ComReport implements CommandExecutor {
     public void onCommand(Guild guild, MessageChannel messageChannel, Message command, User user, String args[]) {
         BotAPI botAPI = new BotAPI();
         ExtraUtils eu = botAPI.getExtraUtils();
-        String cmd = "help";
+        String cmd = "report";
 
         if(eu.isCoolingdown(user, cmd)){
             botAPI.getMessageManager().sendMessage(messageChannel, eu.getCooldownMessage(user, cmd));
