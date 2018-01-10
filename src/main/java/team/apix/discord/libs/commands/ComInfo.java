@@ -9,6 +9,7 @@ import de.btobastian.sdcf4j.CommandExecutor;
 import net.dv8tion.jda.core.entities.MessageChannel;
 import net.dv8tion.jda.core.entities.MessageEmbed;
 import net.dv8tion.jda.core.entities.User;
+import team.apix.discord.utils.vars.Lists;
 
 import java.lang.management.ManagementFactory;
 import java.lang.management.RuntimeMXBean;
@@ -39,7 +40,7 @@ public class ComInfo implements CommandExecutor {
             return;
         }
 
-        botAPI.getPrivateMessageManager().sendMessage(user, embedManager.getInfoEmbed(messageChannel, rb.getUptime()));
+        botAPI.getPrivateMessageManager().sendMessage(user, embedManager.getInfoEmbed(messageChannel, botAPI.getExtraUtils().getElapsedTime(rb.getUptime(), System.currentTimeMillis())));
         if(messageChannel.getType().isGuild())
             botAPI.getMessageManager().sendMessage(messageChannel, botAPI.getEmbedMessageManager().getAsDescription(":white_check_mark: *sent you some information*.. please check your PMs."));
     }

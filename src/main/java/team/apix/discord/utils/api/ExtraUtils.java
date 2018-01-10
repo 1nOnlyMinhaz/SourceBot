@@ -38,7 +38,7 @@ public class ExtraUtils {
         return true;
     }
 
-    public Member getAsMember(User user){
+    public Member getAsMember(User user) {
         return user.getJDA().getGuildById(new BotAPI().getSettingsManager().getSetting(Settings.MAIN_GUILD_ID)).getMember(user);
     }
 
@@ -48,7 +48,7 @@ public class ExtraUtils {
     }
 
     public void throwCooldown(User user, PermissionManager pm, String command, int delay) {
-        if(pm.userRoleAtLeast(getAsMember(user), SimpleRank.ADMIN))
+        if (pm.userRoleAtLeast(getAsMember(user), SimpleRank.ADMIN))
             return;
 
         ArrayList<Cooldown> cooldowns = new ArrayList<>();
@@ -65,7 +65,7 @@ public class ExtraUtils {
             cooldowns = cld;
         }
 
-        if(Lists.getCommandCooldown().containsKey(user.getIdLong()))
+        if (Lists.getCommandCooldown().containsKey(user.getIdLong()))
             cooldowns = Lists.getCommandCooldown().get(user.getIdLong());
 
         cooldowns.add(new Cooldown(delay, System.currentTimeMillis(), command));
@@ -73,35 +73,35 @@ public class ExtraUtils {
         Lists.getCommandCooldown().put(user.getIdLong(), cooldowns);
     }
 
-    public String getCooldownMessage(User user, PermissionManager pm){
-        if(!isCoolingdown(user))
+    public String getCooldownMessage(User user, PermissionManager pm) {
+        if (!isCoolingdown(user))
             return Messages.NO_COOLDOWN;
 
         return String.format(Messages.ON_COOLDOWN, getCooldownDelay(user, pm), getCooldownDelay(user, pm) != 1 ? "s" : "");
     }
 
-    public String getCooldownMessage(User user, PermissionManager pm, String command){
-        if(!isCoolingdown(user, command))
+    public String getCooldownMessage(User user, PermissionManager pm, String command) {
+        if (!isCoolingdown(user, command))
             return Messages.NO_COOLDOWN;
 
         return String.format(Messages.ON_COM_COOLDOWN, getCooldownDelay(user, pm, command), getCooldownDelay(user, pm, command) != 1 ? "s" : "");
     }
 
-    public long getCooldownDelay(User user, PermissionManager pm){
-        if(!isCoolingdown(user))
+    public long getCooldownDelay(User user, PermissionManager pm) {
+        if (!isCoolingdown(user))
             return 0;
 
         Cooldown cooldown = Lists.getGlobalCooldown().get(user.getIdLong());
         return ((cooldown.getSystime() / 1000) + cooldown.getDelay()) - (System.currentTimeMillis() / 1000);
     }
 
-    public long getCooldownDelay(User user, PermissionManager pm, String command){
-        if(!isCoolingdown(user, command))
+    public long getCooldownDelay(User user, PermissionManager pm, String command) {
+        if (!isCoolingdown(user, command))
             return 0;
 
         Cooldown cooldown = null;
-        for (Cooldown cd: Lists.getCommandCooldown().get(user.getIdLong())){
-            if(cd.getCommand() != null && cd.getCommand().equalsIgnoreCase(command)){
+        for (Cooldown cd : Lists.getCommandCooldown().get(user.getIdLong())) {
+            if (cd.getCommand() != null && cd.getCommand().equalsIgnoreCase(command)) {
                 cooldown = cd;
                 break;
             }
@@ -147,5 +147,41 @@ public class ExtraUtils {
             Lists.getCommandCooldown().put(user.getIdLong(), cooldowns);
             return false;
         }
+    }
+
+    public String getElapsedTime(long startTime, long endTime){
+        long difference = endTime - startTime;
+
+        long secondsInMilli = 1000;
+        long minutesInMilli = secondsInMilli * 60;
+        long hoursInMilli = minutesInMilli * 60;
+        long daysInMilli = hoursInMilli * 24;
+        long monthsInMilli = daysInMilli * 30;
+        long yearsInMilli = daysInMilli * 365;
+
+        long elapsedDays = difference / daysInMilli;
+        difference = difference % daysInMilli;
+
+        long elapsedHours = difference / hoursInMilli;
+        difference = difference % hoursInMilli;
+
+        long elapsedMinutes = difference / minutesInMilli;
+        difference = difference % minutesInMilli;
+
+        long elapsedSeconds = difference / secondsInMilli;
+
+        StringBuilder builder = new StringBuilder();
+        if(elapsedDays != 0)
+            builder.append(String.format("%d day%s ", elapsedDays, elapsedDays == 1 ? "s" : ""));
+        if(elapsedHours != 0)
+            builder.append(String.format("%d hour%s ", elapsedHours, elapsedHours == 1 ? "s" : ""));
+        if(elapsedMinutes != 0)
+            builder.append(String.format("%d hour%s ", elapsedMinutes, elapsedMinutes == 1 ? "s" : ""));
+        if(elapsedSeconds != 0)
+            builder.append(String.format("%d second%s ", elapsedSeconds, elapsedSeconds == 1 ? "s" : ""));
+        if(elapsedSeconds == 0)
+            builder.append("just started");
+
+        return builder.toString();
     }
 }

@@ -20,9 +20,10 @@ public interface Messages {
 
     String[] LEAVE = {"OH NO! :cry: %PLAYER% just left the server :sob:", "RIP! %PLAYER% abandoned us :sob:", "Cya! %PLAYER% thought that we wanted them :joy:", "%PLAYER% has left the game.", "Later! %PLAYER% did rage quit :joy:"};
 
-    String[] PROFANITY = {"**Watch your mouth** %s :rage:", "**Chill out** %s :rage:", "**LANGUAGE** %s :rage:", "**That's really bad** %s :rage:", "**I'M ALWAYS WATCHING YOU** %s :rage:", "**YOUR MOM SHOULD'VE TOLD YOU THAT THIS WORD IS BAD** %s :rage:", "**THAT'S CROSSING THE RED LINE** %s :rage:"};
+    String[] PROFANITY = {"**Watch your mouth** %s :rage:", "**Chill out** %s :rage:", "**LANGUAGE** %s :rage:", "**That's really bad** %s :rage:", "**I'M ALWAYS WATCHING YOU** %s :eyes::rage:", "**YOUR MOM SHOULD'VE TOLD YOU THAT THIS WORD IS BAD** %s :rage:", "**THAT'S CROSSING THE RED LINE** %s :rage:"};
 
-    String BOT_INFO = "In the past, our server has used many pre-built Discord Bots made by other people, such as Dyno, and Mee6. We moved on from Dyno pretty quickly, but up until this discord was released, we have always used Mee6. Now of course it's a good discord with some perks, but we could do better. So we did. We, the ApixTeam, consistent of yours truly, Alw7SHxD, and Andrewboy159, have created a discord that has been in the making for months on end. We are proud of what we have created. We hope all of you users also are proud of what has been made specifically for this server that we all love.";
+    String BOT_INFO = "In the past, our server has used many pre-built Discord Bots made by other people, such as Dyno, and Mee6.\nWe moved on from Dyno pretty quickly, but up until this bot was released, we have always used Mee6 (yes, the one and only Mee6), of course it's a good bot with some perks, but we could do better. \n\nSo we did! We, the ApixTeam, consistent of yours truly, **Alw7SHxD** and **Andrewboy159**, have created a discord bot that has been in the making for months, we're proud of what we have created, and hope all of you users are also proud of what has been made specifically for this server that we all love.";
+    String BOT_INFO_EXP = "";
 
     String[] GAME_PLAYIN = {"some minigames on SourceCade", "emily is away", "on SourceCade"};
     String[] GAME_WATCHIN = {"videos while vapin with Ned", "Ned's vaping animation", "Andrew suck at coding", "Alw's anime", "TheSourceCode", "Daeshan pretend to code"};
