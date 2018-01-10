@@ -1,7 +1,7 @@
 package bid.ApixTeam.bot.utils.vars.entites;
 
 /**
- * TSC was created by ApixTeam (C) 2018
+ * Source was created by ApixTeam (C) 2018
  * in association with TheSourceCode (C) 2018
  */
 public class Cooldown {

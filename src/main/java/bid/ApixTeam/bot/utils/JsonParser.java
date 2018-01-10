@@ -5,7 +5,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 /**
- * TSC-Bot was created by ApixTeam (C) 2017
+ * Source-Bot was created by ApixTeam (C) 2017
  * in association with TheSourceCode (C) 2017
  */
 
@@ -1185,7 +1185,7 @@ public class JsonParser {
                 "  \"server\": {\n" +
                 "    \"icon\": \"e209d612e06c945c0ad18eee50a9845a\", \n" +
                 "    \"id\": \"265499275088232448\", \n" +
-                "    \"name\": \"{TSC Official Discord}\"\n" +
+                "    \"name\": \"{Source Official Discord}\"\n" +
                 "  }\n" +
                 "}";
     }

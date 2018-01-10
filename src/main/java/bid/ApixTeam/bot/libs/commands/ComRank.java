@@ -13,7 +13,7 @@ import net.dv8tion.jda.core.entities.MessageChannel;
 import net.dv8tion.jda.core.entities.User;
 
 /**
- * TSC-Bot was created by ApixTeam (C) 2017
+ * Source-Bot was created by ApixTeam (C) 2017
  * in association with TheSourceCode (C) 2017
  */
 public class ComRank implements CommandExecutor {
@@ -48,7 +48,7 @@ public class ComRank implements CommandExecutor {
             if (objects.length == 0)
                 botAPI.getPrivateMessageManager().sendMessage(user, embedManager.getRankEmbed(botAPI, user));
             else
-                botAPI.getPrivateMessageManager().sendMessage(user, embedManager.getAsDescription("yeah.... i think you'd actually need to do that on the TSC discord server..."));
+                botAPI.getPrivateMessageManager().sendMessage(user, embedManager.getAsDescription("yeah.... i think you'd actually need to do that on the Source discord server..."));
         }
     }
 }

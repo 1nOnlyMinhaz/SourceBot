@@ -10,7 +10,7 @@ import net.dv8tion.jda.core.events.guild.member.GuildMemberJoinEvent;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
 
 /**
- * TSC-Bot was created by ApixTeam (C) 2017
+ * Source-Bot was created by ApixTeam (C) 2017
  * in association with TheSourceCode (C) 2017
  */
 public class MemberJoined extends ListenerAdapter {

@@ -12,7 +12,7 @@ import net.dv8tion.jda.core.entities.Guild;
 import java.util.TimerTask;
 
 /**
- * TSC-Bot was created by ApixTeam (C) 2017
+ * Source-Bot was created by ApixTeam (C) 2017
  * in association with TheSourceCode (C) 2017
  */
 public class dummy extends TimerTask {

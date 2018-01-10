@@ -12,7 +12,7 @@ import java.sql.SQLException;
 import java.util.Map;
 
 /**
- * TSC-Bot was created by ApixTeam (C) 2017
+ * Source-Bot was created by ApixTeam (C) 2017
  * in association with TheSourceCode (C) 2017
  */
 public class DataSource {

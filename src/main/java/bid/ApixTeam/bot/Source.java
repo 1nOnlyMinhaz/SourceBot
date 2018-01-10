@@ -16,10 +16,10 @@ import javax.security.auth.login.LoginException;
 import java.util.Timer;
 
 /**
- * TSC was created by ApixTeam (C) 2017
+ * Source was created by ApixTeam (C) 2017
  * in association with TheSourceCode (C) 2017
  */
-public class TSC extends SettingsManager {
+public class Source extends SettingsManager {
     public static void main(String[] args) throws LoginException, InterruptedException, RateLimitedException {
         JDA jda = new JDABuilder(AccountType.BOT)
                 .setToken(args.length == 1 ? args[0] : "MzU2MTI1ODc2Njc4NTU3NzI3.DJdAcg._67wYa-oyF7LGUtsW_hwI32Yenk")

@@ -10,7 +10,7 @@ import net.dv8tion.jda.core.entities.MessageChannel;
 import net.dv8tion.jda.core.entities.User;
 
 /**
- * TSC was created by ApixTeam (C) 2018
+ * Source was created by ApixTeam (C) 2018
  * in association with TheSourceCode (C) 2018
  */
 public class ComPing implements CommandExecutor {

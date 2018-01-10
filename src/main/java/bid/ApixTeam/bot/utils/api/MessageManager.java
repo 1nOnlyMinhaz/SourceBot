@@ -8,7 +8,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
 
 /**
- * TSC was created by ApixTeam (C) 2017
+ * Source was created by ApixTeam (C) 2017
  * in association with TheSourceCode (C) 2017
  */
 public class MessageManager {

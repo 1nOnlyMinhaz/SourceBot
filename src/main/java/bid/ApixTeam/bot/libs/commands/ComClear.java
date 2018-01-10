@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 /**
- * TSC was created by ApixTeam (C) 2017
+ * Source was created by ApixTeam (C) 2017
  * in association with TheSourceCode (C) 2017
  */
 

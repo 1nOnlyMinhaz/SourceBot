@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
- * TSC-Bot was created by ApixTeam (C) 2017
+ * Source-Bot was created by ApixTeam (C) 2017
  * in association with TheSourceCode (C) 2017
  */
 public class ComSettings implements CommandExecutor {

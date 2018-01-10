@@ -16,7 +16,7 @@ import net.dv8tion.jda.core.entities.User;
 import net.dv8tion.jda.core.exceptions.ErrorResponseException;
 
 /**
- * TSC was created by ApixTeam (C) 2017
+ * Source was created by ApixTeam (C) 2017
  * in association with TheSourceCode (C) 2017
  */
 public class ComHelp implements CommandExecutor {

@@ -16,7 +16,7 @@ import java.awt.*;
 import java.util.*;
 
 /**
- * TSC-Bot was created by ApixTeam (C) 2017
+ * Source-Bot was created by ApixTeam (C) 2017
  * in association with TheSourceCode (C) 2017
  */
 public class EmbedMessageManager {

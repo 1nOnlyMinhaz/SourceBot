@@ -9,7 +9,7 @@ import de.btobastian.sdcf4j.handler.JDA3Handler;
 import net.dv8tion.jda.core.JDA;
 
 /**
- * TSC was created by ApixTeam (C) 2017
+ * Source was created by ApixTeam (C) 2017
  * in association with TheSourceCode (C) 2017
  */
 public class Listener {
