@@ -23,17 +23,17 @@ public class ComHelp implements CommandExecutor {
     @Command(aliases = {"help"}, description = "displays the available commands")
     public void onCommand(User user, MessageChannel messageChannel, Message message, String[] strings) {
         BotAPI botAPI = new BotAPI();
+        PermissionManager pm = botAPI.getPermissionManager();
         ExtraUtils eu = botAPI.getExtraUtils();
         String command = "help";
 
-        if(eu.isCoolingdown(user, command)){
-            botAPI.getMessageManager().sendMessage(messageChannel, eu.getCooldownMessage(user, command));
+        if(eu.isCoolingdown(user, pm, command)){
+            botAPI.getMessageManager().sendMessage(messageChannel, eu.getCooldownMessage(user, pm, command));
             return;
         }else
-            eu.throwCooldown(user, command, 60);
+            eu.throwCooldown(user, pm, command, 60);
 
         EmbedMessageManager embedManager = botAPI.getEmbedMessageManager();
-        PermissionManager pm = botAPI.getPermissionManager();
         boolean mod = false, admin = false, botAdmin = false;
         boolean b = messageChannel.getType().isGuild();
 

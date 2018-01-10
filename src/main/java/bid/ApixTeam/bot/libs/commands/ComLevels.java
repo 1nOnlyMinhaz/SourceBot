@@ -3,6 +3,7 @@ package bid.ApixTeam.bot.libs.commands;
 import bid.ApixTeam.bot.utils.BotAPI;
 import bid.ApixTeam.bot.utils.api.EmbedMessageManager;
 import bid.ApixTeam.bot.utils.api.ExtraUtils;
+import bid.ApixTeam.bot.utils.api.PermissionManager;
 import bid.ApixTeam.bot.utils.api.SettingsManager;
 import bid.ApixTeam.bot.utils.vars.entites.enums.Settings;
 import de.btobastian.sdcf4j.Command;
@@ -19,14 +20,15 @@ public class ComLevels implements CommandExecutor {
     @Command(aliases = {"ranks", "levels", "leaderboard"}, async = true)
     public void onCommand(User user, MessageChannel messageChannel, Message message, Object[] objects) {
         BotAPI botAPI = new BotAPI();
+        PermissionManager pm = botAPI.getPermissionManager();
         ExtraUtils eu = botAPI.getExtraUtils();
         String command = "leaderboard";
 
-        if(eu.isCoolingdown(user, command)){
-            botAPI.getMessageManager().sendMessage(messageChannel, eu.getCooldownMessage(user, command));
+        if(eu.isCoolingdown(user, pm, command)){
+            botAPI.getMessageManager().sendMessage(messageChannel, eu.getCooldownMessage(user, pm, command));
             return;
         }else
-            eu.throwCooldown(user, command, 600);
+            eu.throwCooldown(user, pm, command, 600);
 
         EmbedMessageManager embedManager = botAPI.getEmbedMessageManager();
         SettingsManager sm = botAPI.getSettingsManager();

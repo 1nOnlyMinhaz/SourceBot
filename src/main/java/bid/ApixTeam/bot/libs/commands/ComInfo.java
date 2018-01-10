@@ -3,6 +3,7 @@ package bid.ApixTeam.bot.libs.commands;
 import bid.ApixTeam.bot.utils.BotAPI;
 import bid.ApixTeam.bot.utils.api.EmbedMessageManager;
 import bid.ApixTeam.bot.utils.api.ExtraUtils;
+import bid.ApixTeam.bot.utils.api.PermissionManager;
 import de.btobastian.sdcf4j.Command;
 import de.btobastian.sdcf4j.CommandExecutor;
 import net.dv8tion.jda.core.entities.MessageChannel;
@@ -17,14 +18,15 @@ public class ComInfo implements CommandExecutor {
     @Command(aliases = "info")
     public void onCommand(User user, MessageChannel messageChannel, Object[] objects) {
         BotAPI botAPI = new BotAPI();
+        PermissionManager pm = botAPI.getPermissionManager();
         ExtraUtils eu = botAPI.getExtraUtils();
         String command = "info";
 
-        if(eu.isCoolingdown(user, command)){
-            botAPI.getMessageManager().sendMessage(messageChannel, eu.getCooldownMessage(user, command));
+        if(eu.isCoolingdown(user, pm, command)){
+            botAPI.getMessageManager().sendMessage(messageChannel, eu.getCooldownMessage(user, pm, command));
             return;
         }else
-            eu.throwCooldown(user, command, 60);
+            eu.throwCooldown(user, pm, command, 60);
 
         EmbedMessageManager embedManager = new EmbedMessageManager();
 
