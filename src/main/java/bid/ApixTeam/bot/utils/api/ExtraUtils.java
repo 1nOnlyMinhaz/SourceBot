@@ -1,8 +1,12 @@
 package bid.ApixTeam.bot.utils.api;
 
+import bid.ApixTeam.bot.utils.BotAPI;
 import bid.ApixTeam.bot.utils.vars.Lists;
 import bid.ApixTeam.bot.utils.vars.Messages;
 import bid.ApixTeam.bot.utils.vars.entites.Cooldown;
+import bid.ApixTeam.bot.utils.vars.entites.enums.Settings;
+import bid.ApixTeam.bot.utils.vars.entites.enums.SimpleRank;
+import net.dv8tion.jda.core.entities.Member;
 import net.dv8tion.jda.core.entities.User;
 
 import java.util.ArrayList;
@@ -34,14 +38,21 @@ public class ExtraUtils {
         return true;
     }
 
-    public void throwCooldown(User user, int delay) {
-        if (!isCoolingdown(user))
+    public Member getAsMember(User user){
+        return user.getJDA().getGuildById(new BotAPI().getSettingsManager().getSetting(Settings.MAIN_GUILD_ID)).getMember(user);
+    }
+
+    public void throwCooldown(User user, PermissionManager pm, int delay) {
+        if (!isCoolingdown(user, pm))
             Lists.getGlobalCooldown().put(user.getIdLong(), new Cooldown(delay, System.currentTimeMillis()));
     }
 
-    public void throwCooldown(User user, String command, int delay) {
+    public void throwCooldown(User user, PermissionManager pm, String command, int delay) {
+        if(pm.userRoleAtLeast(getAsMember(user), SimpleRank.ADMIN))
+            return;
+
         ArrayList<Cooldown> cooldowns = new ArrayList<>();
-        if (isCoolingdown(user, command)) {
+        if (isCoolingdown(user, pm, command)) {
             ArrayList<Cooldown> cld = Lists.getCommandCooldown().get(user.getIdLong());
             for (Cooldown cd : cld) {
                 if (cd.getCommand() != null && cd.getCommand().equalsIgnoreCase(command)) {
@@ -62,30 +73,30 @@ public class ExtraUtils {
         Lists.getCommandCooldown().put(user.getIdLong(), cooldowns);
     }
 
-    public String getCooldownMessage(User user){
-        if(!isCoolingdown(user))
+    public String getCooldownMessage(User user, PermissionManager pm){
+        if(!isCoolingdown(user, pm))
             return Messages.NO_COOLDOWN;
 
-        return String.format(Messages.ON_COOLDOWN, getCooldownDelay(user), getCooldownDelay(user) != 1 ? "s" : "");
+        return String.format(Messages.ON_COOLDOWN, getCooldownDelay(user, pm), getCooldownDelay(user, pm) != 1 ? "s" : "");
     }
 
-    public String getCooldownMessage(User user, String command){
-        if(!isCoolingdown(user, command))
+    public String getCooldownMessage(User user, PermissionManager pm, String command){
+        if(!isCoolingdown(user, pm, command))
             return Messages.NO_COOLDOWN;
 
-        return String.format(Messages.ON_COM_COOLDOWN, getCooldownDelay(user, command), getCooldownDelay(user, command) != 1 ? "s" : "");
+        return String.format(Messages.ON_COM_COOLDOWN, getCooldownDelay(user, pm, command), getCooldownDelay(user, pm, command) != 1 ? "s" : "");
     }
 
-    public long getCooldownDelay(User user){
-        if(!isCoolingdown(user))
+    public long getCooldownDelay(User user, PermissionManager pm){
+        if(!isCoolingdown(user, pm))
             return 0;
 
         Cooldown cooldown = Lists.getGlobalCooldown().get(user.getIdLong());
         return ((cooldown.getSystime() / 1000) + cooldown.getDelay()) - (System.currentTimeMillis() / 1000);
     }
 
-    public long getCooldownDelay(User user, String command){
-        if(!isCoolingdown(user, command))
+    public long getCooldownDelay(User user, PermissionManager pm, String command){
+        if(!isCoolingdown(user, pm, command))
             return 0;
 
         Cooldown cooldown = null;
@@ -100,7 +111,7 @@ public class ExtraUtils {
         return ((cooldown.getSystime() / 1000) + cooldown.getDelay()) - (System.currentTimeMillis() / 1000);
     }
 
-    public boolean isCoolingdown(User user) {
+    public boolean isCoolingdown(User user, PermissionManager pm) {
         Cooldown cooldown = Lists.getGlobalCooldown().get(user.getIdLong());
         if (cooldown == null)
             return false;
@@ -113,7 +124,7 @@ public class ExtraUtils {
         }
     }
 
-    public boolean isCoolingdown(User user, String command) {
+    public boolean isCoolingdown(User user, PermissionManager pm, String command) {
         ArrayList<Cooldown> cooldowns = Lists.getCommandCooldown().get(user.getIdLong());
         if (cooldowns == null || cooldowns.isEmpty())
             return false;
