@@ -1,8 +1,8 @@
 package bid.ApixTeam.bot.utils.vars.entites;
 
 /**
- * Source was created by ApixTeam (C) 2018
- * in association with TheSourceCode (C) 2018
+ * SourceBot (2017) was created by ApixTeam (C) 2016-2018
+ * in association with TheSourceCode (C) 2016-2018
  */
 public class Cooldown {
     private int delay;

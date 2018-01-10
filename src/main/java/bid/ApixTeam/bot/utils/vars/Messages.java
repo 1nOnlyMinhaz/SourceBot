@@ -1,8 +1,8 @@
 package bid.ApixTeam.bot.utils.vars;
 
 /**
- * Source-Bot was created by ApixTeam (C) 2017
- * in association with TheSourceCode (C) 2017
+ * SourceBot (2017) was created by ApixTeam (C) 2016-2018
+ * in association with TheSourceCode (C) 2016-2018
  */
 public interface Messages {
     String NO_PERMISSION = ":cold_sweat: Sorry, but you don't have permissions to do that.";

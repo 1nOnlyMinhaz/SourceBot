@@ -8,8 +8,8 @@ import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
 
 /**
- * Source was created by ApixTeam (C) 2017
- * in association with TheSourceCode (C) 2017
+ * SourceBot (2017) was created by ApixTeam (C) 2016-2018
+ * in association with TheSourceCode (C) 2016-2018
  */
 public class MessageManager {
     private static MessageManager messageManager = new MessageManager();

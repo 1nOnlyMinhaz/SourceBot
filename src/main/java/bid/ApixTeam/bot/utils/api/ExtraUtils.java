@@ -12,8 +12,8 @@ import net.dv8tion.jda.core.entities.User;
 import java.util.ArrayList;
 
 /**
- * Source-Bot was created by ApixTeam (C) 2017
- * in association with TheSourceCode (C) 2017
+ * SourceBot (2017) was created by ApixTeam (C) 2016-2018
+ * in association with TheSourceCode (C) 2016-2018
  */
 public class ExtraUtils {
     private static ExtraUtils extraUtils = new ExtraUtils();

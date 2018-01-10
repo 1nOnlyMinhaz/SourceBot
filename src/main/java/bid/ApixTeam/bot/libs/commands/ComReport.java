@@ -14,6 +14,10 @@ import net.dv8tion.jda.core.entities.*;
 
 import java.util.concurrent.TimeUnit;
 
+/**
+ * SourceBot (2017) was created by ApixTeam (C) 2016-2018
+ * in association with TheSourceCode (C) 2016-2018
+ */
 public class ComReport implements CommandExecutor {
     @Command(aliases = "report")
     public void onCommand(Guild guild, MessageChannel messageChannel, Message command, User user, String args[]) {

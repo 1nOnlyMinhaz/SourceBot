@@ -16,6 +16,10 @@ import org.json.JSONObject;
 
 import java.awt.*;
 
+/**
+ * SourceBot (2017) was created by ApixTeam (C) 2016-2018
+ * in association with TheSourceCode (C) 2016-2018
+ */
 public class ComUrbanDictionary implements CommandExecutor {
     @Command(aliases = {"ud", "urban", "dictionary", "define", "definition"}, description = "Search for a word on urban dictionary", async = true)
     public void onCommand(JDA jda, Guild guild, User user, MessageChannel messageChannel, Message message) {

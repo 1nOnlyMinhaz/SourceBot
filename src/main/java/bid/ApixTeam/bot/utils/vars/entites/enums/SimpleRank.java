@@ -1,8 +1,8 @@
 package bid.ApixTeam.bot.utils.vars.entites.enums;
 
 /**
- * Source-Bot was created by ApixTeam (C) 2017
- * in association with TheSourceCode (C) 2017
+ * SourceBot (2017) was created by ApixTeam (C) 2016-2018
+ * in association with TheSourceCode (C) 2016-2018
  */
 public enum SimpleRank {
     MUTED("Muted", Settings.ROLES_MUTED),

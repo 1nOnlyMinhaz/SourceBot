@@ -7,8 +7,8 @@ import net.dv8tion.jda.core.events.user.UserAvatarUpdateEvent;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
 
 /**
- * Source-Bot was created by ApixTeam (C) 2017
- * in association with TheSourceCode (C) 2017
+ * SourceBot (2017) was created by ApixTeam (C) 2016-2018
+ * in association with TheSourceCode (C) 2016-2018
  */
 public class AvatarUpdate extends ListenerAdapter {
     public void onUserAvatarUpdate(UserAvatarUpdateEvent e){

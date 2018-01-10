@@ -3,8 +3,8 @@ package bid.ApixTeam.bot.utils.vars;
 import java.util.HashMap;
 
 /**
- * Source-Bot was created by ApixTeam (C) 2017
- * in association with TheSourceCode (C) 2017
+ * SourceBot (2017) was created by ApixTeam (C) 2016-2018
+ * in association with TheSourceCode (C) 2016-2018
  */
 public class Levels extends Lists {
     public Levels() {

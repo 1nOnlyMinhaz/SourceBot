@@ -2,6 +2,10 @@ package bid.ApixTeam.bot.utils.vars.entites;
 
 import bid.ApixTeam.bot.utils.vars.entites.interfaces.IBroadcast;
 
+/**
+ * SourceBot (2017) was created by ApixTeam (C) 2016-2018
+ * in association with TheSourceCode (C) 2016-2018
+ */
 public class Announcement implements IBroadcast {
     private int id;
     private long channelID;

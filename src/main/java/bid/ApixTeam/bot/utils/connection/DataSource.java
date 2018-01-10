@@ -12,8 +12,8 @@ import java.sql.SQLException;
 import java.util.Map;
 
 /**
- * Source-Bot was created by ApixTeam (C) 2017
- * in association with TheSourceCode (C) 2017
+ * SourceBot (2017) was created by ApixTeam (C) 2016-2018
+ * in association with TheSourceCode (C) 2016-2018
  */
 public class DataSource {
     private static HikariDataSource ds;

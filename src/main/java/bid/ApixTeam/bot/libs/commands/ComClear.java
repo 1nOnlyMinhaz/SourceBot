@@ -12,10 +12,9 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 /**
- * Source was created by ApixTeam (C) 2017
- * in association with TheSourceCode (C) 2017
+ * SourceBot (2017) was created by ApixTeam (C) 2016-2018
+ * in association with TheSourceCode (C) 2016-2018
  */
-
 public class ComClear implements CommandExecutor {
     @Command(aliases = {"clear", "clean", "cls", "purge"}, async = true)
     public void onCommand(Guild guild, User user, MessageChannel messageChannel, Message message, Object[] objects) {

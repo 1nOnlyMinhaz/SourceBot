@@ -8,8 +8,8 @@ import net.dv8tion.jda.core.entities.User;
 import java.io.File;
 
 /**
- * Source-Bot was created by ApixTeam (C) 2017
- * in association with TheSourceCode (C) 2017
+ * SourceBot (2017) was created by ApixTeam (C) 2016-2018
+ * in association with TheSourceCode (C) 2016-2018
  */
 public class PrivateMessageManager {
     private static PrivateMessageManager privateMessageManager = new PrivateMessageManager();

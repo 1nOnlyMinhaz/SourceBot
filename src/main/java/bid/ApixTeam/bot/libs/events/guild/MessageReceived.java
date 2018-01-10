@@ -16,8 +16,8 @@ import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 /**
- * Source-Bot was created by ApixTeam (C) 2017
- * in association with TheSourceCode (C) 2017
+ * SourceBot (2017) was created by ApixTeam (C) 2016-2018
+ * in association with TheSourceCode (C) 2016-2018
  */
 public class MessageReceived extends ListenerAdapter {
     public void onGuildMessageReceived(GuildMessageReceivedEvent e) {

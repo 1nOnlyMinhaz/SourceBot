@@ -16,8 +16,8 @@ import javax.security.auth.login.LoginException;
 import java.util.Timer;
 
 /**
- * Source was created by ApixTeam (C) 2017
- * in association with TheSourceCode (C) 2017
+ * SourceBot (2017) was created by ApixTeam (C) 2016-2018
+ * in association with TheSourceCode (C) 2016-2018
  */
 public class Source extends SettingsManager {
     public static void main(String[] args) throws LoginException, InterruptedException, RateLimitedException {
