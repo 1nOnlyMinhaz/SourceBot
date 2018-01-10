@@ -30,9 +30,18 @@ public class Lists {
     private static ConcurrentHashMap<Integer, Announcement> Announcements = new ConcurrentHashMap<>();
     private static ConcurrentHashMap<Integer, Incident> IncidentLog = new ConcurrentHashMap<>();
     private static int lastIncident;
-    private static boolean testingEnvironment = false;
+    private static boolean testingEnvironment;
     private static ConcurrentHashMap<Long, Cooldown> globalCooldown = new ConcurrentHashMap<>();
     private static ConcurrentHashMap<Long, ArrayList<Cooldown>> commandCooldown = new ConcurrentHashMap<>();
+    private static long initial;
+
+    public static long getInitial() {
+        return initial;
+    }
+
+    public static void setInitial(long initial) {
+        Lists.initial = initial;
+    }
 
     public static boolean isTestingEnvironment() {
         return testingEnvironment;

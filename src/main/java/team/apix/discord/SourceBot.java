@@ -11,6 +11,7 @@ import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.JDABuilder;
 import net.dv8tion.jda.core.OnlineStatus;
 import net.dv8tion.jda.core.exceptions.RateLimitedException;
+import team.apix.discord.utils.vars.Lists;
 
 import javax.security.auth.login.LoginException;
 import java.util.Timer;
@@ -25,6 +26,8 @@ public class SourceBot extends SettingsManager {
                 .setToken(args.length == 1 ? args[0] : "MzU2MTI1ODc2Njc4NTU3NzI3.DJdAcg._67wYa-oyF7LGUtsW_hwI32Yenk")
                 .setStatus(OnlineStatus.DO_NOT_DISTURB)
                 .buildBlocking();
+
+        Lists.setInitial(System.currentTimeMillis());
 
         setup(jda);
         new IncidentManager().setup();

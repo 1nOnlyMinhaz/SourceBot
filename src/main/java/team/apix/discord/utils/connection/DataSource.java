@@ -53,6 +53,7 @@ public class DataSource {
                 config.setUsername(username);
                 config.setPassword(password);
             }
+            Lists.setTestingEnvironment(false);
         } catch (Exception e) {
             System.out.println("[ERROR] An error occurred while trying to retrieve database credentials, forcing dev-local database!");
             config.setJdbcUrl("jdbc:mysql://uae.sytes.net:3306/tsc_discord");

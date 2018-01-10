@@ -66,7 +66,7 @@ public class ComHelp implements CommandExecutor {
                 else if (strings[0].equalsIgnoreCase("help"))
                     v = send(botAPI, user, embedManager.getUsage(user, "help", ":rolling_eyes:", "help [Command]", null));
                 else if (strings[0].equalsIgnoreCase("info"))
-                    v = send(botAPI, user, embedManager.getUsage(user, "info", "Information about various amount of things, such as how ranking works.", "info [ranks/mods/admins]", null));
+                    v = send(botAPI, user, embedManager.getUsage(user, "info", "Information about the bot, or information on earning exp.", "info [exp]", null));
                 else if (strings[0].equalsIgnoreCase("levels"))
                     v = send(botAPI, user, embedManager.getUsage(user, "levels", "Displays the top `5` players on the server", null, "!ranks"));
                 else if(strings[0].equalsIgnoreCase("mute") && mod)

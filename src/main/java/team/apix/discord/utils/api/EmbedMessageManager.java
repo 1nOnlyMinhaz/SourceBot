@@ -156,10 +156,11 @@ public class EmbedMessageManager {
         return null;
     }
 
-    public MessageEmbed getInfoEmbed(MessageChannel channel) {
+    public MessageEmbed getInfoEmbed(MessageChannel channel, long uptime) {
         return new EmbedBuilder()
                 .setAuthor("Bot Information", null, channel.getJDA().getSelfUser().getAvatarUrl())
-                .addField("", Messages.BOT_INFO, false)
+                .setDescription(Messages.BOT_INFO)
+                .setFooter(String.format("Uptime: %ds", uptime / 1000), null)
                 .setColor(new Color(103, 161, 237))
                 .build();
     }

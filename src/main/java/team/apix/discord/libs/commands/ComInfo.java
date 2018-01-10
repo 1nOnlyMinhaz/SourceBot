@@ -10,6 +10,9 @@ import net.dv8tion.jda.core.entities.MessageChannel;
 import net.dv8tion.jda.core.entities.MessageEmbed;
 import net.dv8tion.jda.core.entities.User;
 
+import java.lang.management.ManagementFactory;
+import java.lang.management.RuntimeMXBean;
+
 /**
  * SourceBot (2017) was created by ApixTeam (C) 2016-2018
  * in association with TheSourceCode (C) 2016-2018
@@ -29,16 +32,16 @@ public class ComInfo implements CommandExecutor {
             eu.throwCooldown(user, pm, command, 60);
 
         EmbedMessageManager embedManager = new EmbedMessageManager();
+        RuntimeMXBean rb = ManagementFactory.getRuntimeMXBean();
 
         if(objects.length != 0) {
             botAPI.getMessageManager().sendMessage(messageChannel, getUsage());
             return;
         }
 
-        botAPI.getPrivateMessageManager().sendMessage(user, embedManager.getInfoEmbed(messageChannel));
-        if(messageChannel.getType().isGuild()) {
+        botAPI.getPrivateMessageManager().sendMessage(user, embedManager.getInfoEmbed(messageChannel, rb.getUptime()));
+        if(messageChannel.getType().isGuild())
             botAPI.getMessageManager().sendMessage(messageChannel, botAPI.getEmbedMessageManager().getAsDescription(":white_check_mark: *sent you some information*.. please check your PMs."));
-        }
     }
 
     private MessageEmbed getUsage() {
