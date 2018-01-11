@@ -27,12 +27,6 @@ public class ComHelp implements CommandExecutor {
         ExtraUtils eu = botAPI.getExtraUtils();
         String command = "help";
 
-        if(eu.isCoolingdown(user, command)){
-            botAPI.getMessageManager().sendMessage(messageChannel, eu.getCooldownMessage(user, command));
-            return;
-        }else
-            eu.throwCooldown(user, pm, command, 60);
-
         EmbedMessageManager embedManager = botAPI.getEmbedMessageManager();
         boolean mod = false, admin = false, botAdmin = false;
         boolean b = messageChannel.getType().isGuild();
@@ -49,6 +43,9 @@ public class ComHelp implements CommandExecutor {
 
         try {
             if (strings.length == 0) {
+                if(eu.cooldown(botAPI, messageChannel, user, command, 60))
+                    return;
+
                 send(botAPI, user, embedManager.getDefaultHelp(user));
                 if (b)
                     botAPI.getMessageManager().sendMessage(messageChannel, botAPI.getEmbedMessageManager().getAsDescription(":white_check_mark: *sent you some help*.. please check your PMs."));
@@ -58,6 +55,9 @@ public class ComHelp implements CommandExecutor {
                     send(botAPI, user, embedManager.getAdministrationhelp(user));
 
             } else if (strings.length == 1) {
+                if(eu.cooldown(botAPI, messageChannel, user, String.format("%s|usage", command), 60))
+                    return;
+
                 boolean v = false;
                 if(strings[0].equalsIgnoreCase("broadcast") && admin)
                     v = send(botAPI, user, embedManager.getUsage(user, "broadcast", "Announces/broadcasts a message to a certain channel, can be executed once or placed in a loop.", "broadcast (Now|Later|~~Repeat~~) [L|~~R~~ Time] [L|~~R~~ Unit] (#Channel) (Message)", "!announce\n!bc"));

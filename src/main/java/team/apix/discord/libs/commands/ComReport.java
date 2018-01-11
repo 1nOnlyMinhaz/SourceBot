@@ -1,16 +1,15 @@
 package team.apix.discord.libs.commands;
 
+import de.btobastian.sdcf4j.Command;
+import de.btobastian.sdcf4j.CommandExecutor;
+import net.dv8tion.jda.core.entities.*;
 import team.apix.discord.utils.BotAPI;
 import team.apix.discord.utils.api.ExtraUtils;
 import team.apix.discord.utils.api.IncidentManager;
-import team.apix.discord.utils.api.PermissionManager;
 import team.apix.discord.utils.api.SettingsManager;
 import team.apix.discord.utils.vars.entites.Incident;
 import team.apix.discord.utils.vars.entites.enums.IncidentType;
 import team.apix.discord.utils.vars.entites.enums.Settings;
-import de.btobastian.sdcf4j.Command;
-import de.btobastian.sdcf4j.CommandExecutor;
-import net.dv8tion.jda.core.entities.*;
 
 import java.util.concurrent.TimeUnit;
 
@@ -22,15 +21,8 @@ public class ComReport implements CommandExecutor {
     @Command(aliases = "report")
     public void onCommand(Guild guild, MessageChannel messageChannel, Message command, User user, String args[]) {
         BotAPI botAPI = new BotAPI();
-        PermissionManager pm = botAPI.getPermissionManager();
         ExtraUtils eu = botAPI.getExtraUtils();
         String cmd = "report";
-
-        if(eu.isCoolingdown(user, cmd)){
-            botAPI.getMessageManager().sendMessage(messageChannel, eu.getCooldownMessage(user, cmd));
-            return;
-        }else
-            eu.throwCooldown(user, pm, cmd, 120);
 
         SettingsManager sm = botAPI.getSettingsManager();
         IncidentManager incidentManager = botAPI.getIncidentManager();
@@ -49,6 +41,9 @@ public class ComReport implements CommandExecutor {
                 botAPI.getMessageManager().sendMessage(messageChannel, botAPI.getEmbedMessageManager().getAsDescription("Nice try fam..."));
                 return;
             }
+
+            if(eu.cooldown(botAPI, messageChannel, user, cmd, 300))
+                return;
 
             StringBuilder str = new StringBuilder();
             for(int i = 1; i < args.length; i++) {
@@ -73,6 +68,9 @@ public class ComReport implements CommandExecutor {
                 botAPI.getPrivateMessageManager().sendMessage(user, botAPI.getEmbedMessageManager().getAsDescription("Nice try fam..."));
                 return;
             }
+
+            if(eu.cooldown(botAPI, messageChannel, user, cmd, 300))
+                return;
 
             Guild guildById = command.getJDA().getGuildById(sm.getSetting(Settings.MAIN_GUILD_ID));
             int counter = 0;

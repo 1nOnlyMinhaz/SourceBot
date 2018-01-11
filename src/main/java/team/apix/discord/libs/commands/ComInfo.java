@@ -27,11 +27,8 @@ public class ComInfo implements CommandExecutor {
         EmbedMessageManager embedManager = new EmbedMessageManager();
 
         if(eu.siqc(strings, 1, 0, "exp") || eu.siqc(strings, 1, 0, "experience")){
-            if(eu.isCoolingdown(user, command)){
-                botAPI.getMessageManager().sendMessage(messageChannel, eu.getCooldownMessage(user, command));
+            if(eu.cooldown(botAPI, messageChannel, user, String.format("%s|exp", command), 120))
                 return;
-            }else
-                eu.throwCooldown(user, pm, command, 60);
 
             botAPI.getMessageManager().sendMessage(messageChannel, embedManager.getAsInfo(messageChannel, "earning experience", Messages.BOT_INFO_EXP));
             return;
@@ -40,11 +37,8 @@ public class ComInfo implements CommandExecutor {
             return;
         }
 
-        if(eu.isCoolingdown(user, command)){
-            botAPI.getMessageManager().sendMessage(messageChannel, eu.getCooldownMessage(user, command));
+        if(eu.cooldown(botAPI, messageChannel, user, command, 120))
             return;
-        }else
-            eu.throwCooldown(user, pm, command, 60);
 
         botAPI.getPrivateMessageManager().sendMessage(user, embedManager.getInfo(messageChannel, botAPI.getExtraUtils().getElapsedTime(Lists.getInitial(), System.currentTimeMillis())));
         if(messageChannel.getType().isGuild())

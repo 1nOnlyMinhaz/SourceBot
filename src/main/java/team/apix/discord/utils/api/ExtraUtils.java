@@ -1,6 +1,7 @@
 package team.apix.discord.utils.api;
 
 import net.dv8tion.jda.core.entities.Member;
+import net.dv8tion.jda.core.entities.MessageChannel;
 import net.dv8tion.jda.core.entities.User;
 import team.apix.discord.utils.BotAPI;
 import team.apix.discord.utils.vars.Lists;
@@ -277,5 +278,15 @@ public class ExtraUtils {
 
     public boolean siqc(String[] strings, int length, int index, String string){
         return strings.length == length && strings[index].equalsIgnoreCase(string);
+    }
+
+    public boolean cooldown(BotAPI botAPI, MessageChannel messageChannel, User user, String command, int delay){
+        if(isCoolingdown(user, command)){
+            botAPI.getMessageManager().sendMessage(messageChannel, getCooldownMessage(user, command));
+            return true;
+        }else
+            throwCooldown(user, botAPI.getPermissionManager(), command, delay);
+
+        return false;
     }
 }

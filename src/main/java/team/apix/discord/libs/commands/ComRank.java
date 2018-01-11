@@ -24,12 +24,6 @@ public class ComRank implements CommandExecutor {
         ExtraUtils eu = botAPI.getExtraUtils();
         String command = "rank";
 
-        if(eu.isCoolingdown(user, command)){
-            botAPI.getMessageManager().sendMessage(messageChannel, eu.getCooldownMessage(user, command));
-            return;
-        }else
-            eu.throwCooldown(user, pm, command, 1800);
-
         EmbedMessageManager embedManager = botAPI.getEmbedMessageManager();
         SettingsManager sm = botAPI.getSettingsManager();
 
@@ -38,16 +32,25 @@ public class ComRank implements CommandExecutor {
             return;
 
         if (messageChannel.getType().isGuild()) {
-            if (objects.length == 0)
+            if (objects.length == 0) {
+                if(eu.cooldown(botAPI, messageChannel, user, command, 1800))
+                    return;
+
                 botAPI.getMessageManager().sendMessage(messageChannel, embedManager.getRankEmbed(botAPI, user));
-            else if (message.getMentionedUsers().size() == 1)
+            }else if (message.getMentionedUsers().size() == 1) {
+                if(eu.cooldown(botAPI, messageChannel, user, String.format("%s|mention", command), 900))
+                    return;
+
                 botAPI.getMessageManager().sendMessage(messageChannel, embedManager.getRankEmbed(botAPI, message.getMentionedUsers().get(0)));
-            else
+            }else
                 botAPI.getMessageManager().sendMessage(messageChannel, embedManager.getUsage("!rank [@mention]"));
         } else {
-            if (objects.length == 0)
+            if (objects.length == 0) {
+                if(eu.cooldown(botAPI, messageChannel, user, command, 1800))
+                    return;
+
                 botAPI.getPrivateMessageManager().sendMessage(user, embedManager.getRankEmbed(botAPI, user));
-            else
+            }else
                 botAPI.getPrivateMessageManager().sendMessage(user, embedManager.getAsDescription("yeah.... i think you'd actually need to do that on the SourceBot discord server..."));
         }
     }

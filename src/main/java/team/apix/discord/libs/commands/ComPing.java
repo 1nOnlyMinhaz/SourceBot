@@ -21,11 +21,8 @@ public class ComPing implements CommandExecutor {
         ExtraUtils eu = botAPI.getExtraUtils();
         String command = "ping";
 
-        if(eu.isCoolingdown(user, command)){
-            botAPI.getMessageManager().sendMessage(messageChannel, eu.getCooldownMessage(user, command));
+        if(eu.cooldown(botAPI, messageChannel, user, command, 30))
             return;
-        }else
-            eu.throwCooldown(user, pm, command, 30);
 
         botAPI.getMessageManager().sendMessage(messageChannel, botAPI.getEmbedMessageManager().getAsDescription("Pong!"));
     }

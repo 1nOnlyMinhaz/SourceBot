@@ -24,17 +24,14 @@ public class ComLevels implements CommandExecutor {
         ExtraUtils eu = botAPI.getExtraUtils();
         String command = "leaderboard";
 
-        if(eu.isCoolingdown(user, command)){
-            botAPI.getMessageManager().sendMessage(messageChannel, eu.getCooldownMessage(user, command));
-            return;
-        }else
-            eu.throwCooldown(user, pm, command, 600);
-
         EmbedMessageManager embedManager = botAPI.getEmbedMessageManager();
         SettingsManager sm = botAPI.getSettingsManager();
 
         if ((sm.getSetting(Settings.CHAN_RANK_CHECK) != null && !sm.getSetting(Settings.CHAN_RANK_CHECK).equals(messageChannel.getId()) && messageChannel.getType().isGuild())
                 && (sm.getSetting(Settings.CHAN_RANK_CHECK) != null && !sm.getSetting(Settings.CHAN_ADMIN).equals(messageChannel.getId()) && messageChannel.getType().isGuild()))
+            return;
+
+        if(eu.cooldown(botAPI, messageChannel, user, command, 600))
             return;
 
         if (messageChannel.getType().isGuild()) {

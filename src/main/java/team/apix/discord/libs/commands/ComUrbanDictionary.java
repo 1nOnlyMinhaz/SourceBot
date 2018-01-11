@@ -28,11 +28,8 @@ public class ComUrbanDictionary implements CommandExecutor {
         ExtraUtils eu = botAPI.getExtraUtils();
         String command = "urban";
 
-        if(eu.isCoolingdown(user, command)){
-            botAPI.getMessageManager().sendMessage(messageChannel, eu.getCooldownMessage(user, command));
+        if(eu.cooldown(botAPI, messageChannel, user, command, 15))
             return;
-        }else
-            eu.throwCooldown(user, pm, command, 15);
 
         String[] args = message.getContentDisplay().split("\\s+");
         if(!(args.length > 1))
