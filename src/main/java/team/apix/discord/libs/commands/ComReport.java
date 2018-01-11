@@ -27,7 +27,7 @@ public class ComReport implements CommandExecutor {
         String cmd = "report";
 
         if(eu.isCoolingdown(user, cmd)){
-            botAPI.getMessageManager().sendMessage(messageChannel, eu.getCooldownMessage(user, pm, cmd));
+            botAPI.getMessageManager().sendMessage(messageChannel, eu.getCooldownMessage(user, cmd));
             return;
         }else
             eu.throwCooldown(user, pm, cmd, 120);

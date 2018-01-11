@@ -29,7 +29,7 @@ public class ComUrbanDictionary implements CommandExecutor {
         String command = "urban";
 
         if(eu.isCoolingdown(user, command)){
-            botAPI.getMessageManager().sendMessage(messageChannel, eu.getCooldownMessage(user, pm, command));
+            botAPI.getMessageManager().sendMessage(messageChannel, eu.getCooldownMessage(user, command));
             return;
         }else
             eu.throwCooldown(user, pm, command, 15);

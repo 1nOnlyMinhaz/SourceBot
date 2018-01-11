@@ -9,8 +9,8 @@ public interface Messages {
     String NO_COM_PERMISSION = ":cold_sweat: Sorry, but you don't have permissions to use that command.";
 
     String NO_COOLDOWN = ":speaking_head: You're no longer on cooldown.";
-    String ON_COOLDOWN = ":speaking_head: Sorry, but you cannot use that for the next %d second%s.";
-    String ON_COM_COOLDOWN = ":speaking_head: Sorry, but you cannot use that command for the next %d second%s.";
+    String ON_COOLDOWN = ":speaking_head: Sorry, but you cannot use that for the next %s.";
+    String ON_COM_COOLDOWN = ":speaking_head: Sorry, but you cannot use that command for the next %s.";
 
     String INCORRECT_USAGE = "**Incorrect usage!** Correct format: `%s` :wink:";
 
@@ -23,7 +23,7 @@ public interface Messages {
     String[] PROFANITY = {"**Watch your mouth** %s :rage:", "**Chill out** %s :rage:", "**LANGUAGE** %s :rage:", "**That's really bad** %s :rage:", "**I'M ALWAYS WATCHING YOU** %s :eyes::rage:", "**YOUR MOM SHOULD'VE TOLD YOU THAT THIS WORD IS BAD** %s :rage:", "**THAT'S CROSSING THE RED LINE** %s :rage:"};
 
     String BOT_INFO = "In the past, our server has used many pre-built Discord Bots made by other people, such as Dyno, and Mee6.\nWe moved on from Dyno pretty quickly, but up until this bot was released, we have always used Mee6 (yes, the one and only Mee6), of course it's a good bot with some perks, but we could do better. \n\nSo we did! We, the ApixTeam, consistent of yours truly, **Alw7SHxD** and **Andrewboy159**, have created a discord bot that has been in the making for months, we're proud of what we have created, and hope all of you users are also proud of what has been made specifically for this server that we all love.";
-    String BOT_INFO_EXP = "";
+    String BOT_INFO_EXP = "It's never been easier!\nYou earn experience (from 15 to 25) every message within a minute from the last message.\nHere's an example if you're still confused, you just sent a message at 1:12 o'clock that'll earn you experience, if you send any message within that time *(1:12 o'clock)* then you wont get any experience, until it's 1:13 o'clock or even 1:14 o'clock aka sending a message after the initial time which is 1:12 o'clock, it's as simple as that!";
 
     String[] GAME_PLAYIN = {"some minigames on SourceCade", "emily is away", "on SourceCade"};
     String[] GAME_WATCHIN = {"videos while vapin with Ned", "Ned's vaping animation", "Andrew suck at coding", "Alw's anime", "TheSourceCode", "Daeshan pretend to code"};

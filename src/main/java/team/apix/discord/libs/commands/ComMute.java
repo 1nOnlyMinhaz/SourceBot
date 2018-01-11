@@ -70,7 +70,7 @@ public class ComMute implements CommandExecutor {
         incident.setMessageID(incidentMessage.getIdLong());
         incidentManager.updateIncident(incident);
 
-        s = separateUsers(arrayList);
+        s = botAPI.getExtraUtils().separate(arrayList);
 
         if(s.isEmpty()) {
             botAPI.getMessageManager().sendMessage(messageChannel, embedManager.getAsDescription(message.getMentionedUsers().size() == 1 ? "You cannot mute that person." : "You cannot mute those people."));
@@ -78,21 +78,6 @@ public class ComMute implements CommandExecutor {
         }
 
         botAPI.getMessageManager().sendMessage(messageChannel, embedManager.getAsDescription(String.format("%s %s been muted!", s, message.getMentionedUsers().size() > 1 ? "have" : "has")));
-    }
-
-    static String separateUsers(ArrayList<String> arrayList) {
-        String s;
-        if(arrayList.size() == 2)
-            s = String.join(" and ", arrayList);
-        else if(arrayList.size() > 2) {
-            s = String.join(", ", arrayList);
-            String st = s.substring(0, s.lastIndexOf(","));
-            if(!st.contains(arrayList.get(arrayList.size() - 1))) {
-                st += " and " + arrayList.get(arrayList.size() - 1);
-                s = st;
-            }
-        } else s = String.join(", ", arrayList);
-        return s;
     }
 
     static boolean canMute(Guild guild, User user, MessageChannel messageChannel, BotAPI botAPI, EmbedMessageManager embedManager, PermissionManager pm, User target) {

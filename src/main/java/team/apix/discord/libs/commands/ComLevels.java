@@ -25,7 +25,7 @@ public class ComLevels implements CommandExecutor {
         String command = "leaderboard";
 
         if(eu.isCoolingdown(user, command)){
-            botAPI.getMessageManager().sendMessage(messageChannel, eu.getCooldownMessage(user, pm, command));
+            botAPI.getMessageManager().sendMessage(messageChannel, eu.getCooldownMessage(user, command));
             return;
         }else
             eu.throwCooldown(user, pm, command, 600);

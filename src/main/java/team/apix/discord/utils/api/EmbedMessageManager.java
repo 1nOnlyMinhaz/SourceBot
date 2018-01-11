@@ -156,7 +156,7 @@ public class EmbedMessageManager {
         return null;
     }
 
-    public MessageEmbed getInfoEmbed(MessageChannel channel, String uptime) {
+    public MessageEmbed getInfo(MessageChannel channel, String uptime) {
         return new EmbedBuilder()
                 .setAuthor("Information", null, channel.getJDA().getSelfUser().getAvatarUrl())
                 .setDescription(Messages.BOT_INFO)
@@ -165,7 +165,15 @@ public class EmbedMessageManager {
                 .build();
     }
 
-    public MessageEmbed getDefaultHelpEmbed(User user) {
+    public MessageEmbed getAsInfo(MessageChannel messageChannel, String identifier, String description) {
+        return new EmbedBuilder()
+                .setAuthor(String.format("Information on %s", identifier), null, messageChannel.getJDA().getSelfUser().getAvatarUrl())
+                .setDescription(description)
+                .setColor(new Color(103, 161, 237))
+                .build();
+    }
+
+    public MessageEmbed getDefaultHelp(User user) {
         EmbedBuilder defaultCommands = new EmbedBuilder();
 
         defaultCommands.setAuthor("Default Commands", null, user.getJDA().getSelfUser().getAvatarUrl())
@@ -178,7 +186,7 @@ public class EmbedMessageManager {
         return defaultCommands.build();
     }
 
-    public MessageEmbed getModerationHelpEmbed(User user) {
+    public MessageEmbed getModerationHelp(User user) {
         EmbedBuilder sr_modCommands = new EmbedBuilder();
 
         sr_modCommands.setAuthor("Moderation Commands", null, user.getJDA().getSelfUser().getAvatarUrl())
@@ -190,7 +198,7 @@ public class EmbedMessageManager {
         return sr_modCommands.build();
     }
 
-    public MessageEmbed getAdministrationHelpEmbed(User user) {
+    public MessageEmbed getAdministrationhelp(User user) {
         EmbedBuilder jr_adminCommands = new EmbedBuilder();
         jr_adminCommands.setAuthor("Administration Commands", null, user.getJDA().getSelfUser().getAvatarUrl())
                 .addField("!broadcast", "duuhhh", false)

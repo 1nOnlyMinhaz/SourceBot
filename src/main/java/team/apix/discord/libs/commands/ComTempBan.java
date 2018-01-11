@@ -92,7 +92,7 @@ public class ComTempBan implements CommandExecutor {
             incident.setMessageID(incidentMessage.getIdLong());
             incidentManager.updateIncident(incident);
 
-            s = ComMute.separateUsers(arrayList);
+            s = botAPI.getExtraUtils().separate(arrayList);
 
             if (s.isEmpty()) {
                 botAPI.getMessageManager().sendMessage(messageChannel, "You cannot ban that person.");

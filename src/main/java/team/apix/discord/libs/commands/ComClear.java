@@ -16,7 +16,7 @@ import java.util.concurrent.TimeUnit;
  * in association with TheSourceCode (C) 2016-2018
  */
 public class ComClear implements CommandExecutor {
-    @Command(aliases = {"clear", "clean", "cls", "purge"}, async = true)
+    @Command(aliases = {"clear", "clean", "cls", "purge"}, async = true, privateMessages = false)
     public void onCommand(Guild guild, User user, MessageChannel messageChannel, Message message, Object[] objects) {
         BotAPI botAPI = new BotAPI();
         EmbedMessageManager embed = botAPI.getEmbedMessageManager();

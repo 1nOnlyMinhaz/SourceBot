@@ -22,7 +22,7 @@ public class ComPing implements CommandExecutor {
         String command = "ping";
 
         if(eu.isCoolingdown(user, command)){
-            botAPI.getMessageManager().sendMessage(messageChannel, eu.getCooldownMessage(user, pm, command));
+            botAPI.getMessageManager().sendMessage(messageChannel, eu.getCooldownMessage(user, command));
             return;
         }else
             eu.throwCooldown(user, pm, command, 30);

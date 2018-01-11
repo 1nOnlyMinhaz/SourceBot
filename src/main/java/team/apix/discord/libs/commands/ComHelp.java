@@ -28,7 +28,7 @@ public class ComHelp implements CommandExecutor {
         String command = "help";
 
         if(eu.isCoolingdown(user, command)){
-            botAPI.getMessageManager().sendMessage(messageChannel, eu.getCooldownMessage(user, pm, command));
+            botAPI.getMessageManager().sendMessage(messageChannel, eu.getCooldownMessage(user, command));
             return;
         }else
             eu.throwCooldown(user, pm, command, 60);
@@ -49,13 +49,13 @@ public class ComHelp implements CommandExecutor {
 
         try {
             if (strings.length == 0) {
-                send(botAPI, user, embedManager.getDefaultHelpEmbed(user));
+                send(botAPI, user, embedManager.getDefaultHelp(user));
                 if (b)
                     botAPI.getMessageManager().sendMessage(messageChannel, botAPI.getEmbedMessageManager().getAsDescription(":white_check_mark: *sent you some help*.. please check your PMs."));
                 if(mod)
-                    send(botAPI, user, embedManager.getModerationHelpEmbed(user));
+                    send(botAPI, user, embedManager.getModerationHelp(user));
                 if(admin)
-                    send(botAPI, user, embedManager.getAdministrationHelpEmbed(user));
+                    send(botAPI, user, embedManager.getAdministrationhelp(user));
 
             } else if (strings.length == 1) {
                 boolean v = false;

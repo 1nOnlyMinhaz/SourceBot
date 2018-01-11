@@ -87,7 +87,7 @@ public class ComTempMute implements CommandExecutor {
             incidentManager.updateIncident(incident);
 
 
-            s = ComMute.separateUsers(arrayList);
+            s = botAPI.getExtraUtils().separate(arrayList);
 
             if (s.isEmpty()) {
                 botAPI.getMessageManager().sendMessage(messageChannel, embedManager.getAsDescription("You cannot mute that person."));

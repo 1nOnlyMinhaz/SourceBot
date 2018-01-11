@@ -25,7 +25,7 @@ public class ComRank implements CommandExecutor {
         String command = "rank";
 
         if(eu.isCoolingdown(user, command)){
-            botAPI.getMessageManager().sendMessage(messageChannel, eu.getCooldownMessage(user, pm, command));
+            botAPI.getMessageManager().sendMessage(messageChannel, eu.getCooldownMessage(user, command));
             return;
         }else
             eu.throwCooldown(user, pm, command, 1800);
