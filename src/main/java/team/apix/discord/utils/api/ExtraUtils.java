@@ -289,4 +289,9 @@ public class ExtraUtils {
 
         return false;
     }
+
+    public boolean isntInChannel(MessageChannel messageChannel, SettingsManager sm, Settings settings){
+        return ((sm.getSetting(settings) != null && !sm.getSetting(settings).equals(messageChannel.getId()) && messageChannel.getType().isGuild())
+                && (sm.getSetting(Settings.CHAN_ADMIN) != null && !sm.getSetting(Settings.CHAN_ADMIN).equals(messageChannel.getId()) && messageChannel.getType().isGuild()));
+    }
 }

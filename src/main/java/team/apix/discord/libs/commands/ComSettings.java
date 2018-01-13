@@ -130,6 +130,8 @@ public class ComSettings implements CommandExecutor {
                             setChannelType(botAPI, sm, em, messageChannel, message, Settings.CHAN_ADMIN);
                         else if (strings[4].equalsIgnoreCase("incidents"))
                             setChannelType(botAPI, sm, em, messageChannel, message, Settings.CHAN_INCIDENTS);
+                        else if (strings[4].equalsIgnoreCase("commands"))
+                            setChannelType(botAPI, sm, em, messageChannel, message, Settings.CHAN_COMMANDS);
                     }
                 } else if (strings[1].equalsIgnoreCase("check")) {
                     if (strings[2].equalsIgnoreCase("user") && message.getMentionedUsers().size() == 1)

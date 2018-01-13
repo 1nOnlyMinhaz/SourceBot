@@ -20,15 +20,13 @@ public class ComLevels implements CommandExecutor {
     @Command(aliases = {"ranks", "levels", "leaderboard"}, async = true)
     public void onCommand(User user, MessageChannel messageChannel, Message message, Object[] objects) {
         BotAPI botAPI = new BotAPI();
-        PermissionManager pm = botAPI.getPermissionManager();
         ExtraUtils eu = botAPI.getExtraUtils();
         String command = "leaderboard";
 
         EmbedMessageManager embedManager = botAPI.getEmbedMessageManager();
         SettingsManager sm = botAPI.getSettingsManager();
 
-        if ((sm.getSetting(Settings.CHAN_RANK_CHECK) != null && !sm.getSetting(Settings.CHAN_RANK_CHECK).equals(messageChannel.getId()) && messageChannel.getType().isGuild())
-                && (sm.getSetting(Settings.CHAN_RANK_CHECK) != null && !sm.getSetting(Settings.CHAN_ADMIN).equals(messageChannel.getId()) && messageChannel.getType().isGuild()))
+        if(eu.isntInChannel(messageChannel, sm, Settings.CHAN_RANK_CHECK))
             return;
 
         if(eu.cooldown(botAPI, messageChannel, user, command, 600))

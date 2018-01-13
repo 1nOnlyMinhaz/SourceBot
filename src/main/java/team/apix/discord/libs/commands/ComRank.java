@@ -20,15 +20,13 @@ public class ComRank implements CommandExecutor {
     @Command(aliases = {"rank", "level"}, async = true)
     public void onCommand(User user, MessageChannel messageChannel, Message message, Object[] objects) {
         BotAPI botAPI = new BotAPI();
-        PermissionManager pm = botAPI.getPermissionManager();
         ExtraUtils eu = botAPI.getExtraUtils();
         String command = "rank";
 
         EmbedMessageManager embedManager = botAPI.getEmbedMessageManager();
         SettingsManager sm = botAPI.getSettingsManager();
 
-        if ((sm.getSetting(Settings.CHAN_RANK_CHECK) != null && !sm.getSetting(Settings.CHAN_RANK_CHECK).equals(messageChannel.getId()) && messageChannel.getType().isGuild())
-        && (sm.getSetting(Settings.CHAN_RANK_CHECK) != null && !sm.getSetting(Settings.CHAN_ADMIN).equals(messageChannel.getId()) && messageChannel.getType().isGuild()))
+        if(eu.isntInChannel(messageChannel, sm, Settings.CHAN_RANK_CHECK))
             return;
 
         if (messageChannel.getType().isGuild()) {
@@ -51,7 +49,8 @@ public class ComRank implements CommandExecutor {
 
                 botAPI.getPrivateMessageManager().sendMessage(user, embedManager.getRankEmbed(botAPI, user));
             }else
-                botAPI.getPrivateMessageManager().sendMessage(user, embedManager.getAsDescription("yeah.... i think you'd actually need to do that on the SourceBot discord server..."));
+                botAPI.getPrivateMessageManager().sendMessage(user, embedManager.getAsDescription(String.format("yeah.... i think you'd actually need to do that on the **%s** server.",
+                        user.getJDA().getGuildById(sm.getSetting(Settings.MAIN_GUILD_ID)).getName())));
         }
     }
 }
