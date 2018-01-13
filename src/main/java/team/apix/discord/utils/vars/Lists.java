@@ -3,6 +3,7 @@ package team.apix.discord.utils.vars;
 import team.apix.discord.utils.vars.entites.Announcement;
 import team.apix.discord.utils.vars.entites.Cooldown;
 import team.apix.discord.utils.vars.entites.Incident;
+import team.apix.discord.utils.vars.entites.Transactions;
 import team.apix.discord.utils.vars.entites.enums.RankingType;
 import team.apix.discord.utils.vars.entites.enums.Settings;
 import team.apix.discord.utils.vars.entites.enums.SimpleRank;
@@ -34,6 +35,17 @@ public class Lists {
     private static ConcurrentHashMap<Long, Cooldown> globalCooldown = new ConcurrentHashMap<>();
     private static ConcurrentHashMap<Long, ArrayList<Cooldown>> commandCooldown = new ConcurrentHashMap<>();
     private static long initial;
+    private static ConcurrentHashMap<Long, Integer> userBalance = new ConcurrentHashMap<>();
+    private static ConcurrentHashMap<Integer, Transactions> transactions = new ConcurrentHashMap<>();
+    private static int lastTransaction;
+
+    public static int getLastTransaction() {
+        return lastTransaction;
+    }
+
+    public static void setLastTransaction(int lastTransaction) {
+        Lists.lastTransaction = lastTransaction;
+    }
 
     public static long getInitial() {
         return initial;
@@ -121,5 +133,13 @@ public class Lists {
 
     public static ConcurrentHashMap<Long, ArrayList<Cooldown>> getCommandCooldown() {
         return commandCooldown;
+    }
+
+    public static ConcurrentHashMap<Long, Integer> getUserBalance() {
+        return userBalance;
+    }
+
+    public static ConcurrentHashMap<Integer, Transactions> getTransactions() {
+        return transactions;
     }
 }

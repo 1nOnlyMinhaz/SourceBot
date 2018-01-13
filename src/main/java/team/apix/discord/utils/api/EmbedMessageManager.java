@@ -1,16 +1,16 @@
 package team.apix.discord.utils.api;
 
+import net.dv8tion.jda.core.EmbedBuilder;
+import net.dv8tion.jda.core.JDA;
+import net.dv8tion.jda.core.entities.MessageChannel;
+import net.dv8tion.jda.core.entities.MessageEmbed;
+import net.dv8tion.jda.core.entities.User;
 import team.apix.discord.utils.BotAPI;
 import team.apix.discord.utils.vars.Lists;
 import team.apix.discord.utils.vars.Messages;
 import team.apix.discord.utils.vars.entites.Incident;
 import team.apix.discord.utils.vars.entites.enums.RankingType;
 import team.apix.discord.utils.vars.entites.enums.Settings;
-import net.dv8tion.jda.core.EmbedBuilder;
-import net.dv8tion.jda.core.JDA;
-import net.dv8tion.jda.core.entities.MessageChannel;
-import net.dv8tion.jda.core.entities.MessageEmbed;
-import net.dv8tion.jda.core.entities.User;
 
 import java.awt.*;
 import java.util.*;
@@ -51,6 +51,22 @@ public class EmbedMessageManager {
         return new EmbedBuilder()
                 .setColor(color)
                 .setDescription(s)
+                .build();
+    }
+
+    public MessageEmbed getAsDescription(String s, User user) {
+        return new EmbedBuilder()
+                .setColor(new Color(103, 161, 237))
+                .setDescription(s)
+                .setAuthor(user.getName(), null, user.getAvatarUrl())
+                .build();
+    }
+
+    public MessageEmbed getAsDescription(String s, Color color, User user) {
+        return new EmbedBuilder()
+                .setColor(color)
+                .setDescription(s)
+                .setAuthor(user.getName(), null, user.getAvatarUrl())
                 .build();
     }
 
@@ -179,9 +195,10 @@ public class EmbedMessageManager {
         defaultCommands.setAuthor("Default Commands", null, user.getJDA().getSelfUser().getAvatarUrl())
                 .addField("!help", "You know... :unamused: \n*You can use `!help (command)` to get an explanation on how to use that command :wink:*", false)
                 .addField("!info", "Sends you an informal message about the discord and the server.\n **You MUST have PMs enabled for the server!**", false)
-                .addField("!rank", "Displays your activity ranking among the server.", false)
-                .addField("!levels", "Displays the top `5` players on the ranking system.", false)
                 .addField("!report", "Report a certain user.", false)
+                .addField("!coins", "Displays the amount of coins you have.", false)
+                .addField("!rank", "Displays your activity ranking among the server.", false)
+                .addField("!leaderboard", "Displays the top `5` players on the ranking system.", false)
                 .setColor(new Color(103, 161, 237));
         return defaultCommands.build();
     }

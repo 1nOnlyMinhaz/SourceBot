@@ -7,35 +7,39 @@ import team.apix.discord.utils.api.*;
  * in association with TheSourceCode (C) 2016-2018
  */
 public class BotAPI {
-    public DatabaseManager getDatabaseManager(){
+    public DatabaseManager getDatabaseManager() {
         return DatabaseManager.getDatabaseManager();
     }
 
-    public MessageManager getMessageManager(){
+    public MessageManager getMessageManager() {
         return MessageManager.getMessageManager();
     }
 
-    public EmbedMessageManager getEmbedMessageManager(){
+    public EmbedMessageManager getEmbedMessageManager() {
         return EmbedMessageManager.getEmbedMessageManager();
     }
 
-    public PrivateMessageManager getPrivateMessageManager(){
+    public PrivateMessageManager getPrivateMessageManager() {
         return PrivateMessageManager.getPrivateMessageManager();
     }
 
-    public PermissionManager getPermissionManager(){
+    public PermissionManager getPermissionManager() {
         return PermissionManager.getPermissionManager();
     }
 
-    public SettingsManager getSettingsManager(){
+    public SettingsManager getSettingsManager() {
         return SettingsManager.getSettingsManager();
     }
 
-    public IncidentManager getIncidentManager(){
+    public IncidentManager getIncidentManager() {
         return IncidentManager.getIncidentManager();
     }
 
     public ExtraUtils getExtraUtils() {
         return ExtraUtils.getExtraUtils();
+    }
+
+    public EconomyManager getEcon() {
+        return EconomyManager.getEconomyManager();
     }
 }

@@ -22,7 +22,8 @@ public enum Settings {
     ROLES_BOT_ADMIN("permission-discord-admin"),
     PROFANITY_LIST("profanity-list"),
     RANKED_REWARDS("ranked-rewards"),
-    RANKED_IGNORED("channel-ignored");
+    RANKED_IGNORED("channel-ignored"),
+    BALANCE_MAX("balance-max");
 
     final String option;
 

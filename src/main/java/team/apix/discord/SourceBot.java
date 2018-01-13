@@ -1,16 +1,17 @@
 package team.apix.discord;
 
-import team.apix.discord.libs.Listener;
-import team.apix.discord.utils.api.IncidentManager;
-import team.apix.discord.utils.api.SettingsManager;
-import team.apix.discord.utils.threads.GameStatue;
-import team.apix.discord.utils.threads.dummy;
-import team.apix.discord.utils.vars.Levels;
 import net.dv8tion.jda.core.AccountType;
 import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.JDABuilder;
 import net.dv8tion.jda.core.OnlineStatus;
 import net.dv8tion.jda.core.exceptions.RateLimitedException;
+import team.apix.discord.libs.Listener;
+import team.apix.discord.utils.api.EconomyManager;
+import team.apix.discord.utils.api.IncidentManager;
+import team.apix.discord.utils.api.SettingsManager;
+import team.apix.discord.utils.threads.GameStatue;
+import team.apix.discord.utils.threads.dummy;
+import team.apix.discord.utils.vars.Levels;
 import team.apix.discord.utils.vars.Lists;
 
 import javax.security.auth.login.LoginException;
@@ -31,6 +32,7 @@ public class SourceBot extends SettingsManager {
 
         setup(jda);
         new IncidentManager().setup();
+        new EconomyManager().setup();
         new Levels();
         new Listener(jda);
 

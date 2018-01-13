@@ -15,7 +15,6 @@ public interface Messages {
     String INCORRECT_USAGE = "**Incorrect usage!** Correct format: `%s` :wink:";
 
     String[] RANK_BRAGS = {"Try and keep up.", "pffftt, gud one.", "I'm always in the top.", "ez.", "huh, too eazy.", "Is this ez mode?", "Over 9000!"};
-
     String[] RANK_BOTS = {"Ew, ban that thing", "GET THAT THING OUTTA HERE!", "reminds me of stupid mee6", "boooooooooooooooriingg", "if you ask me, i'd rather ban it.", "pfffft, I'm much better."};
 
     String[] LEAVE = {"OH NO! :cry: %PLAYER% just left the server :sob:", "RIP! %PLAYER% abandoned us :sob:", "Cya! %PLAYER% thought that we wanted them :joy:", "%PLAYER% has left the game.", "Later! %PLAYER% did rage quit :joy:"};
@@ -27,6 +26,8 @@ public interface Messages {
             "\n\nSo we did! We, the ApixTeam, consistent of yours truly, **Alw7SHxD** and **Andrewboy159**, have created a discord bot that has been in the making for months, we're proud of what we have created, and hope all of you users are also proud of what has been made specifically for this server that we all love.";
     String BOT_INFO_EXP = "You earn experience `(from 15 to 25)` every message within a minute from the last message." +
             "\n\nHere's an example if you're still confused, you just sent a message at **1:12 o'clock** that'll earn you experience, if you send any message within that time `(1:12 o'clock)` then you wont get any experience, until it's **1:13 o'clock** or even **1:14 o'clock** aka sending a message after a minute from the initial time which is **1:12 o'clock**, it's as simple as that!";
+
+    String[] BALANCE_BRAGS = {"pfft I have over **9000 coins**!!", "I'm super busy, but if I wanted I could easily have a small loan of **2.5B coins** :upside_down:", "Currently **-7 coins** :upside_down:", "**nope**."};
 
     String[] GAME_PLAYIN = {"some minigames on SourceCade", "emily is away", "on SourceCade"};
     String[] GAME_WATCHIN = {"videos while vapin with Ned", "Ned's vaping animation", "Andrew suck at coding", "Alw's anime", "TheSourceCode", "Daeshan pretend to code"};

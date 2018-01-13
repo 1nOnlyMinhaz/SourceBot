@@ -20,7 +20,7 @@ import net.dv8tion.jda.core.exceptions.ErrorResponseException;
  * in association with TheSourceCode (C) 2016-2018
  */
 public class ComHelp implements CommandExecutor {
-    @Command(aliases = {"help"}, description = "displays the available commands")
+    @Command(aliases = {"help", "commands"}, description = "displays the available commands")
     public void onCommand(User user, MessageChannel messageChannel, Message message, String[] strings) {
         BotAPI botAPI = new BotAPI();
         PermissionManager pm = botAPI.getPermissionManager();
@@ -64,11 +64,15 @@ public class ComHelp implements CommandExecutor {
                 else if(strings[0].equalsIgnoreCase("clear") && admin)
                     v = send(botAPI, user, embedManager.getUsage(user, "clear", "Clears a set amount of messages.", "clear (number) [<-s>|@mention]", "!clean\n!purge\n!cls"));
                 else if (strings[0].equalsIgnoreCase("help"))
-                    v = send(botAPI, user, embedManager.getUsage(user, "help", ":rolling_eyes:", "help [Command]", null));
+                    v = send(botAPI, user, embedManager.getUsage(user, "help", ":rolling_eyes:", "help \n<!command> [command]", null));
                 else if (strings[0].equalsIgnoreCase("info"))
                     v = send(botAPI, user, embedManager.getUsage(user, "info", "Information about the bot, or information on earning exp.", "info [exp]", null));
                 else if (strings[0].equalsIgnoreCase("levels"))
-                    v = send(botAPI, user, embedManager.getUsage(user, "levels", "Displays the top `5` players on the server", null, "!ranks"));
+                    v = send(botAPI, user, embedManager.getUsage(user, "levels", "Displays the top `5` players on the server", null, "!ranks\n!leaderboard"));
+                else if (strings[0].equalsIgnoreCase("leaderboard"))
+                    v = send(botAPI, user, embedManager.getUsage(user, "leaderboard", "Displays the top `5` players on the server", null, "!ranks\n!levels"));
+                else if (strings[0].equalsIgnoreCase("coins"))
+                    v = send(botAPI, user, embedManager.getUsage(user, "coins", "Displays the amount of coins you have", "coins \n<!command> [@mention]", "!balance"));
                 else if(strings[0].equalsIgnoreCase("mute") && mod)
                     v = send(botAPI, user, embedManager.getUsage(user, "mute", "Do I really need to explain this?", "mute (@mention[s])", "!shut_up"));
                 else if(strings[0].equalsIgnoreCase("tempmute") && mod)
