@@ -1,6 +1,7 @@
 package team.apix.discord.libs.commands;
 
 import team.apix.discord.utils.BotAPI;
+import team.apix.discord.utils.api.EconomyManager;
 import team.apix.discord.utils.api.EmbedMessageManager;
 import team.apix.discord.utils.api.PermissionManager;
 import team.apix.discord.utils.api.SettingsManager;
@@ -149,7 +150,7 @@ public class ComSettings implements CommandExecutor {
                         botAPI.getMessageManager().sendMessage(messageChannel, em.getAsDescription(String.format("**%s**: %d seconds (%d)", guild.getMemberById(id).getUser().getAsMention(), seconds, Lists.getUserRankingCooldown().get(id)), Color.BLACK));
                     }
                 } else if (strings[1].equalsIgnoreCase("set-rankup")){
-                    if(strings[2].isEmpty() || strings[2] == null)
+                    if(strings[2].isEmpty())
                         throw new ArrayIndexOutOfBoundsException();
                     else if(strings[2].equalsIgnoreCase("reset")) {
                         sm.removeSetting(Settings.RANKED_REWARDS);
@@ -158,6 +159,14 @@ public class ComSettings implements CommandExecutor {
 
                     sm.updateSetting(Settings.RANKED_REWARDS, strings[2]);
                     botAPI.getMessageManager().sendMessage(messageChannel, em.getAsDescription("done.", Color.BLACK));
+                } else if (strings[1].equalsIgnoreCase("coins")) {
+                    if(strings[2].isEmpty())
+                        throw new ArrayIndexOutOfBoundsException();
+                    else if(strings[2].equalsIgnoreCase("--sync")){
+                        botAPI.getDatabaseManager().usersSyncCoins(guild, botAPI, botAPI.getEcon());
+                        botAPI.getMessageManager().sendMessage(messageChannel, "doing it... i think..");
+                    }else
+                        throw new ArrayIndexOutOfBoundsException();
                 }
             } else
                 botAPI.getMessageManager().sendMessage(messageChannel, em.getAsDescription("erR0r 0x11", Color.RED));

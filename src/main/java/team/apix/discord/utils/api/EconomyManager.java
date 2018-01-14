@@ -89,7 +89,7 @@ public class EconomyManager {
 
             Lists.getUserBalance().put(user.getIdLong(), newBalance);
             closeConnection(connection, ps, null);
-            issueTransaction(user, transaction, newBalance, log);
+            issueTransaction(user, transaction != null ? transaction : Transaction.UNDEFINED, newBalance, log);
             return Transaction.TRANSACTION_SUCCESS;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -135,6 +135,7 @@ public class EconomyManager {
 
             ps.executeUpdate();
             closeConnection(connection, ps, null);
+            Lists.setLastTransaction(Lists.getLastTransaction() + 1);
         } catch (SQLException e) {
             e.printStackTrace();
         }

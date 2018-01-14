@@ -92,7 +92,7 @@ public class MessageReceived extends ListenerAdapter {
 
         HashMap<RankingType, Integer> ranking = botAPI.getDatabaseManager().getUserRanking(user);
         if (Lists.getLevelsMaxExp().get(ranking.get(RankingType.LEVEL)) != null && ranking.get(RankingType.EXPERIENCE) >= Lists.getLevelsMaxExp().get(ranking.get(RankingType.LEVEL)))
-            botAPI.getDatabaseManager().userLevelUp(user, ranking, exp);
+            botAPI.getDatabaseManager().userLevelUp(user, botAPI.getEcon(), ranking, exp);
 
         botAPI.getDatabaseManager().userRankUp(e.getGuild(), user, botAPI.getSettingsManager());
     }

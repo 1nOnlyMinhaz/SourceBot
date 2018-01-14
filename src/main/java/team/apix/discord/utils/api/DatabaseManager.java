@@ -1,10 +1,13 @@
 package team.apix.discord.utils.api;
 
+import net.dv8tion.jda.core.entities.Member;
+import team.apix.discord.utils.BotAPI;
 import team.apix.discord.utils.connection.DataSource;
 import team.apix.discord.utils.vars.entites.enums.RankingType;
 import team.apix.discord.utils.vars.entites.enums.Settings;
 import net.dv8tion.jda.core.entities.Guild;
 import net.dv8tion.jda.core.entities.User;
+import team.apix.discord.utils.vars.entites.enums.Transaction;
 
 import java.sql.*;
 import java.util.HashMap;
@@ -214,7 +217,7 @@ public class DatabaseManager {
         }
     }
 
-    public void userLevelUp(User user, HashMap<RankingType, Integer> userRanking, int exp){
+    public void userLevelUp(User user, EconomyManager eco, HashMap<RankingType, Integer> userRanking, int exp){
         try {
             Connection connection = getConnection();
             PreparedStatement ps = connection.prepareStatement("UPDATE `rankings` SET `experience` = ?, `level` = ? WHERE `UserID` = ?");
@@ -223,6 +226,7 @@ public class DatabaseManager {
             ps.setLong(3, user.getIdLong());
             ps.executeUpdate();
             closeConnection(connection, ps, null);
+            eco.deposit(user, 2, Transaction.REWARD, "Leveled up");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -240,6 +244,27 @@ public class DatabaseManager {
             String[] stt = st.split("-");
             if(!guild.getMember(user).getRoles().contains(guild.getRoleById(stt[1])) && (userRanking.get(RankingType.LEVEL)) >= Integer.parseInt(stt[0]))
                 guild.getController().addSingleRoleToMember(guild.getMember(user), guild.getRoleById(stt[1])).queue();
+        }
+    }
+
+    public void usersSyncCoins(Guild guild, BotAPI botAPI, EconomyManager eco) {
+        HashMap<Long, HashMap<RankingType, Integer>> rankings = getUsersRanking(1000);
+        HashMap<RankingType, Integer> userRanking;
+
+        for (Long userID : rankings.keySet()) {
+            userRanking = rankings.get(userID);
+            int balance;
+            int lvl = userRanking.get(RankingType.LEVEL);
+            if(lvl == 0)
+                continue;
+
+            balance = lvl * 2;
+            Member member = guild.getMemberById(userID);
+            if(member == null)
+                continue;
+
+            eco.deposit(member.getUser(), balance, Transaction.REWARD, "Calculated coins for previous levels.");
+            botAPI.getMessageManager().log(false, String.format("Rewarded @%s#%s with %d coins (lvl. %d)", member.getUser().getName(), member.getUser().getDiscriminator(), balance, userRanking.get(RankingType.LEVEL)));
         }
     }
 
