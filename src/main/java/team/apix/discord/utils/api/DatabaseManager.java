@@ -30,7 +30,7 @@ public class DatabaseManager {
     private boolean isInRanking(User user) {
         try {
             Connection connection = getConnection();
-            PreparedStatement ps = connection.prepareStatement("SELECT `ID` FROM `rankings` WHERE `UserID` = ?");
+            PreparedStatement ps = connection.prepareStatement("SELECT `UserID` FROM `rankings` WHERE `UserID` = ?");
             ps.setLong(1, user.getIdLong());
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
