@@ -143,7 +143,7 @@ public class DatabaseManager {
             PreparedStatement ps = connection.prepareStatement("SELECT @rank:=@rank+1 AS rank, `UserID`, `level`, `experience`, `TotalExp` FROM `rankings` ORDER BY `level` DESC , `experience` DESC LIMIT ?");
             ps.setInt(1, limit);
             ResultSet rs = ps.executeQuery();
-            while (rs.next()){
+            while (rs.next()) {
                 HashMap<RankingType, Integer> ranking = new HashMap<>();
                 ranking.put(RankingType.RANK, rs.getInt("rank"));
                 ranking.put(RankingType.LEVEL, rs.getInt("level"));
@@ -202,8 +202,8 @@ public class DatabaseManager {
         }
     }
 
-    public void resetUserRanking(User user){
-        if(!isInRanking(user))
+    public void resetUserRanking(User user) {
+        if (!isInRanking(user))
             return;
 
         try {
@@ -217,7 +217,7 @@ public class DatabaseManager {
         }
     }
 
-    public void userLevelUp(User user, EconomyManager eco, HashMap<RankingType, Integer> userRanking, int exp){
+    public void userLevelUp(User user, EconomyManager eco, HashMap<RankingType, Integer> userRanking, int exp) {
         try {
             Connection connection = getConnection();
             PreparedStatement ps = connection.prepareStatement("UPDATE `rankings` SET `experience` = ?, `level` = ? WHERE `UserID` = ?");
@@ -232,17 +232,17 @@ public class DatabaseManager {
         }
     }
 
-    public void userRankUp(Guild guild, User user, SettingsManager sm){
-        if(!sm.isSet(Settings.RANKED_REWARDS))
+    public void userRankUp(Guild guild, User user, SettingsManager sm) {
+        if (!sm.isSet(Settings.RANKED_REWARDS))
             return;
 
         HashMap<RankingType, Integer> userRanking = getUserRanking(user);
 
         String rewards = sm.getSetting(Settings.RANKED_REWARDS);
         String[] s = rewards.split(",");
-        for(String st: s){
+        for (String st : s) {
             String[] stt = st.split("-");
-            if(!guild.getMember(user).getRoles().contains(guild.getRoleById(stt[1])) && (userRanking.get(RankingType.LEVEL)) >= Integer.parseInt(stt[0]))
+            if (!guild.getMember(user).getRoles().contains(guild.getRoleById(stt[1])) && (userRanking.get(RankingType.LEVEL)) >= Integer.parseInt(stt[0]))
                 guild.getController().addSingleRoleToMember(guild.getMember(user), guild.getRoleById(stt[1])).queue();
         }
     }
@@ -255,16 +255,18 @@ public class DatabaseManager {
             userRanking = rankings.get(userID);
             int balance;
             int lvl = userRanking.get(RankingType.LEVEL);
-            if(lvl == 0)
+            if (lvl == 0)
                 continue;
 
             balance = lvl * 2;
             Member member = guild.getMemberById(userID);
-            if(member == null)
+            if (member == null)
                 continue;
 
-            eco.deposit(member.getUser(), balance, Transaction.REWARD, "Calculated coins for previous levels.");
-            botAPI.getMessageManager().log(false, String.format("Rewarded @%s#%s with %d coins (lvl. %d)", member.getUser().getName(), member.getUser().getDiscriminator(), balance, userRanking.get(RankingType.LEVEL)));
+            if (eco.deposit(member.getUser(), balance, Transaction.REWARD, "Calculated coins for previous levels.") == Transaction.TRANSACTION_SUCCESS)
+                botAPI.getMessageManager().log(false, String.format("Rewarded @%s#%s with %d coins (lvl. %d)", member.getUser().getName(), member.getUser().getDiscriminator(), balance, userRanking.get(RankingType.LEVEL)));
+            else
+                botAPI.getMessageManager().log(false, String.format("Failed to reward @%s#%s with %d coins (lvl. %d)", member.getUser().getName(), member.getUser().getDiscriminator(), balance, userRanking.get(RankingType.LEVEL)));
         }
     }
 

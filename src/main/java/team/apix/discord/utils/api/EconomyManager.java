@@ -7,6 +7,7 @@ import team.apix.discord.utils.vars.entites.enums.Settings;
 import team.apix.discord.utils.vars.entites.enums.Transaction;
 
 import java.sql.*;
+import java.text.NumberFormat;
 
 /**
  * SourceBot (2017) was created by ApixTeam (C) 2016-2018
@@ -39,7 +40,8 @@ public class EconomyManager {
     }
 
     public String getFormattedBalance(int balance) {
-        return balance == 1 ? String.format("%d %s", balance, ECO_SINGLE) : String.format("%d %s", balance, ECO_PLURAL);
+        String s = NumberFormat.getInstance().format(balance);
+        return balance == 1 ? String.format("%s %s", s, ECO_SINGLE) : String.format("%s %s", s, ECO_PLURAL);
     }
 
     public void setup() {
@@ -55,7 +57,7 @@ public class EconomyManager {
             while (rs.next())
                 Lists.getTransactions().put(rs.getInt("ID"), new Transactions(rs.getInt("ID"),
                         rs.getInt("Amount"), rs.getTimestamp("IssuedOn"),
-                        rs.getLong("UserID"), Transaction.valueOf(rs.getString("Tyoe")),
+                        rs.getLong("UserID"), Transaction.getType(rs.getString("Type")),
                         rs.getString("Log")));
 
             ps = connection.prepareStatement("SELECT `AUTO_INCREMENT` FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'transactions'");
@@ -76,7 +78,10 @@ public class EconomyManager {
         return Lists.getUserBalance().getOrDefault(user.getIdLong(), 0);
     }
 
-    public Transaction setBalance(User user, int newBalance, Transaction transaction, String log) {
+    private Transaction setBalance(User user, int newBalance, Transaction transaction, String log) {
+        if(!hasBalance(user))
+            return Transaction.TRANSACTION_FAIL;
+
         try {
             Connection connection = getConnection();
             PreparedStatement ps = connection.prepareStatement("UPDATE `members` SET `Balance` = ? WHERE `UserID` = ?");
@@ -99,7 +104,7 @@ public class EconomyManager {
     }
 
     public Transaction deposit(User user, int amount, Transaction transaction, String log) {
-        if (hasBalance(user))
+        if (!hasBalance(user))
             return Transaction.TRANSACTION_FAIL;
 
         int balance = getBalance(user);
@@ -112,7 +117,7 @@ public class EconomyManager {
     }
 
     public Transaction withdraw(User user, int amount, Transaction transaction, String log) {
-        if (hasBalance(user))
+        if (!hasBalance(user))
             return Transaction.TRANSACTION_FAIL;
 
         int balance = getBalance(user);
@@ -127,7 +132,7 @@ public class EconomyManager {
     private void issueTransaction(User user, Transaction type, int amount, String log) {
         try {
             Connection connection = getConnection();
-            PreparedStatement ps = connection.prepareStatement("INSERT INTO `transactions` (`UserID`, `Type`, 'Amount', 'Log') VALUES (?, ?, ?, ?)");
+            PreparedStatement ps = connection.prepareStatement("INSERT INTO `transactions` (`UserID`, `Type`, `Amount`, `Log`) VALUES (?, ?, ?, ?)");
             ps.setLong(1, user.getIdLong());
             ps.setString(2, type.getString());
             ps.setInt(3, amount);

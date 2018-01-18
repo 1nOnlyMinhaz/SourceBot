@@ -19,7 +19,7 @@ public enum Transaction {
         this.string = string;
     }
 
-    public Transaction getType(String search){
+    public static Transaction getType(String search){
         for (Transaction transaction : values())
             if (transaction.string.equalsIgnoreCase(search)) return transaction;
         return null;
