@@ -42,6 +42,7 @@ public class Listener {
         commandHandler.registerCommand(new ComTempBan());
         commandHandler.registerCommand(new ComPing());
         commandHandler.registerCommand(new ComBalance());
+        commandHandler.registerCommand(new ComBrainfuck());
 
         for (CommandHandler.SimpleCommand sm : commandHandler.getCommands())
             for (String s : sm.getCommandAnnotation().aliases())
