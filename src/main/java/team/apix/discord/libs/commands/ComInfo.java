@@ -5,6 +5,7 @@ import de.btobastian.sdcf4j.CommandExecutor;
 import net.dv8tion.jda.core.entities.MessageChannel;
 import net.dv8tion.jda.core.entities.MessageEmbed;
 import net.dv8tion.jda.core.entities.User;
+import net.dv8tion.jda.core.exceptions.ErrorResponseException;
 import team.apix.discord.utils.BotAPI;
 import team.apix.discord.utils.api.EmbedMessageManager;
 import team.apix.discord.utils.api.ExtraUtils;
@@ -26,23 +27,31 @@ public class ComInfo implements CommandExecutor {
 
         EmbedMessageManager embedManager = new EmbedMessageManager();
 
-        if(eu.siqc(strings, 1, 0, "exp") || eu.siqc(strings, 1, 0, "experience")){
-            if(eu.cooldown(botAPI, messageChannel, user, String.format("%s|exp", command), 120))
+        try {
+            if (eu.siqc(strings, 1, 0, "exp") || eu.siqc(strings, 1, 0, "experience")) {
+                if (eu.cooldown(botAPI, messageChannel, user, String.format("%s|exp", command), 120))
+                    return;
+
+                botAPI.getPrivateMessageManager().sendMessage(user, embedManager.getAsInfo(messageChannel, "earning experience", Messages.BOT_INFO_EXP));
+                if (messageChannel.getType().isGuild())
+                    botAPI.getMessageManager().sendMessage(messageChannel, botAPI.getEmbedMessageManager().getAsDescription(":white_check_mark: *sent you some information*.. please check your PMs."));
+                return;
+            } else if (strings.length != 0) {
+                botAPI.getMessageManager().sendMessage(messageChannel, getUsage());
+                return;
+            }
+
+            if (eu.cooldown(botAPI, messageChannel, user, command, 120))
                 return;
 
-            botAPI.getMessageManager().sendMessage(messageChannel, embedManager.getAsInfo(messageChannel, "earning experience", Messages.BOT_INFO_EXP));
-            return;
-        }else if (strings.length != 0){
-            botAPI.getMessageManager().sendMessage(messageChannel, getUsage());
-            return;
+            botAPI.getPrivateMessageManager().sendMessage(user, embedManager.getInfo(messageChannel, botAPI.getExtraUtils().getElapsedTime(Lists.getInitial(), System.currentTimeMillis())));
+            if (messageChannel.getType().isGuild())
+                botAPI.getMessageManager().sendMessage(messageChannel, botAPI.getEmbedMessageManager().getAsDescription(":white_check_mark: *sent you some information*.. please check your PMs."));
+        } catch (ErrorResponseException e) {
+            botAPI.getMessageManager().sendMessage(messageChannel, embedManager.getAsDescription("Umm :cold_sweat: couldn't send you info :sob: maybe it's because your PMs are locked!"));
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-
-        if(eu.cooldown(botAPI, messageChannel, user, command, 120))
-            return;
-
-        botAPI.getPrivateMessageManager().sendMessage(user, embedManager.getInfo(messageChannel, botAPI.getExtraUtils().getElapsedTime(Lists.getInitial(), System.currentTimeMillis())));
-        if(messageChannel.getType().isGuild())
-            botAPI.getMessageManager().sendMessage(messageChannel, botAPI.getEmbedMessageManager().getAsDescription(":white_check_mark: *sent you some information*.. please check your PMs."));
     }
 
     private MessageEmbed getUsage() {
