@@ -2,7 +2,7 @@ package team.apix.discord.utils.api;
 
 import net.dv8tion.jda.core.entities.Member;
 import team.apix.discord.utils.BotAPI;
-import team.apix.discord.utils.connection.DataSource;
+import team.apix.discord.utils.connection.MySQL;
 import team.apix.discord.utils.vars.entites.enums.RankingType;
 import team.apix.discord.utils.vars.entites.enums.Settings;
 import net.dv8tion.jda.core.entities.Guild;
@@ -24,7 +24,7 @@ public class DatabaseManager {
     }
 
     Connection getConnection() throws SQLException {
-        return DataSource.getConnection();
+        return MySQL.getConnection();
     }
 
     private boolean isInRanking(User user) {

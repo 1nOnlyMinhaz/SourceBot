@@ -1,6 +1,7 @@
 package team.apix.discord.libs;
 
 import de.btobastian.sdcf4j.CommandHandler;
+import de.btobastian.sdcf4j.handler.JDA3Handler;
 import net.dv8tion.jda.core.JDA;
 import team.apix.discord.libs.commands.*;
 import team.apix.discord.libs.events.guild.MemberBanned;
@@ -9,7 +10,6 @@ import team.apix.discord.libs.events.guild.MemberLeft;
 import team.apix.discord.libs.events.guild.MessageReceived;
 import team.apix.discord.libs.events.user.AvatarUpdate;
 import team.apix.discord.libs.events.user.NameUpdate;
-import team.apix.discord.utils.handlers.JDA3Handler;
 import team.apix.discord.utils.vars.Lists;
 
 /**
