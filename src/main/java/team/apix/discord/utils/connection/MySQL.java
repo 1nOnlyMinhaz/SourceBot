@@ -15,7 +15,7 @@ import java.util.Map;
  * SourceBot (2017) was created by ApixTeam (C) 2016-2018
  * in association with TheSourceCode (C) 2016-2018
  */
-public class DataSource {
+public class MySQL {
     private static HikariDataSource ds;
 
     static {
@@ -69,7 +69,7 @@ public class DataSource {
         ds = new HikariDataSource(config);
     }
 
-    private DataSource() {
+    private MySQL() {
     }
 
     public static Connection getConnection() throws SQLException {
