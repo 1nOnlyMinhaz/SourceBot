@@ -9,6 +9,7 @@ import team.apix.discord.libs.Listener;
 import team.apix.discord.utils.api.EconomyManager;
 import team.apix.discord.utils.api.IncidentManager;
 import team.apix.discord.utils.api.SettingsManager;
+import team.apix.discord.utils.connection.SQLite3;
 import team.apix.discord.utils.threads.GameStatue;
 import team.apix.discord.utils.threads.dummy;
 import team.apix.discord.utils.vars.Levels;
@@ -34,8 +35,12 @@ public class SourceBot extends SettingsManager {
         new IncidentManager().setup();
         new EconomyManager().setup();
         new Levels();
-        new Listener(jda);
-
+        
+        SQLite3 log = new SQLite3();
+        log.createTables();
+        
+        new Listener(jda, log);
+        
         Timer timer = new Timer();
         timer.schedule(new dummy(jda), 0, 1000);
         timer.schedule(new GameStatue(jda), 0, 10800000);

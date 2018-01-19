@@ -1,15 +1,16 @@
 package team.apix.discord.libs.events.guild;
 
+import net.dv8tion.jda.core.entities.Message;
+import net.dv8tion.jda.core.entities.User;
+import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
+import net.dv8tion.jda.core.hooks.ListenerAdapter;
 import team.apix.discord.utils.BotAPI;
+import team.apix.discord.utils.connection.SQLite3;
 import team.apix.discord.utils.vars.Lists;
 import team.apix.discord.utils.vars.Messages;
 import team.apix.discord.utils.vars.entites.enums.RankingType;
 import team.apix.discord.utils.vars.entites.enums.Settings;
 import team.apix.discord.utils.vars.entites.enums.SimpleRank;
-import net.dv8tion.jda.core.entities.Message;
-import net.dv8tion.jda.core.entities.User;
-import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
-import net.dv8tion.jda.core.hooks.ListenerAdapter;
 
 import java.util.HashMap;
 import java.util.Random;
@@ -20,6 +21,12 @@ import java.util.concurrent.TimeUnit;
  * in association with TheSourceCode (C) 2016-2018
  */
 public class MessageReceived extends ListenerAdapter {
+    private SQLite3 log;
+
+    public MessageReceived(SQLite3 log) {
+        this.log = log;
+    }
+
     public void onGuildMessageReceived(GuildMessageReceivedEvent e) {
         BotAPI botAPI = new BotAPI();
 
@@ -28,6 +35,8 @@ public class MessageReceived extends ListenerAdapter {
 
         if (!e.getChannel().getType().isGuild() || user.isBot())
             return;
+
+        log.logMessage(e.getMessageIdLong(), user.getIdLong(), message.getContentRaw());
 
         /**  SLOWMODE   */
         if(Lists.getSlowmodeChannelCooldown().containsKey(e.getChannel().getIdLong()) && !botAPI.getPermissionManager().userRoleAtLeast(e.getMember(), SimpleRank.MOD)) {

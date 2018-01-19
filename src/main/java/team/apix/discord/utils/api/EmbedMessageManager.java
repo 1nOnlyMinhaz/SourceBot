@@ -275,4 +275,27 @@ public class EmbedMessageManager {
 
         return embedBuilder.build();
     }
+
+    // 0 = long | user id
+    // 1 = time | sent on
+    // 2 = str  | original message
+    // 3 = str  | 1st updated message
+    // 4 = str  | 2nd updated message
+    // 5 = time | last update
+    // 6 = bool | is deleted
+    // 7 = long | user id who deleted the message
+    public MessageEmbed getLogUpdatedMessage(MessageChannel messageChannel, Long messageid, User user, String[] strings) {
+        return new EmbedBuilder()
+                .setAuthor(String.format("%s#%s updated their message", user.getName(), user.getDiscriminator()), null, user.getAvatarUrl())
+                .addField("Original message", String.format("```%s```", strings[4] == null ? strings[2] : strings[3]), false)
+                .addField("Edited message", String.format("```%s```", strings[4] == null ? strings[3] : strings[4]), false)
+                .addBlankField(false)
+                .addField("Message ID", String.format("%s", messageid), true)
+                .addField("Channel", String.format("%s", messageChannel.getName()), true)
+                .addBlankField(true)
+                .addField("Posted", String.format("`%s`", strings[1]), true)
+                .addField("Edited", String.format("`%s`", strings[5]), true)
+                .setColor(new Color(103, 161, 237))
+                .build();
+    }
 }
