@@ -39,7 +39,7 @@ public class SourceBot extends SettingsManager {
         SQLite3 log = new SQLite3();
         log.createTables();
         
-        new Listener(jda, log);
+        new Listener(jda);
         
         Timer timer = new Timer();
         timer.schedule(new dummy(jda), 0, 1000);

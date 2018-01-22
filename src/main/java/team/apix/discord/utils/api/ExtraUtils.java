@@ -4,6 +4,7 @@ import net.dv8tion.jda.core.entities.Member;
 import net.dv8tion.jda.core.entities.MessageChannel;
 import net.dv8tion.jda.core.entities.User;
 import team.apix.discord.utils.BotAPI;
+import team.apix.discord.utils.connection.SQLite3;
 import team.apix.discord.utils.vars.Lists;
 import team.apix.discord.utils.vars.Messages;
 import team.apix.discord.utils.vars.entites.Cooldown;
@@ -55,7 +56,7 @@ public class ExtraUtils {
     @Deprecated
     public void throwCooldown(User user, PermissionManager pm, int delay) {
         if (!isCoolingdown(user))
-            Lists.getGlobalCooldown().put(user.getIdLong(), new Cooldown(delay, System.currentTimeMillis()));
+            Lists.getGlobalCooldown().put(user.getIdLong(), new Cooldown(user.getIdLong(), delay, System.currentTimeMillis()));
     }
 
     public void throwCooldown(User user, PermissionManager pm, String command, int delay) {
@@ -79,7 +80,9 @@ public class ExtraUtils {
         if (Lists.getCommandCooldown().containsKey(user.getIdLong()))
             cooldowns = Lists.getCommandCooldown().get(user.getIdLong());
 
-        cooldowns.add(new Cooldown(delay, System.currentTimeMillis(), command));
+        Cooldown cooldown = new Cooldown(user.getIdLong(), delay, System.currentTimeMillis(), command);
+        cooldowns.add(cooldown);
+        new SQLite3().throwCooldown(cooldown);
 
         Lists.getCommandCooldown().put(user.getIdLong(), cooldowns);
     }
@@ -276,21 +279,21 @@ public class ExtraUtils {
         return s;
     }
 
-    public boolean siqc(String[] strings, int length, int index, String string){
+    public boolean siqc(String[] strings, int length, int index, String string) {
         return strings.length == length && strings[index].equalsIgnoreCase(string);
     }
 
-    public boolean cooldown(BotAPI botAPI, MessageChannel messageChannel, User user, String command, int delay){
-        if(isCoolingdown(user, command)){
+    public boolean cooldown(BotAPI botAPI, MessageChannel messageChannel, User user, String command, int delay) {
+        if (isCoolingdown(user, command)) {
             botAPI.getMessageManager().sendMessage(messageChannel, getCooldownMessage(user, command));
             return true;
-        }else
+        } else
             throwCooldown(user, botAPI.getPermissionManager(), command, delay);
 
         return false;
     }
 
-    public boolean isntInChannel(MessageChannel messageChannel, SettingsManager sm, Settings settings){
+    public boolean isntInChannel(MessageChannel messageChannel, SettingsManager sm, Settings settings) {
         return ((sm.getSetting(settings) != null && !sm.getSetting(settings).equals(messageChannel.getId()) && messageChannel.getType().isGuild())
                 && (sm.getSetting(Settings.CHAN_ADMIN) != null && !sm.getSetting(Settings.CHAN_ADMIN).equals(messageChannel.getId()) && messageChannel.getType().isGuild()));
     }

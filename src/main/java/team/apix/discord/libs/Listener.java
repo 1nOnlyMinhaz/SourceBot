@@ -15,9 +15,9 @@ import team.apix.discord.utils.vars.Lists;
  * in association with TheSourceCode (C) 2016-2018
  */
 public class Listener {
-    public Listener(JDA jda, SQLite3 log) {
+    public Listener(JDA jda) {
         // Events
-        jda.addEventListener(new MessageReceived(log), new MessageUpdated(log),
+        jda.addEventListener(new MessageReceived(),
                 new MemberLeft(), new MemberBanned(),
                 new AvatarUpdate(), new NameUpdate(),
                 new MemberJoined());

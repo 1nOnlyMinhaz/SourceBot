@@ -6,15 +6,15 @@ package team.apix.discord.utils.vars.entites;
  */
 public class Cooldown {
     private int delay;
-    private long systime;
+    private long systime, userid;
     private String command = null;
 
-    public Cooldown(int delay, long systime) {
+    public Cooldown(long userid, int delay, long systime) {
         this.delay = delay;
         this.systime = systime;
     }
 
-    public Cooldown(int delay, long systime, String command) {
+    public Cooldown(long userid, int delay, long systime, String command) {
         this.delay = delay;
         this.systime = systime;
         this.command = command;
@@ -30,5 +30,9 @@ public class Cooldown {
 
     public String getCommand() {
         return command;
+    }
+
+    public long getUserid() {
+        return userid;
     }
 }

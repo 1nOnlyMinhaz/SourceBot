@@ -107,20 +107,20 @@ public class EmbedMessageManager {
 
         String guild = botAPI.getSettingsManager().getSetting(Settings.MAIN_GUILD_ID);
         String setting = botAPI.getSettingsManager().getSetting(Settings.RANKED_REWARDS);
-        if(setting != null) {
+        if (setting != null) {
             int rl = 0;
             String role = "";
             String[] ranked = setting.split(",");
-            for(String s: ranked){
+            for (String s : ranked) {
                 String[] ranking = s.split("-");
-                if(Integer.parseInt(ranking[0]) > lvl && !user.getJDA().getGuildById(guild).getMember(user).getRoles().contains(user.getJDA().getRoleById(ranking[1]))) {
+                if (Integer.parseInt(ranking[0]) > lvl && !user.getJDA().getGuildById(guild).getMember(user).getRoles().contains(user.getJDA().getRoleById(ranking[1]))) {
                     rl = Integer.parseInt(ranking[0]) - lvl;
                     role = ranking[1];
                     break;
                 }
             }
 
-            if(rl != 0)
+            if (rl != 0)
                 embedBuilder.setFooter(String.format("%d remaining level%s to get %s", rl, rl == 1 ? "" : "s",
                         user.getJDA().getGuildById(botAPI.getSettingsManager().getSetting(Settings.MAIN_GUILD_ID)).getRoleById(role).getName()),
                         "https://i.imgur.com/hrFDjAm.png");
@@ -244,7 +244,7 @@ public class EmbedMessageManager {
                 .setAuthor(String.format("Usage of !%s", command), null, user.getJDA().getSelfUser().getAvatarUrl())
                 .addField("Description", desc, false)
                 .setColor(new Color(103, 161, 237));
-        if(format != null)
+        if (format != null)
             embedBuilder.addField("Format", String.format("!%s", format.replace("<command>", command).replace("<!command>", "!" + command)), false);
         if (aliases != null)
             embedBuilder.addField("Aliases", aliases, false);
@@ -270,32 +270,9 @@ public class EmbedMessageManager {
                 .addField("Timestamp", incident.getTimestamp().toString(), false)
                 .setColor(new Color(103, 161, 237));
 
-        if(incident.getDelay() != 0)
+        if (incident.getDelay() != 0)
             embedBuilder.addField("Extra", String.format("For %d seconds (i:%d)", incident.getDelay() / 1000, incident.getSystime()), false);
 
         return embedBuilder.build();
-    }
-
-    // 0 = long | user id
-    // 1 = time | sent on
-    // 2 = str  | original message
-    // 3 = str  | 1st updated message
-    // 4 = str  | 2nd updated message
-    // 5 = time | last update
-    // 6 = bool | is deleted
-    // 7 = long | user id who deleted the message
-    public MessageEmbed getLogUpdatedMessage(MessageChannel messageChannel, Long messageid, User user, String[] strings) {
-        return new EmbedBuilder()
-                .setAuthor(String.format("%s#%s updated their message", user.getName(), user.getDiscriminator()), null, user.getAvatarUrl())
-                .addField("Original message", String.format("```%s```", strings[4] == null ? strings[2] : strings[3]), false)
-                .addField("Edited message", String.format("```%s```", strings[4] == null ? strings[3] : strings[4]), false)
-                .addBlankField(false)
-                .addField("Message ID", String.format("%s", messageid), true)
-                .addField("Channel", String.format("%s", messageChannel.getName()), true)
-                .addBlankField(true)
-                .addField("Posted", String.format("`%s`", strings[1]), true)
-                .addField("Edited", String.format("`%s`", strings[5]), true)
-                .setColor(new Color(103, 161, 237))
-                .build();
     }
 }
