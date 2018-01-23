@@ -264,14 +264,14 @@ public class EmbedMessageManager {
         EmbedBuilder embedBuilder = new EmbedBuilder()
                 .setAuthor(String.format("Incident #%d", incident.getId()), null, jda.getSelfUser().getAvatarUrl())
                 .addField("Issued By", String.format("%s • %s#%s", issuer.getAsMention(), issuer.getName(), issuer.getDiscriminator()), false)
-                .addField("Issued To", String.format("%s • %s#%s", issued.getAsMention(), issued.getName(), issued.getDiscriminator()), false)
+                .addField("Issued On", String.format("%s • %s#%s", issued.getAsMention(), issued.getName(), issued.getDiscriminator()), false)
                 .addField("Type", incident.getType(), false)
                 .addField("Reason", incident.getReason(), false)
                 .addField("Timestamp", incident.getTimestamp().toString(), false)
                 .setColor(new Color(103, 161, 237));
 
         if (incident.getDelay() != 0)
-            embedBuilder.addField("Extra", String.format("For %d seconds (i:%d)", incident.getDelay() / 1000, incident.getSystime()), false);
+            embedBuilder.addField("Extra", String.format("For %s", new BotAPI().getExtraUtils().getRemainingTime(incident.getDelay() / 1000)), false);
 
         return embedBuilder.build();
     }
