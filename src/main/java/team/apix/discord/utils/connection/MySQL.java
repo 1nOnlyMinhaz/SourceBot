@@ -18,7 +18,7 @@ import java.util.Map;
 public class MySQL {
     private static HikariDataSource ds;
 
-    static {
+    private static void connect() {
         HikariConfig config = new HikariConfig();
 
         Yaml yaml = new Yaml();
@@ -62,17 +62,24 @@ public class MySQL {
             Lists.setTestingEnvironment(true);
         }
 
-        config.addDataSourceProperty("cachePrepStmts", "true");
+        config.setPoolName("SourceMonika");
+        config.setMaximumPoolSize(4);
+        config.setMaxLifetime(60000);
+        config.setMinimumIdle(13);
+        config.setIdleTimeout(30000);
+        config.setLeakDetectionThreshold(4);
+
+        config.addDataSourceProperty("cachePrepStmts", true);
         config.addDataSourceProperty("prepStmtCacheSize", "250");
         config.addDataSourceProperty("prepStmtCacheSqlLimit", "2048");
+        config.addDataSourceProperty("useServerPrepStmts", true);
 
         ds = new HikariDataSource(config);
     }
 
-    private MySQL() {
-    }
-
     public static Connection getConnection() throws SQLException {
+        if(ds == null || ds.getConnection() == null)
+            connect();
         return ds.getConnection();
     }
 }

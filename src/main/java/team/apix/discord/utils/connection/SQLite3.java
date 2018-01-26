@@ -24,7 +24,12 @@ public class SQLite3 {
                 "UserID BIGINT NOT NULL," +
                 "Command TEXT NOT NULL," +
                 "Systime BIGINT NOT NULL," +
-                "Delay INT(11) NOT NULL)";
+                "Delay INT(11) NOT NULL);\n" +
+                "CREATE TABLE IF NOT EXISTS rewards(" +
+                "UserID BIGINT NOT NULL," +
+                "Type VARCHAR(16) NOT NULL," +
+                "Time TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL," +
+                "Amount INT NOT NULL);";
 
         try (Connection conn = getConnection();
              Statement stmt = conn.createStatement()) {
