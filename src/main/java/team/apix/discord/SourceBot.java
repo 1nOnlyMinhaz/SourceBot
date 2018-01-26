@@ -27,6 +27,7 @@ public class SourceBot extends SettingsManager {
         JDA jda = new JDABuilder(AccountType.BOT)
                 .setToken(args.length == 1 ? args[0] : "MzU2MTI1ODc2Njc4NTU3NzI3.DJdAcg._67wYa-oyF7LGUtsW_hwI32Yenk")
                 .setStatus(OnlineStatus.DO_NOT_DISTURB)
+                .setBulkDeleteSplittingEnabled(true)
                 .buildBlocking();
 
         Lists.setInitial(System.currentTimeMillis());

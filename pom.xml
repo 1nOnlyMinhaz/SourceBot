@@ -5,8 +5,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>bid.ApixTeam</groupId>
-    <artifactId>TSC-Bot</artifactId>
-    <version>0.7-SNAPSHOT</version>
+    <artifactId>SourceBot</artifactId>
+    <version>0.6.5-SNAPSHOT</version>
 
     <build>
         <finalName>SourceBot-${project.version}</finalName>
@@ -52,7 +52,6 @@
                     </execution>
                 </executions>
             </plugin>
-
         </plugins>
     </build>
 

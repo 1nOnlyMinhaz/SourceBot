@@ -40,7 +40,7 @@ public class Listener {
         commandHandler.registerCommand(new ComUrbanDictionary());
         commandHandler.registerCommand(new ComTempBan());
         commandHandler.registerCommand(new ComPing());
-        commandHandler.registerCommand(new ComBalance());
+        //commandHandler.registerCommand(new ComBalance());
         commandHandler.registerCommand(new ComBrainfuck());
 
         for (CommandHandler.SimpleCommand sm : commandHandler.getCommands())

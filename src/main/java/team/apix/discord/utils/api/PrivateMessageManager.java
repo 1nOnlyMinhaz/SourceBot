@@ -27,8 +27,7 @@ public class PrivateMessageManager {
     }
 
     public void sendMessage(User user, MessageEmbed messageEmbed){
-        PrivateChannel privateChannel = user.openPrivateChannel().complete();
-        privateChannel.sendMessage(messageEmbed).complete();
+        user.openPrivateChannel().queue((privateChannel -> privateChannel.sendMessage(messageEmbed).queue()));
     }
 
     public void sendFile(User user, Message message, File file){
