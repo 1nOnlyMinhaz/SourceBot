@@ -31,11 +31,18 @@ public class ComRank implements CommandExecutor {
 
         if (messageChannel.getType().isGuild()) {
             if (objects.length == 0) {
-                if(eu.cooldown(botAPI, messageChannel, user, command, 1800))
+                if(eu.cooldown(botAPI, messageChannel, user, command, 900))
                     return;
 
                 botAPI.getMessageManager().sendMessage(messageChannel, embedManager.getRankEmbed(botAPI, user));
             }else if (message.getMentionedUsers().size() == 1) {
+                if(message.getMentionedUsers().get(0) == user){
+                    if(eu.cooldown(botAPI, messageChannel, user, command, 900))
+                        return;
+
+                    botAPI.getMessageManager().sendMessage(messageChannel, embedManager.getRankEmbed(botAPI, user));
+                    return;
+                }
                 if(eu.cooldown(botAPI, messageChannel, user, String.format("%s|mention", command), 900))
                     return;
 
@@ -44,7 +51,7 @@ public class ComRank implements CommandExecutor {
                 botAPI.getMessageManager().sendMessage(messageChannel, embedManager.getUsage("!rank [@mention]"));
         } else {
             if (objects.length == 0) {
-                if(eu.cooldown(botAPI, messageChannel, user, command, 1800))
+                if(eu.cooldown(botAPI, messageChannel, user, command, 900))
                     return;
 
                 botAPI.getPrivateMessageManager().sendMessage(user, embedManager.getRankEmbed(botAPI, user));
