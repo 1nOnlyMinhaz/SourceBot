@@ -194,7 +194,7 @@ public class EmbedMessageManager {
 
         defaultCommands.setAuthor("Default Commands", null, user.getJDA().getSelfUser().getAvatarUrl())
                 .addField("!help", "You know... :unamused: \n*You can use `!help (command)` to get an explanation on how to use that command :wink:*", false)
-                .addField("!info", "Sends you an informal message about the discord and the server.\n **You MUST have PMs enabled for the server!**", false)
+                .addField("!info", "Sends you an informal message about the bot and the discord server.\n **You MUST have PMs enabled for the server!**", false)
                 .addField("!report", "Report a certain user.", false)
                 .addField("!coins", "Displays the amount of coins you have.", false)
                 .addField("!rank", "Displays your activity ranking among the server.", false)

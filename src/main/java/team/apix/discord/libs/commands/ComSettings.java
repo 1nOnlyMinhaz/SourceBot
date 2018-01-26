@@ -1,17 +1,16 @@
 package team.apix.discord.libs.commands;
 
+import de.btobastian.sdcf4j.Command;
+import de.btobastian.sdcf4j.CommandExecutor;
+import net.dv8tion.jda.core.JDA;
+import net.dv8tion.jda.core.entities.*;
 import team.apix.discord.utils.BotAPI;
-import team.apix.discord.utils.api.EconomyManager;
 import team.apix.discord.utils.api.EmbedMessageManager;
 import team.apix.discord.utils.api.PermissionManager;
 import team.apix.discord.utils.api.SettingsManager;
 import team.apix.discord.utils.vars.Lists;
 import team.apix.discord.utils.vars.entites.enums.Settings;
 import team.apix.discord.utils.vars.entites.enums.SimpleRank;
-import de.btobastian.sdcf4j.Command;
-import de.btobastian.sdcf4j.CommandExecutor;
-import net.dv8tion.jda.core.JDA;
-import net.dv8tion.jda.core.entities.*;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -96,7 +95,7 @@ public class ComSettings implements CommandExecutor {
                     }
                 } else
                     botAPI.getMessageManager().sendMessage(messageChannel, em.getAsDescription("erR0r 0x11", Color.RED));
-            } else if (strings[0].equalsIgnoreCase("discord")) {
+            } else if (strings[0].equalsIgnoreCase("bot")) {
                 if (!pm.userAtLeast(user, SimpleRank.BOT_ADMIN))
                     return;
 
