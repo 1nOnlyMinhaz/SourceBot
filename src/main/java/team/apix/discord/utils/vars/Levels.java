@@ -9,11 +9,8 @@ import java.util.HashMap;
 public class Levels extends Lists {
     public Levels() {
         HashMap<Integer, Integer> hashMap = new HashMap<>();
-        hashMap.put(0, 99);
-
         for (int lvl = 0; lvl <= 101; lvl++)
             hashMap.put(lvl, 5 * (lvl * lvl) + 55 * lvl + 100);
-
         Lists.setLevelsMaxExp(hashMap);
     }
 }

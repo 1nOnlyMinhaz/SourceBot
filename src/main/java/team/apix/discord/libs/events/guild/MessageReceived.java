@@ -5,7 +5,7 @@ import net.dv8tion.jda.core.entities.User;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
 import team.apix.discord.utils.BotAPI;
-import team.apix.discord.utils.connection.SQLite3;
+import team.apix.discord.utils.api.SettingsManager;
 import team.apix.discord.utils.vars.Lists;
 import team.apix.discord.utils.vars.Messages;
 import team.apix.discord.utils.vars.entites.enums.RankingType;
@@ -26,12 +26,18 @@ public class MessageReceived extends ListenerAdapter {
 
         User user = e.getAuthor();
         Message message = e.getMessage();
+        SettingsManager sm = botAPI.getSettingsManager();
+
+        if (sm.isSet(Settings.CHAN_SCHANGELOG) && sm.getSetting(Settings.CHAN_SCHANGELOG).equals(e.getChannel().getId()) && botAPI.getPermissionManager().userRoleAtLeast(e.getMember(), SimpleRank.ADMIN)) {
+            message.addReaction("✅").queue();
+            message.addReaction("❌").queue();
+        }
 
         if (!e.getChannel().getType().isGuild() || user.isBot())
             return;
 
         /**  SLOWMODE   */
-        if(Lists.getSlowmodeChannelCooldown().containsKey(e.getChannel().getIdLong()) && !botAPI.getPermissionManager().userRoleAtLeast(e.getMember(), SimpleRank.MOD)) {
+        if (Lists.getSlowmodeChannelCooldown().containsKey(e.getChannel().getIdLong()) && !botAPI.getPermissionManager().userRoleAtLeast(e.getMember(), SimpleRank.MOD)) {
             if (Lists.getSlowmodeUserCooldown().containsKey(e.getChannel().getIdLong() + ":" + user.getIdLong())) {
                 long seconds = ((Lists.getSlowmodeUserCooldown().get(e.getChannel().getIdLong() + ":" + user.getIdLong()) / 1000) + Lists.getSlowmodeChannelCooldown().get(e.getChannel().getIdLong())) - (System.currentTimeMillis() / 1000);
                 if (seconds > 0) {
@@ -47,7 +53,7 @@ public class MessageReceived extends ListenerAdapter {
         String prof = botAPI.getSettingsManager().getSetting(Settings.PROFANITY_LIST);
         if (!e.getChannel().isNSFW() && prof != null) {
             String[] profanity = prof.split(",");
-            for (String word : profanity){
+            for (String word : profanity) {
                 if (message.getContentRaw().toLowerCase().contains(word)) {
                     botAPI.getMessageManager().deleteMessage(message);
                     Message rebukeMessage = botAPI.getMessageManager().sendMessage(message.getChannel(), String.format(Messages.PROFANITY[new Random().nextInt(Messages.PROFANITY.length)], message.getAuthor().getAsMention()));
@@ -65,10 +71,10 @@ public class MessageReceived extends ListenerAdapter {
 
         if (!Lists.getUsers().contains(user.getIdLong())) botAPI.getPermissionManager().createMember(user);
 
-        if(botAPI.getSettingsManager().getSetting(Settings.RANKED_IGNORED) != null && e.getChannel().getId().equals(botAPI.getSettingsManager().getSetting(Settings.RANKED_IGNORED)))
+        if (botAPI.getSettingsManager().getSetting(Settings.RANKED_IGNORED) != null && e.getChannel().getId().equals(botAPI.getSettingsManager().getSetting(Settings.RANKED_IGNORED)))
             return;
 
-        if(e.getMember().getRoles().contains(e.getGuild().getRoleById(botAPI.getSettingsManager().getSetting(Settings.ROLES_MUTED))))
+        if (e.getMember().getRoles().contains(e.getGuild().getRoleById(botAPI.getSettingsManager().getSetting(Settings.ROLES_MUTED))))
             return;
 
         if (Lists.getUserRankingCooldown().containsKey(user.getIdLong())) {
@@ -84,11 +90,11 @@ public class MessageReceived extends ListenerAdapter {
         Random random = new Random();
         int exp = random.nextInt((25 - 15)) + 15;
 
-        if(!Lists.getUserRankingCooldown().containsKey(user.getIdLong()))
+        if (!Lists.getUserRankingCooldown().containsKey(user.getIdLong()))
             Lists.getUserRankingCooldown().put(user.getIdLong(), System.currentTimeMillis());
 
         botAPI.getDatabaseManager().giveUserExp(user, exp);
-        if(Lists.isTestingEnvironment())
+        if (Lists.isTestingEnvironment())
             botAPI.getMessageManager().log(false, String.format("@%s#%s earned %d exp.", user.getName(), user.getDiscriminator(), exp));
 
         HashMap<RankingType, Integer> ranking = botAPI.getDatabaseManager().getUserRanking(user);

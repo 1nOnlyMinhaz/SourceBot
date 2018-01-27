@@ -1,13 +1,12 @@
 package team.apix.discord.utils.api;
 
+import net.dv8tion.jda.core.entities.Guild;
 import net.dv8tion.jda.core.entities.Member;
+import net.dv8tion.jda.core.entities.User;
 import team.apix.discord.utils.BotAPI;
 import team.apix.discord.utils.connection.MySQL;
-import team.apix.discord.utils.connection.SQLite3;
 import team.apix.discord.utils.vars.entites.enums.RankingType;
 import team.apix.discord.utils.vars.entites.enums.Settings;
-import net.dv8tion.jda.core.entities.Guild;
-import net.dv8tion.jda.core.entities.User;
 import team.apix.discord.utils.vars.entites.enums.Transaction;
 
 import java.sql.*;

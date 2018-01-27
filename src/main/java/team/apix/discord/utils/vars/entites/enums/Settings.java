@@ -15,6 +15,7 @@ public enum Settings {
     CHAN_ADMIN("channel-administration"),
     CHAN_MEMES("channel-mmeez"),
     CHAN_COMMANDS("channel-commands"),
+    CHAN_SCHANGELOG("channel-schangelog"),
     ROLES_MUTED("permission-muted"),
     ROLES_MOD("permission-mod"),
     ROLES_ADMIN("permission-admin"),
