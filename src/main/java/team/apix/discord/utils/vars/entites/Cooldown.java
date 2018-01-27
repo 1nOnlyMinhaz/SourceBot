@@ -10,11 +10,13 @@ public class Cooldown {
     private String command = null;
 
     public Cooldown(long userid, int delay, long systime) {
+        this.userid = userid;
         this.delay = delay;
         this.systime = systime;
     }
 
     public Cooldown(long userid, int delay, long systime, String command) {
+        this.userid = userid;
         this.delay = delay;
         this.systime = systime;
         this.command = command;

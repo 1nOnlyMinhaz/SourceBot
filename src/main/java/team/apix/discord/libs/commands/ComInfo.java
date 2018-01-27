@@ -54,6 +54,6 @@ public class ComInfo implements CommandExecutor {
     }
 
     private MessageEmbed getUsage() {
-        return new BotAPI().getEmbedMessageManager().getUsage("!info [exp|rankup]");
+        return new BotAPI().getEmbedMessageManager().getUsage("!info [exp]");
     }
 }

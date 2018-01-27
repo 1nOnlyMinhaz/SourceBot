@@ -38,6 +38,7 @@ public class Lists {
     private static ConcurrentHashMap<Long, Integer> userBalance = new ConcurrentHashMap<>();
     private static ConcurrentHashMap<Integer, Transactions> transactions = new ConcurrentHashMap<>();
     private static int lastTransaction;
+    public static boolean sqlite;
 
     public static int getLastTransaction() {
         return lastTransaction;

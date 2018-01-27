@@ -39,6 +39,7 @@ public class SourceBot extends SettingsManager {
         
         SQLite3 log = new SQLite3();
         log.createTables();
+        log.setupCooldowns();
         
         new Listener(jda);
         
