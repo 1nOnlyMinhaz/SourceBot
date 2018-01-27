@@ -17,10 +17,9 @@ import java.util.Map;
  */
 public class MySQL {
     private static HikariDataSource ds;
+    private static HikariConfig config = new HikariConfig();
 
     static {
-        HikariConfig config = new HikariConfig();
-
         Yaml yaml = new Yaml();
         try {
             Map<String, Map<String, String>> values = yaml.load(new FileInputStream(new File(System.getProperty("user.dir") + "/config.yml")));
@@ -73,6 +72,11 @@ public class MySQL {
     }
 
     public static Connection getConnection() throws SQLException {
-        return ds.getConnection();
+        try {
+            return ds.getConnection();
+        } catch (SQLException e) {
+            ds = new HikariDataSource(config);
+            return ds.getConnection();
+        }
     }
 }

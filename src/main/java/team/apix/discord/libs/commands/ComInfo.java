@@ -21,14 +21,13 @@ public class ComInfo implements CommandExecutor {
     @Command(aliases = "info")
     public void onCommand(User user, MessageChannel messageChannel, String[] strings) {
         BotAPI botAPI = new BotAPI();
-        PermissionManager pm = botAPI.getPermissionManager();
         ExtraUtils eu = botAPI.getExtraUtils();
         String command = "info";
 
         EmbedMessageManager embedManager = new EmbedMessageManager();
 
         try {
-            if (eu.siqc(strings, 1, 0, "exp") || eu.siqc(strings, 1, 0, "experience")) {
+            if (eu.siqc(strings, 1, 0, "exp") || eu.siqc(strings, 1, 0, "experience") || eu.siqc(strings, 1, 0, "xp")) {
                 if (eu.cooldown(botAPI, messageChannel, user, String.format("%s|exp", command), 120))
                     return;
 
@@ -55,6 +54,6 @@ public class ComInfo implements CommandExecutor {
     }
 
     private MessageEmbed getUsage() {
-        return new BotAPI().getEmbedMessageManager().getUsage("!info [exp]");
+        return new BotAPI().getEmbedMessageManager().getUsage("!info [exp|rankup]");
     }
 }
