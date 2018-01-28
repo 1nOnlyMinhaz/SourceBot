@@ -1,4 +1,4 @@
-package team.apix.discord.libs.commands;
+package team.apix.discord.libs.commands.fun.secret;
 
 import de.btobastian.sdcf4j.Command;
 import de.btobastian.sdcf4j.CommandExecutor;

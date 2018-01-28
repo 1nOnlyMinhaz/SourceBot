@@ -1,4 +1,4 @@
-package team.apix.discord.libs.commands;
+package team.apix.discord.libs.commands.defualt;
 
 import team.apix.discord.utils.BotAPI;
 import team.apix.discord.utils.api.EmbedMessageManager;

@@ -3,7 +3,18 @@ package team.apix.discord.libs;
 import de.btobastian.sdcf4j.CommandHandler;
 import de.btobastian.sdcf4j.handler.JDA3Handler;
 import net.dv8tion.jda.core.JDA;
-import team.apix.discord.libs.commands.*;
+import team.apix.discord.libs.commands.administration.ComBroadcast;
+import team.apix.discord.libs.commands.administration.ComClear;
+import team.apix.discord.libs.commands.administration.ComSettings;
+import team.apix.discord.libs.commands.administration.ComTempBan;
+import team.apix.discord.libs.commands.defualt.*;
+import team.apix.discord.libs.commands.fun.ComBalance;
+import team.apix.discord.libs.commands.fun.secret.ComBrainfuck;
+import team.apix.discord.libs.commands.fun.secret.ComUrbanDictionary;
+import team.apix.discord.libs.commands.moderation.ComMute;
+import team.apix.discord.libs.commands.moderation.ComSlowmode;
+import team.apix.discord.libs.commands.moderation.ComTempMute;
+import team.apix.discord.libs.commands.moderation.ComUnMute;
 import team.apix.discord.libs.events.guild.MemberBanned;
 import team.apix.discord.libs.events.guild.MemberJoined;
 import team.apix.discord.libs.events.guild.MemberLeft;
@@ -41,8 +52,7 @@ public class Listener {
         commandHandler.registerCommand(new ComReport());
         commandHandler.registerCommand(new ComUrbanDictionary());
         commandHandler.registerCommand(new ComTempBan());
-        commandHandler.registerCommand(new ComPing());
-        //commandHandler.registerCommand(new ComBalance());
+        commandHandler.registerCommand(new ComBalance());
         commandHandler.registerCommand(new ComBrainfuck());
 
         for (CommandHandler.SimpleCommand sm : commandHandler.getCommands())
