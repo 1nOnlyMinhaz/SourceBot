@@ -6,7 +6,7 @@
 
     <groupId>bid.ApixTeam</groupId>
     <artifactId>SourceBot</artifactId>
-    <version>0.6.5-SNAPSHOT</version>
+    <version>0.7-SNAPSHOT</version>
 
     <build>
         <finalName>SourceBot-${project.version}</finalName>

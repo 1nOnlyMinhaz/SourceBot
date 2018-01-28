@@ -13,6 +13,7 @@ import team.apix.discord.utils.vars.entites.enums.SimpleRank;
 
 import java.time.Duration;
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 /**
  * SourceBot (2017) was created by ApixTeam (C) 2016-2018
@@ -59,8 +60,8 @@ public class ExtraUtils {
             Lists.getGlobalCooldown().put(user.getIdLong(), new Cooldown(user.getIdLong(), delay, System.currentTimeMillis()));
     }
 
-    public void throwCooldown(User user, PermissionManager pm, String command, int delay) {
-        if (pm.userRoleAtLeast(getAsMember(user), SimpleRank.ADMIN))
+    public void throwCooldown(User user, PermissionManager pm, String command, int delay, boolean forceOnAdmins) {
+        if (!forceOnAdmins && pm.userRoleAtLeast(getAsMember(user), SimpleRank.ADMIN))
             return;
 
         ArrayList<Cooldown> cooldowns = new ArrayList<>();
@@ -288,7 +289,17 @@ public class ExtraUtils {
             botAPI.getMessageManager().sendMessage(messageChannel, getCooldownMessage(user, command));
             return true;
         } else
-            throwCooldown(user, botAPI.getPermissionManager(), command, delay);
+            throwCooldown(user, botAPI.getPermissionManager(), command, delay, false);
+
+        return false;
+    }
+
+    public boolean forceCooldown(BotAPI botAPI, MessageChannel messageChannel, User user, String command, int delay) {
+        if (isCoolingdown(user, command)) {
+            botAPI.getMessageManager().sendMessage(messageChannel, getCooldownMessage(user, command));
+            return true;
+        } else
+            throwCooldown(user, botAPI.getPermissionManager(), command, delay, true);
 
         return false;
     }
@@ -296,5 +307,9 @@ public class ExtraUtils {
     public boolean isntInChannel(MessageChannel messageChannel, SettingsManager sm, Settings settings) {
         return ((sm.getSetting(settings) != null && !sm.getSetting(settings).equals(messageChannel.getId()) && messageChannel.getType().isGuild())
                 && (sm.getSetting(Settings.CHAN_ADMIN) != null && !sm.getSetting(Settings.CHAN_ADMIN).equals(messageChannel.getId()) && messageChannel.getType().isGuild()));
+    }
+
+    public long toSeconds(TimeUnit timeUnit, long duration) {
+        return timeUnit.toSeconds(duration);
     }
 }

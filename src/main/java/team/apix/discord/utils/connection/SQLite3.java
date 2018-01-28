@@ -52,21 +52,30 @@ public class SQLite3 {
         }
     }
 
-    public void setupCooldowns(){
+    public void setupCooldowns() {
         try (Connection connection = getConnection();
              PreparedStatement ps = connection
                      .prepareStatement("SELECT * FROM `cooldowns` WHERE `UserID` = ?")) {
 
-            for(long id: Lists.getUsers()) {
+            for (long id : Lists.getUsers()) {
                 ps.setLong(1, id);
                 ResultSet rs = ps.executeQuery();
                 ArrayList<Cooldown> cooldowns = new ArrayList<>();
-                while (rs.next())
-                    cooldowns.add(new Cooldown(id, rs.getInt("Delay"),
+                while (rs.next()) {
+                    Cooldown cooldown = new Cooldown(id, rs.getInt("Delay"),
                             rs.getLong("Systime"),
-                            rs.getString("Command")));
+                            rs.getString("Command"));
 
-                if(!cooldowns.isEmpty())
+                    long seconds = ((cooldown.getSystime() / 1000) + cooldown.getDelay()) - (System.currentTimeMillis() / 1000);
+                    if (seconds <= 0) {
+                        deleteCooldown(cooldown);
+                        continue;
+                    }
+
+                    cooldowns.add(cooldown);
+                }
+
+                if (!cooldowns.isEmpty())
                     Lists.getCommandCooldown().put(id, cooldowns);
             }
         } catch (SQLException e) {
