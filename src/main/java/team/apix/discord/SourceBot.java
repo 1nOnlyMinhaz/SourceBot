@@ -25,7 +25,7 @@ import java.util.Timer;
 public class SourceBot extends SettingsManager {
     public static void main(String[] args) throws LoginException, InterruptedException, RateLimitedException {
         JDA jda = new JDABuilder(AccountType.BOT)
-                .setToken(args.length == 1 ? args[0] : "MzU2MTI1ODc2Njc4NTU3NzI3.DJdAcg._67wYa-oyF7LGUtsW_hwI32Yenk")
+                .setToken(args.length == 1 ? args[0] : "default token")
                 .setStatus(OnlineStatus.DO_NOT_DISTURB)
                 .setBulkDeleteSplittingEnabled(true)
                 .buildBlocking();
