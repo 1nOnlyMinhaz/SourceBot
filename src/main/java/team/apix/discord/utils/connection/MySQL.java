@@ -55,9 +55,9 @@ public class MySQL {
             Lists.setTestingEnvironment(false);
         } catch (Exception e) {
             System.out.println("[ERROR] An error occurred while trying to retrieve database credentials, forcing dev-local database!");
-            config.setJdbcUrl("jdbc:mysql://uae.sytes.net:3306/tsc_discord");
-            config.setUsername("tscroot");
-            config.setPassword("fvIyCvRohwjCjuqe");
+            config.setJdbcUrl("jdbc:mysql://localhost:3306/discord");
+            config.setUsername("root");
+            config.setPassword("");
             Lists.setTestingEnvironment(true);
         }
 
