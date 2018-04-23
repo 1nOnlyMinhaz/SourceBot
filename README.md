@@ -1,5 +1,7 @@
 # TSC Bot (SourceBot)
-![](https://img.shields.io/badge/Status-Discontinued-red.svg)
+![](https://img.shields.io/badge/Status-Discontinued-red.svg) 
+[![GitHub license](https://img.shields.io/github/license/Alw7SHxD/SourceCode-bot.svg)](https://github.com/Alw7SHxD/SourceCode-Bot/blob/master/LICENSE)
+
 
 A Discord bot made entierly with JDA for TheSourceCode Official Discord guild.
 Originally made by [@Alw7SHxD] and some help from [@Andrewboy159]
